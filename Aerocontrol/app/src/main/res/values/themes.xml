@@ -142,4 +142,12 @@
     <style name="NumberInput" parent="Input">
         <item name="android:inputType">number</item>
     </style>
+
+    <!-- ImageView - Logo na Splash Screen-->
+    <style name="LogoImage">
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="srcCompat">@drawable/logo</item>
+    </style>
 </resources>
