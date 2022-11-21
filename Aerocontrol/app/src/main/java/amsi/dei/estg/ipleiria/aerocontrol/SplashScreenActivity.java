@@ -19,10 +19,5 @@ public class SplashScreenActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         },3000);
-
-        //Retira a Action Bar provisóriamente
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
     }
 }
