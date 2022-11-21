@@ -5,10 +5,10 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="save_session">Guardar sessão</string>
-    <string name="forgot_password"><u>Esqueceu-se da sua palavra passe?</u></string>
     <string name="no_account"><u>Não tem conta?</u></string>
     <string name="restaurants">Restaurantes</string>
     <string name="stores">Lojas</string>
     <string name="flights">Voos</string>
     <string name="account">Conta</string>
+    <string name="forgot_password"><u>Esqueceu da password?</u></string>
 </resources>
