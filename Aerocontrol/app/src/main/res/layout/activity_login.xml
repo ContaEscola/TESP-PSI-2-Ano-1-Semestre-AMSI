@@ -37,12 +37,12 @@
         <EditText
             android:id="@+id/Login_Et_Username"
             style="@style/TextInput"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
             android:layout_marginTop="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Login_Tv_Username"
-            android:layout_width="match_parent" />
+            />
 
         <TextView
             android:id="@+id/Login_Tv_Password"
@@ -56,8 +56,7 @@
         <EditText
             android:id="@+id/Login_Et_Password"
             style="@style/PasswordInput"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
             android:layout_marginTop="5dp"
             android:minHeight="48dp"
             app:layout_constraintEnd_toEndOf="parent"
