@@ -1,4 +1,10 @@
 <resources>
-    <string name="app_name">Aerocontrol</string>
+    <string name="app_name">AeroControl</string>
     <string name="splash_screen_text">Reserve já o seu próximo voo!</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="save_session">Guardar sessão</string>
+    <string name="forgot_password"><u>Esqueceu-se da sua palavra passe?</u></string>
+    <string name="no_account"><u>Não tem conta?</u></string>
 </resources>
