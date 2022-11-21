@@ -28,11 +28,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
         android:textColor="@color/on_surface_85"/>
+        app:layout_constraintTop_toBottomOf="@+id/SplashScreen_Tv_App" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/SplashScreen_Iv_Logo"
         style="@style/LogoImage"
         android:layout_marginTop="100dp"
         app:layout_constraintEnd_toEndOf="parent"

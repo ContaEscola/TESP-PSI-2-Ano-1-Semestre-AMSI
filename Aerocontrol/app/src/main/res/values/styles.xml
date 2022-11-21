@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- ImageView - Logo na Splash Screen-->
+    <style name="LogoImage">
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="srcCompat">@drawable/logo</item>
+    </style>
+
     <!-- TextViews - Titulos -->
     <style name="Title" parent="android:style/Widget.TextView">
         <item name="android:layout_width">wrap_content</item>
@@ -52,16 +61,59 @@
 
     <!-- TextViews - TextViews que dá redirect Sublinhado -->
     <style name="RedirectText" parent="DataText">
+        <item name="android:letterSpacing">.1</item>
         <item name="android:textColor">?attr/colorPrimary</item>
     </style>
+
+    <!-- EditText - Inputs -->
+    <style name="Input" parent="android:style/Widget.EditText">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:background">@drawable/edit_text_border</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <!-- EditText - Input Texto -->
+    <style name="TextInput" parent="Input">
+        <item name="android:inputType">text</item>
+    </style>
+
+    <!-- EditText - Input Password -->
+    <style name="PasswordInput" parent="Input">
+        <item name="android:inputType">textPassword</item>
+    </style>
+
+    <!-- EditText - Input Numero -->
+    <style name="NumberInput" parent="Input">
+        <item name="android:inputType">number</item>
+    </style>
+
+    <!-- CheckBox -->
+    <style name="CheckBox">
+        <item name="android:layout_width"> wrap_content </item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:buttonTint">?attr/colorPrimary</item>
+    </style>
+
+
+
+
 
     <!-- Button - Botão Default -->
     <style name="myButton" parent="android:style/Widget.Button">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/round_button_default</item>
-        <item name="android:padding">10dp</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
         <item name="android:textSize">13sp</item>
+        <item name="android:letterSpacing">.1</item>
         <item name="android:textAlignment">center</item>
         <item name="android:fontFamily">@font/montserrat_medium</item>
     </style>
@@ -94,47 +146,6 @@
     <style name="RedButton" parent="myButton">
         <item name="android:backgroundTint">?attr/colorError</item>
         <item name="android:textColor">?attr/colorOnError</item>
-    </style>
-
-    <!-- CheckBox -->
-    <style name="CheckBox">
-        <item name="android:layout_width"> wrap_content </item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:buttonTint">?attr/colorPrimary</item>
-    </style>
-
-    <!-- EditText - Inputs -->
-    <style name="Input" parent="android:style/Widget.EditText">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">48dp</item>
-        <item name="android:layout_marginStart">25dp</item>
-        <item name="android:layout_marginEnd">25dp</item>
-        <item name="android:background">@drawable/edit_text_border</item>
-        <item name="android:fontFamily">@font/montserrat</item>
-        <item name="android:textSize">13sp</item>
-    </style>
-
-    <!-- EditText - Input Texto -->
-    <style name="TextInput" parent="Input">
-        <item name="android:inputType">text</item>
-    </style>
-
-    <!-- EditText - Input Password -->
-    <style name="PasswordInput" parent="Input">
-        <item name="android:inputType">textPassword</item>
-    </style>
-
-    <!-- EditText - Input Numero -->
-    <style name="NumberInput" parent="Input">
-        <item name="android:inputType">number</item>
-    </style>
-
-    <!-- ImageView - Logo na Splash Screen-->
-    <style name="LogoImage">
-        <item name="android:scaleType">fitXY</item>
-        <item name="android:layout_width">100dp</item>
-        <item name="android:layout_height">100dp</item>
-        <item name="srcCompat">@drawable/logo</item>
     </style>
 
 </resources>
