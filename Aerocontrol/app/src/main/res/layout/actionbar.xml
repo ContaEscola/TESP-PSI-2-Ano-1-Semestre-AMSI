@@ -11,8 +11,10 @@
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ActionBar_GuidelineEnd"
-        app:layout_constraintStart_toStartOf="@+id/ActionBar_GuidelineStart">
+        app:layout_constraintStart_toStartOf="@+id/ActionBar_GuidelineStart"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/ActionBar_Iv_Logo"

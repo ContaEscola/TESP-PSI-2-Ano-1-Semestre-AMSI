@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+
+    <include
+        android:id="@+id/Register_Toolbar"
+        layout="@layout/toolbar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Register_Toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="40dp"
+            android:paddingBottom="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/Register_Wrapper"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/Register_GuidelineEnd"
+                app:layout_constraintStart_toStartOf="@id/Register_GuidelineStart"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/Register_Tv_Title"
+                    style="@style/PrimaryTitle"
+                    android:text="@string/create_account"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/Register_Tv_CreateAccountText"
+                    style="@style/DataText"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/create_account_subtext"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Register_Tv_Title" />
+
+                <TextView
+                    android:id="@+id/Register_tv_AccessData"
+                    style="@style/SecondTitle"
+                    android:layout_marginTop="35dp"
+                    android:text="@string/access_data"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Register_Tv_CreateAccountText" />
+
+                <EditText
+                    android:id="@+id/Register_Et_username"
+                    style="@style/TextInput"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="20dp"
+                    android:hint="@string/username"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Register_tv_AccessData" />
+
+                <EditText
+                    android:id="@+id/Register_Et_password"
+                    style="@style/PasswordInput"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="15dp"
+                    android:hint="@string/password"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/Register_Et_username" />
+
+                <TextView
+                    android:id="@+id/Register_Tv_PersonalData"
+                    style="@style/SecondTitle"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/personal_data"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Register_Et_password" />
+
+                <EditText
+                    android:id="@+id/Register_Et_FirstName"
+                    style="@style/TextInput"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="20dp"
+                    android:hint="@string/first_name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Register_Tv_PersonalData" />
+
+                <EditText
+                    android:id="@+id/Register_Et_LastName"
+                    style="@style/TextInput"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="15dp"
+                    android:hint="@string/last_name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Register_Et_FirstName" />
+
+                <EditText
+                    android:id="@+id/Register_Et_Gender"
+                    style="@style/TextInput"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="15dp"
+                    android:hint="@string/gender"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Register_Et_LastName" />
+
+                <EditText
+                    android:id="@+id/Register_Et_birth"
+                    style="@style/TextInput"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="15dp"
+                    android:hint="@string/birth"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Register_Et_Gender" />
+
+                <EditText
+                    android:id="@+id/Register_Et_Country"
+                    style="@style/TextInput"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="15dp"
+                    android:hint="@string/country"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Register_Et_birth" />
+
+                <EditText
+                    android:id="@+id/Register_Et_City"
+                    style="@style/TextInput"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="15dp"
+                    android:hint="@string/city"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Register_Et_Country" />
+
+                <TextView
+                    android:id="@+id/Register_Tv_Contacts"
+                    style="@style/SecondTitle"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/contacts"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Register_Et_City" />
+
+                <EditText
+                    android:id="@+id/Register_Et_Email"
+                    style="@style/EmailInput"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="20dp"
+                    android:hint="@string/email"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Register_Tv_Contacts" />
+
+                <EditText
+                    android:id="@+id/Register_Et_PhoneCode"
+                    style="@style/PhoneInput"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="15dp"
+                    android:hint="@string/phone_code"
+                    app:layout_constraintEnd_toStartOf="@+id/Register_Et_Phone"
+                    app:layout_constraintHorizontal_weight="0.6"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Register_Et_Email" />
+
+                <EditText
+                    android:id="@+id/Register_Et_Phone"
+                    style="@style/PhoneInput"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="10dp"
+                    android:hint="@string/phone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@+id/Register_Et_PhoneCode"
+                    app:layout_constraintTop_toTopOf="@+id/Register_Et_PhoneCode" />
+
+                <Button
+                    style="@style/PrimaryButton"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="40dp"
+                    android:text="@string/create_account"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/Register_Et_Phone" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/Register_GuidelineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="24dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/Register_GuidelineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="24dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
