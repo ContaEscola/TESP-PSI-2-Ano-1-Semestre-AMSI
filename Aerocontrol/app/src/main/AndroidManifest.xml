@@ -18,8 +18,9 @@
             android:parentActivityName=".MainActivity"
             android:exported="false" />
         <activity
-            android:parentActivityName=".MainActivity"/>
-            android:name=".ui.views.LoginActivity"
+        	android:name=".ui.views.LoginActivity"
+            android:parentActivityName=".MainActivity"
+            android:exported="false"/>
         <activity
             android:name=".ui.views.MainActivity"
             android:exported="false"
