@@ -47,6 +47,8 @@
         <item name="android:textAlignment">textStart</item>
         <item name="android:textColor">?attr/colorOnSurface</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingMultiplier">1.3</item>
+
     </style>
 
     <!-- TextViews - TextViews dos dados SemiBold -->
