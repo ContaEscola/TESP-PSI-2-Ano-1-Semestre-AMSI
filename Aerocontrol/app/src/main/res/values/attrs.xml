@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="colorSurfaceVariant_400" format="color" />
+    <attr name="colorSurfaceVariant_800" format="color" />
+    <attr name="colorSurfaceVariant_900" format="color" />
+
+    <attr name="colorSuccess" format="color" />
+    <attr name="colorOnSuccess" format="color" />
+</resources>

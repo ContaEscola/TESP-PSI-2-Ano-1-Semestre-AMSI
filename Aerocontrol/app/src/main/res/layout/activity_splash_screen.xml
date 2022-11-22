@@ -9,26 +9,6 @@
 
     <!-- Exceção no textSize   -->
 
-    <TextView
-        android:id="@+id/SplashScreen_Tv_App"
-        style="@style/PrimaryTitle"
-        android:layout_marginTop="20dp"
-        android:text="@string/app_name"
-        android:textSize="44sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SplashScreen_Iv_Logo" />
-
-    <TextView
-        android:id="@+id/SplashScreen_Tv_ReserveFlight"
-        style="@style/PrimaryTitle"
-        android:layout_marginBottom="50dp"
-        android:text="@string/splash_screen_text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SplashScreen_Tv_App" />
-
     <ImageView
         android:id="@+id/SplashScreen_Iv_Logo"
         style="@style/LogoImage"
@@ -36,6 +16,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/SplashScreen_Tv_App"
+        style="@style/PrimaryTitle"
+        android:layout_marginTop="20dp"
+        android:text="@string/app_name"
+        android:textSize="40sp"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SplashScreen_Iv_Logo" />
+
+    <TextView
+        style="@style/PrimaryTitle"
+        android:layout_marginBottom="50dp"
+        android:text="@string/splash_screen_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/on_surface_85"
+        app:layout_constraintTop_toBottomOf="@+id/SplashScreen_Tv_App" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
