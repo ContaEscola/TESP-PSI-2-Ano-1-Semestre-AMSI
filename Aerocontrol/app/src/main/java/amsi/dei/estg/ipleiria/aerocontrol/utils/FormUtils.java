@@ -1,40 +1,39 @@
-package amsi.dei.estg.ipleiria.aerocontrol;
+package amsi.dei.estg.ipleiria.aerocontrol.utils;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import java.util.ArrayList;
 
-public class LoginActivity extends AppCompatActivity {
+import amsi.dei.estg.ipleiria.aerocontrol.R;
 
-    private ArrayList<EditText> editTextsList;
-    private ConstraintLayout mLayout;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+public class FormUtils {
 
+    private static ArrayList<EditText> editTextsList;
+    private static ConstraintLayout mLayout;
+
+    public static void setFocusEventsOnInputs(ConstraintLayout formWrapperLayout) {
         editTextsList = new ArrayList<>();
-        mLayout =  findViewById(R.id.Login_Wrapper);
+        mLayout = formWrapperLayout;
+
         getAllEditTexts();
-        setFocusEventOnEditTexts();
+        setEvents();
     }
 
-    private void getAllEditTexts() {
+
+    private static void getAllEditTexts() {
         for (int i = 0; i < mLayout.getChildCount(); i++)
             if (mLayout.getChildAt(i) instanceof EditText)
                 editTextsList.add((EditText) mLayout.getChildAt(i));
     }
 
-    private void setFocusEventOnEditTexts() {
+    private static void setEvents() {
         for (EditText editText : editTextsList) {
             editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
+                @Override
                 public void onFocusChange(View view, boolean hasFocus) {
                     if(hasFocus)
                         editText.setBackgroundResource(R.drawable.edit_text_border_focused);

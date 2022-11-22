@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import amsi.dei.estg.ipleiria.aerocontrol.ui.views.LoginActivity;
+
 public class SplashScreenActivity extends AppCompatActivity {
 
     @Override
