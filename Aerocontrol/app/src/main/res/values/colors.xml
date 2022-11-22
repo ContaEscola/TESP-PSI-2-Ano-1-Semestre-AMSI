@@ -7,9 +7,9 @@
     <color name="teal_700">#FF018786</color>
 
 
-    <color name="white">#FFFFFF</color>
-    <color name="black_400">#272838</color>
-    <color name="black_200">#272838</color>
+    <color name="white">#F2FFFFFF</color>
+    <color name="black_400">#D9272838</color>
+    <color name="black_200">#73272838</color>
 
     <color name="lotion">#FAFAFA</color>
     <color name="gray_400">#F4F4F4</color>
@@ -21,6 +21,6 @@
     <color name="moss_green_900">#769B43</color>
 
 
-    <color name="orange_red">#FF5353</color>
+    <color name="orange_red">#D9FF5353</color>
     <color name="yellow_green">#BAED74</color>
 </resources>

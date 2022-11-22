@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/BottomNav_Flights"
+        android:title="@string/flights"
+        android:icon="@drawable/ic_baseline_flight_24" />
+
+    <item
+        android:id="@+id/BottomNav_Restaurants"
+        android:title="@string/restaurants"
+        android:icon="@drawable/ic_baseline_restaurant_24" />
+
+    <item
+        android:id="@+id/BottomNav_Stores"
+        android:title="@string/stores"
+        android:icon="@drawable/ic_baseline_store_24" />
+
+    <item
+        android:id="@+id/BottomNav_Account"
+        android:title="@string/account"
+        android:icon="@drawable/ic_baseline_account_24" />
+</menu>
