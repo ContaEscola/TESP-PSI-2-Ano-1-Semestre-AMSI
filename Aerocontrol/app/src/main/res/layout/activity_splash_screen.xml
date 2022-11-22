@@ -13,8 +13,8 @@
         android:id="@+id/SplashScreen_Iv_Logo"
         style="@style/LogoImage"
         android:layout_marginTop="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/Login_GuidelineEnd"
+        app:layout_constraintStart_toStartOf="@+id/Login_GuidelineStart"
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -23,22 +23,45 @@
         style="@style/PrimaryTitle"
         android:layout_marginTop="20dp"
         android:text="@string/app_name"
-        android:textSize="40sp"
         android:textColor="?attr/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toStartOf="@+id/Login_GuidelineEnd"
+        app:layout_constraintStart_toStartOf="@+id/Login_GuidelineStart"
         app:layout_constraintTop_toBottomOf="@+id/SplashScreen_Iv_Logo" />
 
-    <TextView
-        style="@style/PrimaryTitle"
-        android:layout_marginBottom="50dp"
-        android:text="@string/splash_screen_text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textColor="@color/on_surface_85"
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/splash_screen_gif"
+        app:layout_constraintBottom_toTopOf="@+id/SplashScreen_Tv_SubText"
+        app:layout_constraintEnd_toStartOf="@+id/Login_GuidelineEnd"
+        app:layout_constraintStart_toStartOf="@+id/Login_GuidelineStart"
         app:layout_constraintTop_toBottomOf="@+id/SplashScreen_Tv_App" />
 
+    <TextView
+        android:id="@+id/SplashScreen_Tv_SubText"
+        style="@style/PrimaryTitle"
+        android:layout_width="0dp"
+        android:layout_marginBottom="48dp"
+        android:text="@string/splash_screen_text"
+        android:textColor="@color/on_surface_85"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/Login_GuidelineEnd"
+        app:layout_constraintStart_toStartOf="@+id/Login_GuidelineStart" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/Login_GuidelineStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="24dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/Login_GuidelineEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="24dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
