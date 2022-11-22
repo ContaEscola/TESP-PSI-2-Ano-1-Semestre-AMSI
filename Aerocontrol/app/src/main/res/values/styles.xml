@@ -47,6 +47,8 @@
         <item name="android:textAlignment">textStart</item>
         <item name="android:textColor">?attr/colorOnSurface</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingMultiplier">1.3</item>
+
     </style>
 
     <!-- TextViews - TextViews dos dados SemiBold -->
@@ -76,6 +78,7 @@
         <item name="android:background">@drawable/edit_text_border</item>
         <item name="android:fontFamily">@font/montserrat</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:minHeight">48dp</item>
     </style>
 
     <!-- EditText - Input Texto -->
@@ -130,10 +133,10 @@
 
     <!-- Button - Butão Primário -->
     <style name="PrimaryButton" parent="myButton">
-        <item name="android:backgroundTint">?attr/colorPrimary</item>
+        <item name="backgroundTint">@color/button_default_background_states</item>
         <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
-
+-
     <!-- Button - Butão Secundário -->
     <style name="SecondaryButton" parent="myButton">
         <item name="android:backgroundTint">?attr/colorSecondary</item>

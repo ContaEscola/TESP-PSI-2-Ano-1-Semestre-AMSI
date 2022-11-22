@@ -1,4 +1,4 @@
-package amsi.dei.estg.ipleiria.aerocontrol;
+package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -6,9 +6,11 @@ import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 
+import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
+
 
     ActivityMainBinding binding;
 

@@ -1,28 +1,36 @@
 <resources>
     <string name="app_name">AeroControl</string>
     <string name="splash_screen_text">Reserve já o seu próximo voo!</string>
+
     <string name="login">Login</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="save_session">Guardar sessão</string>
+    <string name="forgot_password"><u>Esqueceu da password?</u></string>
     <string name="no_account"><u>Não tem conta?</u></string>
+
+    <string name="create_account">Criar conta</string>
+    <string name="create_account_subtext">Crie a sua conta para começar a reservar voos e muito mais.</string>
+    <string name="access_data">Dados de acesso</string>
+    <string name="username_italic"><i>Username</i></string>
+    <string name="password_italic"><i>Password</i></string>
+    <string name="personal_data">Dados Pessoais</string>
+    <string name="first_name"><i>Primeiro Nome</i></string>
+    <string name="last_name"><i>Último Nome</i></string>
+    <string name="gender"><i>Género</i></string>
+    <string name="birth"><i>Data de Nascimento</i></string>
+    <string name="country"><i>País</i></string>
+    <string name="city"><i>Cidade</i></string>
+    <string name="contacts">Contactos</string>
+    <string name="email"><i>Email</i></string>
+    <string name="phone_code"><i>Indicativo</i></string>
+    <string name="phone"><i>Telemóvel</i></string>
+
+
+
     <string name="restaurants">Restaurantes</string>
     <string name="stores">Lojas</string>
     <string name="flights">Voos</string>
     <string name="account">Conta</string>
-    <string name="forgot_password"><u>Esqueceu da password?</u></string>
-    <string name="create_account">Criar conta</string>
-    <string name="create_account_subtext">Crie a sua conta para começar a reservar voos e muito mais.</string>
-    <string name="access_data">Dados de acesso</string>
-    <string name="personal_data">Dados Pessoais</string>
-    <string name="first_name">Primeiro Nome</string>
-    <string name="last_name">Último Nome</string>
-    <string name="gender">Género</string>
-    <string name="birth">Data de Nascimento</string>
-    <string name="contacts">Contactos</string>
-    <string name="city">Cidade</string>
-    <string name="country">País</string>
-    <string name="email">Email</string>
-    <string name="phone_code">Indicativo</string>
-    <string name="phone">Telemóvel</string>
+
 </resources>
