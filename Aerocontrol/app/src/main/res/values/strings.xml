@@ -11,4 +11,18 @@
     <string name="flights">Voos</string>
     <string name="account">Conta</string>
     <string name="forgot_password"><u>Esqueceu da password?</u></string>
+    <string name="create_account">Criar conta</string>
+    <string name="create_account_subtext">Crie a sua conta para começar a reservar voos e muito mais.</string>
+    <string name="access_data">Dados de acesso</string>
+    <string name="personal_data">Dados Pessoais</string>
+    <string name="first_name">Primeiro Nome</string>
+    <string name="last_name">Último Nome</string>
+    <string name="gender">Género</string>
+    <string name="birth">Data de Nascimento</string>
+    <string name="contacts">Contactos</string>
+    <string name="city">Cidade</string>
+    <string name="country">País</string>
+    <string name="email">Email</string>
+    <string name="phone_code">Indicativo</string>
+    <string name="phone">Telemóvel</string>
 </resources>

@@ -10,7 +10,6 @@
         android:id="@+id/include"
         layout="@layout/actionbar" />
 
-
     <FrameLayout
         android:id="@+id/ActivityMain_Fragment"
         android:layout_width="match_parent"
@@ -30,8 +29,8 @@
         android:paddingBottom="10dp"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
-        app:itemIconTint="?attr/colorOnSurface"
-        app:itemTextColor="?attr/colorOnSurface"
+        app:itemIconTint="@color/bottom_nav_item"
+        app:itemTextColor="@color/bottom_nav_item"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
