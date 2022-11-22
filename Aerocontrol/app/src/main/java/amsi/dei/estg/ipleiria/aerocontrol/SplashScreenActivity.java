@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import amsi.dei.estg.ipleiria.aerocontrol.ui.views.LoginActivity;
+import amsi.dei.estg.ipleiria.aerocontrol.ui.views.MainActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -17,7 +18,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         Handler handler = new Handler();
         handler.postDelayed(() -> {
-            Intent intent = new Intent(SplashScreenActivity.this, RegisterActivity.class);
+            Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         },3000);

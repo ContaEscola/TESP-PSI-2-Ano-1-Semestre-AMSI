@@ -45,7 +45,6 @@
         android:layout_width="0dp"
         android:layout_marginBottom="48dp"
         android:text="@string/splash_screen_text"
-        android:textColor="@color/on_surface_85"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/Login_GuidelineEnd"
         app:layout_constraintStart_toStartOf="@+id/Login_GuidelineStart" />
