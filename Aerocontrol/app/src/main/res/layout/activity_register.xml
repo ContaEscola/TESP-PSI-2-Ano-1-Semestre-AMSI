@@ -70,7 +70,7 @@
                     style="@style/TextInput"
                     android:layout_width="0dp"
                     android:layout_marginTop="20dp"
-                    android:hint="@string/username"
+                    android:hint="@string/username_italic"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Register_tv_AccessData" />
@@ -80,7 +80,7 @@
                     style="@style/PasswordInput"
                     android:layout_width="0dp"
                     android:layout_marginTop="15dp"
-                    android:hint="@string/password"
+                    android:hint="@string/password_italic"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/Register_Et_username" />
@@ -168,7 +168,7 @@
                     style="@style/EmailInput"
                     android:layout_width="0dp"
                     android:layout_marginTop="20dp"
-                    android:hint="@string/email"
+                    android:hint="@string/email_italic"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Register_Tv_Contacts" />

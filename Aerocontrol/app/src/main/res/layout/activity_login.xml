@@ -8,7 +8,7 @@
     tools:context=".ui.views.LoginActivity">
 
     <include
-        android:id="@+id/Register_Toolbar"
+        android:id="@+id/Login_Toolbar"
         layout="@layout/toolbar"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/Login_GuidelineEnd"
         app:layout_constraintStart_toStartOf="@+id/Login_GuidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/Register_Toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/Login_Toolbar">
 
         <TextView
             android:id="@+id/Login_Tv_Title"
@@ -98,7 +98,6 @@
             android:id="@+id/Login_Et_CreateAccount"
             style="@style/RedirectText"
             android:layout_width="wrap_content"
-
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:text="@string/no_account"
@@ -114,10 +113,8 @@
             android:text="@string/login"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Login_Et_CreateAccount" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
