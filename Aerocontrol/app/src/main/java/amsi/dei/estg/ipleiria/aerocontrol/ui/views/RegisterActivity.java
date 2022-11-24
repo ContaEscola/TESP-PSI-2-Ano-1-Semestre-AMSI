@@ -18,6 +18,7 @@ public class RegisterActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.Register_Toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         FormUtils.setFocusEventsOnInputs(findViewById(R.id.Register_Wrapper));
     }

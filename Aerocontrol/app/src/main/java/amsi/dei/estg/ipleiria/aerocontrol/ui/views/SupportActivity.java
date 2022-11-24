@@ -17,6 +17,7 @@ public class SupportActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.Support_Toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         FormUtils.setFocusEventsOnInputs(findViewById(R.id.Support_Wrapper));
     }

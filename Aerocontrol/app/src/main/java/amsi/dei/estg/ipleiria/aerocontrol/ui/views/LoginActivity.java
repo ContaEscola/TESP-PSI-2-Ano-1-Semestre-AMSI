@@ -17,6 +17,7 @@ public class LoginActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.Login_Toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         FormUtils.setFocusEventsOnInputs(findViewById(R.id.Login_Wrapper));
     }
