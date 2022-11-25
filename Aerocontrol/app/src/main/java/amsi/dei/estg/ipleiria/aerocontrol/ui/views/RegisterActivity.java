@@ -1,9 +1,11 @@
-package amsi.dei.estg.ipleiria.aerocontrol;
+package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+
+import amsi.dei.estg.ipleiria.aerocontrol.R;
 
 
 public class RegisterActivity extends AppCompatActivity {

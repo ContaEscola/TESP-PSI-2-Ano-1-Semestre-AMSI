@@ -5,28 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.views.LoginActivity"
-    >
+    tools:context=".ui.views.LoginActivity">
 
+    <include
+        android:id="@+id/Register_Toolbar"
+        layout="@layout/toolbar"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/Login_Wrapper"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/Login_GuidelineEnd"
         app:layout_constraintStart_toStartOf="@+id/Login_GuidelineStart"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/Login_Wrapper">
+        app:layout_constraintTop_toBottomOf="@+id/Register_Toolbar">
 
         <TextView
             android:id="@+id/Login_Tv_Title"
             style="@style/PrimaryTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/Login_Tv_Username"
@@ -43,8 +45,7 @@
             android:layout_marginTop="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Login_Tv_Username"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/Login_Tv_Username" />
 
         <TextView
             android:id="@+id/Login_Tv_Password"
@@ -85,37 +86,37 @@
         <TextView
             android:id="@+id/Login_Et_ResetPassword"
             style="@style/RedirectText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:letterSpacing=".1"
             android:text="@string/forgot_password"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Login_Cb_SaveSession"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content" />
+            app:layout_constraintTop_toBottomOf="@+id/Login_Cb_SaveSession" />
 
         <TextView
             android:id="@+id/Login_Et_CreateAccount"
             style="@style/RedirectText"
-            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
 
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:text="@string/no_account"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Login_Et_ResetPassword"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content" />
+            app:layout_constraintTop_toBottomOf="@+id/Login_Et_ResetPassword" />
 
         <Button
             android:id="@+id/Login_Bt_Login"
             style="@style/PrimaryButton"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:text="@string/login"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
 
-            app:layout_constraintTop_toBottomOf="@+id/Login_Et_CreateAccount"
-            android:layout_height="wrap_content" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Login_Et_CreateAccount" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

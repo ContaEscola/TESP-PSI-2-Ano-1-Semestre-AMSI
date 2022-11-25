@@ -14,13 +14,13 @@
         android:theme="@style/Theme.App"
         tools:targetApi="31">
         <activity
-            android:name=".RegisterActivity"
-            android:parentActivityName=".MainActivity"
-            android:exported="false" />
+            android:name=".ui.views.RegisterActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.views.MainActivity" />
         <activity
-        	android:name=".ui.views.LoginActivity"
-            android:parentActivityName=".MainActivity"
-            android:exported="false"/>
+            android:name=".ui.views.LoginActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.views.MainActivity" />
         <activity
             android:name=".ui.views.MainActivity"
             android:exported="false"
