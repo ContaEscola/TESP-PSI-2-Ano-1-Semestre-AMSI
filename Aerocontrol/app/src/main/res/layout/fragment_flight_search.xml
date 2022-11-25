@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.views.FlightSearchFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/FlightSearch_Wrapper">
+
+        <TextView
+            android:id="@+id/FlightSearch_Tv_Title"
+            android:layout_width="wrap_content"
+            style="@style/PrimaryTitle"
+            android:text="@string/flight_reserve"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/FlightSearch_Bt_OneWay"
+            style="@style/PrimaryButtonOutline"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="@string/flight_one_way"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/FlightSearch_Tv_Title"/>
+
+        <Button
+            android:id="@+id/FlightSearch_Bt_RoundTrip"
+            style="@style/PrimaryButton"
+            android:layout_width="wrap_content"
+            android:text="@string/flight_round_trip"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/FlightSearch_Bt_OneWay" />
+
+        <Button
+            android:id="@+id/FlightSearch_Bt_NoScale"
+            style="@style/SecondaryButtonOutline"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/flight_no_scales"
+            app:layout_constraintStart_toStartOf="@+id/FlightSearch_Bt_OneWay"
+            app:layout_constraintTop_toBottomOf="@+id/FlightSearch_Bt_OneWay" />
+
+        <Button
+            android:id="@+id/FlightSearch_Bt_WithScale"
+            style="@style/SecondaryButton"
+            android:layout_width="wrap_content"
+            android:text="@string/flight_with_scale"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/FlightSearch_Bt_NoScale" />
+
+        <TextView
+            android:id="@+id/FlightSearch_Tv_Origin"
+            style="@style/InputLabel"
+            android:layout_width="wrap_content"
+            android:text="@string/flight_origin"
+            app:layout_constraintBottom_toBottomOf="@+id/FlightSearch_Et_Origin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/FlightSearch_Et_Origin" />
+
+        <EditText
+            android:id="@+id/FlightSearch_Et_Origin"
+            style="@style/TextInput"
+            android:layout_width="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/FlightSearch_Tv_Origin"
+            app:layout_constraintTop_toBottomOf="@+id/FlightSearch_Bt_NoScale" />
+
+        <TextView
+            android:id="@+id/FlightSearch_Tv_Destiny"
+            style="@style/InputLabel"
+            android:layout_width="wrap_content"
+            android:text="@string/flight_destiny"
+            app:layout_constraintBottom_toBottomOf="@+id/FlightSearch_Et_Destiny"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/FlightSearch_Et_Destiny" />
+
+        <EditText
+            android:id="@+id/FlightSearch_Et_Destiny"
+            style="@style/TextInput"
+            android:layout_width="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/FlightSearch_Tv_Destiny"
+            app:layout_constraintTop_toBottomOf="@+id/FlightSearch_Et_Origin" />
+
+        <TextView
+            android:id="@+id/FlightSearch_Tv_Passengers"
+            style="@style/InputLabel"
+            android:layout_width="wrap_content"
+            android:text="@string/flight_passengers"
+            app:layout_constraintBottom_toBottomOf="@+id/FlightSearch_Et_Passengers"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/FlightSearch_Et_Passengers" />
+
+        <EditText
+            android:id="@+id/FlightSearch_Et_Passengers"
+            style="@style/NumberInput"
+            android:layout_width="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/FlightSearch_Tv_Passengers"
+            app:layout_constraintTop_toBottomOf="@+id/FlightSearch_Et_Destiny" />
+
+        <TextView
+            android:id="@+id/FlightSearch_Tv_DepartureDate"
+            style="@style/InputLabel"
+            android:layout_width="wrap_content"
+            android:text="@string/flight_departure_date"
+            app:layout_constraintBottom_toBottomOf="@+id/FlightSearch_Et_DepartureDate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/FlightSearch_Et_DepartureDate" />
+
+        <EditText
+            android:id="@+id/FlightSearch_Et_DepartureDate"
+            style="@style/DateTimeInput"
+            android:layout_width="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/FlightSearch_Tv_DepartureDate"
+            app:layout_constraintTop_toBottomOf="@+id/FlightSearch_Et_Passengers" />
+
+        <TextView
+            android:id="@+id/FlightSearch_Tv_ArrivalDate"
+            style="@style/InputLabel"
+            android:layout_width="wrap_content"
+            android:text="@string/flight_arrival_date"
+            app:layout_constraintBottom_toBottomOf="@+id/FlightSearch_Et_ArrivalDate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/FlightSearch_Et_ArrivalDate" />
+
+        <EditText
+            android:id="@+id/FlightSearch_Et_ArrivalDate"
+            style="@style/DateTimeInput"
+            android:layout_width="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/FlightSearch_Tv_ArrivalDate"
+            app:layout_constraintTop_toBottomOf="@+id/FlightSearch_Et_DepartureDate" />
+
+        <Button
+            style="@style/PrimaryButton"
+            android:layout_width="match_parent"
+            android:text="@string/search"
+            android:layout_marginTop="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/FlightSearch_Et_ArrivalDate" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         //TODO Fragment Inicial
-        //replaceFragment();
+        replaceFragment(new FlightSearchFragment());
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
                     //TODO Fragment Account
                     break;
                 case R.id.BottomNav_Flights:
-                    //TODO Fragment Flights
+                    replaceFragment(new FlightSearchFragment());
                     break;
                 case R.id.BottomNav_Restaurants:
                     //TODO Fragment Restaurants
