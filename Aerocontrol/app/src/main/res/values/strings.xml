@@ -3,15 +3,22 @@
 
     <!--  Conta  -->
     <string name="login">Login</string>
+    <string name="create_account">Criar conta</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
-    <string name="save_session">Guardar sessão</string>
-    <string name="forgot_password"><u>Esqueceu da password?</u></string>
-    <string name="no_account"><u>Não tem conta?</u></string>
-    <string name="create_account">Criar conta</string>
+    <string name="email">Email</string>
     <string name="contacts">Contactos</string>
     <string name="access_data">Dados de acesso</string>
     <string name="personal_data">Dados Pessoais</string>
+
+    <!-- Random -->
+    <string name="save_session">Guardar sessão</string>
+    <string name="forgot_password"><u>Esqueceu da password?</u></string>
+    <string name="no_account"><u>Não tem conta?</u></string>
+    <string name="message">Mensagem</string>
+    <string name="account">Conta</string>
+    <string name="support">Contactar Suporte</string>
+    <string name="send">Enviar</string>
 
     <!--  Frases  -->
     <string name="create_account_subtext">Crie a sua conta para começar a reservar voos e muito mais.</string>
@@ -26,7 +33,7 @@
     <string name="birth"><i>Data de Nascimento</i></string>
     <string name="country"><i>País</i></string>
     <string name="city"><i>Cidade</i></string>
-    <string name="email"><i>Email</i></string>
+    <string name="email_italic"><i>Email</i></string>
     <string name="phone_code"><i>Indicativo</i></string>
     <string name="phone"><i>Telemóvel</i></string>
 
@@ -34,6 +41,6 @@
     <string name="restaurants">Restaurantes</string>
     <string name="stores">Lojas</string>
     <string name="flights">Voos</string>
-    <string name="account">Conta</string>
+
 
 </resources>
