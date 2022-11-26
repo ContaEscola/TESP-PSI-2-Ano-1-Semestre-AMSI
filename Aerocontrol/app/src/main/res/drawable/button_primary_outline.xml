@@ -5,13 +5,7 @@
     <stroke
         android:width="3dp"
         android:color="?attr/colorPrimary" />
+
     <solid
-        android:color="#00FFFFFF"
-        android:paddingLeft="10dp"
-        android:paddingTop="10dp"/>
-    <padding
-        android:left="15dp"
-        android:top="15dp"
-        android:right="15dp"
-        android:bottom="15dp" />
+        android:color="@color/transparent" />
 </shape>

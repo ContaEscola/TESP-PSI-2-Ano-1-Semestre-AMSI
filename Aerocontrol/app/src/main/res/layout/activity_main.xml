@@ -7,18 +7,50 @@
     tools:context=".ui.views.MainActivity">
 
     <include
-        android:id="@+id/include"
+        android:id="@+id/Main_ActionBar"
         layout="@layout/actionbar" />
 
-    <FrameLayout
-        android:id="@+id/ActivityMain_Fragment"
-        android:layout_width="0dp"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintEnd_toStartOf="@+id/Main_GuidelineEnd"
-        app:layout_constraintStart_toStartOf="@+id/Main_GuidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/include" />
-    
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Main_ActionBar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:id="@+id/ActivityMain_Fragment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="40dp"
+                android:paddingBottom="40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/Main_GuidelineEnd"
+                app:layout_constraintStart_toStartOf="@+id/Main_GuidelineStart"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/Main_GuidelineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="24dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/Main_GuidelineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="24dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         app:menu="@menu/bottom_nav_menu"
@@ -36,17 +68,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:labelVisibilityMode="labeled"/>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/Main_GuidelineStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="24dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/Main_GuidelineEnd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="24dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -111,6 +111,16 @@
         <item name="android:inputType">textMultiLine</item>
     </style>
 
+    <!-- EditText - Input Data e hora -->
+    <style name="DateTimeInput" parent="Input">
+        <item name="android:inputType">datetime</item>
+    </style>
+
+    <!-- EditText - Input Data -->
+    <style name="DateInput" parent="Input">
+        <item name="android:inputType">date</item>
+    </style>
+
     <!-- CheckBox -->
     <style name="CheckBox">
         <item name="android:layout_width"> wrap_content </item>
@@ -122,10 +132,9 @@
 
 
 
-    <!-- Button - Botão Default -->
-    <style name="myButton" parent="android:style/Widget.Button">
+    <!-- Button - Base button -->
+    <style name="BaseButton" parent="android:style/Widget.Button">
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/round_button_default</item>
         <item name="android:paddingStart">10dp</item>
         <item name="android:paddingEnd">10dp</item>
         <item name="android:paddingTop">8dp</item>
@@ -137,33 +146,58 @@
     </style>
 
     <!-- Button - Butão Primário -->
-    <style name="PrimaryButton" parent="myButton">
-        <item name="backgroundTint">@color/button_default_background_states</item>
+    <style name="PrimaryButton" parent="BaseButton">
+        <item name="android:background">@drawable/button_primary</item>
+        <item name="backgroundTint">@color/button_primary_background_states</item>
         <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
 -
     <!-- Button - Butão Secundário -->
-    <style name="SecondaryButton" parent="myButton">
-        <item name="android:backgroundTint">?attr/colorSecondary</item>
+    <style name="SecondaryButton" parent="BaseButton">
+        <item name="android:background">@drawable/button_secondary</item>
+        <item name="backgroundTint">@color/button_secondary_background_states</item>
         <item name="android:textColor">?attr/colorOnSecondary</item>
     </style>
 
     <!-- Button - Butão Primário Outline -->
-    <style name="PrimaryButtonOutline" parent="myButton">
-        <item name="android:background">@drawable/round_button_outline_primary</item>
-        <item name="android:textColor">?attr/colorPrimary</item>
+    <style name="PrimaryButtonOutline" parent="BaseButton">
+        <item name="android:background">@drawable/button_primary_outline_background_states</item>
+        <item name="backgroundTint">@null</item>
+        <item name="android:textColor">@color/button_primary_outline_text_states</item>
     </style>
 
     <!-- Button - Butão Secundário Outline -->
-    <style name="SecondaryButtonOutline" parent="myButton">
-        <item name="android:background">@drawable/round_button_outline_secondary</item>
-        <item name="android:textColor">?attr/colorSecondary</item>
+    <style name="SecondaryButtonOutline" parent="BaseButton">
+        <item name="android:background">@drawable/button_secondary_outline_background_states</item>
+        <item name="backgroundTint">@null</item>
+        <item name="android:textColor">@color/button_secondary_outline_text_states</item>
     </style>
 
     <!-- Button - Butão Vermelho -->
-    <style name="RedButton" parent="myButton">
+    <style name="RedButton" parent="BaseButton">
         <item name="android:backgroundTint">?attr/colorError</item>
         <item name="android:textColor">?attr/colorOnError</item>
+    </style>
+
+
+    <!-- Button - Butão Primário Pill-->
+    <style name="PrimaryButtonPill" parent="PrimaryButton">
+        <item name="android:background">@drawable/button_pill_primary</item>
+    </style>
+
+    <!-- Button - Butão Secundário Pill-->
+    <style name="SecondaryButtonPill" parent="SecondaryButton">
+        <item name="android:background">@drawable/button_pill_secondary</item>
+    </style>
+
+    <!-- Button - Butão Primário Outline Pill-->
+    <style name="PrimaryButtonOutlinePill" parent="PrimaryButtonOutline">
+        <item name="android:background">@drawable/button_pill_primary_outline_background_states</item>
+    </style>
+
+    <!-- Button - Butão Secundário Outline Pill-->
+    <style name="SecondaryButtonOutlinePill" parent="SecondaryButtonOutline">
+        <item name="android:background">@drawable/button_pill_secondary_outline_background_states</item>
     </style>
 
 </resources>

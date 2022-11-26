@@ -19,6 +19,7 @@
     <string name="account">Conta</string>
     <string name="support">Contactar Suporte</string>
     <string name="send">Enviar</string>
+    <string name="search">Pesquisar</string>
 
     <!--  Frases  -->
     <string name="create_account_subtext">Crie a sua conta para começar a reservar voos e muito mais.</string>
@@ -42,5 +43,17 @@
     <string name="stores">Lojas</string>
     <string name="flights">Voos</string>
 
+
+    <!--  Voos  -->
+    <string name="flight_reserve">Reserve agora o seu voo</string>
+    <string name="flight_one_way">Só Ida</string>
+    <string name="flight_round_trip">Ida e volta</string>
+    <string name="flight_with_scale">Com escalas</string>
+    <string name="flight_no_scales">Sem escalas</string>
+    <string name="flight_origin">Origem:</string>
+    <string name="flight_destiny">Destino:</string>
+    <string name="flight_passengers">Nº Passageiros:</string>
+    <string name="flight_departure_date">Data de partida:</string>
+    <string name="flight_arrival_date">Data de chegada:</string>
 
 </resources>
