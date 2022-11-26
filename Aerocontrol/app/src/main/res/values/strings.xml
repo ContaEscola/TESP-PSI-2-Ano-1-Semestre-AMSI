@@ -45,8 +45,8 @@
 
 
     <!--  Voos  -->
-    <string name="flight_reserve">Reserve agora seu próximo voo</string>
-    <string name="flight_one_way">Só ida</string>
+    <string name="flight_reserve">Reserve agora o seu voo</string>
+    <string name="flight_one_way">Só Ida</string>
     <string name="flight_round_trip">Ida e volta</string>
     <string name="flight_with_scale">Com escalas</string>
     <string name="flight_no_scales">Sem escalas</string>

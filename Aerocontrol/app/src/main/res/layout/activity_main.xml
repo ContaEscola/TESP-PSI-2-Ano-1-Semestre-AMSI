@@ -27,7 +27,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:paddingTop="40dp"
-                android:paddingBottom="25dp"
+                android:paddingBottom="40dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/Main_GuidelineEnd"
                 app:layout_constraintStart_toStartOf="@+id/Main_GuidelineStart"
