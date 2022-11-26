@@ -153,7 +153,6 @@
             android:id="@+id/Account_LineBottom"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_marginTop="20dp"
             android:layout_marginBottom="5dp"
             android:background="?attr/colorSurfaceVariant_800"
             app:layout_constraintEnd_toEndOf="parent"

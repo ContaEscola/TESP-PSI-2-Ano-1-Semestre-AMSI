@@ -3,6 +3,7 @@
 
     <!--  Conta  -->
     <string name="login">Login</string>
+    <string name="logout">Logout</string>
     <string name="create_account">Criar conta</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
@@ -55,7 +56,7 @@
     <string name="flight_passengers">Nº Passageiros:</string>
     <string name="flight_departure_date">Data de partida:</string>
     <string name="flight_arrival_date">Data de chegada:</string>
-    <string name="logout">Logout</string>
+
     <string name="edit_account">Editar dados da conta</string>
     <string name="my_tickets">Meus Bilhetes</string>
     <string name="lost_and_found">Perdidos e achados</string>

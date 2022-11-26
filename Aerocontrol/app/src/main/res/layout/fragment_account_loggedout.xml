@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
+    tools:context=".ui.views.AccountFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/AccountLoggedOut_ConsLayout_Support"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/menu_item_background"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingVertical="10dp"
+            android:paddingStart="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/AccountLoggedOut_Iv_Support"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_support" />
+
+            <TextView
+                style="@style/DataText_Light"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="60dp"
+                android:text="@string/support"
+                app:layout_constraintBottom_toBottomOf="@id/AccountLoggedOut_Iv_Support"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/AccountLoggedOut_Iv_Support" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/AccountLoggedOut_LineBottom"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginBottom="30dp"
+            android:background="?attr/colorSurfaceVariant_800"
+            app:layout_constraintBottom_toTopOf="@+id/AccountLoggedOut_Bt_CreateAccount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/AccountLoggedOut_Bt_CreateAccount"
+            style="@style/PrimaryButtonOutline"
+            android:layout_width="0dp"
+            android:text="@string/create_account"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/AccountLoggedOut_Bt_Login"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/AccountLoggedOut_Bt_Login"
+            style="@style/PrimaryButtonOutline"
+            android:layout_width="0dp"
+            android:text="@string/login"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/AccountLoggedOut_Bt_CreateAccount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/AccountLoggedOut_Bt_CreateAccount"
+            app:layout_constraintTop_toTopOf="@+id/AccountLoggedOut_Bt_CreateAccount" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

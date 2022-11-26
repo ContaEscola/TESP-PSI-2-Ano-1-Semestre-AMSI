@@ -19,7 +19,8 @@ public class AccountFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // If (loggedIn)
-        return inflater.inflate(R.layout.fragment_account_loggedin, container, false);
+        //return inflater.inflate(R.layout.fragment_account_loggedin, container, false);
         // else
+        return inflater.inflate(R.layout.fragment_account_loggedout, container, false);
     }
 }
