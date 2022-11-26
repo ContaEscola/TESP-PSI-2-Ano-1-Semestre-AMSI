@@ -61,6 +61,11 @@
         <item name="android:fontFamily">@font/montserrat_bold</item>
     </style>
 
+    <!-- TextViews - TextViews dos dados Light -->
+    <style name="DataText_Light" parent="DataText">
+        <item name="android:fontFamily">@font/montserrat_light</item>
+    </style>
+
     <!-- TextViews - TextViews que dá redirect Sublinhado -->
     <style name="RedirectText" parent="DataText">
         <item name="android:letterSpacing">.1</item>
@@ -177,6 +182,13 @@
     <style name="RedButton" parent="BaseButton">
         <item name="android:backgroundTint">?attr/colorError</item>
         <item name="android:textColor">?attr/colorOnError</item>
+    </style>
+
+    <!-- Button - Butão Vermelho Outline -->
+    <style name="RedButtonOutline" parent="BaseButton">
+        <item name="android:background">@drawable/button_red_outline_background_states</item>
+        <item name="backgroundTint">@null</item>
+        <item name="android:textColor">@color/button_red_outline_text_states</item>
     </style>
 
 

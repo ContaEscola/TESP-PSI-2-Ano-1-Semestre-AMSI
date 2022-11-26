@@ -20,13 +20,12 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //TODO Fragment Inicial
         replaceFragment(new FlightSearchFragment());
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.BottomNav_Account:
-                    //TODO Fragment Account
+                    replaceFragment(new AccountFragment());
                     break;
                 case R.id.BottomNav_Flights:
                     replaceFragment(new FlightSearchFragment());
