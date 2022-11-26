@@ -6,5 +6,5 @@
         android:width="3dp"
         android:color="?attr/colorSurfaceVariant_900" />
     <solid
-        android:color="#00FFFFFF" />
+        android:color="@color/transparent" />
 </shape>
