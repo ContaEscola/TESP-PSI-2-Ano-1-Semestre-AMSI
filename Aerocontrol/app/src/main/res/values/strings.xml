@@ -12,6 +12,7 @@
     <string name="access_data">Dados de acesso</string>
     <string name="personal_data">Dados Pessoais</string>
 
+
     <!-- Random -->
     <string name="save_session">Guardar sessão</string>
     <string name="forgot_password"><u>Esqueceu da password?</u></string>
@@ -21,10 +22,13 @@
     <string name="support">Contactar Suporte</string>
     <string name="send">Enviar</string>
     <string name="search">Pesquisar</string>
+    <string name="reset">Repor</string>
+
 
     <!--  Frases  -->
     <string name="create_account_subtext">Crie a sua conta para começar a reservar voos e muito mais.</string>
     <string name="splash_screen_text">Reserve já o seu próximo voo!</string>
+
 
     <!--  Dados User  -->
     <string name="username_italic"><i>Username</i></string>
@@ -39,6 +43,7 @@
     <string name="phone_code"><i>Indicativo</i></string>
     <string name="phone"><i>Telemóvel</i></string>
 
+    
     <!--  Entidades  -->
     <string name="restaurants">Restaurantes</string>
     <string name="stores">Lojas</string>
@@ -57,9 +62,12 @@
     <string name="flight_departure_date">Data de partida:</string>
     <string name="flight_arrival_date">Data de chegada:</string>
 
+
+    <!--  Titulos  -->
     <string name="edit_account">Editar dados da conta</string>
     <string name="my_tickets">Meus Bilhetes</string>
     <string name="lost_and_found">Perdidos e achados</string>
+    <string name="resetpass">Repor a sua password</string>
 
 
 </resources>
