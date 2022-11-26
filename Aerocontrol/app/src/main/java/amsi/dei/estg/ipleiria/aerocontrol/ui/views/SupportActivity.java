@@ -6,7 +6,6 @@ import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
-import amsi.dei.estg.ipleiria.aerocontrol.utils.FormUtils;
 
 public class SupportActivity extends AppCompatActivity {
 
@@ -19,6 +18,5 @@ public class SupportActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        FormUtils.setFocusEventsOnInputs(findViewById(R.id.Support_Wrapper));
     }
 }
