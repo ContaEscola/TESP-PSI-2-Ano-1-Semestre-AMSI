@@ -23,6 +23,7 @@
     <string name="send">Enviar</string>
     <string name="search">Pesquisar</string>
     <string name="reset">Repor</string>
+    <string name="name">Nome:</string>
 
 
     <!--  Frases  -->
@@ -43,7 +44,7 @@
     <string name="phone_code"><i>Indicativo</i></string>
     <string name="phone"><i>Telemóvel</i></string>
 
-    
+
     <!--  Entidades  -->
     <string name="restaurants">Restaurantes</string>
     <string name="stores">Lojas</string>
