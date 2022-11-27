@@ -26,6 +26,8 @@
         android:layout_height="0dp"
         android:layout_marginTop="35dp"
         android:layout_marginBottom="40dp"
+        android:divider="@color/transparent"
+        android:dividerHeight="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/Tickets_GuidelineEnd"
         app:layout_constraintStart_toStartOf="@+id/Tickets_GuidelineStart"
