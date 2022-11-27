@@ -65,7 +65,7 @@
 
         <Button
             android:id="@+id/AccountLoggedOut_Bt_Login"
-            style="@style/PrimaryButtonOutline"
+            style="@style/PrimaryButton"
             android:layout_width="0dp"
             android:text="@string/login"
             android:layout_marginStart="16dp"
