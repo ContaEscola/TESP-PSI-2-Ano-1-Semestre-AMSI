@@ -5,23 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorSurface"
-    tools:context=".ui.views.RestaurantsFragment">
+    tools:context=".ui.views.StoresFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/Restaurants_Tv_Title"
+            android:id="@+id/Stores_Tv_Title"
             android:layout_width="wrap_content"
             style="@style/SecondTitle"
-            android:text="@string/restaurants"
+            android:text="@string/stores"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
-            android:id="@+id/Restaurants_Et_Search"
+            android:id="@+id/Stores_Et_Search"
             style="@style/TextInput"
             android:layout_width="0dp"
             android:layout_marginHorizontal="20dp"
@@ -29,15 +29,15 @@
             android:hint="@string/search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Restaurants_Tv_Title" />
+            app:layout_constraintTop_toBottomOf="@+id/Stores_Tv_Title" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="50dp"
             android:layout_height="0dp"
             android:background="@drawable/search_icon_filter"
-            app:layout_constraintBottom_toBottomOf="@+id/Restaurants_Et_Search"
-            app:layout_constraintEnd_toEndOf="@+id/Restaurants_Et_Search"
-            app:layout_constraintTop_toTopOf="@+id/Restaurants_Et_Search">
+            app:layout_constraintBottom_toBottomOf="@+id/Stores_Et_Search"
+            app:layout_constraintEnd_toEndOf="@+id/Stores_Et_Search"
+            app:layout_constraintTop_toTopOf="@+id/Stores_Et_Search">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -58,7 +58,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Restaurants_Et_Search" />
+            app:layout_constraintTop_toBottomOf="@+id/Stores_Et_Search" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
