@@ -190,7 +190,7 @@
                     style="@style/PhoneInput"
                     android:layout_width="0dp"
                     android:layout_marginStart="10dp"
-                    android:hint="@string/phone"
+                    android:hint="@string/phone_italic"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_weight="1"
                     app:layout_constraintStart_toEndOf="@+id/Register_Et_PhoneCode"

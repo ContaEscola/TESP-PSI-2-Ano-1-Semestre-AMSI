@@ -11,6 +11,7 @@
     <string name="contacts">Contactos</string>
     <string name="access_data">Dados de acesso</string>
     <string name="personal_data">Dados Pessoais</string>
+    <string name="phone">Telemóvel</string>
 
 
     <!-- Random -->
@@ -27,6 +28,7 @@
 
 
     <!--  Frases  -->
+    <string name="random_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s</string>
     <string name="create_account_subtext">Crie a sua conta para começar a reservar voos e muito mais.</string>
     <string name="splash_screen_text">Reserve já o seu próximo voo!</string>
 
@@ -42,7 +44,7 @@
     <string name="city"><i>Cidade</i></string>
     <string name="email_italic"><i>Email</i></string>
     <string name="phone_code"><i>Indicativo</i></string>
-    <string name="phone"><i>Telemóvel</i></string>
+    <string name="phone_italic"><i>Telemóvel</i></string>
 
 
     <!--  Entidades  -->
@@ -70,5 +72,12 @@
     <string name="lost_and_found">Perdidos e achados</string>
     <string name="resetpass">Repor a sua password</string>
 
+
+    <!-- Restaurants -->
+    <string name="restaurant">Restaurant</string>
+    <string name="schedule">Horário:</string>
+    <string name="description">Descrição:</string>
+    <string name="website">Website:</string>
+    <string name="menu">Ementas</string>
 
 </resources>
