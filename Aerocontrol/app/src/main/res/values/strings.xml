@@ -52,6 +52,7 @@
     <string name="restaurants">Restaurantes</string>
     <string name="stores">Lojas</string>
     <string name="flights">Voos</string>
+    <string name="passengers">Passageiros</string>
 
 
     <!--  Voos  -->
@@ -90,5 +91,14 @@
     <string name="time">Hora</string>
     <string name="city_lisbon">Lisbon</string>
     <string name="city_madrid">Madrid</string>
+    <string name="departure">Partida:</string>
+    <string name="arrival">Chegada:</string>
+    <string name="distance">Distância:</string>
+    <string name="place">Terminal:</string>
+    <string name="purchase_date">Data de Compra:</string>
+    <string name="old_price"><strike>500€</strike></string>
+    <string name="new_price">400€</string>
+    <string name="random_date">15/01/2023</string>
+
 
 </resources>
