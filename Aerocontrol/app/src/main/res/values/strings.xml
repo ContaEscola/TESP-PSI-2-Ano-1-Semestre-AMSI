@@ -25,6 +25,7 @@
     <string name="search">Pesquisar</string>
     <string name="reset">Repor</string>
     <string name="name">Nome:</string>
+    <string name="more_details">Ver mais detalhes</string>
 
 
     <!--  Frases  -->
@@ -81,5 +82,13 @@
     <string name="store_restaurant_phone">Telemóvel:</string>
     <string name="menu">Ementas</string>
     <string name="store">Store name</string>
+
+
+    <!--  Ticket Info  -->
+    <string name="date">Data:</string>
+    <string name="state">Estado:</string>
+    <string name="time">Hora</string>
+    <string name="city_lisbon">Lisbon</string>
+    <string name="city_madrid">Madrid</string>
 
 </resources>
