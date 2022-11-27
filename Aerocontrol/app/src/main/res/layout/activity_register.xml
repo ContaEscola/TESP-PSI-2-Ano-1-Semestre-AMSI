@@ -120,7 +120,7 @@
                     style="@style/TextInput"
                     android:layout_width="0dp"
                     android:layout_marginTop="15dp"
-                    android:hint="@string/gender"
+                    android:hint="@string/gender_italic"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Register_Et_LastName" />

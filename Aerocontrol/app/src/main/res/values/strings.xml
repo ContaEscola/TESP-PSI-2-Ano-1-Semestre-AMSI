@@ -8,6 +8,7 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="email">Email</string>
+    <string name="gender">Género</string>
     <string name="contacts">Contactos</string>
     <string name="access_data">Dados de acesso</string>
     <string name="personal_data">Dados Pessoais</string>
@@ -39,7 +40,7 @@
     <string name="password_italic"><i>Password</i></string>
     <string name="first_name"><i>Primeiro Nome</i></string>
     <string name="last_name"><i>Último Nome</i></string>
-    <string name="gender"><i>Género</i></string>
+    <string name="gender_italic"><i>Género</i></string>
     <string name="birth"><i>Data de Nascimento</i></string>
     <string name="country"><i>País</i></string>
     <string name="city"><i>Cidade</i></string>
@@ -99,6 +100,7 @@
     <string name="old_price"><strike>500€</strike></string>
     <string name="new_price">400€</string>
     <string name="random_date">15/01/2023</string>
+    <string name="seat">Lugar:</string>
 
 
 </resources>

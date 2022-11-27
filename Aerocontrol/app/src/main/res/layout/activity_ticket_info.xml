@@ -198,10 +198,13 @@
         app:layout_constraintTop_toBottomOf="@+id/TicketInfo_Tv_Price" />
 
     <ListView
+        android:id="@+id/TicketInfo_Lv_Passengers"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="40dp"
+        android:divider="@color/transparent"
+        android:dividerHeight="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/TicketInfo_GuidelineEnd"
         app:layout_constraintStart_toStartOf="@+id/TicketInfo_GuidelineStart"
