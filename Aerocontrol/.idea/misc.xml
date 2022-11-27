@@ -9,6 +9,7 @@
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/drawable-v24/button_pill_secondary.xml" value="0.1905" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/drawable-v24/button_pill_secondary_outline.xml" value="0.1905" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/drawable-v24/round_button.xml" value="0.1585" />
+        <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/drawable/button_primary.xml" value="0.1905" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/drawable/button_red.xml" value="0.1905" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/drawable/button_red_outline.xml" value="0.1905" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/drawable/button_red_outline_background_states.xml" value="0.1905" />
@@ -24,6 +25,7 @@
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/drawable/ic_lost_and_found.xml" value="0.1905" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/drawable/ic_person_24.xml" value="0.1905" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/drawable/ic_restaurant_24.xml" value="0.1905" />
+        <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/drawable/ic_search.xml" value="0.1905" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/drawable/ic_store_24.xml" value="0.1905" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/drawable/ic_support.xml" value="0.1905" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/drawable/menu_item_background.xml" value="0.1905" />
@@ -35,6 +37,7 @@
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/drawable/round_button_outline_secondary.xml" value="0.176" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/drawable/round_button_outline_shape.xml" value="0.1585" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/drawable/round_button_shape.xml" value="0.1585" />
+        <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/drawable/search_icon_filter.xml" value="0.1905" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/drawable/secondary_button.xml" value="0.1585" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/font/montserrat_bold.xml" value="0.14322916666666666" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/actionbar.xml" value="0.15172101449275363" />
@@ -48,6 +51,7 @@
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/fragment_account_loggedin.xml" value="0.24048913043478262" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/fragment_account_loggedout.xml" value="0.24048913043478262" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/fragment_flight_search.xml" value="0.2" />
+        <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/fragment_restaurants.xml" value="0.12462006079027356" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/toolbar.xml" value="0.24048913043478262" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25416666666666665" />
       </map>

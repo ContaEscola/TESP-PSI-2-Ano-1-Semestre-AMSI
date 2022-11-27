@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new FlightSearchFragment());
                     break;
                 case R.id.BottomNav_Restaurants:
-                    //TODO Fragment Restaurants
+                    replaceFragment(new RestaurantsFragment());
                     break;
                 case R.id.BottomNav_Stores:
                     //TODO Fragment Stores
