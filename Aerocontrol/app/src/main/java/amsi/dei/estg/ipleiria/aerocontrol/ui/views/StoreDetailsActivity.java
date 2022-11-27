@@ -7,13 +7,13 @@ import android.os.Bundle;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 
-public class RestaurantDetailsActivity extends AppCompatActivity {
+public class StoreDetailsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_restaurant_details);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.RestaurantDetails_Toolbar);
+        setContentView(R.layout.activity_store_details);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.StoreDetails_Toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);

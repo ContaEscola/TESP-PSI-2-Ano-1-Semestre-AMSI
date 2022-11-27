@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new RestaurantsFragment());
                     break;
                 case R.id.BottomNav_Stores:
-                    //TODO Fragment Stores
+                    replaceFragment(new StoresFragment());
                     break;
             }
 

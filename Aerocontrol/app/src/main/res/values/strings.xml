@@ -73,11 +73,13 @@
     <string name="resetpass">Repor a sua password</string>
 
 
-    <!-- Restaurants -->
-    <string name="restaurant">Restaurant</string>
+    <!-- Restaurants & Stores -->
+    <string name="restaurant">Restaurant name</string>
     <string name="schedule">Horário:</string>
     <string name="description">Descrição:</string>
     <string name="website">Website:</string>
+    <string name="store_restaurant_phone">Telemóvel:</string>
     <string name="menu">Ementas</string>
+    <string name="store">Store name</string>
 
 </resources>
