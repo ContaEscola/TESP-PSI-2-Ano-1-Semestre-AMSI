@@ -33,6 +33,7 @@
             android:name=".ui.views.MainActivity"
             android:exported="false"
             android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SplashScreenActivity"
