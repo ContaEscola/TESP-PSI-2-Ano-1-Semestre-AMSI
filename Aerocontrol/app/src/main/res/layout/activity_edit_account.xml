@@ -50,23 +50,33 @@
                 android:id="@+id/EditAccount_Tv_AccessData"
                 style="@style/DataText"
                 android:layout_width="wrap_content"
+                android:focusable="true"
+                android:clickable="true"
+                android:background="@drawable/menu_item_background"
                 android:layout_marginStart="5dp"
+                android:padding="5dp"
                 android:text="@string/access_data" />
 
             <TextView
                 android:id="@+id/EditAccount_Tv_PersonalData"
                 style="@style/DataText"
                 android:layout_width="wrap_content"
-                android:layout_marginStart="10dp"
+                android:focusable="true"
+                android:clickable="true"
+                android:background="@drawable/menu_item_background"
+                android:padding="5dp"
                 android:text="@string/personal_data" />
 
             <TextView
                 android:id="@+id/EditAccount_Tv_Contacts"
                 style="@style/DataText"
                 android:layout_width="wrap_content"
+                android:focusable="true"
+                android:clickable="true"
+                android:background="@drawable/menu_item_background"
+                android:padding="5dp"
                 android:layout_marginEnd="5dp"
-                android:text="@string/contacts"
-                android:layout_marginStart="10dp" />
+                android:text="@string/contacts" />
         </LinearLayout>
 
     </HorizontalScrollView>

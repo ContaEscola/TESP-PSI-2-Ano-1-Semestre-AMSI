@@ -26,18 +26,18 @@ public class EditAccountActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //TODO replaceFragment(EditAccessDataFragment);
+        replaceFragment(new EditAccessDataFragment());
 
-        //TODO binding.EditAccountTvContacts.setOnClickListener(v -> replaceFragment(EditContactsFragment));
+        //TODO binding.EditAccountTvContacts.setOnClickListener(v -> replaceFragment(new EditContactsFragment()));
 
-        //TODO binding.EditAccountTvAccessData.setOnClickListener(v -> replaceFragment(EditAccessDataFragment));
+        binding.EditAccountTvAccessData.setOnClickListener(v -> replaceFragment(new EditAccessDataFragment()));
 
-        //TODO binding.EditAccountTvPersonalData.setOnClickListener(v -> replaceFragment(EditPersonalDataFragment));
+        //TODO binding.EditAccountTvPersonalData.setOnClickListener(v -> replaceFragment(new EditPersonalDataFragment()));
     }
 
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.ActivityMain_Fragment,fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.EditAccount_Fragment,fragment).commit();
     }
 
 
