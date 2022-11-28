@@ -101,6 +101,7 @@
     <string name="new_price">400€</string>
     <string name="random_date">15/01/2023</string>
     <string name="seat">Lugar:</string>
+    <string name="save">Guardar</string>
 
 
 </resources>
