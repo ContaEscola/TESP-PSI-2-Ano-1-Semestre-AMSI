@@ -30,6 +30,7 @@
     <string name="support">Contactar Suporte</string>
     <string name="send">Enviar</string>
     <string name="search">Pesquisar</string>
+    <string name="search_italic"><i>Pesquisar</i></string>
     <string name="reset">Repor</string>
     <string name="name">Nome:</string>
     <string name="more_details">Ver mais detalhes</string>
@@ -110,4 +111,19 @@
     <string name="seat">Lugar:</string>
 
 
+    <!--  Ticket Info  -->
+    <string name="date">Data:</string>
+    <string name="state">Estado:</string>
+    <string name="time">Hora</string>
+    <string name="city_lisbon">Lisboa</string>
+    <string name="city_madrid">Madrid</string>
+    <string name="departure">Partida:</string>
+    <string name="arrival">Chegada:</string>
+    <string name="distance">Distância:</string>
+    <string name="place">Terminal:</string>
+    <string name="purchase_date">Data de Compra:</string>
+    <string name="old_price"><strike>500€</strike></string>
+    <string name="new_price">400€</string>
+    <string name="random_date">15/01/2023</string>
+    <string name="seat">Lugar:</string>
 </resources>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/listview_item_border"
@@ -25,9 +26,10 @@
             android:id="@+id/Ticket_Tv_Date"
             style="@style/DataText_SemiBold"
             android:layout_width="wrap_content"
+            android:layout_marginStart="5dp"
             android:text="@string/date"
-            app:layout_constraintStart_toEndOf="@+id/Ticket_Tv_LabelDate"
-            app:layout_constraintTop_toTopOf="@+id/Ticket_Tv_LabelDate" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/Ticket_Tv_LabelDate"
+            app:layout_constraintStart_toEndOf="@+id/Ticket_Tv_LabelDate" />
 
         <TextView
             android:id="@+id/Ticket_Tv_LabelState"
@@ -42,9 +44,10 @@
             android:id="@+id/Ticket_Tv_State"
             style="@style/DataText_SemiBold"
             android:layout_width="wrap_content"
+            android:layout_marginStart="5dp"
             android:text="@string/state"
-            app:layout_constraintStart_toEndOf="@+id/Ticket_Tv_LabelState"
-            app:layout_constraintTop_toTopOf="@+id/Ticket_Tv_LabelState" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/Ticket_Tv_LabelState"
+            app:layout_constraintStart_toEndOf="@+id/Ticket_Tv_LabelState" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,48 +57,80 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/Ticket_Tv_DepartureTime"
-            style="@style/DataText_SemiBold"
-            android:layout_width="0dp"
-            android:text="@string/time"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/Ticket_ConsLayout_DepartureDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/Ticket_Tv_DepartureTime"
+                style="@style/DataText_SemiBold"
+                android:layout_width="0dp"
+                android:text="@string/time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/Ticket_Tv_DepartureCity"
+                style="@style/DataText_Medium"
+                android:layout_width="0dp"
+                android:layout_marginTop="5dp"
+                android:maxEms="3"
+                android:text="@string/city_lisbon"
+                android:textAlignment="textEnd"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Ticket_Tv_DepartureTime" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
         <ImageView
+            android:id="@+id/Ticket_Iv_HoursIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@+id/Ticket_Tv_ArrivalTime"
-            app:layout_constraintStart_toEndOf="@+id/Ticket_Tv_DepartureTime"
+            app:srcCompat="@drawable/ic_arrow_forward"
+            android:layout_marginTop="1dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintEnd_toStartOf="@+id/Ticket_ConsLayout_ArrivalDetails"
+            app:layout_constraintStart_toEndOf="@+id/Ticket_ConsLayout_DepartureDetails"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_arrow_forward" />
+             />
 
-        <TextView
-            android:id="@+id/Ticket_Tv_ArrivalTime"
-            style="@style/DataText_SemiBold"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/Ticket_ConsLayout_ArrivalDetails"
             android:layout_width="wrap_content"
-            android:text="@string/time"
+            android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/Ticket_Tv_DepartureTime" />
+            app:layout_constraintStart_toEndOf="@id/Ticket_Iv_HoursIcon"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/Ticket_Tv_DepartureCity"
-            style="@style/DataText_Medium"
-            android:layout_width="0dp"
-            android:layout_marginTop="5dp"
-            android:text="@string/city_lisbon"
-            app:layout_constraintStart_toStartOf="@+id/Ticket_Tv_DepartureTime"
-            app:layout_constraintTop_toBottomOf="@+id/Ticket_Tv_DepartureTime" />
+            <TextView
+                android:id="@+id/Ticket_Tv_ArrivalTime"
+                style="@style/DataText_SemiBold"
+                android:layout_width="wrap_content"
+                android:text="@string/time"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/Ticket_Tv_ArrivalCity"
-            style="@style/DataText_Medium"
-            android:layout_width="wrap_content"
-            android:text="@string/city_madrid"
-            android:layout_marginStart="15dp"
-            app:layout_constraintEnd_toEndOf="@+id/Ticket_Tv_ArrivalTime"
-            app:layout_constraintStart_toEndOf="@+id/Ticket_Tv_DepartureCity"
-            app:layout_constraintTop_toTopOf="@+id/Ticket_Tv_DepartureCity" />
+            <TextView
+                android:id="@+id/Ticket_Tv_ArrivalCity"
+                style="@style/DataText_Medium"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/city_madrid"
+                android:maxEms="3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Ticket_Tv_ArrivalTime" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
