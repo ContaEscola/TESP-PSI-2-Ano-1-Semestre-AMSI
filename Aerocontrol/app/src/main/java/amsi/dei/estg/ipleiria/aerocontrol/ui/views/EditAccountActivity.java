@@ -28,7 +28,7 @@ public class EditAccountActivity extends AppCompatActivity {
 
         replaceFragment(new EditAccessDataFragment());
 
-        //TODO binding.EditAccountTvContacts.setOnClickListener(v -> replaceFragment(new EditContactsFragment()));
+        binding.EditAccountTvContacts.setOnClickListener(v -> replaceFragment(new EditContactsFragment()));
 
         binding.EditAccountTvAccessData.setOnClickListener(v -> replaceFragment(new EditAccessDataFragment()));
 
