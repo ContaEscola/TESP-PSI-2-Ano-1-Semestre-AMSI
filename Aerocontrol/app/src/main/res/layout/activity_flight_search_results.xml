@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
+    tools:context=".ui.views.FlightSearchResultsActivity">
+
+    <include
+        android:id="@+id/FlightSearchResults_Toolbar"
+        layout="@layout/toolbar"/>
+
+    <TextView
+        android:id="@+id/textView3"
+        style="@style/SecondTitle"
+        android:layout_width="0dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/results_found"
+        app:layout_constraintEnd_toStartOf="@+id/FlightSearchResults_GuidelineEnd"
+        app:layout_constraintStart_toStartOf="@+id/FlightSearchResults_GuidelineStart"
+        app:layout_constraintTop_toBottomOf="@+id/FlightSearchResults_Toolbar" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/FlightSearchResults_GuidelineStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="24dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/FlightSearchResults_GuidelineEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="24dp" />
+
+    <ListView
+        android:id="@+id/FlightSearchResults_Lv_Flights"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:divider="@color/transparent"
+        android:dividerHeight="20dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/FlightSearchResults_GuidelineEnd"
+        app:layout_constraintStart_toStartOf="@+id/FlightSearchResults_GuidelineStart"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
