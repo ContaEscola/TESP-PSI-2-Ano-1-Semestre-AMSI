@@ -76,7 +76,7 @@
           android:id="@+id/RestaurantDetails_Tv_LabelPhone"
           style="@style/DataText_SemiBold"
           android:layout_width="wrap_content"
-          android:text="@string/phone"
+          android:text="@string/store_restaurant_phone"
           android:layout_marginTop="20dp"
           app:layout_constraintStart_toStartOf="@+id/RestaurantDetails_GuidelineStart"
           app:layout_constraintTop_toBottomOf="@id/RestaurantDetails_Tv_Description" />
@@ -107,7 +107,7 @@
           android:layout_marginStart="2dp"
           android:text="@string/website"
           app:layout_constraintEnd_toStartOf="@+id/RestaurantDetails_GuidelineEnd"
-          app:layout_constraintStart_toEndOf="@+id/RestaurantDetails_Tv_LabelPhone"
+          app:layout_constraintStart_toEndOf="@+id/RestaurantDetails_Tv_LabelWebsite"
           app:layout_constraintTop_toTopOf="@+id/RestaurantDetails_Tv_LabelWebsite" />
 
       <TextView
