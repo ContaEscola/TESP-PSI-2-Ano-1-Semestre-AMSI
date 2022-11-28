@@ -23,7 +23,7 @@
 
     <!-- Random -->
     <string name="save_session">Guardar sessão</string>
-    <string name="forgot_password"><u>Esqueceu da password?</u></string>
+    <string name="forgot_password"><u>Esqueceu-se da password?</u></string>
     <string name="no_account"><u>Não tem conta?</u></string>
     <string name="message">Mensagem</string>
     <string name="account">Conta</string>
@@ -37,6 +37,7 @@
     <string name="save">Guardar</string>
     <string name="reserve">Reservar</string>
     <string name="random_number">132</string>
+    <string name="next">Avançar</string>
 
 
     <!--  Frases  -->
@@ -118,7 +119,7 @@
     <string name="results_found">x Resultados Encontrados</string>
     <string name="available_seats">Lugares disponíveis:</string>
     <string name="passengers_data">Insira os dados dos passageiros</string>
-    <string name="next">Avançar</string>
+    <string name="extra_baggage">Bagagem Extra</string>
 
 
 </resources>
