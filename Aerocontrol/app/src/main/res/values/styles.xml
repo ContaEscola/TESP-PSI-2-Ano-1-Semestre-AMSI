@@ -71,6 +71,11 @@
         <item name="android:fontFamily">@font/montserrat_medium</item>
     </style>
 
+    <!-- TextViews - TextViews dos dados Italic -->
+    <style name="DataText_MediumItalic" parent="DataText">
+        <item name="android:fontFamily">@font/montserrat_medium_italic</item>
+    </style>
+
     <!-- TextViews - TextViews que dá redirect Sublinhado -->
     <style name="RedirectText" parent="DataText">
         <item name="android:letterSpacing">.1</item>
