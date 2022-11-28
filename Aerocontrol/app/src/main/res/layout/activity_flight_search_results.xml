@@ -12,7 +12,7 @@
         layout="@layout/toolbar"/>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/FlightSearchResults_Tv_Results"
         style="@style/SecondTitle"
         android:layout_width="0dp"
         android:layout_marginTop="40dp"
@@ -46,6 +46,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/FlightSearchResults_GuidelineEnd"
         app:layout_constraintStart_toStartOf="@+id/FlightSearchResults_GuidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/FlightSearchResults_Tv_Results" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

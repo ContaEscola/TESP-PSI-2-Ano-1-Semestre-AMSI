@@ -52,7 +52,7 @@
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/activity_splash_screen.xml" value="0.264" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/activity_store_details.xml" value="0.5201863354037267" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/activity_support.xml" value="0.24048913043478262" />
-        <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/activity_ticket_info.xml" value="0.72" />
+        <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/activity_ticket_info.xml" value="0.176" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/activity_tickets.xml" value="0.24048913043478262" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/fragment_account.xml" value="0.264" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/fragment_account_loggedin.xml" value="0.24048913043478262" />
@@ -63,6 +63,7 @@
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/fragment_flight_search.xml" value="0.2" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/fragment_restaurants.xml" value="0.152" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/fragment_stores.xml" value="0.24048913043478262" />
+        <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/item_flight_search_result.xml" value="0.2" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/item_restaurant.xml" value="0.4" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/item_restaurant_menu_item.xml" value="0.24048913043478262" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/item_store.xml" value="0.24048913043478262" />
