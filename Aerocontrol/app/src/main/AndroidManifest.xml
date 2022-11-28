@@ -14,15 +14,15 @@
         android:theme="@style/Theme.App"
         tools:targetApi="31">
         <activity
+            android:name=".ui.views.SuportTicketList"
+            android:exported="false"
+            android:parentActivityName=".ui.views.MainActivity"/>
+        <activity
             android:name=".ui.views.TicketInfoActivity"
             android:exported="false"
             android:parentActivityName=".ui.views.TicketsActivity" />
         <activity
             android:name=".ui.views.TicketsActivity"
-            android:exported="false"
-            android:parentActivityName=".ui.views.MainActivity" />
-        <activity
-            android:name=".ui.views.StoreDetailsActivity"
             android:exported="false"
             android:parentActivityName=".ui.views.MainActivity" />
         <activity
