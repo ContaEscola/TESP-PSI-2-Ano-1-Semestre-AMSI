@@ -28,8 +28,8 @@
             android:layout_width="wrap_content"
             android:layout_marginStart="5dp"
             android:text="@string/date"
-            app:layout_constraintStart_toEndOf="@+id/Ticket_Tv_LabelDate"
-            app:layout_constraintTop_toTopOf="@+id/Ticket_Tv_LabelDate" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/Ticket_Tv_LabelDate"
+            app:layout_constraintStart_toEndOf="@+id/Ticket_Tv_LabelDate" />
 
         <TextView
             android:id="@+id/Ticket_Tv_LabelState"
@@ -44,10 +44,10 @@
             android:id="@+id/Ticket_Tv_State"
             style="@style/DataText_SemiBold"
             android:layout_width="wrap_content"
-            android:text="@string/state"
             android:layout_marginStart="5dp"
-            app:layout_constraintStart_toEndOf="@+id/Ticket_Tv_LabelState"
-            app:layout_constraintTop_toTopOf="@+id/Ticket_Tv_LabelState" />
+            android:text="@string/state"
+            app:layout_constraintBaseline_toBaselineOf="@+id/Ticket_Tv_LabelState"
+            app:layout_constraintStart_toEndOf="@+id/Ticket_Tv_LabelState" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
