@@ -32,7 +32,7 @@ public class EditAccountActivity extends AppCompatActivity {
 
         binding.EditAccountTvAccessData.setOnClickListener(v -> replaceFragment(new EditAccessDataFragment()));
 
-        //TODO binding.EditAccountTvPersonalData.setOnClickListener(v -> replaceFragment(new EditPersonalDataFragment()));
+        binding.EditAccountTvPersonalData.setOnClickListener(v -> replaceFragment(new EditPersonalDataFragment()));
     }
 
     private void replaceFragment(Fragment fragment) {

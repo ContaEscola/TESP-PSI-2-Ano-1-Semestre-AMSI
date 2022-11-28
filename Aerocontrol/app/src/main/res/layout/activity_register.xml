@@ -100,7 +100,7 @@
                     style="@style/TextInput"
                     android:layout_width="0dp"
                     android:layout_marginTop="20dp"
-                    android:hint="@string/first_name"
+                    android:hint="@string/first_name_italic"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Register_Tv_PersonalData" />
@@ -110,7 +110,7 @@
                     style="@style/TextInput"
                     android:layout_width="0dp"
                     android:layout_marginTop="15dp"
-                    android:hint="@string/last_name"
+                    android:hint="@string/last_name_italic"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Register_Et_FirstName" />
@@ -130,7 +130,7 @@
                     style="@style/TextInput"
                     android:layout_width="0dp"
                     android:layout_marginTop="15dp"
-                    android:hint="@string/birth"
+                    android:hint="@string/birth_italic"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Register_Et_Gender" />
@@ -140,7 +140,7 @@
                     style="@style/TextInput"
                     android:layout_width="0dp"
                     android:layout_marginTop="15dp"
-                    android:hint="@string/country"
+                    android:hint="@string/country_italic"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Register_Et_birth" />
@@ -150,7 +150,7 @@
                     style="@style/TextInput"
                     android:layout_width="0dp"
                     android:layout_marginTop="15dp"
-                    android:hint="@string/city"
+                    android:hint="@string/city_italic"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Register_Et_Country" />
