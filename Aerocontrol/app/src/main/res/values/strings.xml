@@ -8,6 +8,7 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="email">Email</string>
+    <string name="gender">Género</string>
     <string name="contacts">Contactos</string>
     <string name="access_data">Dados de acesso</string>
     <string name="personal_data">Dados Pessoais</string>
@@ -26,6 +27,7 @@
     <string name="search_italic"><i>Pesquisar</i></string>
     <string name="reset">Repor</string>
     <string name="name">Nome:</string>
+    <string name="more_details">Ver mais detalhes</string>
 
 
     <!--  Frases  -->
@@ -39,7 +41,7 @@
     <string name="password_italic"><i>Password</i></string>
     <string name="first_name"><i>Primeiro Nome</i></string>
     <string name="last_name"><i>Último Nome</i></string>
-    <string name="gender"><i>Género</i></string>
+    <string name="gender_italic"><i>Género</i></string>
     <string name="birth"><i>Data de Nascimento</i></string>
     <string name="country"><i>País</i></string>
     <string name="city"><i>Cidade</i></string>
@@ -52,6 +54,7 @@
     <string name="restaurants">Restaurantes</string>
     <string name="stores">Lojas</string>
     <string name="flights">Voos</string>
+    <string name="passengers">Passageiros</string>
 
 
     <!--  Voos  -->
@@ -83,4 +86,19 @@
     <string name="menu">Ementas</string>
     <string name="store">Store name</string>
 
+    <!--  Ticket Info  -->
+    <string name="date">Data:</string>
+    <string name="state">Estado:</string>
+    <string name="time">Hora</string>
+    <string name="city_lisbon">Lisboa</string>
+    <string name="city_madrid">Madrid</string>
+    <string name="departure">Partida:</string>
+    <string name="arrival">Chegada:</string>
+    <string name="distance">Distância:</string>
+    <string name="place">Terminal:</string>
+    <string name="purchase_date">Data de Compra:</string>
+    <string name="old_price"><strike>500€</strike></string>
+    <string name="new_price">400€</string>
+    <string name="random_date">15/01/2023</string>
+    <string name="seat">Lugar:</string>
 </resources>
