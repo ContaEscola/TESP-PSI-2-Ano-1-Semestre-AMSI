@@ -122,4 +122,13 @@
     <string name="extra_baggage">Bagagem Extra</string>
 
 
+    <!-- Payment Methods  -->
+    <string name="payment_method">Escolha o método de pagamento</string>
+    <string name="credit_card">Cartão de crédito</string>
+    <string name="debit_card">Cartão de débito</string>
+    <string name="mbway">MBWay</string>
+    <string name="mb">Multibanco</string>
+    <string name="paypal">PayPal</string>
+
+
 </resources>
