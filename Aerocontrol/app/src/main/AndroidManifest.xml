@@ -20,6 +20,7 @@
         <activity
             android:name=".ui.views.SupportTicketListActivity"
             android:exported="false"
+            android:launchMode="singleTop"
             android:parentActivityName=".ui.views.MainActivity" />
         <activity
             android:name=".ui.views.TicketInfoActivity"

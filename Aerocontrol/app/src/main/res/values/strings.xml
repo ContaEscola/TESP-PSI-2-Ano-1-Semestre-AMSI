@@ -106,5 +106,6 @@
     <string name="new_price">400€</string>
     <string name="random_date">15/01/2023</string>
     <string name="seat">Lugar:</string>
+    <string name="message_support_ticket">Bom dia, perdi o item x dia 1/1/2002</string>
 
 </resources>
