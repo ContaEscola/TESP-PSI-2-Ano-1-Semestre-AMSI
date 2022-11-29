@@ -32,7 +32,7 @@
     <string name="search">Pesquisar</string>
     <string name="search_italic"><i>Pesquisar</i></string>
     <string name="reset">Repor</string>
-    <string name="name">Nome:</string>
+    <string name="name">Nome</string>
     <string name="more_details">Ver mais detalhes</string>
     <string name="save">Guardar</string>
     <string name="reserve">Reservar</string>
@@ -129,6 +129,14 @@
     <string name="mbway">MBWay</string>
     <string name="mb">Multibanco</string>
     <string name="paypal">PayPal</string>
+    <string name="insert_data">Preencha os dados</string>
+    <string name="card_type">Tipo de cartão</string>
+    <string name="surname">Apelido</string>
+    <string name="number_card">Número do cartão</string>
+    <string name="security_code">Código de Segurança</string>
+    <string name="validation_date">Data de Validade (Mês/Ano)</string>
+    <string name="accept_terms">Li e aceito integralmente os termos e condições.</string>
+    <string name="confirm">Confirmar</string>
 
 
 </resources>

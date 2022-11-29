@@ -49,6 +49,7 @@
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/activity_flight_ticket_passengers.xml" value="0.24048913043478262" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/activity_payment_card.xml" value="0.264" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/activity_payment_method.xml" value="0.1585144927536232" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/activity_register.xml" value="0.24048913043478262" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/activity_reset_password.xml" value="0.24048913043478262" />
@@ -58,12 +59,14 @@
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/activity_support.xml" value="0.24048913043478262" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/activity_ticket_info.xml" value="0.176" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/activity_tickets.xml" value="0.24048913043478262" />
+        <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/content_payment.xml" value="0.24048913043478262" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/fragment_account.xml" value="0.264" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/fragment_account_loggedin.xml" value="0.24048913043478262" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/fragment_account_loggedout.xml" value="0.24048913043478262" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/fragment_edit_access_data.xml" value="0.24048913043478262" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/fragment_edit_contacts.xml" value="0.264" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/fragment_edit_personal_data.xml" value="0.24048913043478262" />
+        <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/fragment_first.xml" value="0.24048913043478262" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/fragment_flight_search.xml" value="0.2" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/fragment_restaurants.xml" value="0.152" />
         <entry key="..\:/Users/rafae/OneDrive/Documentos/AMSI/projetofinal/Aerocontrol/app/src/main/res/layout/fragment_stores.xml" value="0.24048913043478262" />
