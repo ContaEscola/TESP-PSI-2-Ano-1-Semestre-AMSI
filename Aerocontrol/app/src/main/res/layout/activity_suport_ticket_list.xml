@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorSurface"
-    tools:context=".ui.views.SupportActivity">
+    tools:context=".ui.views.SupportTicketListActivity">
 
     <include
         android:id="@+id/SupportTicket_Toolbar"
@@ -19,6 +19,7 @@
         style="@style/PrimaryTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="@string/my_tickets_support"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,33 +31,33 @@
         android:layout_width="wrap_content"
         android:layout_marginTop="35dp"
         android:text="@string/new_ticket"
-        app:layout_constraintEnd_toStartOf="@+id/SuportTicket_GuidelineEnd"
-        app:layout_constraintStart_toStartOf="@+id/SuportTicket_GuidelineStart"
+        app:layout_constraintEnd_toStartOf="@+id/SupportTicket_GuidelineEnd"
+        app:layout_constraintStart_toStartOf="@+id/SupportTicket_GuidelineStart"
         app:layout_constraintTop_toBottomOf="@+id/SupportTicket_Tv_Title" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/SuportTicket_GuidelineStart"
+        android:id="@+id/SupportTicket_GuidelineStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="24dp" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/SuportTicket_GuidelineEnd"
+        android:id="@+id/SupportTicket_GuidelineEnd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_end="24dp" />
 
     <ListView
-        android:id="@+id/SuportTicket_Lv_Tickets"
+        android:id="@+id/SupportTicket_Lv_Tickets"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="35dp"
         android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/SuportTicket_GuidelineEnd"
-        app:layout_constraintStart_toStartOf="@+id/SuportTicket_GuidelineStart"
+        app:layout_constraintEnd_toStartOf="@+id/SupportTicket_GuidelineEnd"
+        app:layout_constraintStart_toStartOf="@+id/SupportTicket_GuidelineStart"
         app:layout_constraintTop_toBottomOf="@+id/SupportTicket_Bt_New"
         android:divider="@color/transparent"
         android:dividerHeight="25dp"/>

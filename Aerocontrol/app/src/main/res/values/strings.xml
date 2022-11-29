@@ -30,6 +30,7 @@
     <string name="more_details">Ver mais detalhes</string>
     <string name="new_ticket">Novo Ticket</string>
     <string name="see_item">Ver Item</string>
+    <string name="btn_close_support_ticket">Fechar ticket</string>
 
 
     <!--  Frases  -->
@@ -78,6 +79,7 @@
     <string name="my_tickets_support">Meus Tickets</string>
     <string name="lost_and_found">Perdidos e achados</string>
     <string name="resetpass">Repor a sua password</string>
+    <string name="my_tickets_info_support">Ticket nº250 - Camisola Perdida</string>
 
 
     <!-- Restaurants & Stores -->
