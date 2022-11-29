@@ -38,12 +38,14 @@
     <string name="reserve">Reservar</string>
     <string name="random_number">132</string>
     <string name="next">Avançar</string>
+    <string name="confirm">Confirmar</string>
 
 
     <!--  Frases  -->
     <string name="random_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s</string>
     <string name="create_account_subtext">Crie a sua conta para começar a reservar voos e muito mais.</string>
     <string name="splash_screen_text">Reserve já o seu próximo voo!</string>
+    <string name="accept_terms">Li e aceito integralmente os termos e condições.</string>
 
 
     <!--  Dados User  -->
@@ -129,14 +131,14 @@
     <string name="mbway">MBWay</string>
     <string name="mb">Multibanco</string>
     <string name="paypal">PayPal</string>
+
+    <!--  Payment Card  -->
     <string name="insert_data">Preencha os dados</string>
     <string name="card_type">Tipo de cartão</string>
     <string name="surname">Apelido</string>
     <string name="number_card">Número do cartão</string>
     <string name="security_code">Código de Segurança</string>
     <string name="validation_date">Data de Validade (Mês/Ano)</string>
-    <string name="accept_terms">Li e aceito integralmente os termos e condições.</string>
-    <string name="confirm">Confirmar</string>
 
 
 </resources>
