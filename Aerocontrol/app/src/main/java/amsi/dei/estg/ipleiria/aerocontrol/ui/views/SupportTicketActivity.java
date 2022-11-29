@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 
-public class SupportTicketListActivity extends AppCompatActivity {
+public class SupportTicketActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

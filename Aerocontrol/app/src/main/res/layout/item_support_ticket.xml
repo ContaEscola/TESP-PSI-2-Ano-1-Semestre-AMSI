@@ -11,7 +11,7 @@
         android:id="@+id/SupportTicket_Tv_Ticket"
         style="@style/DataText_Medium"
         android:layout_width="wrap_content"
-        android:text="Ticket nº234 - Camisola Perdida"
+        android:text="@string/support_ticket_example"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Estado:"
+        android:text="@string/state"
         style="@style/DataText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SupportTicket_Tv_Ticket" />
@@ -32,32 +32,31 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
-        android:text="Concluído"
+        android:text="@string/state_example"
         app:layout_constraintStart_toEndOf="@+id/SupportTicket_Tv_LabelState"
         app:layout_constraintTop_toBottomOf="@+id/SupportTicket_Tv_Ticket" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/SupportTicket_Bt_Item"
         style="@style/SecondaryButtonOutline"
         android:layout_width="0dp"
         android:layout_marginTop="20dp"
         android:text="@string/see_item"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SupportTicket_Tv_State" />
 
     <Button
+        android:id="@+id/SupportTicket_Bt_Details"
         style="@style/PrimaryButton"
         android:layout_width="0dp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="16dp"
         android:text="@string/more_details"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/SupportTicket_Bt_Item" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

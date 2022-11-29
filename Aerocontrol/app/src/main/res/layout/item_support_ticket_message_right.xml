@@ -11,7 +11,7 @@
         android:id="@+id/SupportTicketMessage_Tv_Name"
         style="@style/DataText_Light"
         android:layout_width="wrap_content"
-        android:text="Admin"
+        android:text="@string/username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

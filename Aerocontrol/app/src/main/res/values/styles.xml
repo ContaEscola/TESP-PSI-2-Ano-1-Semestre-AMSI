@@ -190,6 +190,7 @@
 
     <!-- Button - Butão Vermelho -->
     <style name="RedButton" parent="BaseButton">
+        <item name="android:background">@drawable/button_red</item>
         <item name="backgroundTint">?attr/colorError</item>
         <item name="android:textColor">?attr/colorOnError</item>
     </style>

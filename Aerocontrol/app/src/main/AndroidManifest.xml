@@ -16,9 +16,9 @@
         <activity
             android:name=".ui.views.SupportTicketInfoActivity"
             android:exported="false"
-            android:parentActivityName=".ui.views.SupportTicketListActivity" />
+            android:parentActivityName=".ui.views.SupportTicketActivity" />
         <activity
-            android:name=".ui.views.SupportTicketListActivity"
+            android:name=".ui.views.SupportTicketActivity"
             android:exported="false"
             android:launchMode="singleTop"
             android:parentActivityName=".ui.views.MainActivity" />

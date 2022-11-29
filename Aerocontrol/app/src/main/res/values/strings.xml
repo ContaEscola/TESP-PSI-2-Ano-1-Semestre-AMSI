@@ -91,6 +91,7 @@
     <string name="menu">Ementas</string>
     <string name="store">Store name</string>
 
+
     <!--  Ticket Info  -->
     <string name="date">Data:</string>
     <string name="state">Estado:</string>
@@ -106,6 +107,12 @@
     <string name="new_price">400€</string>
     <string name="random_date">15/01/2023</string>
     <string name="seat">Lugar:</string>
+
+    
+    <!--  Suporte Perdidos e Achados  -->
     <string name="message_support_ticket">Bom dia, perdi o item x dia 1/1/2002</string>
+    <string name="state_example">Concluído</string>
+    <string name="support_ticket_example">Ticket nº234 - Camisola Perdida</string>
+    <string name="message_hint"><i>Insira aqui a sua mensagem</i></string>
 
 </resources>

@@ -13,10 +13,10 @@
 
     <TextView
         android:id="@+id/SupportTicketInfo_Tv_Title"
-        style="@style/PrimaryTitle"
+        style="@style/SecondTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:text="@string/my_tickets_info_support"
         app:layout_constraintEnd_toStartOf="@+id/SupportTicketInfo_GuidelineEnd"
         app:layout_constraintStart_toStartOf="@+id/SupportTicketInfo_GuidelineStart"
@@ -26,48 +26,46 @@
         android:id="@+id/SupportTicketInfo_Tv_LabelState"
         style="@style/DataText_Medium"
         android:layout_width="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Estado:"
+        android:text="@string/state"
         app:layout_constraintEnd_toStartOf="@+id/SupportTicketInfo_GuidelineEnd"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="@+id/SupportTicketInfo_GuidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/SupportTicketInfo_Tv_Title" />
+        app:layout_constraintTop_toTopOf="@+id/SupportTicketInfo_Tv_State" />
 
     <TextView
         android:id="@+id/SupportTicketInfo_Tv_State"
         style="@style/DataText_MediumItalic"
         android:layout_width="wrap_content"
         android:layout_marginStart="2dp"
-        android:layout_marginTop="20dp"
-        android:text="Concluído"
-        app:layout_constraintStart_toEndOf="@+id/SupportTicketInfo_Tv_LabelState"
-        app:layout_constraintTop_toBottomOf="@+id/SupportTicketInfo_Tv_Title" />
+        android:text="@string/state_example"
+        app:layout_constraintBaseline_toBaselineOf="@id/SupportTicketInfo_Bt_Close"
+        app:layout_constraintStart_toEndOf="@+id/SupportTicketInfo_Tv_LabelState" />
 
     <ListView
         android:id="@+id/SupportTicketInfo_Lv_Tickets"
-        android:background="@drawable/message_border"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="48dp"
+        android:background="@drawable/message_border"
         android:divider="@color/transparent"
-        android:dividerHeight="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        android:dividerHeight="40dp"
+        android:layout_marginTop="35dp"
+        app:layout_constraintBottom_toTopOf="@+id/SupportTicketInfo_ConsLayout_Message"
         app:layout_constraintEnd_toStartOf="@+id/SupportTicketInfo_GuidelineEnd"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/SupportTicketInfo_GuidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/SupportTicketInfo_Tv_State" />
+        app:layout_constraintTop_toBottomOf="@+id/SupportTicketInfo_Bt_Close" />
 
     <Button
         android:id="@+id/SupportTicketInfo_Bt_Close"
+        style="@style/RedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/RedButton"
         android:text="@string/btn_close_support_ticket"
-        app:layout_constraintBaseline_toBaselineOf="@id/SupportTicketInfo_Tv_State"
-        app:layout_constraintEnd_toStartOf="@+id/SupportTicketInfo_GuidelineEnd" />
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/SupportTicketInfo_GuidelineEnd"
+        app:layout_constraintTop_toBottomOf="@+id/SupportTicketInfo_Tv_Title" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/SupportTicketInfo_ConsLayout_Message"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
@@ -81,17 +79,19 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
+            android:hint="@string/message_hint"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageButton"
+            app:layout_constraintEnd_toStartOf="@+id/SupportTicketInfo_IBt_Send"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:background="@drawable/message_edit_text_border"/>
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/SupportTicketInfo_IBt_Send"
             style="@style/PrimaryButton"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="0dp"
+            android:scaleType="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
