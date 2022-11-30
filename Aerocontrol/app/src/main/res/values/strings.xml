@@ -31,6 +31,7 @@
     <string name="new_ticket">Novo Ticket</string>
     <string name="see_item">Ver Item</string>
     <string name="btn_close_support_ticket">Fechar ticket</string>
+    <string name="cancel">Cancelar</string>
 
 
     <!--  Frases  -->
@@ -114,5 +115,6 @@
     <string name="state_example">Concluído</string>
     <string name="support_ticket_example">Ticket nº234 - Camisola Perdida</string>
     <string name="message_hint"><i>Insira aqui a sua mensagem</i></string>
+
 
 </resources>

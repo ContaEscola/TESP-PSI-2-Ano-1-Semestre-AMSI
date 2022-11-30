@@ -11,14 +11,24 @@
         android:id="@+id/TicketInfo_Toolbar"
         layout="@layout/toolbar"/>
 
+    <Button
+        android:id="@+id/button"
+        style="@style/RedButton"
+        android:layout_width="0dp"
+        android:text="@string/cancel"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toStartOf="@+id/TicketInfo_GuidelineEnd"
+        app:layout_constraintStart_toStartOf="@+id/TicketInfo_GuidelineStart"
+        app:layout_constraintTop_toBottomOf="@+id/TicketInfo_Toolbar" />
+
     <TextView
         android:id="@+id/TicketInfo_Tv_LabelDate"
         style="@style/DataText"
         android:layout_width="wrap_content"
         android:text="@string/date"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="35dp"
         app:layout_constraintStart_toStartOf="@+id/TicketInfo_GuidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/TicketInfo_Toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <TextView
         android:id="@+id/TicketInfo_Tv_Date"
