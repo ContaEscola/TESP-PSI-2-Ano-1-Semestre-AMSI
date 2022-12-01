@@ -23,7 +23,7 @@
 
     <!-- Random -->
     <string name="save_session">Guardar sessão</string>
-    <string name="forgot_password"><u>Esqueceu da password?</u></string>
+    <string name="forgot_password"><u>Esqueceu-se da password?</u></string>
     <string name="no_account"><u>Não tem conta?</u></string>
     <string name="message">Mensagem</string>
     <string name="account">Conta</string>
@@ -32,15 +32,20 @@
     <string name="search">Pesquisar</string>
     <string name="search_italic"><i>Pesquisar</i></string>
     <string name="reset">Repor</string>
-    <string name="name">Nome:</string>
+    <string name="name">Nome</string>
     <string name="more_details">Ver mais detalhes</string>
     <string name="save">Guardar</string>
+    <string name="reserve">Reservar</string>
+    <string name="random_number">132</string>
+    <string name="next">Avançar</string>
+    <string name="confirm">Confirmar</string>
 
 
     <!--  Frases  -->
     <string name="random_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s</string>
     <string name="create_account_subtext">Crie a sua conta para começar a reservar voos e muito mais.</string>
     <string name="splash_screen_text">Reserve já o seu próximo voo!</string>
+    <string name="accept_terms">Li e aceito integralmente os termos e condições.</string>
 
 
     <!--  Dados User  -->
@@ -62,6 +67,7 @@
     <string name="stores">Lojas</string>
     <string name="flights">Voos</string>
     <string name="passengers">Passageiros</string>
+    <string name="company">Companhia</string>
 
 
     <!--  Voos  -->
@@ -111,4 +117,26 @@
     <string name="seat">Lugar:</string>
 
 
+    <!-- Search Ticket Info  -->
+    <string name="results_found">x Resultados Encontrados</string>
+    <string name="available_seats">Lugares disponíveis:</string>
+    <string name="passengers_data">Insira os dados dos passageiros</string>
+    <string name="extra_baggage">Bagagem Extra</string>
+
+
+    <!-- Payment Methods  -->
+    <string name="payment_method">Escolha o método de pagamento</string>
+    <string name="credit_card">Cartão de crédito</string>
+    <string name="debit_card">Cartão de débito</string>
+    <string name="mbway">MBWay</string>
+    <string name="mb">Multibanco</string>
+    <string name="paypal">PayPal</string>
+
+    <!--  Payment Card  -->
+    <string name="insert_data">Preencha os dados</string>
+    <string name="card_type">Tipo de cartão</string>
+    <string name="surname">Apelido</string>
+    <string name="number_card">Número do cartão</string>
+    <string name="security_code">Código de Segurança</string>
+    <string name="validation_date">Data de Validade (Mês/Ano)</string>
 </resources>

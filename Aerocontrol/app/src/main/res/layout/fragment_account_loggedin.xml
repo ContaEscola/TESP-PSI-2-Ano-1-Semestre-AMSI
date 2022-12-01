@@ -75,7 +75,6 @@
                 app:srcCompat="@drawable/ic_person" />
 
             <TextView
-                android:id="@+id/textView"
                 style="@style/DataText_Light"
                 android:layout_width="wrap_content"
                 android:text="@string/edit_account"
