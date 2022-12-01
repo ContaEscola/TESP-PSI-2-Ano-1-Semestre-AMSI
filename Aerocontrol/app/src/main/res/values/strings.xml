@@ -139,6 +139,4 @@
     <string name="number_card">Número do cartão</string>
     <string name="security_code">Código de Segurança</string>
     <string name="validation_date">Data de Validade (Mês/Ano)</string>
-
-
 </resources>

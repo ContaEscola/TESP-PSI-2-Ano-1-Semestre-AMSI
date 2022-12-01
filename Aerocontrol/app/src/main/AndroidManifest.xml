@@ -46,10 +46,6 @@
             android:launchMode="singleTop"
             android:parentActivityName=".ui.views.MainActivity" />
         <activity
-            android:name=".ui.views.StoreDetailsActivity"
-            android:exported="false"
-            android:parentActivityName=".ui.views.MainActivity" />
-        <activity
             android:name=".ui.views.RestaurantDetailsActivity"
             android:exported="false"
             android:parentActivityName=".ui.views.MainActivity" />
