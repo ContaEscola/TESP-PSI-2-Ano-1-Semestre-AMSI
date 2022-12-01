@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
+    tools:context=".ui.views.EditAccessDataFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/EditAccessData_Tv_Username"
+            style="@style/InputLabel"
+            android:layout_width="wrap_content"
+            android:text="@string/username"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/EditAccessData_Et_Username"
+            style="@style/TextInput"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/EditAccessData_Tv_Username" />
+
+        <TextView
+            android:id="@+id/EditAccessData_Tv_Password"
+            style="@style/InputLabel"
+            android:layout_width="wrap_content"
+            android:text="@string/password"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/EditAccessData_Et_Username" />
+
+        <EditText
+            android:id="@+id/EditAccessData_Et_Password"
+            style="@style/PasswordInput"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/EditAccessData_Tv_Password" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
