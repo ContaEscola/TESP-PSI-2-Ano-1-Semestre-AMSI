@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/listview_flight_result_item_border"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/FlightSearchResults_Tv_Company"
+        android:layout_width="wrap_content"
+        style="@style/DataText"
+        android:text="@string/company"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/FlightSearchResults_Tv_SeatsAvailable"
+        style="@style/DataText"
+        android:layout_width="0dp"
+        android:text="@string/available_seats"
+        android:layout_marginEnd="3dp"
+        app:layout_constraintEnd_toStartOf="@+id/FlightSearchResults_Tv_Seats"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/FlightSearchResults_Tv_Seats"
+        style="@style/DataText_SemiBold"
+        android:layout_width="0dp"
+        android:text="@string/random_number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="@+id/FlightSearchResults_Tv_SeatsAvailable"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/FlightSearchResults_Tv_Price"
+        style="@style/DataText_Bold"
+        android:layout_width="0dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/new_price"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FlightSearchResults_Tv_Seats" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/FlightSearchResults_ConsLayout_Right"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        app:layout_constraintEnd_toStartOf="@+id/FlightSearchResults_Tv_SeatsAvailable"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FlightSearchResults_Tv_Company">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/FlightSearchResults_ConsLayout_DepartureDetails"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toStartOf="@+id/FlightSearchResults_Iv_HoursIcon"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/FlightSearchResults_Tv_DepartureTime"
+                style="@style/DataText_Medium"
+                android:layout_width="0dp"
+                android:text="@string/time"
+                android:textAlignment="textEnd"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/FlightSearchResults_Tv_DepartureCity"
+                style="@style/DataText_Light"
+                android:layout_width="0dp"
+                android:layout_marginTop="5dp"
+                android:maxEms="3"
+                android:text="@string/city_lisbon"
+                android:textAlignment="textEnd"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/FlightSearchResults_Tv_DepartureTime" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <ImageView
+            android:id="@+id/FlightSearchResults_Iv_HoursIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="1dp"
+            app:layout_constraintEnd_toStartOf="@+id/FlightSearchResults_ConsLayout_ArrivalDetails"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/FlightSearchResults_ConsLayout_DepartureDetails"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_arrow_forward" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/FlightSearchResults_ConsLayout_ArrivalDetails"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/FlightSearchResults_Iv_HoursIcon"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/FlightSearchResults_Tv_ArrivalTime"
+                style="@style/DataText_Medium"
+                android:layout_width="0dp"
+                android:text="@string/time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/FlightSearchResults_Tv_ArrivalCity"
+                style="@style/DataText_Light"
+                android:layout_width="0dp"
+                android:layout_marginTop="5dp"
+                android:maxEms="3"
+                android:text="@string/city_madrid"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/FlightSearchResults_Tv_ArrivalTime" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/FlightSearchResults_Bt_Reserve"
+        style="@style/SecondaryButton"
+        android:width="170dp"
+        android:layout_width="wrap_content"
+        android:text="@string/reserve"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FlightSearchResults_ConsLayout_Right" />
+</androidx.constraintlayout.widget.ConstraintLayout>

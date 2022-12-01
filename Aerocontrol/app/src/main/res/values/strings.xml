@@ -13,11 +13,17 @@
     <string name="access_data">Dados de acesso</string>
     <string name="personal_data">Dados Pessoais</string>
     <string name="phone">Telemóvel</string>
+    <string name="phone_contact">Contacto telefónico</string>
+    <string name="first_name">Primeiro Nome</string>
+    <string name="last_name">Último Nome</string>
+    <string name="birth">Data de Nascimento</string>
+    <string name="country">País</string>
+    <string name="city">Cidade</string>
 
 
     <!-- Random -->
     <string name="save_session">Guardar sessão</string>
-    <string name="forgot_password"><u>Esqueceu da password?</u></string>
+    <string name="forgot_password"><u>Esqueceu-se da password?</u></string>
     <string name="no_account"><u>Não tem conta?</u></string>
     <string name="message">Mensagem</string>
     <string name="account">Conta</string>
@@ -26,29 +32,32 @@
     <string name="search">Pesquisar</string>
     <string name="search_italic"><i>Pesquisar</i></string>
     <string name="reset">Repor</string>
-    <string name="name">Nome:</string>
+    <string name="name">Nome</string>
     <string name="more_details">Ver mais detalhes</string>
-    <string name="new_ticket">Novo Ticket</string>
-    <string name="see_item">Ver Item</string>
-    <string name="btn_close_support_ticket">Fechar ticket</string>
-    <string name="cancel">Cancelar</string>
+    <string name="save">Guardar</string>
+    <string name="reserve">Reservar</string>
+    <string name="random_number">132</string>
+    <string name="next">Avançar</string>
+    <string name="confirm">Confirmar</string>
+     string name="cancel">Cancelar</string>
 
 
     <!--  Frases  -->
     <string name="random_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s</string>
     <string name="create_account_subtext">Crie a sua conta para começar a reservar voos e muito mais.</string>
     <string name="splash_screen_text">Reserve já o seu próximo voo!</string>
+    <string name="accept_terms">Li e aceito integralmente os termos e condições.</string>
 
 
     <!--  Dados User  -->
     <string name="username_italic"><i>Username</i></string>
     <string name="password_italic"><i>Password</i></string>
-    <string name="first_name"><i>Primeiro Nome</i></string>
-    <string name="last_name"><i>Último Nome</i></string>
+    <string name="first_name_italic"><i>Primeiro Nome</i></string>
+    <string name="last_name_italic"><i>Último Nome</i></string>
     <string name="gender_italic"><i>Género</i></string>
-    <string name="birth"><i>Data de Nascimento</i></string>
-    <string name="country"><i>País</i></string>
-    <string name="city"><i>Cidade</i></string>
+    <string name="birth_italic"><i>Data de Nascimento</i></string>
+    <string name="country_italic"><i>País</i></string>
+    <string name="city_italic"><i>Cidade</i></string>
     <string name="email_italic"><i>Email</i></string>
     <string name="phone_code"><i>Indicativo</i></string>
     <string name="phone_italic"><i>Telemóvel</i></string>
@@ -59,6 +68,7 @@
     <string name="stores">Lojas</string>
     <string name="flights">Voos</string>
     <string name="passengers">Passageiros</string>
+    <string name="company">Companhia</string>
 
 
     <!--  Voos  -->
@@ -97,7 +107,7 @@
     <string name="date">Data:</string>
     <string name="state">Estado:</string>
     <string name="time">Hora</string>
-    <string name="city_lisbon">Lisboa</string>
+    <string name="city_lisbon">Lisbon</string>
     <string name="city_madrid">Madrid</string>
     <string name="departure">Partida:</string>
     <string name="arrival">Chegada:</string>
@@ -109,12 +119,39 @@
     <string name="random_date">15/01/2023</string>
     <string name="seat">Lugar:</string>
 
+
+    <!-- Search Ticket Info  -->
+    <string name="results_found">x Resultados Encontrados</string>
+    <string name="available_seats">Lugares disponíveis:</string>
+    <string name="passengers_data">Insira os dados dos passageiros</string>
+    <string name="extra_baggage">Bagagem Extra</string>
+
+
+    <!-- Payment Methods  -->
+    <string name="payment_method">Escolha o método de pagamento</string>
+    <string name="credit_card">Cartão de crédito</string>
+    <string name="debit_card">Cartão de débito</string>
+    <string name="mbway">MBWay</string>
+    <string name="mb">Multibanco</string>
+    <string name="paypal">PayPal</string>
+
+    <!--  Payment Card  -->
+    <string name="insert_data">Preencha os dados</string>
+    <string name="card_type">Tipo de cartão</string>
+    <string name="surname">Apelido</string>
+    <string name="number_card">Número do cartão</string>
+    <string name="security_code">Código de Segurança</string>
+    <string name="validation_date">Data de Validade (Mês/Ano)</string>
     
     <!--  Suporte Perdidos e Achados  -->
     <string name="message_support_ticket">Bom dia, perdi o item x dia 1/1/2002</string>
     <string name="state_example">Concluído</string>
     <string name="support_ticket_example">Ticket nº234 - Camisola Perdida</string>
     <string name="message_hint"><i>Insira aqui a sua mensagem</i></string>
+    <string name="new_ticket">Novo Ticket</string>
+    <string name="see_item">Ver Item</string>
+    <string name="btn_close_support_ticket">Fechar ticket</string>
+   
 
 
 </resources>

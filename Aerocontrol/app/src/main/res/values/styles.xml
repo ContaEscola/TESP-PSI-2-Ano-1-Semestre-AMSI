@@ -137,7 +137,7 @@
     </style>
 
     <!-- CheckBox -->
-    <style name="CheckBox">
+    <style name="CheckBox" parent="DataText">
         <item name="android:layout_width"> wrap_content </item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:buttonTint">?attr/colorPrimary</item>

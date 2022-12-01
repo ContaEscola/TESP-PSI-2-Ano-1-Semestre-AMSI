@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
+    tools:context=".ui.views.FlightTicketPassengers">
+
+    <include
+        android:id="@+id/FlightTicketPassengers_Toolbar"
+        layout="@layout/toolbar"/>
+
+    <TextView
+        android:id="@+id/FlightTicketPassengers_Tv_Title"
+        style="@style/SecondTitle"
+        android:layout_width="0dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/passengers_data"
+        app:layout_constraintEnd_toStartOf="@+id/FlightTicketPassengers_GuidelineEnd"
+        app:layout_constraintStart_toStartOf="@+id/FlightTicketPassengers_GuidelineStart"
+        app:layout_constraintTop_toBottomOf="@+id/FlightTicketPassengers_Toolbar" />
+
+    <ListView
+        android:id="@+id/FlightTicketPassengers_Lv_Passengers"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="20dp"
+        android:divider="@color/transparent"
+        android:dividerHeight="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/FlightTicketPassengers_Bt_Next"
+        app:layout_constraintEnd_toStartOf="@+id/FlightTicketPassengers_GuidelineEnd"
+        app:layout_constraintStart_toStartOf="@+id/FlightTicketPassengers_GuidelineStart"
+        app:layout_constraintTop_toBottomOf="@+id/FlightTicketPassengers_Tv_Title" />
+
+    <Button
+        android:id="@+id/FlightTicketPassengers_Bt_Next"
+        style="@style/PrimaryButton"
+        android:layout_width="0dp"
+        android:text="@string/next"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/FlightTicketPassengers_GuidelineEnd"
+        app:layout_constraintStart_toStartOf="@+id/FlightTicketPassengers_GuidelineStart" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/FlightTicketPassengers_GuidelineStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="24dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/FlightTicketPassengers_GuidelineEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="24dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

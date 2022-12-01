@@ -14,6 +14,25 @@
         android:theme="@style/Theme.App"
         tools:targetApi="31">
         <activity
+            android:name=".ui.views.PaymentActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.views.PaymentMethodActivity" />
+        <activity
+            android:name=".ui.views.PaymentMethodActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.views.FlightTicketPassengers" />
+        <activity
+            android:name=".ui.views.FlightTicketPassengers"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.views.FlightSearchResultsActivity" />
+        <activity
+            android:name=".ui.views.FlightSearchResultsActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.views.MainActivity" />
+        <activity    
             android:name=".ui.views.SupportTicketInfoActivity"
             android:exported="false"
             android:parentActivityName=".ui.views.SupportTicketActivity" />
@@ -23,12 +42,17 @@
             android:launchMode="singleTop"
             android:parentActivityName=".ui.views.MainActivity" />
         <activity
+            android:name=".ui.views.EditAccountActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.views.MainActivity" />
+        <activity
             android:name=".ui.views.TicketInfoActivity"
             android:exported="false"
             android:parentActivityName=".ui.views.TicketsActivity" />
         <activity
             android:name=".ui.views.TicketsActivity"
             android:exported="false"
+            android:launchMode="singleTop"
             android:parentActivityName=".ui.views.MainActivity" />
         <activity
             android:name=".ui.views.StoreDetailsActivity"

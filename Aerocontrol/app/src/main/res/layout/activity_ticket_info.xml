@@ -198,7 +198,7 @@
         app:layout_constraintEnd_toStartOf="@+id/TicketInfo_GuidelineEnd" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/TicketInfo_Tv_Passengers"
         style="@style/SecondTitle"
         android:layout_width="wrap_content"
         android:layout_marginTop="25dp"
@@ -218,7 +218,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/TicketInfo_GuidelineEnd"
         app:layout_constraintStart_toStartOf="@+id/TicketInfo_GuidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/TicketInfo_Tv_Passengers" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/TicketInfo_GuidelineStart"
