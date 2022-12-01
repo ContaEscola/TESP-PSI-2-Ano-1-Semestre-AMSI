@@ -12,7 +12,7 @@ public class SupportTicketActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_suport_ticket_list);
+        setContentView(R.layout.activity_support_ticket_list);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.SupportTicket_Toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);

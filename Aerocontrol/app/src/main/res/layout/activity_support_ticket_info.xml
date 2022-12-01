@@ -49,6 +49,7 @@
         android:divider="@color/transparent"
         android:dividerHeight="40dp"
         android:layout_marginTop="35dp"
+        android:paddingVertical="20dp"
         app:layout_constraintBottom_toTopOf="@+id/SupportTicketInfo_ConsLayout_Message"
         app:layout_constraintEnd_toStartOf="@+id/SupportTicketInfo_GuidelineEnd"
         app:layout_constraintStart_toStartOf="@+id/SupportTicketInfo_GuidelineStart"
@@ -89,7 +90,7 @@
         <ImageButton
             android:id="@+id/SupportTicketInfo_IBt_Send"
             style="@style/PrimaryButton"
-            android:layout_width="50dp"
+            android:layout_width="55dp"
             android:layout_height="0dp"
             android:scaleType="center"
             app:layout_constraintBottom_toBottomOf="parent"
