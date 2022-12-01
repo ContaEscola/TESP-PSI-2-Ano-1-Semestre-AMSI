@@ -71,6 +71,11 @@
         <item name="android:fontFamily">@font/montserrat_medium</item>
     </style>
 
+    <!-- TextViews - TextViews dos dados Italic -->
+    <style name="DataText_MediumItalic" parent="DataText">
+        <item name="android:fontFamily">@font/montserrat_medium_italic</item>
+    </style>
+
     <!-- TextViews - TextViews que dá redirect Sublinhado -->
     <style name="RedirectText" parent="DataText">
         <item name="android:letterSpacing">.1</item>
@@ -145,10 +150,10 @@
     <!-- Button - Base button -->
     <style name="BaseButton" parent="android:style/Widget.Button">
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingStart">10dp</item>
-        <item name="android:paddingEnd">10dp</item>
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingStart">15dp</item>
+        <item name="android:paddingEnd">15dp</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingBottom">2dp</item>
         <item name="android:textSize">16sp</item>
         <item name="android:letterSpacing">.1</item>
         <item name="android:textAlignment">center</item>
@@ -185,7 +190,8 @@
 
     <!-- Button - Butão Vermelho -->
     <style name="RedButton" parent="BaseButton">
-        <item name="android:backgroundTint">?attr/colorError</item>
+        <item name="android:background">@drawable/button_red</item>
+        <item name="backgroundTint">?attr/colorError</item>
         <item name="android:textColor">?attr/colorOnError</item>
     </style>
 

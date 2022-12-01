@@ -32,6 +32,15 @@
             android:exported="false"
             android:launchMode="singleTop"
             android:parentActivityName=".ui.views.MainActivity" />
+        <activity    
+            android:name=".ui.views.SupportTicketInfoActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.views.SupportTicketActivity" />
+        <activity
+            android:name=".ui.views.SupportTicketActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.views.MainActivity" />
         <activity
             android:name=".ui.views.EditAccountActivity"
             android:exported="false"
@@ -44,6 +53,10 @@
             android:name=".ui.views.TicketsActivity"
             android:exported="false"
             android:launchMode="singleTop"
+            android:parentActivityName=".ui.views.MainActivity" />
+        <activity
+            android:name=".ui.views.StoreDetailsActivity"
+            android:exported="false"
             android:parentActivityName=".ui.views.MainActivity" />
         <activity
             android:name=".ui.views.RestaurantDetailsActivity"

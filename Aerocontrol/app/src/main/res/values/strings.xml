@@ -39,6 +39,7 @@
     <string name="random_number">132</string>
     <string name="next">Avançar</string>
     <string name="confirm">Confirmar</string>
+     string name="cancel">Cancelar</string>
 
 
     <!--  Frases  -->
@@ -86,8 +87,10 @@
     <!--  Titulos  -->
     <string name="edit_account">Editar dados da conta</string>
     <string name="my_tickets">Meus Bilhetes</string>
+    <string name="my_tickets_support">Meus Tickets</string>
     <string name="lost_and_found">Perdidos e achados</string>
     <string name="resetpass">Repor a sua password</string>
+    <string name="my_tickets_info_support">Ticket nº250 - Camisola Perdida</string>
 
 
     <!-- Restaurants & Stores -->
@@ -139,4 +142,16 @@
     <string name="number_card">Número do cartão</string>
     <string name="security_code">Código de Segurança</string>
     <string name="validation_date">Data de Validade (Mês/Ano)</string>
+    
+    <!--  Suporte Perdidos e Achados  -->
+    <string name="message_support_ticket">Bom dia, perdi o item x dia 1/1/2002</string>
+    <string name="state_example">Concluído</string>
+    <string name="support_ticket_example">Ticket nº234 - Camisola Perdida</string>
+    <string name="message_hint"><i>Insira aqui a sua mensagem</i></string>
+    <string name="new_ticket">Novo Ticket</string>
+    <string name="see_item">Ver Item</string>
+    <string name="btn_close_support_ticket">Fechar ticket</string>
+   
+
+
 </resources>
