@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/listview_item_border"
+    android:background="@drawable/listview_flight_result_item_border"
     android:padding="10dp">
 
     <TextView
@@ -45,15 +45,19 @@
         android:id="@+id/FlightSearchResults_ConsLayout_Right"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
         app:layout_constraintEnd_toStartOf="@+id/FlightSearchResults_Tv_SeatsAvailable"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/FlightSearchResults_Tv_Company">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/FlightSearchResults_ConsLayout_DepartureDetails"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            app:layout_constraintEnd_toStartOf="@+id/FlightSearchResults_Iv_HoursIcon"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -62,7 +66,9 @@
                 style="@style/DataText_Medium"
                 android:layout_width="0dp"
                 android:text="@string/time"
+                android:textAlignment="textEnd"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -73,6 +79,7 @@
                 android:maxEms="3"
                 android:text="@string/city_lisbon"
                 android:textAlignment="textEnd"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/FlightSearchResults_Tv_DepartureTime" />
 
@@ -83,10 +90,11 @@
             android:id="@+id/FlightSearchResults_Iv_HoursIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginTop="1dp"
-            android:layout_marginEnd="5dp"
             app:layout_constraintEnd_toStartOf="@+id/FlightSearchResults_ConsLayout_ArrivalDetails"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/FlightSearchResults_ConsLayout_DepartureDetails"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_arrow_forward" />
@@ -94,27 +102,30 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/FlightSearchResults_ConsLayout_ArrivalDetails"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/FlightSearchResults_Iv_HoursIcon"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/FlightSearchResults_Iv_HoursIcon"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/FlightSearchResults_Tv_ArrivalTime"
                 style="@style/DataText_Medium"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:text="@string/time"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/FlightSearchResults_Tv_ArrivalCity"
                 style="@style/DataText_Light"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_marginTop="5dp"
                 android:maxEms="3"
                 android:text="@string/city_madrid"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/FlightSearchResults_Tv_ArrivalTime" />
 
