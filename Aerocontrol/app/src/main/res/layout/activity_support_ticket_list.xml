@@ -25,15 +25,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SupportTicket_Toolbar" />
 
-    <Button
-        android:id="@+id/SupportTicket_Bt_New"
-        style="@style/PrimaryButton"
-        android:layout_width="200dp"
+    <ListView
+        android:id="@+id/SupportTicket_Lv_Tickets"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="40dp"
         android:layout_marginTop="35dp"
-        android:text="@string/new_ticket"
+        android:divider="@color/transparent"
+        android:dividerHeight="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/SupportTicket_GuidelineEnd"
         app:layout_constraintStart_toStartOf="@+id/SupportTicket_GuidelineStart"
         app:layout_constraintTop_toBottomOf="@+id/SupportTicket_Tv_Title" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/SupportTicket_Fab_Add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:clickable="true"
+        android:layout_marginBottom="40dp"
+        android:src="@drawable/ic_add"
+        android:backgroundTint="?attr/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/SupportTicket_GuidelineEnd" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/SupportTicket_GuidelineStart"
@@ -48,17 +63,4 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_end="24dp" />
-
-    <ListView
-        android:id="@+id/SupportTicket_Lv_Tickets"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginBottom="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/SupportTicket_GuidelineEnd"
-        app:layout_constraintStart_toStartOf="@+id/SupportTicket_GuidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/SupportTicket_Bt_New"
-        android:divider="@color/transparent"
-        android:dividerHeight="25dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
