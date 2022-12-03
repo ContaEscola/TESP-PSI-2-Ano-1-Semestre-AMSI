@@ -39,7 +39,7 @@
     <string name="random_number">132</string>
     <string name="next">Avançar</string>
     <string name="confirm">Confirmar</string>
-     string name="cancel">Cancelar</string>
+    <string name="cancel">Cancelar</string>
 
 
     <!--  Frases  -->
@@ -118,6 +118,7 @@
     <string name="new_price">400€</string>
     <string name="random_date">15/01/2023</string>
     <string name="seat">Lugar:</string>
+    <string name="check_in">Check In</string>
 
 
     <!-- Search Ticket Info  -->
@@ -151,7 +152,6 @@
     <string name="new_ticket">Novo Ticket</string>
     <string name="see_item">Ver Item</string>
     <string name="btn_close_support_ticket">Fechar ticket</string>
-   
 
 
 </resources>
