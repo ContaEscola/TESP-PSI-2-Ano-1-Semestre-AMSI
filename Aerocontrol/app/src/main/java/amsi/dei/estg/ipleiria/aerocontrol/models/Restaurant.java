@@ -1,6 +1,7 @@
 package amsi.dei.estg.ipleiria.aerocontrol.models;
 
 import java.sql.Time;
+import java.util.ArrayList;
 
 public class Restaurant {
 
@@ -13,6 +14,8 @@ public class Restaurant {
     private Time openTime;
     private Time closeTime;
 
+    private ArrayList<RestaurantItem> menu;
+
     public Restaurant(int id, String name, String description, String phone, String logo, String website, Time openTime, Time closeTime){
         this.setId(id);
         this.setName(name);
@@ -22,6 +25,7 @@ public class Restaurant {
         this.setWebsite(website);
         this.setOpenTime(openTime);
         this.setCloseTime(closeTime);
+        menu = new ArrayList<>();
     }
 
     public int getId() {
@@ -86,5 +90,13 @@ public class Restaurant {
 
     public void setCloseTime(Time closeTime) {
         this.closeTime = closeTime;
+    }
+
+    public ArrayList<RestaurantItem> getMenu() {
+        return menu;
+    }
+
+    public void setMenuItem(RestaurantItem item) {
+        this.menu.add(item);
     }
 }
