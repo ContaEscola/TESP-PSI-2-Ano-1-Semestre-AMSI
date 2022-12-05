@@ -1,17 +1,20 @@
 package amsi.dei.estg.ipleiria.aerocontrol.models;
 
+import java.util.ArrayList;
+
 public class SupportTicket {
     private int id;
     private String title;
     private String state;
 
     // ArrayList TicketItem
-    // ArrayList TicketMessages
+    private ArrayList<TicketMessages> messages;
 
     public SupportTicket(int id,String title,String state){
         this.setId(id);
         this.setTitle(title);
         this.setState(state);
+        messages = new ArrayList<>();
     }
 
     public int getId() {
@@ -36,5 +39,13 @@ public class SupportTicket {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public ArrayList<TicketMessages> getMessages(){
+        return this.messages;
+    }
+
+    public void setMessage(TicketMessages message){
+        this.messages.add(message);
     }
 }
