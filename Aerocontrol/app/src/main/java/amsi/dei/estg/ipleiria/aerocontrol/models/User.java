@@ -18,7 +18,7 @@ public class User {
     private String phoneCountryCode;
     private Date birthdate;
 
-    // ArrayList de Voos?
+    // ArrayList de FlightTickets?
     // ArrayList de SupportTickets?
 
     public User (int id, String username, String authKey, String password, String firstName, String lastName, String gender,
