@@ -1,5 +1,6 @@
 package amsi.dei.estg.ipleiria.aerocontrol.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class FlightTicket {
@@ -11,6 +12,8 @@ public class FlightTicket {
     private Date purchaseDate;
     private boolean checkIn;
 
+    private ArrayList<Passenger> passengers;
+
     public FlightTicket(int flightTicket_id, int flight_id, int paymentMethod_id, float price, Date purchaseDate, boolean checkIn){
         this.setFlightTicket_id(flightTicket_id);
         this.setFlight_id(flight_id);
@@ -18,6 +21,7 @@ public class FlightTicket {
         this.setPrice(price);
         this.setPurchaseDate(purchaseDate);
         this.setCheckIn(checkIn);
+        passengers = new ArrayList<>();
     }
 
     public int getFlightTicket_id() {
@@ -66,5 +70,13 @@ public class FlightTicket {
 
     public void setCheckIn(boolean checkIn) {
         this.checkIn = checkIn;
+    }
+
+    public ArrayList<Passenger> getPassengers() {
+        return passengers;
+    }
+
+    public void setPassenger(Passenger passenger) {
+        this.passengers.add(passenger);
     }
 }
