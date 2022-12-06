@@ -9,15 +9,17 @@ public class Flight {
     private String state;
     private String originAirport;
     private String arrivalAirport;
+    private Date estimatedDepartureDate;
+    private Date estimatedArrivalDate;
     private Date departureDate;
     private Date arrivalDate;
     private float price;
     private float distance;
 
-    // Avião / Datas estimadas e não estimadas?
 
     public Flight(int id, int discountPercentage, String terminal, String state, String originAirport,
-                  String arrivalAirport, Date departureDate, Date arrivalDate, float price, float distance){
+                  String arrivalAirport, Date departureDate, Date arrivalDate,Date estimatedDepartureDate,
+                  Date estimatedArrivalDate, float price, float distance){
         this.setId(id);
         this.setDiscountPercentage(discountPercentage);
         this.setTerminal(terminal);
@@ -26,6 +28,8 @@ public class Flight {
         this.setArrivalAirport(arrivalAirport);
         this.setDepartureDate(departureDate);
         this.setArrivalDate(arrivalDate);
+        this.setEstimatedDepartureDate(estimatedDepartureDate);
+        this.setEstimatedArrivalDate(estimatedArrivalDate);
         this.setPrice(price);
         this.setDistance(distance);
     }
@@ -108,5 +112,21 @@ public class Flight {
 
     public void setDistance(float distance) {
         this.distance = distance;
+    }
+
+    public Date getEstimatedDepartureDate() {
+        return estimatedDepartureDate;
+    }
+
+    public void setEstimatedDepartureDate(Date estimatedDepartureDate) {
+        this.estimatedDepartureDate = estimatedDepartureDate;
+    }
+
+    public Date getEstimatedArrivalDate() {
+        return estimatedArrivalDate;
+    }
+
+    public void setEstimatedArrivalDate(Date estimatedArrivalDate) {
+        this.estimatedArrivalDate = estimatedArrivalDate;
     }
 }
