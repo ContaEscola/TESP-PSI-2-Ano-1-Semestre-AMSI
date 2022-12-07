@@ -6,7 +6,6 @@ import java.util.Date;
 public class FlightTicket {
 
     private int id;
-    private int flight_id;
     private String paymentMethod;
     private float price;
     private Date purchaseDate;
@@ -14,9 +13,8 @@ public class FlightTicket {
 
     private ArrayList<Passenger> passengers;
 
-    public FlightTicket(int id, int flight_id, String paymentMethod, float price, Date purchaseDate, boolean checkIn){
+    public FlightTicket(int id, String paymentMethod, float price, Date purchaseDate, boolean checkIn){
         this.setId(id);
-        this.setFlight_id(flight_id);
         this.setPaymentMethod(paymentMethod);
         this.setPrice(price);
         this.setPurchaseDate(purchaseDate);
@@ -30,14 +28,6 @@ public class FlightTicket {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getFlight_id() {
-        return flight_id;
-    }
-
-    public void setFlight_id(int flight_id) {
-        this.flight_id = flight_id;
     }
 
     public String getPaymentMethod() {
