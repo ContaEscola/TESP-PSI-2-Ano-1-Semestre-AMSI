@@ -1,12 +1,12 @@
 package amsi.dei.estg.ipleiria.aerocontrol.models;
 
-public class TicketMessages {
+public class TicketMessage {
     private int id;
     private String message;
     private String photo;
     private String sender;
 
-    public TicketMessages(int id, String message, String photo, String sender){
+    public TicketMessage(int id, String message, String photo, String sender){
         this.setId(id);
         this.setMessage(message);
         this.setPhoto(photo);

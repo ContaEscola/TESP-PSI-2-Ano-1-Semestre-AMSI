@@ -8,7 +8,7 @@ public class SupportTicket {
     private String state;
 
     private ArrayList<LostItem> items;
-    private ArrayList<TicketMessages> messages;
+    private ArrayList<TicketMessage> messages;
 
     public SupportTicket(int id,String title,String state){
         this.setId(id);
@@ -42,11 +42,11 @@ public class SupportTicket {
         this.state = state;
     }
 
-    public ArrayList<TicketMessages> getMessages(){
+    public ArrayList<TicketMessage> getMessages(){
         return this.messages;
     }
 
-    public void setMessage(TicketMessages message){
+    public void addMessage(TicketMessage message){
         this.messages.add(message);
     }
 
@@ -54,4 +54,7 @@ public class SupportTicket {
         return this.items;
     }
 
+    public void addItem(LostItem item){
+        this.items.add(item);
+    }
 }
