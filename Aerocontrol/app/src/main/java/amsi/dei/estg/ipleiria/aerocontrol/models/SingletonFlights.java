@@ -19,10 +19,11 @@ public class SingletonFlights {
         return instance;
     }
 
-    /*
-        Flight Data
-     */
 
+    /**
+     *
+     * @return Devolve a lista de todos os voos.
+     */
     public ArrayList<Flight> getFlights() {
         return flights;
     }
@@ -36,18 +37,28 @@ public class SingletonFlights {
         return null;
     }
 
+    /**
+     *
+     * @param flight Voo a adicionar
+     */
     public void addFlight(Flight flight) {
         this.flights.add(flight);
     }
 
-    /*
-        PaymentMethods Data
-     */
 
-    public ArrayList<PaymentMethod> getPaymentMethod() {
+    /**
+     *
+     * @return Devolve a lista de todos os métodos de pagamento.
+     */
+    public ArrayList<PaymentMethod> getPaymentMethods() {
         return paymentMethods;
     }
 
+    /**
+     *
+     * @param id Id do método de pagamento.
+     * @return Devolve o método de pagamento.
+     */
     public PaymentMethod getPaymentMethodById(int id){
         for(PaymentMethod paymentMethod : paymentMethods) {
             if(paymentMethod.getId() == id) {
@@ -57,6 +68,10 @@ public class SingletonFlights {
         return null;
     }
 
+    /**
+     *
+     * @param paymentMethod Método de pagamento a adicionar.
+     */
     public void addPaymentMethod(PaymentMethod paymentMethod) {
         this.paymentMethods.add(paymentMethod);
     }
