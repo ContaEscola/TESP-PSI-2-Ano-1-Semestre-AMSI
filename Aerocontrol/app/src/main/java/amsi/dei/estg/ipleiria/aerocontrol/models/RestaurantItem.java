@@ -3,11 +3,11 @@ package amsi.dei.estg.ipleiria.aerocontrol.models;
 public class RestaurantItem {
 
     private int id;
-    private int state;
+    private boolean state;
     private String item;
     private String image;
 
-    public RestaurantItem(int id, int state, String item, String image){
+    public RestaurantItem(int id, boolean state, String item, String image){
         this.setId(id);
         this.setState(state);
         this.setItem(item);
@@ -22,11 +22,11 @@ public class RestaurantItem {
         this.id = id;
     }
 
-    public int getState() {
+    public boolean getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(boolean state) {
         this.state = state;
     }
 

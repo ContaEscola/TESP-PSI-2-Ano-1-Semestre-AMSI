@@ -2,10 +2,10 @@ package amsi.dei.estg.ipleiria.aerocontrol.models;
 
 public class PaymentMethod {
     private int id;
-    private int state;
+    private boolean state;
     private String name;
 
-    public PaymentMethod(int id, int state, String name){
+    public PaymentMethod(int id, boolean state, String name){
         this.setId(id);
         this.setState(state);
         this.setName(name);
@@ -19,11 +19,11 @@ public class PaymentMethod {
         this.id = id;
     }
 
-    public int getState() {
+    public boolean getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(boolean state) {
         this.state = state;
     }
 

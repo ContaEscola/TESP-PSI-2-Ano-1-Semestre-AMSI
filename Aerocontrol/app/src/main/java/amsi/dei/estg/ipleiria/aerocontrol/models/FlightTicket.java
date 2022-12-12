@@ -7,13 +7,13 @@ public class FlightTicket {
 
     private int id;
     private String paymentMethod;
-    private float price;
+    private double price;
     private Date purchaseDate;
     private boolean checkIn;
 
     private ArrayList<Passenger> passengers;
 
-    public FlightTicket(int id, String paymentMethod, float price, Date purchaseDate, boolean checkIn){
+    public FlightTicket(int id, String paymentMethod, double price, Date purchaseDate, boolean checkIn){
         this.setId(id);
         this.setPaymentMethod(paymentMethod);
         this.setPrice(price);
@@ -38,11 +38,11 @@ public class FlightTicket {
         this.paymentMethod = paymentMethod;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

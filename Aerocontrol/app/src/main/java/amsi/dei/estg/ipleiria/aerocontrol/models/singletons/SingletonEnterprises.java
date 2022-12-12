@@ -1,6 +1,10 @@
-package amsi.dei.estg.ipleiria.aerocontrol.models;
+package amsi.dei.estg.ipleiria.aerocontrol.models.singletons;
 
 import java.util.ArrayList;
+
+import amsi.dei.estg.ipleiria.aerocontrol.models.Restaurant;
+import amsi.dei.estg.ipleiria.aerocontrol.models.RestaurantItem;
+import amsi.dei.estg.ipleiria.aerocontrol.models.Store;
 
 public class SingletonEnterprises {
     private static SingletonEnterprises instance = null;
@@ -20,7 +24,7 @@ public class SingletonEnterprises {
 
     /**
      *
-     * @param id Id do Restaurant
+     * @param id Id do restaurante
      * @return Devolve o restaurante ou null caso não encontre o restaurante.
      */
     public Restaurant getRestaurantById(int id){
@@ -51,7 +55,7 @@ public class SingletonEnterprises {
     /**
      *
      * @param id Id do restaurante.
-     * @return Devolve o item ou null caso não encontre o item.
+     * @return Devolve todos os itens do restaurante ou null caso não encontre o restaurante.
      */
     public ArrayList<RestaurantItem> getRestaurantItems(int id){
         for(Restaurant restaurant : restaurants) {
@@ -70,7 +74,8 @@ public class SingletonEnterprises {
     public void addMenuItem(int id, RestaurantItem restaurantItem){
         for(Restaurant restaurant : restaurants) {
             if(restaurant.getId() == id) {
-                restaurant.setMenuItem(restaurantItem);
+                restaurant.addMenuItem(restaurantItem);
+                break;
             }
         }
     }

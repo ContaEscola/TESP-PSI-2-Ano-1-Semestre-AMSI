@@ -1,6 +1,9 @@
-package amsi.dei.estg.ipleiria.aerocontrol.models;
+package amsi.dei.estg.ipleiria.aerocontrol.models.singletons;
 
 import java.util.ArrayList;
+
+import amsi.dei.estg.ipleiria.aerocontrol.models.Flight;
+import amsi.dei.estg.ipleiria.aerocontrol.models.PaymentMethod;
 
 public class SingletonFlights {
 

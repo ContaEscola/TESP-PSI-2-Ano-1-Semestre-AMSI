@@ -13,13 +13,13 @@ public class Flight {
     private Date estimatedArrivalDate;
     private Date departureDate;
     private Date arrivalDate;
-    private float price;
+    private double price;
     private float distance;
 
 
     public Flight(int id, int discountPercentage, String terminal, String state, String originAirport,
                   String arrivalAirport, Date departureDate, Date arrivalDate,Date estimatedDepartureDate,
-                  Date estimatedArrivalDate, float price, float distance){
+                  Date estimatedArrivalDate, double price, float distance){
         this.setId(id);
         this.setDiscountPercentage(discountPercentage);
         this.setTerminal(terminal);
@@ -98,11 +98,11 @@ public class Flight {
         this.arrivalDate = arrivalDate;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

@@ -96,7 +96,7 @@ public class Restaurant {
         return menu;
     }
 
-    public void setMenuItem(RestaurantItem item) {
+    public void addMenuItem(RestaurantItem item) {
         this.menu.add(item);
     }
 }

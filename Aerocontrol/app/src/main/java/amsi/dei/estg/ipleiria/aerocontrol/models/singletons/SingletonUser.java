@@ -1,6 +1,13 @@
-package amsi.dei.estg.ipleiria.aerocontrol.models;
+package amsi.dei.estg.ipleiria.aerocontrol.models.singletons;
 
 import java.util.ArrayList;
+
+import amsi.dei.estg.ipleiria.aerocontrol.models.FlightTicket;
+import amsi.dei.estg.ipleiria.aerocontrol.models.LostItem;
+import amsi.dei.estg.ipleiria.aerocontrol.models.Passenger;
+import amsi.dei.estg.ipleiria.aerocontrol.models.SupportTicket;
+import amsi.dei.estg.ipleiria.aerocontrol.models.TicketMessage;
+import amsi.dei.estg.ipleiria.aerocontrol.models.User;
 
 public class SingletonUser {
     private static SingletonUser instance = null;
