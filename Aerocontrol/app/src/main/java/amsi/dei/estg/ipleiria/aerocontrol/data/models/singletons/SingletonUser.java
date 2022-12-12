@@ -1,13 +1,13 @@
-package amsi.dei.estg.ipleiria.aerocontrol.models.singletons;
+package amsi.dei.estg.ipleiria.aerocontrol.data.models.singletons;
 
 import java.util.ArrayList;
 
-import amsi.dei.estg.ipleiria.aerocontrol.models.FlightTicket;
-import amsi.dei.estg.ipleiria.aerocontrol.models.LostItem;
-import amsi.dei.estg.ipleiria.aerocontrol.models.Passenger;
-import amsi.dei.estg.ipleiria.aerocontrol.models.SupportTicket;
-import amsi.dei.estg.ipleiria.aerocontrol.models.TicketMessage;
-import amsi.dei.estg.ipleiria.aerocontrol.models.User;
+import amsi.dei.estg.ipleiria.aerocontrol.data.models.FlightTicket;
+import amsi.dei.estg.ipleiria.aerocontrol.data.models.LostItem;
+import amsi.dei.estg.ipleiria.aerocontrol.data.models.Passenger;
+import amsi.dei.estg.ipleiria.aerocontrol.data.models.SupportTicket;
+import amsi.dei.estg.ipleiria.aerocontrol.data.models.TicketMessage;
+import amsi.dei.estg.ipleiria.aerocontrol.data.models.User;
 
 public class SingletonUser {
     private static SingletonUser instance = null;
@@ -89,7 +89,7 @@ public class SingletonUser {
      *
      * @param ticket Bilhete de voo a adicionar.
      */
-    public void addTickets(FlightTicket ticket) {
+    public void addTicket(FlightTicket ticket) {
         this.tickets.add(ticket);
     }
 
@@ -97,7 +97,7 @@ public class SingletonUser {
      *
      * @param ticket Bilhete de voo a apagar.
      */
-    public void deleteTickets(FlightTicket ticket) {
+    public void deleteTicket(FlightTicket ticket) {
         this.tickets.remove(ticket);
     }
 
@@ -107,11 +107,10 @@ public class SingletonUser {
      * @return Devolve a lista de passageiros do bilhete de voo.
      */
     public ArrayList<Passenger> getPassengers(int id){
-        for(FlightTicket ticket : tickets) {
-            if(ticket.getId() == id) {
-                return ticket.getPassengers();
-            }
-        }
+        FlightTicket ticket = getTicketById(id);
+        if(ticket != null)
+            return ticket.getPassengers();
+
         return null;
     }
 
@@ -120,12 +119,10 @@ public class SingletonUser {
      * @param id Id do bilhete de voo.
      * @param passenger Passageiro a adicionar ao bilhete de voo.
      */
-    public void addPassengers(int id, Passenger passenger){
-        for(FlightTicket ticket : tickets) {
-            if(ticket.getId() == id) {
-                ticket.addPassenger(passenger);
-            }
-        }
+    public void addPassenger(int id, Passenger passenger){
+        FlightTicket ticket = getTicketById(id);
+        if(ticket != null)
+            ticket.addPassenger(passenger);
     }
 
     /**
@@ -164,11 +161,10 @@ public class SingletonUser {
      * @return Devolve os itens dos perdidos e achados associados ao ticket de suporte.
      */
     public ArrayList<LostItem> getLostItems(int id){
-        for(SupportTicket supportTicket : supportTickets) {
-            if(supportTicket.getId() == id) {
-                return supportTicket.getItems();
-            }
-        }
+        SupportTicket supportTicket = getSupportTicketById(id);
+        if(supportTicket != null)
+            return supportTicket.getItems();
+
         return null;
     }
 
@@ -178,11 +174,9 @@ public class SingletonUser {
      * @param item Item a adicionar à lista de perdidos e achados associados ao ticket de suporte.
      */
     public void addLostItem(int id, LostItem item){
-        for(SupportTicket supportTicket : supportTickets) {
-            if(supportTicket.getId() == id) {
-                supportTicket.addItem(item);
-            }
-        }
+        SupportTicket supportTicket = getSupportTicketById(id);
+        if(supportTicket != null)
+            supportTicket.addItem(item);
     }
 
     /**
@@ -191,11 +185,10 @@ public class SingletonUser {
      * @return Devolve a lista das mensagens associadas ao ticket de suporte.
      */
     public ArrayList<TicketMessage> getMessages(int id){
-        for(SupportTicket supportTicket : supportTickets) {
-            if(supportTicket.getId() == id) {
-                return supportTicket.getMessages();
-            }
-        }
+        SupportTicket supportTicket = getSupportTicketById(id);
+        if(supportTicket != null)
+            return supportTicket.getMessages();
+
         return null;
     }
 
@@ -205,11 +198,9 @@ public class SingletonUser {
      * @param message Adiciona a mensagem à lista de mensagens do ticket de suporte.
      */
     public void addMessage(int id, TicketMessage message){
-        for(SupportTicket supportTicket : supportTickets) {
-            if(supportTicket.getId() == id) {
-                supportTicket.addMessage(message);
-            }
-        }
+        SupportTicket supportTicket = getSupportTicketById(id);
+        if(supportTicket != null)
+            supportTicket.addMessage(message);
     }
 
 }

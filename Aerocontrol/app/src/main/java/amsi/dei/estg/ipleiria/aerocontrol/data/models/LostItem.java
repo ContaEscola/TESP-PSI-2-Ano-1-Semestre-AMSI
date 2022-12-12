@@ -1,4 +1,4 @@
-package amsi.dei.estg.ipleiria.aerocontrol.models;
+package amsi.dei.estg.ipleiria.aerocontrol.data.models;
 
 public class LostItem {
     private int id;

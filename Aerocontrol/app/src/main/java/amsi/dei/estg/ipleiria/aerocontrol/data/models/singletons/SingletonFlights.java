@@ -1,9 +1,9 @@
-package amsi.dei.estg.ipleiria.aerocontrol.models.singletons;
+package amsi.dei.estg.ipleiria.aerocontrol.data.models.singletons;
 
 import java.util.ArrayList;
 
-import amsi.dei.estg.ipleiria.aerocontrol.models.Flight;
-import amsi.dei.estg.ipleiria.aerocontrol.models.PaymentMethod;
+import amsi.dei.estg.ipleiria.aerocontrol.data.models.Flight;
+import amsi.dei.estg.ipleiria.aerocontrol.data.models.PaymentMethod;
 
 public class SingletonFlights {
 
@@ -31,6 +31,12 @@ public class SingletonFlights {
         return flights;
     }
 
+
+    /**
+     *
+     * @param id Id do voo
+     * @return Devolve o voo ou null caso não encontre o voo.
+     */
     public Flight getFlightById(int id){
         for(Flight flight : flights) {
             if(flight.getId() == id) {
