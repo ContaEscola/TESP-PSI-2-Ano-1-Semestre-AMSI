@@ -1,6 +1,7 @@
 package amsi.dei.estg.ipleiria.aerocontrol.adapters;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.RestaurantItem;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 
 public class RestaurantItemsAdapter extends RecyclerView.Adapter<RestaurantItemsAdapter.ViewHolderList> {
 
@@ -40,12 +42,7 @@ public class RestaurantItemsAdapter extends RecyclerView.Adapter<RestaurantItems
     @Override
     public void onBindViewHolder(@NonNull ViewHolderList holder, int position) {
         RestaurantItem item = items.get(position);
-        //final int itemPosition = position;
-
         holder.updateItem(item);
-        holder.itemView.setOnClickListener(view -> {
-            //TODO ITEM CLICK
-        });
     }
 
     @Override
@@ -65,14 +62,19 @@ public class RestaurantItemsAdapter extends RecyclerView.Adapter<RestaurantItems
         }
 
         public void updateItem(RestaurantItem item){
-            //TODO SE ESTIVER STATE == 0 DIFERENCIAR
             this.tvItem.setText(item.getItem());
-            System.out.println(ApiEndPoint.RESTAURANTS_ITEMS_IMAGE_FOLDER+item.getImage());
-            Glide.with(this.itemView.getContext())
-                    .load(ApiEndPoint.RESTAURANTS_ITEMS_IMAGE_FOLDER+item.getImage())
-                    .placeholder(R.drawable.placeholder)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(ivItem);
+            if (!item.getState()){
+                this.tvItem.setTextColor(itemView.getContext().getResources().getColor(R.color.orange_red));
+                this.tvItem.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            }
+            if (NetworkUtils.isConnectedInternet(itemView.getContext())){
+                Glide.with(this.itemView.getContext())
+                        .load(ApiEndPoint.RESTAURANTS_ITEMS_IMAGE_FOLDER+item.getImage())
+                        .placeholder(R.drawable.placeholder)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(ivItem);
+            }
+
         }
     }
 }

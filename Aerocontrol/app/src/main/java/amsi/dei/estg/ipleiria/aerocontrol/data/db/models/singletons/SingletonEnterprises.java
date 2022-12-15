@@ -15,7 +15,6 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Restaurant;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.RestaurantItem;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Store;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.helpers.RestaurantDBHelper;
-import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.helpers.RestaurantItemDBHelper;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.EnterprisesListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.EnterprisesJsonParser;
@@ -27,7 +26,7 @@ public class SingletonEnterprises {
     private EnterprisesListener enterprisesListener;
 
     private static RestaurantDBHelper restaurantsDB;
-    private static RestaurantItemDBHelper restaurantItemDB;
+
 
     private static RequestQueue volleyQueue;
 
@@ -38,7 +37,7 @@ public class SingletonEnterprises {
         restaurants = new ArrayList<>();
         stores = new ArrayList<>();
         restaurantsDB = new RestaurantDBHelper(context);
-        restaurantItemDB = new RestaurantItemDBHelper(context);
+       // restaurantItemDB = new RestaurantItemDBHelper(context);
     }
 
     public static synchronized SingletonEnterprises getInstance(Context context){
@@ -86,7 +85,6 @@ public class SingletonEnterprises {
         if (!NetworkUtils.isConnectedInternet(context)){
             Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
             readRestaurantsDB();
-            System.out.println("Restaurantes:"+restaurants);
             enterprisesListener.onRefreshList(restaurants);
             return;
         }
@@ -95,11 +93,10 @@ public class SingletonEnterprises {
             response -> {
                 restaurants = EnterprisesJsonParser.parserJsonRestaurants(response);
                 if (enterprisesListener != null && restaurants.size()>0){
-                    restaurantItemDB.truncateTable();
+                    restaurantsDB.truncateTableItems();
                     restaurantsDB.truncateTable();
                     createRestaurantsDB(restaurants);
                     enterprisesListener.onRefreshList(restaurants);
-
                 }
             }, error -> {
                 Toast.makeText(context, R.string.error_restaurants, Toast.LENGTH_SHORT).show();
@@ -116,7 +113,7 @@ public class SingletonEnterprises {
         for (Restaurant restaurant: restaurants) {
             restaurantsDB.createRestaurant(restaurant);
             for (RestaurantItem item : restaurant.getMenu()){
-                restaurantItemDB.createItem(item);
+                restaurantsDB.createItem(item);
             }
         }
     }
@@ -127,7 +124,7 @@ public class SingletonEnterprises {
     private void readRestaurantsDB(){
         restaurants = restaurantsDB.readRestaurants();
         for (Restaurant restaurant: restaurants){
-            restaurant.setMenu(restaurantItemDB.readItems(restaurant.getId()));
+            restaurant.setMenu(restaurantsDB.readItems(restaurant.getId()));
         }
     }
 

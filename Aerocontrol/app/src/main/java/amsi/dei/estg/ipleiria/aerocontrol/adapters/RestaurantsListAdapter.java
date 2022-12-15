@@ -17,7 +17,9 @@ import java.util.ArrayList;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Restaurant;
+import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
 import amsi.dei.estg.ipleiria.aerocontrol.ui.views.MainActivity;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 
 public class RestaurantsListAdapter extends RecyclerView.Adapter<RestaurantsListAdapter.ViewHolderList> {
 
@@ -66,11 +68,13 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<RestaurantsList
 
         public void updateRestaurant(Restaurant restaurant){
             this.tvRestaurant.setText(restaurant.getName());
-            Glide.with(this.itemView.getContext())
-                    .load("http://192.168.56.1:80/projetofinal/aerocontrol/uploads/logos/restaurants/"+restaurant.getLogo())
-                    .placeholder(R.drawable.placeholder)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(ivRestaurant);
+            if (NetworkUtils.isConnectedInternet(itemView.getContext())) {
+                Glide.with(this.itemView.getContext())
+                        .load(ApiEndPoint.RESTAURANTS_IMAGE_FOLDER + restaurant.getLogo())
+                        .placeholder(R.drawable.placeholder)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(ivRestaurant);
+            }
         }
     }
 }

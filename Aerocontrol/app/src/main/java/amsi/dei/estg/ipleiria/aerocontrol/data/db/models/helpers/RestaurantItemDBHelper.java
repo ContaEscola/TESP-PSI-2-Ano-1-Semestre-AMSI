@@ -13,7 +13,7 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.RestaurantItem;
 public class RestaurantItemDBHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME="aerocontrol";
-    private static final String TABLE_NAME="restaurantitems";
+    private static final String TABLE_NAME="restaurant_items";
     private static final int DB_VERSION=1;
 
     public static final String ID = "id";

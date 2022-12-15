@@ -23,10 +23,10 @@ import amsi.dei.estg.ipleiria.aerocontrol.listeners.EnterprisesListener;
 
 public class RestaurantsFragment extends Fragment implements EnterprisesListener {
 
-    RestaurantsListAdapter adapter;
-    RecyclerView recyclerView;
+    private RestaurantsListAdapter adapter;
+    private RecyclerView recyclerView;
 
-    EditText tvSearch;
+    private EditText tvSearch;
 
     public RestaurantsFragment() {
         // Required empty public constructor
@@ -37,12 +37,12 @@ public class RestaurantsFragment extends Fragment implements EnterprisesListener
         View view = inflater.inflate(R.layout.fragment_restaurants, container, false);
 
         recyclerView = view.findViewById(R.id.Restaurants_Rv_Restaurants);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         SingletonEnterprises.getInstance(this.getContext()).setEnterprisesListener(this);
         SingletonEnterprises.getInstance(this.getContext()).getRestaurantsAPI(this.getContext());
 
         tvSearch = view.findViewById(R.id.Restaurants_Et_Search);
-
 
         tvSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -64,7 +64,7 @@ public class RestaurantsFragment extends Fragment implements EnterprisesListener
             public void afterTextChanged(Editable s) {}
         });
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
 
         return view;
     }
@@ -74,5 +74,6 @@ public class RestaurantsFragment extends Fragment implements EnterprisesListener
         adapter = new RestaurantsListAdapter(this.getContext(),SingletonEnterprises.getInstance(getContext()).getRestaurants());
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        // https://stackoverflow.com/questions/31367599/how-to-update-recyclerview-adapter-data
     }
 }
