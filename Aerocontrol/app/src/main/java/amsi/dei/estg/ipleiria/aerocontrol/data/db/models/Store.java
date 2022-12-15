@@ -1,4 +1,4 @@
-package amsi.dei.estg.ipleiria.aerocontrol.models;
+package amsi.dei.estg.ipleiria.aerocontrol.data.db.models;
 
 import java.sql.Time;
 

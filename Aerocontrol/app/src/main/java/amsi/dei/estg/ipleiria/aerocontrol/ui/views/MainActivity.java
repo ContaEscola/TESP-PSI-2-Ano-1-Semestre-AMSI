@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Restaurant;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonEnterprises;
 import amsi.dei.estg.ipleiria.aerocontrol.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,5 +48,12 @@ public class MainActivity extends AppCompatActivity {
     private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.ActivityMain_Fragment,fragment).commit();
+    }
+
+    public void showRestaurantDetails(final int position){
+        Restaurant restaurant = SingletonEnterprises.getInstance(this).getRestaurants().get(position);
+        Intent intent = new Intent(this, RestaurantDetailsActivity.class);
+        intent.putExtra(RestaurantDetailsActivity.RESTAURANT_ID,(int) restaurant.getId());
+        startActivity(intent);
     }
 }
