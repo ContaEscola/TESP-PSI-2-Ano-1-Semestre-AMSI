@@ -1,9 +1,11 @@
 package amsi.dei.estg.ipleiria.aerocontrol.data.network;
 
 public class ApiEndPoint {
-    private final static String IP = "http://192.168.56.1:80";
-    private final static String API_ENDPOINT = IP + "/projetofinal/aerocontrol/backend/web/api/";
-    private final static String API_FOLDER_ENDPOINT = IP + "/projetofinal/aerocontrol/uploads/";
+    private final static String IP = "http://10.80.227.151:80";
+    private final static String FOLDER_NAME = "/TESP-PSI-2-Ano-1-Semestre-PLSI-SIS";
+    private final static String ENDPOINT = IP + FOLDER_NAME;
+    private final static String API_ENDPOINT = ENDPOINT + "/aerocontrol/backend/web/api/";
+    private final static String API_FOLDER_ENDPOINT = ENDPOINT + "/aerocontrol/uploads/";
 
     //Entities
     public final static String RESTAURANTS = API_ENDPOINT + "restaurants";
