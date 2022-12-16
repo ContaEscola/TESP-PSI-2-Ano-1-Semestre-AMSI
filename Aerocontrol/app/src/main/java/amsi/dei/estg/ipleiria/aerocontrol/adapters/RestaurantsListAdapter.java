@@ -42,11 +42,9 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<RestaurantsList
     @Override
     public void onBindViewHolder(@NonNull ViewHolderList holder, int position) {
         Restaurant restaurant = restaurants.get(position);
-        final int restaurantPosition = position;
-
         holder.updateRestaurant(restaurant);
         holder.itemView.setOnClickListener(view -> {
-            ((MainActivity) context).showRestaurantDetails(restaurantPosition);
+            ((MainActivity) context).showRestaurantDetails(restaurant.getId());
         });
     }
 
