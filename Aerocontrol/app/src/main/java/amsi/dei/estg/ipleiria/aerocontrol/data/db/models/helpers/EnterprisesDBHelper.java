@@ -11,25 +11,22 @@ import java.util.ArrayList;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Restaurant;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.RestaurantItem;
 
-public class RestaurantDBHelper extends SQLiteOpenHelper {
+public class EnterprisesDBHelper extends SQLiteOpenHelper {
 
-    private static final String DB_NAME="aerocontrol";
-    private static final String TABLE_NAME="restaurant";
+    private static final String DB_NAME="aerocontrol_enterprises";
+    private static final String TABLE_NAME_RESTAURANTS="restaurant";
+    private static final String TABLE_NAME_ITEMS="restaurant_items";
+
     private static final int DB_VERSION=1;
 
-
-
-
+    // Campos da tabela Restaurante
     public static final String ITEMS_ID = "id";
     public static final String ITEMS_ITEM = "item";
     public static final String ITEMS_IMAGE = "image";
     public static final String ITEMS_STATE = "state";
     public static final String ITEMS_RESTAURANT_ID = "restaurant_id";
 
-    private static final String TABLE_NAME_ITEMS="restaurant_items";
-
-
-
+    // Campos da tabela Store
     public static final String ID = "id";
     public static final String NAME = "name";
     public static final String DESCRIPTION = "description";
@@ -41,14 +38,14 @@ public class RestaurantDBHelper extends SQLiteOpenHelper {
 
     private final SQLiteDatabase database;
 
-    public RestaurantDBHelper(Context context) {
+    public EnterprisesDBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         this.database = this.getWritableDatabase();
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createRestaurantsTable = "CREATE TABLE " + TABLE_NAME +
+        String createRestaurantsTable = "CREATE TABLE " + TABLE_NAME_RESTAURANTS +
                 "( " + ID + " INTEGER PRIMARY KEY NOT NULL, " +
                 NAME + " TEXT NOT NULL," +
                 DESCRIPTION + " TEXT NOT NULL," +
@@ -73,10 +70,14 @@ public class RestaurantDBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_ITEMS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_RESTAURANTS);
         this.onCreate(db);
     }
 
+    /**
+     * Cria um restaurante na BD local
+     * @param restaurant Restaurante a criar
+     */
     public void createRestaurant (Restaurant restaurant){
         ContentValues values = new ContentValues();
         values.put(ID, restaurant.getId());
@@ -87,12 +88,16 @@ public class RestaurantDBHelper extends SQLiteOpenHelper {
         if (restaurant.getWebsite() != null) values.put(WEBSITE, restaurant.getWebsite());
         if (restaurant.getOpenTime() != null) values.put(OPEN_TIME, restaurant.getOpenTime());
         if (restaurant.getCloseTime() != null) values.put(CLOSE_TIME, restaurant.getCloseTime());
-        this.database.insert(TABLE_NAME, null, values);
+        this.database.insert(TABLE_NAME_RESTAURANTS, null, values);
     }
 
+    /**
+     * Lê os restaurantes da BD
+     * @return Devolve todos os restaurantes que estão na BD local
+     */
     public ArrayList<Restaurant> readRestaurants(){
         ArrayList<Restaurant> restaurants = new ArrayList<>();
-        Cursor cursor = this.database.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        Cursor cursor = this.database.rawQuery("SELECT * FROM " + TABLE_NAME_RESTAURANTS, null);
         if(cursor.moveToFirst()){
             do{
                 restaurants.add(new Restaurant(cursor.getInt(0),
@@ -108,10 +113,17 @@ public class RestaurantDBHelper extends SQLiteOpenHelper {
         return restaurants;
     }
 
-    public void truncateTable(){
-        database.execSQL("delete from "+ TABLE_NAME);
+    /**
+     * Dá truncate à tabela dos restaurantes
+     */
+    public void truncateTableRestaurants(){
+        database.execSQL("delete from "+ TABLE_NAME_RESTAURANTS);
     }
 
+    /**
+     * Cria um item de um restaurante na BD local
+     * @param item Item a criar
+     */
     public void createItem (RestaurantItem item){
         ContentValues values = new ContentValues();
         values.put(ID, item.getId());
@@ -123,6 +135,11 @@ public class RestaurantDBHelper extends SQLiteOpenHelper {
         this.database.insert(TABLE_NAME_ITEMS, null, values);
     }
 
+    /**
+     * Lê os itens do restaurantes da BD.
+     * @param restaurant_id Id do restaurante.
+     * @return Devolve uma lista de itens do restaurante, o menu do restaurante.
+     */
     public ArrayList<RestaurantItem> readItems(int restaurant_id){
         ArrayList<RestaurantItem> items = new ArrayList<>();
         Cursor cursor = this.database.rawQuery("SELECT * FROM " + TABLE_NAME_ITEMS +
@@ -139,6 +156,9 @@ public class RestaurantDBHelper extends SQLiteOpenHelper {
         return items;
     }
 
+    /**
+     * Dá truncate à tabela dos itens do restaurante
+     */
     public void truncateTableItems(){
         database.execSQL("delete from "+ TABLE_NAME_ITEMS);
     }

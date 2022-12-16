@@ -14,7 +14,7 @@ import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Restaurant;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.RestaurantItem;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Store;
-import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.helpers.RestaurantDBHelper;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.helpers.EnterprisesDBHelper;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.EnterprisesListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.EnterprisesJsonParser;
@@ -25,7 +25,7 @@ public class SingletonEnterprises {
 
     private EnterprisesListener enterprisesListener;
 
-    private static RestaurantDBHelper restaurantsDB;
+    private static EnterprisesDBHelper enterprisesDB;
 
 
     private static RequestQueue volleyQueue;
@@ -36,8 +36,7 @@ public class SingletonEnterprises {
     private SingletonEnterprises(Context context){
         restaurants = new ArrayList<>();
         stores = new ArrayList<>();
-        restaurantsDB = new RestaurantDBHelper(context);
-       // restaurantItemDB = new RestaurantItemDBHelper(context);
+        enterprisesDB = new EnterprisesDBHelper(context);
     }
 
     public static synchronized SingletonEnterprises getInstance(Context context){
@@ -93,8 +92,8 @@ public class SingletonEnterprises {
             response -> {
                 restaurants = EnterprisesJsonParser.parserJsonRestaurants(response);
                 if (enterprisesListener != null && restaurants.size()>0){
-                    restaurantsDB.truncateTableItems();
-                    restaurantsDB.truncateTable();
+                    enterprisesDB.truncateTableItems();
+                    enterprisesDB.truncateTableRestaurants();
                     createRestaurantsDB(restaurants);
                     enterprisesListener.onRefreshList(restaurants);
                 }
@@ -111,9 +110,9 @@ public class SingletonEnterprises {
      */
     private void createRestaurantsDB(ArrayList<Restaurant> restaurants){
         for (Restaurant restaurant: restaurants) {
-            restaurantsDB.createRestaurant(restaurant);
+            enterprisesDB.createRestaurant(restaurant);
             for (RestaurantItem item : restaurant.getMenu()){
-                restaurantsDB.createItem(item);
+                enterprisesDB.createItem(item);
             }
         }
     }
@@ -122,9 +121,9 @@ public class SingletonEnterprises {
      * Vai buscar à BD local todos os restaurantes existentes na mesma.
      */
     private void readRestaurantsDB(){
-        restaurants = restaurantsDB.readRestaurants();
+        restaurants = enterprisesDB.readRestaurants();
         for (Restaurant restaurant: restaurants){
-            restaurant.setMenu(restaurantsDB.readItems(restaurant.getId()));
+            restaurant.setMenu(enterprisesDB.readItems(restaurant.getId()));
         }
     }
 

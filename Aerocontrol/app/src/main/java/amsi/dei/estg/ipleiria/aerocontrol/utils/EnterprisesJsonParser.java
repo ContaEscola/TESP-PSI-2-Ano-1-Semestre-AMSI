@@ -11,6 +11,11 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.RestaurantItem;
 
 public class EnterprisesJsonParser {
 
+    /**
+     * Converte o arrayJson para uma lista de restaurantes
+     * @param jsonArray Array Json que vem da API
+     * @return Lista de todos os restaurantes recebidos da API
+     */
     public static ArrayList<Restaurant> parserJsonRestaurants(JSONArray jsonArray){
         ArrayList<Restaurant> restaurants = new ArrayList<>();
 
