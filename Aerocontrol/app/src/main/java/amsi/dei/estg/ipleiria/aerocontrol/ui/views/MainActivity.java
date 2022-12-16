@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Restaurant;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Store;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonEnterprises;
 import amsi.dei.estg.ipleiria.aerocontrol.databinding.ActivityMainBinding;
 
@@ -54,6 +55,13 @@ public class MainActivity extends AppCompatActivity {
         Restaurant restaurant = SingletonEnterprises.getInstance(this).getRestaurantById(id);
         Intent intent = new Intent(this, RestaurantDetailsActivity.class);
         intent.putExtra(RestaurantDetailsActivity.RESTAURANT_ID,(int) restaurant.getId());
+        startActivity(intent);
+    }
+
+    public void showStoreDetails(final int id){
+        Store store = SingletonEnterprises.getInstance(this).getStoreById(id);
+        Intent intent = new Intent(this, StoreDetailsActivity.class);
+        intent.putExtra(StoreDetailsActivity.STORE_ID, (int) store.getId());
         startActivity(intent);
     }
 }
