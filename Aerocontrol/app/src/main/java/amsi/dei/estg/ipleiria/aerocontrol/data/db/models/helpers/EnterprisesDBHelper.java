@@ -10,12 +10,14 @@ import java.util.ArrayList;
 
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Restaurant;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.RestaurantItem;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Store;
 
 public class EnterprisesDBHelper extends SQLiteOpenHelper {
 
-    private static final String DB_NAME="aerocontrol_enterprises";
-    private static final String TABLE_NAME_RESTAURANTS="restaurant";
-    private static final String TABLE_NAME_ITEMS="restaurant_items";
+    private static final String DB_NAME = "aerocontrol_enterprises";
+    private static final String TABLE_NAME_RESTAURANTS = "restaurant";
+    private static final String TABLE_NAME_ITEMS = "restaurant_items";
+    private static final String TABLE_NAME_STORES = "store";
 
     private static final int DB_VERSION=1;
 
@@ -63,14 +65,26 @@ public class EnterprisesDBHelper extends SQLiteOpenHelper {
                 ITEMS_RESTAURANT_ID + " INTEGER NOT NULL," +
                 "FOREIGN KEY (restaurant_id) REFERENCES restaurant(id)"+");";
 
+        String createStoresTable = "CREATE TABLE " + TABLE_NAME_STORES +
+                "( " + ID + " INTEGER PRIMARY KEY NOT NULL, " +
+                NAME + " TEXT NOT NULL," +
+                DESCRIPTION + " TEXT NOT NULL," +
+                PHONE + " TEXT NOT NULL, " +
+                LOGO + " TEXT," +
+                WEBSITE + " TEXT," +
+                OPEN_TIME + " TEXT," +
+                CLOSE_TIME + " TEXT" +");";
+
         db.execSQL(createRestaurantsTable);
         db.execSQL(createRestaurantItemsTable);
+        db.execSQL(createStoresTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_ITEMS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_RESTAURANTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_STORES);
         this.onCreate(db);
     }
 
@@ -161,5 +175,51 @@ public class EnterprisesDBHelper extends SQLiteOpenHelper {
      */
     public void truncateTableItems(){
         database.execSQL("delete from "+ TABLE_NAME_ITEMS);
+    }
+
+    /**
+     * Cria uma loja na BD local
+     * @param store Loja a criar
+     */
+    public void createStore(Store store){
+        ContentValues values = new ContentValues();
+        values.put(ID, store.getId());
+        values.put(NAME, store.getName());
+        values.put(DESCRIPTION, store.getDescription());
+        values.put(PHONE, store.getPhone());
+        if (store.getLogo() != null) values.put(LOGO,store.getLogo());
+        if (store.getWebsite() != null) values.put(WEBSITE, store.getWebsite());
+        if (store.getOpenTime() != null) values.put(OPEN_TIME, store.getOpenTime());
+        if (store.getCloseTime() != null) values.put(CLOSE_TIME, store.getCloseTime());
+        this.database.insert(TABLE_NAME_RESTAURANTS, null, values);
+    }
+
+    /**
+     * Lê as lojas da BD
+     * @return Devolve todas as lojas que estão na BD local
+     */
+    public ArrayList<Store> readStores(){
+        ArrayList<Store> stores = new ArrayList<>();
+        Cursor cursor = this.database.rawQuery("SELECT * FROM " + TABLE_NAME_STORES, null);
+        if(cursor.moveToFirst()){
+            do{
+                stores.add(new Store(cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getString(5),
+                        cursor.getString(6),
+                        cursor.getString(7)));
+            }while(cursor.moveToNext());
+        }
+        return stores;
+    }
+
+    /**
+     * Dá truncate à tabela das lojas
+     */
+    public void truncateTableStores(){
+        database.execSQL("delete from "+ TABLE_NAME_STORES);
     }
 }
