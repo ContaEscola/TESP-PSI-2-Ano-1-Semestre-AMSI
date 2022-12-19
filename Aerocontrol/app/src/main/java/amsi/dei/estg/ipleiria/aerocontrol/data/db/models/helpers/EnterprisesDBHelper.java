@@ -191,7 +191,7 @@ public class EnterprisesDBHelper extends SQLiteOpenHelper {
         if (store.getWebsite() != null) values.put(WEBSITE, store.getWebsite());
         if (store.getOpenTime() != null) values.put(OPEN_TIME, store.getOpenTime());
         if (store.getCloseTime() != null) values.put(CLOSE_TIME, store.getCloseTime());
-        this.database.insert(TABLE_NAME_RESTAURANTS, null, values);
+        this.database.insert(TABLE_NAME_STORES, null, values);
     }
 
     /**

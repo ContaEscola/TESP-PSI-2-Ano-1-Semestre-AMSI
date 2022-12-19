@@ -12,6 +12,6 @@ public class ApiEndPoint {
     public final static String RESTAURANTS_IMAGE_FOLDER = API_FOLDER_ENDPOINT + "logos/restaurants/";
     public final static String RESTAURANTS_ITEMS_IMAGE_FOLDER = RESTAURANTS_IMAGE_FOLDER + "items/";
 
-    public final static String Stores = API_ENDPOINT + "stores";
-    public final static String STORES_IMAGE_FOLDER = API_FOLDER_ENDPOINT + "logos/stores";
+    public final static String STORES = API_ENDPOINT + "stores";
+    public final static String STORES_IMAGE_FOLDER = API_FOLDER_ENDPOINT + "logos/stores/";
 }

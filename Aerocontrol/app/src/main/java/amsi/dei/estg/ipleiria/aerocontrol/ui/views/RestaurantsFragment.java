@@ -18,10 +18,11 @@ import java.util.ArrayList;
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.adapters.RestaurantsListAdapter;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Restaurant;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Store;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonEnterprises;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.EnterprisesListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.EnterprisesListenerRestaurant;
 
-public class RestaurantsFragment extends Fragment implements EnterprisesListener {
+public class RestaurantsFragment extends Fragment implements EnterprisesListenerRestaurant {
 
     private RestaurantsListAdapter adapter;
     private RecyclerView recyclerView;
@@ -39,7 +40,7 @@ public class RestaurantsFragment extends Fragment implements EnterprisesListener
         recyclerView = view.findViewById(R.id.Restaurants_Rv_Restaurants);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        SingletonEnterprises.getInstance(this.getContext()).setEnterprisesListener(this);
+        SingletonEnterprises.getInstance(this.getContext()).setEnterprisesListenerRestaurant(this);
         SingletonEnterprises.getInstance(this.getContext()).getRestaurantsAPI(this.getContext());
 
         tvSearch = view.findViewById(R.id.Restaurants_Et_Search);
@@ -63,9 +64,6 @@ public class RestaurantsFragment extends Fragment implements EnterprisesListener
             @Override
             public void afterTextChanged(Editable s) {}
         });
-
-
-
         return view;
     }
 

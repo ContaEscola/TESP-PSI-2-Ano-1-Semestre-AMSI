@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Restaurant;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.RestaurantItem;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Store;
 
 public class EnterprisesJsonParser {
 
@@ -58,5 +59,32 @@ public class EnterprisesJsonParser {
         }
 
         return restaurants;
+    }
+
+    public static ArrayList<Store> parserJsonStores(JSONArray jsonArray){
+        ArrayList<Store> stores = new ArrayList<>();
+
+        if(jsonArray != null){
+            try {
+                for (int i=0; i<jsonArray.length(); i++){
+                    JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+                    Store store = new Store(
+                            jsonObject.getInt("id"),
+                            jsonObject.getString("name"),
+                            jsonObject.getString("description"),
+                            jsonObject.getString("phone"),
+                            jsonObject.getString("logo"),
+                            jsonObject.getString("website"),
+                            jsonObject.getString("open_time"),
+                            jsonObject.getString("close_time"));
+                    stores.add(store);
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return stores;
     }
 }

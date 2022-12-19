@@ -15,7 +15,7 @@ public class StoreDetailsActivity extends AppCompatActivity {
 
     public static final String STORE_ID = "store_id";
 
-    private TextView tvName, tvSchedule, tvDescription, tvPhone, tvWebsite, tvMenuLabel;
+    private TextView tvName, tvSchedule, tvDescription, tvPhone, tvWebsite;
 
     private Store store;
     private int idStore;
@@ -31,19 +31,18 @@ public class StoreDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initialize();
-        getRestaurantId();
+        getStoreId();
     }
 
     private void initialize() {
-        tvName = findViewById(R.id.RestaurantDetails_Tv_Name);
-        tvSchedule = findViewById(R.id.RestaurantDetails_Tv_Schedule);
-        tvDescription = findViewById(R.id.RestaurantDetails_Tv_Description);
-        tvPhone = findViewById(R.id.RestaurantDetails_Tv_Phone);
-        tvWebsite = findViewById(R.id.RestaurantDetails_Tv_Website);
-        tvMenuLabel = findViewById(R.id.RestaurantDetails_Tv_Menu);
+        tvName = findViewById(R.id.StoreDetails_Tv_Name);
+        tvSchedule = findViewById(R.id.StoreDetails_Tv_Schedule);
+        tvDescription = findViewById(R.id.StoreDetails_Tv_Description);
+        tvPhone = findViewById(R.id.StoreDetails_Tv_Phone);
+        tvWebsite = findViewById(R.id.StoreDetails_Tv_Website);
     }
 
-    private void getRestaurantId() {
+    private void getStoreId() {
         idStore = getIntent().getIntExtra(STORE_ID,-1);
 
         if (idStore != -1){
