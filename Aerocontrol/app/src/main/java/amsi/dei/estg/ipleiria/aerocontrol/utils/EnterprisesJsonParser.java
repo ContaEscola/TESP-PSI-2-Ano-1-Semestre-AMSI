@@ -87,14 +87,4 @@ public class EnterprisesJsonParser {
 
         return stores;
     }
-
-    public static String parserJsonLogin(String response){
-        try {
-            JSONObject resposta = new JSONObject(response);
-            return resposta.getString("token");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 }

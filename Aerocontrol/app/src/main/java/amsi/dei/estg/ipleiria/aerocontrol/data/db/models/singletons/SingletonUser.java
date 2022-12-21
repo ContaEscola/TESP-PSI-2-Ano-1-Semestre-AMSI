@@ -1,6 +1,7 @@
 package amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -23,7 +24,7 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.TicketMessage;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.User;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
-import amsi.dei.estg.ipleiria.aerocontrol.utils.EnterprisesJsonParser;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.LoginParser;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 
 public class SingletonUser {
@@ -36,18 +37,21 @@ public class SingletonUser {
     private ArrayList<FlightTicket> tickets;
     private ArrayList<SupportTicket> supportTickets;
 
+    private boolean loggedIn = false;
+
     private LoginListener loginListener;
 
-    private SingletonUser(){
+    private SingletonUser(Context context){
         user = null;
         tickets = new ArrayList<>();
         supportTickets = new ArrayList<>();
+        isLoggedIn(context);
     }
 
     public static synchronized SingletonUser getInstance(Context context){
         volleyQueue = Volley.newRequestQueue(context);
 
-        if (instance == null) instance = new SingletonUser();
+        if (instance == null) instance = new SingletonUser(context);
         return instance;
     }
 
@@ -75,11 +79,11 @@ public class SingletonUser {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        String token = EnterprisesJsonParser.parserJsonLogin(response);
+                        String token = LoginParser.parserJsonLogin(response);
                         System.out.println(token);
-                        if (loginListener != null) {
+                        if (loginListener != null && token != null) {
                             loginListener.onValidateLogin(token, username, context);
-                        }
+                        } else Toast.makeText(context, R.string.invalid_credentials, Toast.LENGTH_SHORT).show();
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -98,6 +102,23 @@ public class SingletonUser {
         };
 
         volleyQueue.add(stringRequest);
+    }
+
+    /**
+     * Verifica se o utilizador está autenticado.
+     */
+    private void isLoggedIn(Context context) {
+        SharedPreferences sp;
+        sp = context.getSharedPreferences("user", Context.MODE_PRIVATE);;
+        this.setLoggedIn(sp.getBoolean("loggedIn", false));
+    }
+
+    public void setLoggedIn (boolean loggedIn){
+        this.loggedIn = loggedIn;
+    }
+
+    public boolean getLoggedIn(){
+        return this.loggedIn;
     }
 
     /**
@@ -268,4 +289,7 @@ public class SingletonUser {
             supportTicket.addMessage(message);
     }
 
+    public void setLoginListener(LoginListener loginListener) {
+        this.loginListener = loginListener;
+    }
 }

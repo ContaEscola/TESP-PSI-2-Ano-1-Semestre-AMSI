@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/Account_ConsLayout_Top"
+            android:id="@+id/AccountLoggedIn_ConsLayout_Top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -20,19 +20,19 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/Account_Tv_Username"
+                android:id="@+id/AccountLoggedIn_Tv_Username"
                 style="@style/SecondTitle"
                 android:layout_width="0dp"
                 android:layout_marginEnd="10dp"
                 android:fontFamily="@font/montserrat_medium"
                 android:text="@string/username"
                 android:textAlignment="textStart"
-                app:layout_constraintEnd_toStartOf="@+id/Account_Bt_Logout"
+                app:layout_constraintEnd_toStartOf="@+id/AccountLoggedIn_Bt_Logout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/Account_Bt_Logout"
+                android:id="@+id/AccountLoggedIn_Bt_Logout"
                 style="@style/RedButtonOutline"
                 android:layout_width="wrap_content"
                 android:text="@string/logout"
@@ -42,17 +42,17 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
-            android:id="@+id/Account_Line"
+            android:id="@+id/AccountLoggedIn_Line"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="20dp"
             android:background="?attr/colorSurfaceVariant_800"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Account_ConsLayout_Top" />
+            app:layout_constraintTop_toBottomOf="@+id/AccountLoggedIn_ConsLayout_Top" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/Account_ConsLayout_EditData"
+            android:id="@+id/AccountLoggedIn_ConsLayout_EditData"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -63,10 +63,10 @@
             android:background="@drawable/menu_item_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Account_Line">
+            app:layout_constraintTop_toBottomOf="@+id/AccountLoggedIn_Line">
 
             <ImageView
-                android:id="@+id/Account_Iv_User"
+                android:id="@+id/AccountLoggedIn_Iv_User"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -79,13 +79,13 @@
                 android:layout_width="wrap_content"
                 android:text="@string/edit_account"
                 android:layout_marginStart="60dp"
-                app:layout_constraintBottom_toBottomOf="@+id/Account_Iv_User"
+                app:layout_constraintBottom_toBottomOf="@+id/AccountLoggedIn_Iv_User"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/Account_Iv_User" />
+                app:layout_constraintTop_toTopOf="@+id/AccountLoggedIn_Iv_User" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/Account_ConsLayout_MyTickets"
+            android:id="@+id/AccountLoggedIn_ConsLayout_MyTickets"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="10dp"
@@ -95,10 +95,10 @@
             android:background="@drawable/menu_item_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Account_ConsLayout_EditData">
+            app:layout_constraintTop_toBottomOf="@+id/AccountLoggedIn_ConsLayout_EditData">
 
             <ImageView
-                android:id="@+id/Account_Iv_Tickets"
+                android:id="@+id/AccountLoggedIn_Iv_Tickets"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -112,12 +112,12 @@
                 android:text="@string/my_tickets"
                 android:layout_marginStart="60dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/Account_Iv_Tickets"
-                app:layout_constraintBottom_toBottomOf="@id/Account_Iv_Tickets"/>
+                app:layout_constraintTop_toTopOf="@id/AccountLoggedIn_Iv_Tickets"
+                app:layout_constraintBottom_toBottomOf="@id/AccountLoggedIn_Iv_Tickets"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/Account_ConsLayout_LostAndFound"
+            android:id="@+id/AccountLoggedIn_ConsLayout_LostAndFound"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="10dp"
@@ -127,10 +127,10 @@
             android:background="@drawable/menu_item_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Account_ConsLayout_MyTickets">
+            app:layout_constraintTop_toBottomOf="@+id/AccountLoggedIn_ConsLayout_MyTickets">
 
             <ImageView
-                android:id="@+id/Account_Iv_LostItems"
+                android:id="@+id/AccountLoggedIn_Iv_LostItems"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -144,22 +144,22 @@
             android:text="@string/lost_and_found"
             android:layout_marginStart="60dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/Account_Iv_LostItems"
-            app:layout_constraintBottom_toBottomOf="@id/Account_Iv_LostItems"/>
+            app:layout_constraintTop_toTopOf="@id/AccountLoggedIn_Iv_LostItems"
+            app:layout_constraintBottom_toBottomOf="@id/AccountLoggedIn_Iv_LostItems"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
-            android:id="@+id/Account_LineBottom"
+            android:id="@+id/AccountLoggedIn_LineBottom"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginBottom="5dp"
             android:background="?attr/colorSurfaceVariant_800"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/Account_ConsLayout_Support" />
+            app:layout_constraintBottom_toTopOf="@+id/AccountLoggedIn_ConsLayout_Support" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/Account_ConsLayout_Support"
+            android:id="@+id/AccountLoggedIn_ConsLayout_Support"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="10dp"
@@ -172,7 +172,7 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
             <ImageView
-                android:id="@+id/Account_Iv_Support"
+                android:id="@+id/AccountLoggedIn_Iv_Support"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -186,8 +186,8 @@
                 android:text="@string/support"
                 android:layout_marginStart="60dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/Account_Iv_Support"
-                app:layout_constraintBottom_toBottomOf="@id/Account_Iv_Support"/>
+                app:layout_constraintTop_toTopOf="@id/AccountLoggedIn_Iv_Support"
+                app:layout_constraintBottom_toBottomOf="@id/AccountLoggedIn_Iv_Support"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

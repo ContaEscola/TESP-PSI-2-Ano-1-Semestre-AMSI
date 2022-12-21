@@ -1,21 +1,25 @@
 package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import amsi.dei.estg.ipleiria.aerocontrol.R;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
 
 public class AccountFragment extends Fragment {
 
-    private Button btLogin;
+    private Button btLogin, btLogout;
 
     public AccountFragment() {
         // Required empty public constructor
@@ -23,27 +27,59 @@ public class AccountFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // If (loggedIn)
-        //return inflater.inflate(R.layout.fragment_account_loggedin, container, false);
-        // else
-        //return inflater.inflate(R.layout.fragment_account_loggedout, container, false);
-        View view = inflater.inflate(R.layout.fragment_account_loggedout, container, false);
-
-        btLogin = view.findViewById(R.id.AccountLoggedOut_Bt_Login);
-
-        btLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
-
-
-
+        View view = null;
+        if (SingletonUser.getInstance(this.getContext()).getLoggedIn()){
+            view = inflater.inflate(R.layout.fragment_account_loggedin, container, false);
+            initializeLoggedIn(view);
+        }
+        else {
+            view = inflater.inflate(R.layout.fragment_account_loggedout, container, false);
+            initializeLoggedOut(view);
+        }
 
         return view;
     }
+
+    private void initializeLoggedOut(View view) {
+        btLogin = view.findViewById(R.id.AccountLoggedOut_Bt_Login);
+
+        btLogin.setOnClickListener(view1 -> {
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivityForResult(intent,1);
+        });
+    }
+
+    private void initializeLoggedIn(View view) {
+        btLogout = view.findViewById(R.id.AccountLoggedIn_Bt_Logout);
+
+        btLogout.setOnClickListener(view1 -> {
+            logout();
+        });
+    }
+
+    private void logout() {
+        SingletonUser.getInstance(this.getContext()).setLoggedIn(false);
+        SharedPreferences sp = this.getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean("loggedIn", false);
+        editor.apply();
+        refreshFragment();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(requestCode == 1)
+            if (resultCode == Activity.RESULT_OK){
+                refreshFragment();
+            }
+    }
+
+    private void refreshFragment(){
+        FragmentManager fragmentManager = this.getActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setReorderingAllowed(true);
+        transaction.replace(R.id.ActivityMain_Fragment, AccountFragment.class, null);
+        transaction.commit();
+    }
+
 }
