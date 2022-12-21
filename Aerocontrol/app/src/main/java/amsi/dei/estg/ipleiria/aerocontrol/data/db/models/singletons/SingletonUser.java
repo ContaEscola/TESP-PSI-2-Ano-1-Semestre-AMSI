@@ -1,22 +1,42 @@
 package amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons;
 
 import android.content.Context;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.FlightTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.LostItem;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Passenger;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.TicketMessage;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.User;
+import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.EnterprisesJsonParser;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 
 public class SingletonUser {
+
     private static SingletonUser instance = null;
+
+    private static RequestQueue volleyQueue;
 
     private User user;
     private ArrayList<FlightTicket> tickets;
     private ArrayList<SupportTicket> supportTickets;
+
+    private LoginListener loginListener;
 
     private SingletonUser(){
         user = null;
@@ -25,6 +45,8 @@ public class SingletonUser {
     }
 
     public static synchronized SingletonUser getInstance(Context context){
+        volleyQueue = Volley.newRequestQueue(context);
+
         if (instance == null) instance = new SingletonUser();
         return instance;
     }
@@ -35,6 +57,47 @@ public class SingletonUser {
      */
     public User getUser() {
         return user;
+    }
+
+    /**
+     * Vai buscar os dados do login à API
+     * @param context context da atividade ou fragment
+     */
+    public void getLoginAPI(final String username, final String password, final Context context){
+
+        // Caso não haja internet
+        if (!NetworkUtils.isConnectedInternet(context)){
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiEndPoint.LOGIN,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        String token = EnterprisesJsonParser.parserJsonLogin(response);
+                        System.out.println(token);
+                        if (loginListener != null) {
+                            loginListener.onValidateLogin(token, username, context);
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(R.string.error_login);
+                Toast.makeText(context, "Erro", Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams(){
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("username", username);
+                params.put("password", password);
+                return params;
+            }
+        };
+
+        volleyQueue.add(stringRequest);
     }
 
     /**
