@@ -14,4 +14,6 @@ public class ApiEndPoint {
 
     public final static String STORES = API_ENDPOINT + "stores";
     public final static String STORES_IMAGE_FOLDER = API_FOLDER_ENDPOINT + "logos/stores/";
+
+    public final static String LOGIN = API_ENDPOINT + "auth/login";
 }
