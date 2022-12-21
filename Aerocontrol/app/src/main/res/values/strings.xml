@@ -157,6 +157,7 @@
     <string name="error_no_restaurant">Restaurante não encontrado</string>
     <string name="error_na_loja">Loja não encontrada</string>
     <string name="error_stores">Erro ao mostrar as lojas.</string>
+    <string name="error_login">Erro ao dar Login</string>
 
 
 </resources>
