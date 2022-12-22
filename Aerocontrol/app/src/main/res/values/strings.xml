@@ -152,6 +152,9 @@
     <string name="new_ticket">Novo Ticket</string>
     <string name="see_item">Ver Item</string>
     <string name="btn_close_support_ticket">Fechar ticket</string>
+    <string name="no_internet_connection">Sem ligação de internet</string>
+    <string name="error_restaurants">Erro ao mostrar os restaurantes.</string>
+    <string name="error_no_restaurant">Restaurante não encontrado</string>
 
 
 </resources>
