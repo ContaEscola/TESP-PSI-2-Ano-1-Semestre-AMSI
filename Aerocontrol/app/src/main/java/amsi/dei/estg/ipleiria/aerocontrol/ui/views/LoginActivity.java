@@ -13,7 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.User;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
+import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
 
 public class LoginActivity extends AppCompatActivity implements LoginListener {
@@ -56,15 +58,10 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     }
 
     @Override
-    public void onValidateLogin(String token, String username, Context context) {
-        sp = getSharedPreferences("user", Context.MODE_PRIVATE);
-        editor = sp.edit();
-        editor.putBoolean("loggedIn", true);
-        editor.putString("username", username);
-        editor.putString("token", token);
-        editor.apply();
-
-        SingletonUser.getInstance(this).setLoggedIn(true);
+    public void onValidateLogin(User user, Context context) {
+        UserPreferences.getInstance(this).setUser(user);    // Coloca o user no SharedPreferences
+        SingletonUser.getInstance(this).setUser(user);      // Coloca o user na Singleton
+        SingletonUser.getInstance(this).setLoggedIn(true);  // Dá Set à variável do LoggedIn para true
 
         Toast.makeText(context, "Dados válidos", Toast.LENGTH_SHORT).show();
         Intent returnIntent = new Intent();

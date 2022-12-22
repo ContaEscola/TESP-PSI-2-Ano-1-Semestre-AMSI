@@ -1,7 +1,7 @@
 package amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons;
 
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.util.Base64;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -11,6 +11,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +24,7 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.TicketMessage;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.User;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
+import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.LoginParser;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
@@ -45,7 +47,7 @@ public class SingletonUser {
         user = null;
         tickets = new ArrayList<>();
         supportTickets = new ArrayList<>();
-        isLoggedIn(context);
+        getLoggedInOnStart(context);
     }
 
     public static synchronized SingletonUser getInstance(Context context){
@@ -53,14 +55,6 @@ public class SingletonUser {
 
         if (instance == null) instance = new SingletonUser(context);
         return instance;
-    }
-
-    /**
-     *
-     * @return Devolve o Utilizador.
-     */
-    public User getUser() {
-        return user;
     }
 
     /**
@@ -79,10 +73,9 @@ public class SingletonUser {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        String token = LoginParser.parserJsonLogin(response);
-                        System.out.println(token);
-                        if (loginListener != null && token != null) {
-                            loginListener.onValidateLogin(token, username, context);
+                        User user = LoginParser.parserJsonLogin(response);
+                        if (loginListener != null && user != null) {
+                            loginListener.onValidateLogin(user, context);
                         } else Toast.makeText(context, R.string.invalid_credentials, Toast.LENGTH_SHORT).show();
                     }
                 }, new Response.ErrorListener() {
@@ -93,10 +86,13 @@ public class SingletonUser {
             }
         }){
             @Override
-            protected Map<String, String> getParams(){
+            public Map<String, String> getHeaders(){
+                String userAndPass = username+":"+password;
+                byte[] data = userAndPass.getBytes(StandardCharsets.UTF_8);
+                String authorization = "Basic " + Base64.encodeToString(data,Base64.DEFAULT);
+
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("username", username);
-                params.put("password", password);
+                params.put("Authorization", authorization);
                 return params;
             }
         };
@@ -105,19 +101,21 @@ public class SingletonUser {
     }
 
     /**
-     * Verifica se o utilizador está autenticado.
+     * Verifica se o utilizador está autenticado através do username no SharedPreferences.
      */
-    private void isLoggedIn(Context context) {
-        SharedPreferences sp;
-        sp = context.getSharedPreferences("user", Context.MODE_PRIVATE);;
-        this.setLoggedIn(sp.getBoolean("loggedIn", false));
+    private void getLoggedInOnStart(Context context) {
+        if(!UserPreferences.getInstance(context).getUsername().equals("")) {
+            this.setLoggedIn(true);
+            this.setUser(UserPreferences.getInstance(context).getUser());
+        }
+        else this.setLoggedIn(false);
     }
 
     public void setLoggedIn (boolean loggedIn){
         this.loggedIn = loggedIn;
     }
 
-    public boolean getLoggedIn(){
+    public boolean isLoggedIn(){
         return this.loggedIn;
     }
 
@@ -127,6 +125,14 @@ public class SingletonUser {
      */
     public void setUser(User user) {
         this.user = user;
+    }
+
+    /**
+     *
+     * @return Devolve o Utilizador.
+     */
+    public User getUser() {
+        return user;
     }
 
     /**

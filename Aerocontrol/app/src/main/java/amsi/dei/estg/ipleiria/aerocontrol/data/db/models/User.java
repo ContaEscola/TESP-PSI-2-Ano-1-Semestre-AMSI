@@ -1,12 +1,10 @@
 package amsi.dei.estg.ipleiria.aerocontrol.data.db.models;
 
-import java.util.Date;
-
 public class User {
 
     private int id;
     private String username;
-    private String authKey;
+    private String token;
     private String password;
     private String firstName;
     private String lastName;
@@ -16,16 +14,16 @@ public class User {
     private String email;
     private String phone;
     private String phoneCountryCode;
-    private Date birthdate;
+    private String birthdate;
 
     // ArrayList de FlightTickets?
     // ArrayList de SupportTickets?
 
-    public User (int id, String username, String authKey, String password, String firstName, String lastName, String gender,
-                 String country, String city, String email, String phone, String phoneCountryCode, Date birthdate){
+    public User (int id, String username, String token, String password, String firstName, String lastName, String gender,
+                 String country, String city, String email, String phone, String phoneCountryCode, String birthdate){
         this.setId(id);
         this.setUsername(username);
-        this.setAuthKey(authKey);
+        this.setToken(token);
         this.setPassword(password);
         this.setFirstName(firstName);
         this.setLastName(lastName);
@@ -54,12 +52,12 @@ public class User {
         this.username = username;
     }
 
-    public String getAuthKey() {
-        return authKey;
+    public String getToken() {
+        return token;
     }
 
-    public void setAuthKey(String authKey) {
-        this.authKey = authKey;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getPassword() {
@@ -134,11 +132,11 @@ public class User {
         this.phoneCountryCode = phoneCountryCode;
     }
 
-    public Date getBirthdate() {
+    public String getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
     }
 }

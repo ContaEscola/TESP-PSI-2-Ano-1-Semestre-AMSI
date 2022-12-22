@@ -1,14 +1,13 @@
 package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -16,10 +15,12 @@ import androidx.fragment.app.FragmentTransaction;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
+import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
 
 public class AccountFragment extends Fragment {
 
     private Button btLogin, btLogout;
+    private TextView tvUsername;
 
     public AccountFragment() {
         // Required empty public constructor
@@ -28,7 +29,7 @@ public class AccountFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = null;
-        if (SingletonUser.getInstance(this.getContext()).getLoggedIn()){
+        if (SingletonUser.getInstance(this.getContext()).isLoggedIn()){
             view = inflater.inflate(R.layout.fragment_account_loggedin, container, false);
             initializeLoggedIn(view);
         }
@@ -51,6 +52,9 @@ public class AccountFragment extends Fragment {
 
     private void initializeLoggedIn(View view) {
         btLogout = view.findViewById(R.id.AccountLoggedIn_Bt_Logout);
+        tvUsername = view.findViewById(R.id.AccountLoggedIn_Tv_Username);
+
+        tvUsername.setText(SingletonUser.getInstance(this.getContext()).getUser().getUsername());
 
         btLogout.setOnClickListener(view1 -> {
             logout();
@@ -59,10 +63,7 @@ public class AccountFragment extends Fragment {
 
     private void logout() {
         SingletonUser.getInstance(this.getContext()).setLoggedIn(false);
-        SharedPreferences sp = this.getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putBoolean("loggedIn", false);
-        editor.apply();
+        UserPreferences.getInstance(this.getContext()).clearUser();
         refreshFragment();
     }
 
