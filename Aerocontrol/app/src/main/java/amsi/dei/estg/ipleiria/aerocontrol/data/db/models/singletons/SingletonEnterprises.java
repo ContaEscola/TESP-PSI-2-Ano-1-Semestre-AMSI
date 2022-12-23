@@ -29,7 +29,6 @@ public class SingletonEnterprises {
 
     private static EnterprisesDBHelper enterprisesDB;
 
-
     private static RequestQueue volleyQueue;
 
     private ArrayList<Restaurant> restaurants;
@@ -76,7 +75,7 @@ public class SingletonEnterprises {
      */
     public void getRestaurantsAPI(final Context context){
 
-        // Dados já foram recarregados, para evitar que o utilizador spamme
+        // Dados já foram recarregados, para evitar que o utilizador dê spam
         if(restaurants.size() > 0) {
             enterprisesListenerRestaurant.onRefreshList(restaurants);
             return;
@@ -99,9 +98,7 @@ public class SingletonEnterprises {
                     createRestaurantsDB(restaurants);
                     enterprisesListenerRestaurant.onRefreshList(restaurants);
                 }
-            }, error -> {
-                Toast.makeText(context, R.string.error_restaurants, Toast.LENGTH_SHORT).show();
-        });
+            }, error -> Toast.makeText(context, R.string.error_restaurants, Toast.LENGTH_SHORT).show());
 
         volleyQueue.add(jsonArrayRequest);
     }
@@ -127,28 +124,6 @@ public class SingletonEnterprises {
         for (Restaurant restaurant: restaurants){
             restaurant.setMenu(enterprisesDB.readItems(restaurant.getId()));
         }
-    }
-
-    /**
-     *
-     * @param id Id do restaurante.
-     * @return Devolve todos os itens do restaurante ou null caso não encontre o restaurante.
-     */
-    public ArrayList<RestaurantItem> getRestaurantItems(int id){
-        Restaurant restaurant = getRestaurantById(id);
-        if(restaurant != null)
-            return restaurant.getMenu();
-
-        return null;
-    }
-
-    /**
-     *
-     * @param restaurant O restaurante.
-     * @param restaurantItem Item do restaurante a adicionar.
-     */
-    public void addMenuItem(Restaurant restaurant, RestaurantItem restaurantItem){
-        restaurant.addMenuItem(restaurantItem);
     }
 
     /**
@@ -179,7 +154,7 @@ public class SingletonEnterprises {
      */
     public void getStoresAPI(final Context context){
 
-        // Dados já foram recarregados, para evitar que o utilizador spamme
+        // Dados já foram recarregados, para evitar que o utilizador dê spam
         if(stores.size() > 0) {
             enterprisesListenerStore.onRefreshList(stores);
             return;
@@ -202,9 +177,7 @@ public class SingletonEnterprises {
                         createStoresDB(stores);
                         enterprisesListenerStore.onRefreshList(stores);
                     }
-                }, error -> {
-            Toast.makeText(context, R.string.error_stores, Toast.LENGTH_SHORT).show();
-        });
+                }, error -> Toast.makeText(context, R.string.error_stores, Toast.LENGTH_SHORT).show());
 
         volleyQueue.add(jsonArrayRequest);
     }
@@ -224,14 +197,6 @@ public class SingletonEnterprises {
      */
     private void readStoresDB(){
         stores = enterprisesDB.readStores();
-    }
-
-    /**
-     *
-     * @param store Loja a adicionar.
-     */
-    public void addStore(Store store){
-        stores.add(store);
     }
 
     public void setEnterprisesListenerRestaurant(EnterprisesListenerRestaurant enterprisesListener) {

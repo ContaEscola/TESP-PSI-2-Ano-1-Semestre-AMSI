@@ -3,7 +3,6 @@ package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -22,9 +21,6 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
 
     private TextView etUsername, etPassword;
     private Button btLogin;
-
-    SharedPreferences sp;
-    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

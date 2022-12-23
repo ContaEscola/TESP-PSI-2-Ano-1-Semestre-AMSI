@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -21,6 +22,7 @@ public class AccountFragment extends Fragment {
 
     private Button btLogin, btLogout;
     private TextView tvUsername;
+    private ConstraintLayout myTicketsLayout;
 
     public AccountFragment() {
         // Required empty public constructor
@@ -53,11 +55,15 @@ public class AccountFragment extends Fragment {
     private void initializeLoggedIn(View view) {
         btLogout = view.findViewById(R.id.AccountLoggedIn_Bt_Logout);
         tvUsername = view.findViewById(R.id.AccountLoggedIn_Tv_Username);
+        myTicketsLayout = view.findViewById(R.id.AccountLoggedIn_ConsLayout_MyTickets);
 
         tvUsername.setText(SingletonUser.getInstance(this.getContext()).getUser().getUsername());
 
-        btLogout.setOnClickListener(view1 -> {
-            logout();
+        btLogout.setOnClickListener(view1 -> logout());
+
+        myTicketsLayout.setOnClickListener(view1 -> {
+            Intent intent = new Intent(this.getContext(),TicketsActivity.class);
+            startActivity(intent);
         });
     }
 

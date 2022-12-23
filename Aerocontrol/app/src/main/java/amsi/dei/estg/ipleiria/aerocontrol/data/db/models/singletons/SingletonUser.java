@@ -6,8 +6,7 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -23,11 +22,14 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Passenger;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.TicketMessage;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.User;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.helpers.UserDBHelper;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
 import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketsListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.LoginParser;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.UserJsonParser;
 
 public class SingletonUser {
 
@@ -39,8 +41,11 @@ public class SingletonUser {
     private ArrayList<FlightTicket> tickets;
     private ArrayList<SupportTicket> supportTickets;
 
+    private static UserDBHelper userDB;
+
     private boolean loggedIn = false;
 
+    private TicketsListener ticketsListener;
     private LoginListener loginListener;
 
     private SingletonUser(Context context){
@@ -70,21 +75,15 @@ public class SingletonUser {
         }
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiEndPoint.LOGIN,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        User user = LoginParser.parserJsonLogin(response);
-                        if (loginListener != null && user != null) {
-                            loginListener.onValidateLogin(user, context);
-                        } else Toast.makeText(context, R.string.invalid_credentials, Toast.LENGTH_SHORT).show();
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println(R.string.error_login);
-                Toast.makeText(context, "Erro", Toast.LENGTH_SHORT).show();
-            }
-        }){
+                response -> {
+                    User user = LoginParser.parserJsonLogin(response);
+                    if (loginListener != null && user != null) {
+                        loginListener.onValidateLogin(user, context);
+                    } else Toast.makeText(context, R.string.invalid_credentials, Toast.LENGTH_SHORT).show();
+                }, error -> {
+                    System.out.println(R.string.error_login);
+                    Toast.makeText(context, "Erro", Toast.LENGTH_SHORT).show();
+                }){
             @Override
             public Map<String, String> getHeaders(){
                 String userAndPass = username+":"+password;
@@ -161,6 +160,36 @@ public class SingletonUser {
      */
     public ArrayList<FlightTicket> getTickets() {
         return tickets;
+    }
+
+    /**
+     * Vai buscar os dados dos bilhetes à API
+     * @param context context da atividade ou fragment
+     */
+    public void getTicketsAPI(final Context context){
+        // Caso não haja internet
+        if (!NetworkUtils.isConnectedInternet(context)){
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            //TODO readTicketsDB();
+            ticketsListener.onRefreshList(tickets);
+            return;
+        }
+
+        if (this.user != null){
+            String endPoint = ApiEndPoint.MY_TICKETS + "?access-token=" + this.user.getToken();
+
+            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, endPoint, null,
+                    response -> {
+                        tickets = UserJsonParser.parserJsonTickets(response);
+                        if (ticketsListener != null && tickets.size()>0){
+                            //TODO userDB.truncateTableTickets();
+                            //TODO addTicketsDB(tickets);
+                            ticketsListener.onRefreshList(tickets);
+                        }
+                    }, error -> Toast.makeText(context, R.string.error_tickets, Toast.LENGTH_SHORT).show());
+
+            volleyQueue.add(jsonArrayRequest);
+        }
     }
 
     /**
@@ -297,5 +326,9 @@ public class SingletonUser {
 
     public void setLoginListener(LoginListener loginListener) {
         this.loginListener = loginListener;
+    }
+
+    public void setTicketsListener(TicketsListener ticketsListener) {
+        this.ticketsListener = ticketsListener;
     }
 }

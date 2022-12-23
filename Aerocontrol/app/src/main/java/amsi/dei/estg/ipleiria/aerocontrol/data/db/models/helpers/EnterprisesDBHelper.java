@@ -21,14 +21,14 @@ public class EnterprisesDBHelper extends SQLiteOpenHelper {
 
     private static final int DB_VERSION=1;
 
-    // Campos da tabela Restaurante
+    // Campos da tabela itens do Restaurante
     public static final String ITEMS_ID = "id";
     public static final String ITEMS_ITEM = "item";
     public static final String ITEMS_IMAGE = "image";
     public static final String ITEMS_STATE = "state";
     public static final String ITEMS_RESTAURANT_ID = "restaurant_id";
 
-    // Campos da tabela Store
+    // Campos da tabela Store/Restaurants
     public static final String ID = "id";
     public static final String NAME = "name";
     public static final String DESCRIPTION = "description";

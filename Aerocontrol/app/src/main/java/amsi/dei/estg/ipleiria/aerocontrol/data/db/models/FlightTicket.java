@@ -1,7 +1,6 @@
 package amsi.dei.estg.ipleiria.aerocontrol.data.db.models;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class FlightTicket {
 
@@ -10,27 +9,27 @@ public class FlightTicket {
     private String flightState;
     private String flightOrigin;
     private String flightArrival;
-    private String flightOriginTime;
+    private String flightDepartureTime;
     private String flightArrivalTime;
     private String terminal;
     private double originalPrice;
     private double pricePaid;
-    private Date flightDate;
-    private Date purchaseDate;
+    private String flightDate;
+    private String purchaseDate;
     private float distance;
     private boolean checkIn;
 
     private ArrayList<Passenger> passengers;
 
     public FlightTicket(int id, String paymentMethod, String flightState, String flightOrigin, String flightArrival,
-                        String flightOriginTime, String flightArrivalTime, String terminal, double originalPrice,
-                        double pricePaid, Date flightDate, Date purchaseDate, float distance, boolean checkIn){
+                        String flightDepartureTime, String flightArrivalTime, String terminal, double originalPrice,
+                        double pricePaid, String flightDate, String purchaseDate, float distance, boolean checkIn){
         this.setId(id);
         this.setPaymentMethod(paymentMethod);
         this.setFlightState(flightState);
         this.setFlightOrigin(flightOrigin);
         this.setFlightArrival(flightArrival);
-        this.setFlightOriginTime(flightOriginTime);
+        this.setFlightDepartureTime(flightDepartureTime);
         this.setFlightArrivalTime(flightArrivalTime);
         this.setTerminal(terminal);
         this.setOriginalPrice(originalPrice);
@@ -83,12 +82,12 @@ public class FlightTicket {
         this.flightArrival = flightArrival;
     }
 
-    public String getFlightOriginTime() {
-        return flightOriginTime;
+    public String getFlightDepartureTime() {
+        return flightDepartureTime;
     }
 
-    public void setFlightOriginTime(String flightOriginTime) {
-        this.flightOriginTime = flightOriginTime;
+    public void setFlightDepartureTime(String flightDepartureTime) {
+        this.flightDepartureTime = flightDepartureTime;
     }
 
     public String getFlightArrivalTime() {
@@ -123,19 +122,19 @@ public class FlightTicket {
         this.originalPrice = originalPrice;
     }
 
-    public Date getFlightDate() {
+    public String getFlightDate() {
         return flightDate;
     }
 
-    public void setFlightDate(Date flightDate) {
+    public void setFlightDate(String flightDate) {
         this.flightDate = flightDate;
     }
 
-    public Date getPurchaseDate() {
+    public String getPurchaseDate() {
         return purchaseDate;
     }
 
-    public void setPurchaseDate(Date purchaseDate) {
+    public void setPurchaseDate(String purchaseDate) {
         this.purchaseDate = purchaseDate;
     }
 
