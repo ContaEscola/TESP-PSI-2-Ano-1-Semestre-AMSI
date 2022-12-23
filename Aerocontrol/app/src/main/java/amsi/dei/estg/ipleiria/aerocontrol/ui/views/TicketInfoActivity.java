@@ -2,13 +2,19 @@ package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
 
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
+import amsi.dei.estg.ipleiria.aerocontrol.adapters.TicketInfoPassengersAdapter;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.FlightTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
 
@@ -20,6 +26,10 @@ public class TicketInfoActivity extends AppCompatActivity {
 
     private TextView tvDate, tvState, tvDeparture, tvArrival, tvDepartureTime, tvArrivalTime,
             tvDistance, tvTerminal, tvOriginalPrice, tvPaidPrice, tvPurchaseDate;
+    private Button btCheckIn, btCancel;
+
+    private RecyclerView recyclerView;
+    private TicketInfoPassengersAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +57,9 @@ public class TicketInfoActivity extends AppCompatActivity {
         tvOriginalPrice = findViewById(R.id.TicketInfo_Tv_Price);
         tvPaidPrice = findViewById(R.id.TicketInfo_Tv_PriceDiscount);
         tvPurchaseDate = findViewById(R.id.TicketInfo_Tv_PurchaseDate);
+        recyclerView = findViewById(R.id.TicketInfo_Rv_Passengers);
+        btCheckIn = findViewById(R.id.TicketInfo_Bt_CheckIn);
+        btCancel = findViewById(R.id.TicketInfo_Bt_Cancel);
     }
 
     private void getTicketId() {
@@ -75,5 +88,12 @@ public class TicketInfoActivity extends AppCompatActivity {
         tvPaidPrice.setText(getString(R.string.euro_symbol,ticket.getPricePaid()));
         tvPurchaseDate.setText(ticket.getPurchaseDate());
 
+        if (ticket.getPassengers().size() > 0){
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            adapter = new TicketInfoPassengersAdapter(this, ticket.getPassengers());
+            recyclerView.setAdapter(adapter);
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+        }
+        if (ticket.isCheckIn()) btCheckIn.setVisibility(View.GONE);
     }
 }

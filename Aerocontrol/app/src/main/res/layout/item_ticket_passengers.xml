@@ -3,24 +3,49 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="15dp"
     android:background="?attr/colorSurface">
 
     <TextView
         android:id="@+id/Passenger_Tv_LabelName"
         style="@style/InputLabel"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:text="@string/name"
+        app:layout_constraintEnd_toStartOf="@+id/Passenger_Tv_LabelSeat"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/Passenger_Tv_Name"
         style="@style/DataText_Light"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_marginTop="5dp"
         android:text="@string/name"
+        app:layout_constraintEnd_toEndOf="@+id/Passenger_Tv_LabelName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Passenger_Tv_LabelName" />
+
+    <TextView
+        android:id="@+id/Passenger_Tv_LabelSeat"
+        style="@style/InputLabel"
+        android:layout_width="0dp"
+        android:textAlignment="center"
+        android:text="@string/seat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Passenger_Tv_LabelName"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/Passenger_Tv_Seat"
+        style="@style/DataText_Light"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/seat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/Passenger_Tv_LabelSeat"
+        app:layout_constraintTop_toBottomOf="@+id/Passenger_Tv_LabelSeat" />
+
 
     <TextView
         android:id="@+id/Passenger_Tv_LabelGender"
@@ -28,7 +53,7 @@
         android:layout_width="0dp"
         android:layout_marginTop="15dp"
         android:text="@string/gender"
-        app:layout_constraintEnd_toStartOf="@+id/Passenger_Tv_LabelSeat"
+        app:layout_constraintEnd_toStartOf="@+id/Passenger_Tv_LabelBaggage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Passenger_Tv_Name" />
 
@@ -42,23 +67,23 @@
         app:layout_constraintTop_toBottomOf="@+id/Passenger_Tv_LabelGender" />
 
     <TextView
-        android:id="@+id/Passenger_Tv_LabelSeat"
+        android:id="@+id/Passenger_Tv_LabelBaggage"
         style="@style/InputLabel"
         android:layout_width="0dp"
-        android:text="@string/seat"
+        android:text="@string/extra_baggage"
+        android:textAlignment="center"
+        app:layout_constraintBaseline_toBaselineOf="@+id/Passenger_Tv_LabelGender"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/Passenger_Tv_LabelGender"
-        app:layout_constraintTop_toTopOf="@+id/Passenger_Tv_LabelGender" />
+        app:layout_constraintStart_toEndOf="@+id/Passenger_Tv_LabelGender" />
 
-    <TextView
-        android:id="@+id/Passenger_Tv_Seat"
-        style="@style/DataText_Light"
+    <CheckBox
+        android:id="@+id/Passenger_Cb_Baggage"
+        style="@style/CheckBox"
         android:layout_width="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="@string/seat"
-        app:layout_constraintStart_toEndOf="@+id/Passenger_Tv_LabelGender"
-        app:layout_constraintStart_toStartOf="@+id/Passenger_Tv_LabelSeat"
-        app:layout_constraintTop_toBottomOf="@+id/Passenger_Tv_LabelSeat" />
+        android:clickable="false"
+        app:layout_constraintBottom_toBottomOf="@+id/Passenger_Tv_Gender"
+        app:layout_constraintEnd_toEndOf="@+id/Passenger_Tv_LabelBaggage"
+        app:layout_constraintStart_toStartOf="@+id/Passenger_Tv_LabelBaggage"
+        app:layout_constraintTop_toTopOf="@id/Passenger_Tv_Gender" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

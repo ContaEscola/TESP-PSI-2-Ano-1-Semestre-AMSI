@@ -4,8 +4,12 @@ public class Passenger {
     private int id;
     private String name;
     private String gender;
+    private int seat;
+    private boolean extraBaggage;
 
-    public Passenger(int id, String name, String gender){
+    public Passenger(int id, String name, String gender, int seat, boolean extraBaggage){
+        this.setSeat(seat);
+        this.setExtraBaggage(extraBaggage);
         this.setId(id);
         this.setName(name);
         this.setGender(gender);
@@ -33,5 +37,21 @@ public class Passenger {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public int getSeat() {
+        return seat;
+    }
+
+    public void setSeat(int seat) {
+        this.seat = seat;
+    }
+
+    public boolean haveExtraBaggage() {
+        return extraBaggage;
+    }
+
+    public void setExtraBaggage(boolean extraBaggage) {
+        this.extraBaggage = extraBaggage;
     }
 }

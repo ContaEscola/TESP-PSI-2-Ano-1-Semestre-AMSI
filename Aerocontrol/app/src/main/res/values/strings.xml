@@ -117,8 +117,8 @@
     <string name="old_price"><strike>500€</strike></string>
     <string name="new_price">400€</string>
     <string name="random_date">15/01/2023</string>
-    <string name="seat">Lugar:</string>
-    <string name="check_in">Check In</string>
+    <string name="seat">Lugar</string>
+    <string name="check_in">Check-in</string>
     <string name="price_paid">Preço do bilhete:</string>
     <string name="euro_symbol">%1$.2f €</string>
     <string name="km">%1$.2f km</string>
@@ -167,8 +167,6 @@
     <string name="invalid_credentials">Credenciais inválidas</string>
     <string name="insert_all_data">Preencha todos os campos.</string>
     <string name="error_on_ticket">Erro ao encontrar o bilhete</string>
-
-
 
 
 </resources>

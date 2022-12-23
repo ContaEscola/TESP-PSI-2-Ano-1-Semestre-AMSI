@@ -11,235 +11,249 @@
         android:id="@+id/TicketInfo_Toolbar"
         layout="@layout/toolbar" />
 
-    <Button
-        android:id="@+id/TicketInfo_Bt_Cancel"
-        style="@style/RedButton"
-        android:layout_width="0dp"
-        android:text="@string/cancel"
-        app:layout_constraintEnd_toStartOf="@+id/TicketInfo_GuidelineEnd"
-        app:layout_constraintStart_toEndOf="@+id/TicketInfo_Bt_CheckIn"
-        app:layout_constraintTop_toTopOf="@+id/TicketInfo_Bt_CheckIn" />
-
-    <Button
-        android:id="@+id/TicketInfo_Bt_CheckIn"
-        style="@style/PrimaryButton"
-        android:layout_width="0dp"
-        android:layout_marginTop="40dp"
-        android:text="@string/check_in"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/TicketInfo_Bt_Cancel"
-        app:layout_constraintStart_toStartOf="@id/TicketInfo_GuidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/TicketInfo_Toolbar" />
-
-    <TextView
-        android:id="@+id/TicketInfo_Tv_LabelDate"
-        style="@style/DataText"
-        android:layout_width="0dp"
-        android:layout_marginTop="35dp"
-        android:text="@string/date"
-        app:layout_constraintStart_toStartOf="@+id/TicketInfo_GuidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/TicketInfo_Bt_Cancel" />
-
-    <TextView
-        android:id="@+id/TicketInfo_Tv_Date"
-        style="@style/DataText_SemiBold"
-        android:layout_width="wrap_content"
-        android:layout_marginStart="2dp"
-        android:text="@string/date"
-        app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_LabelDate"
-        app:layout_constraintStart_toEndOf="@+id/TicketInfo_Tv_LabelDate" />
-
-    <TextView
-        android:id="@+id/TicketInfo_Tv_LabelState"
-        style="@style/DataText"
-        android:layout_width="wrap_content"
-        android:layout_marginEnd="3dp"
-        android:text="@string/state"
-        app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_LabelDate"
-        app:layout_constraintEnd_toStartOf="@+id/TicketInfo_Tv_State" />
-
-    <TextView
-        android:id="@+id/TicketInfo_Tv_State"
-        style="@style/DataText_SemiBold"
-        android:layout_width="wrap_content"
-        android:text="@string/state"
-        app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_LabelState"
-        app:layout_constraintEnd_toStartOf="@+id/TicketInfo_GuidelineEnd" />
-
-    <TextView
-        android:id="@+id/TicketInfo_Tv_LabelDepartureCity"
-        style="@style/DataText"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="@string/flight_origin"
-        app:layout_constraintStart_toStartOf="@+id/TicketInfo_GuidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/TicketInfo_Tv_Date" />
-
-    <TextView
-        android:id="@+id/TicketInfo_Tv_DepartureCity"
-        style="@style/DataText_Medium"
-        android:layout_width="wrap_content"
-        android:layout_marginStart="2dp"
-        android:text="@string/city_lisbon"
-        app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_LabelDepartureCity"
-        app:layout_constraintStart_toEndOf="@+id/TicketInfo_Tv_LabelDepartureCity" />
-
-    <TextView
-        android:id="@+id/TicketInfo_Tv_LabelArrivalCity"
-        style="@style/DataText"
-        android:layout_width="wrap_content"
-        android:layout_marginEnd="2dp"
-        android:text="@string/flight_destiny"
-        app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_LabelDepartureCity"
-        app:layout_constraintEnd_toStartOf="@+id/TicketInfo_Tv_ArrivalCity" />
-
-    <TextView
-        android:id="@+id/TicketInfo_Tv_ArrivalCity"
-        style="@style/DataText_Medium"
-        android:layout_width="wrap_content"
-        android:text="@string/city_madrid"
-        app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_LabelArrivalCity"
-        app:layout_constraintEnd_toStartOf="@+id/TicketInfo_GuidelineEnd" />
-
-    <TextView
-        android:id="@+id/TicketInfo_Tv_LabelDepartureTime"
-        style="@style/DataText"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="@string/departure"
-        app:layout_constraintStart_toStartOf="@+id/TicketInfo_GuidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/TicketInfo_Tv_LabelDepartureCity" />
-
-    <TextView
-        android:id="@+id/TicketInfo_Tv_DepartureTime"
-        style="@style/DataText"
-        android:layout_width="wrap_content"
-        android:layout_marginStart="2dp"
-        android:text="@string/departure"
-        app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_LabelDepartureTime"
-        app:layout_constraintStart_toEndOf="@+id/TicketInfo_Tv_LabelDepartureTime" />
-
-    <TextView
-        android:id="@+id/TicketInfo_Tv_LabelArrivalTime"
-        style="@style/DataText"
-        android:layout_width="wrap_content"
-        android:layout_marginEnd="2dp"
-        android:text="@string/arrival"
-        app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_LabelDepartureTime"
-        app:layout_constraintEnd_toStartOf="@+id/TicketInfo_Tv_ArrivalTime" />
-
-    <TextView
-        android:id="@+id/TicketInfo_Tv_ArrivalTime"
-        style="@style/DataText"
-        android:layout_width="wrap_content"
-        android:text="@string/arrival"
-        app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_LabelArrivalTime"
-        app:layout_constraintEnd_toStartOf="@+id/TicketInfo_GuidelineEnd" />
-
-    <TextView
-        android:id="@+id/TicketInfo_Tv_LabelDistance"
-        style="@style/DataText"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="@string/distance"
-        app:layout_constraintStart_toStartOf="@+id/TicketInfo_GuidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/TicketInfo_Tv_LabelDepartureTime" />
-
-    <TextView
-        android:id="@+id/TicketInfo_Tv_Distance"
-        style="@style/DataText"
-        android:layout_width="wrap_content"
-        android:layout_marginStart="2dp"
-        android:text="@string/distance"
-        app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_LabelDistance"
-        app:layout_constraintStart_toEndOf="@+id/TicketInfo_Tv_LabelDistance" />
-
-    <TextView
-        android:id="@+id/TicketInfo_Tv_LabelPlace"
-        style="@style/DataText"
-        android:layout_width="wrap_content"
-        android:layout_marginEnd="2dp"
-        android:text="@string/place"
-        app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_LabelDistance"
-        app:layout_constraintEnd_toStartOf="@+id/TicketInfo_Tv_Terminal" />
-
-    <TextView
-        android:id="@+id/TicketInfo_Tv_Terminal"
-        style="@style/DataText"
-        android:layout_width="wrap_content"
-        android:text="@string/place"
-        app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_LabelPlace"
-        app:layout_constraintEnd_toStartOf="@+id/TicketInfo_GuidelineEnd" />
-
-    <TextView
-        android:id="@+id/TicketInfo_Tv_LabelPrice"
-        style="@style/DataText"
-        android:layout_width="wrap_content"
-        android:text="@string/price_paid"
-        android:layout_marginTop="15dp"
-        app:layout_constraintStart_toStartOf="@+id/TicketInfo_GuidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/TicketInfo_Tv_LabelPurchaseDate" />
-
-    <TextView
-        android:id="@+id/TicketInfo_Tv_PriceDiscount"
-        style="@style/DataText_SemiBold"
-        android:layout_width="wrap_content"
-        android:text="@string/new_price"
-        android:layout_marginStart="2dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_Price"
-        app:layout_constraintStart_toEndOf="@+id/TicketInfo_Tv_LabelPrice" />
-
-    <TextView
-        android:id="@+id/TicketInfo_Tv_Price"
-        style="@style/DataText"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="15dp"
-        android:text="@string/old_price"
-        android:textColor="?attr/colorOnSurfaceVariant"
-        app:layout_constraintStart_toEndOf="@+id/TicketInfo_Tv_PriceDiscount"
-        app:layout_constraintTop_toBottomOf="@+id/TicketInfo_Tv_LabelPurchaseDate" />
-
-    <TextView
-        android:id="@+id/TicketInfo_Tv_LabelPurchaseDate"
-        style="@style/DataText"
-        android:layout_width="wrap_content"
-        android:text="@string/purchase_date"
-        android:layout_marginTop="15dp"
-        app:layout_constraintStart_toStartOf="@+id/TicketInfo_GuidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/TicketInfo_Tv_LabelDistance" />
-
-    <TextView
-        android:id="@+id/TicketInfo_Tv_PurchaseDate"
-        style="@style/DataText"
-        android:layout_width="wrap_content"
-        android:text="@string/random_date"
-        android:layout_marginStart="2dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_LabelPurchaseDate"
-        app:layout_constraintStart_toEndOf="@+id/TicketInfo_Tv_LabelPurchaseDate" />
-
-    <TextView
-        android:id="@+id/TicketInfo_Tv_Passengers"
-        style="@style/SecondTitle"
-        android:layout_width="wrap_content"
-        android:text="@string/passengers"
-        android:layout_marginTop="25dp"
-        app:layout_constraintEnd_toStartOf="@+id/TicketInfo_GuidelineEnd"
-        app:layout_constraintStart_toStartOf="@+id/TicketInfo_GuidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/TicketInfo_Tv_Price" />
-
-    <ListView
-        android:id="@+id/TicketInfo_Lv_Passengers"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:layout_marginBottom="40dp"
-        android:divider="@color/transparent"
-        android:dividerHeight="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/TicketInfo_GuidelineEnd"
         app:layout_constraintStart_toStartOf="@+id/TicketInfo_GuidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/TicketInfo_Tv_Passengers" />
+        app:layout_constraintTop_toBottomOf="@+id/TicketInfo_Toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/TicketInfo_Bt_Cancel"
+                style="@style/RedButton"
+                android:layout_width="0dp"
+                android:text="@string/cancel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/TicketInfo_Bt_CheckIn"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/TicketInfo_Bt_CheckIn"
+                style="@style/PrimaryButton"
+                android:layout_width="0dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/check_in"
+                app:layout_constraintEnd_toStartOf="@+id/TicketInfo_Bt_Cancel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/TicketInfo_Bt_Cancel" />
+
+            <TextView
+                android:id="@+id/TicketInfo_Tv_LabelDate"
+                style="@style/DataText"
+                android:layout_width="0dp"
+                android:layout_marginTop="35dp"
+                android:text="@string/date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/TicketInfo_Bt_Cancel" />
+
+            <TextView
+                android:id="@+id/TicketInfo_Tv_Date"
+                style="@style/DataText_SemiBold"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="@string/date"
+                app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_LabelDate"
+                app:layout_constraintStart_toEndOf="@+id/TicketInfo_Tv_LabelDate" />
+
+            <TextView
+                android:id="@+id/TicketInfo_Tv_LabelState"
+                style="@style/DataText"
+                android:layout_width="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="@string/state"
+                app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_LabelDate"
+                app:layout_constraintEnd_toStartOf="@+id/TicketInfo_Tv_State" />
+
+            <TextView
+                android:id="@+id/TicketInfo_Tv_State"
+                style="@style/DataText_SemiBold"
+                android:layout_width="wrap_content"
+                android:text="@string/state"
+                app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_LabelState"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/TicketInfo_Tv_LabelDepartureCity"
+                style="@style/DataText"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/flight_origin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/TicketInfo_Tv_Date" />
+
+            <TextView
+                android:id="@+id/TicketInfo_Tv_DepartureCity"
+                style="@style/DataText_Medium"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="@string/city_lisbon"
+                app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_LabelDepartureCity"
+                app:layout_constraintStart_toEndOf="@+id/TicketInfo_Tv_LabelDepartureCity" />
+
+            <TextView
+                android:id="@+id/TicketInfo_Tv_LabelArrivalCity"
+                style="@style/DataText"
+                android:layout_width="wrap_content"
+                android:layout_marginEnd="2dp"
+                android:text="@string/flight_destiny"
+                app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_LabelDepartureCity"
+                app:layout_constraintEnd_toStartOf="@+id/TicketInfo_Tv_ArrivalCity" />
+
+            <TextView
+                android:id="@+id/TicketInfo_Tv_ArrivalCity"
+                style="@style/DataText_Medium"
+                android:layout_width="wrap_content"
+                android:text="@string/city_madrid"
+                app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_LabelArrivalCity"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/TicketInfo_Tv_LabelDepartureTime"
+                style="@style/DataText"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/departure"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/TicketInfo_Tv_LabelDepartureCity" />
+
+            <TextView
+                android:id="@+id/TicketInfo_Tv_DepartureTime"
+                style="@style/DataText"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="@string/departure"
+                app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_LabelDepartureTime"
+                app:layout_constraintStart_toEndOf="@+id/TicketInfo_Tv_LabelDepartureTime" />
+
+            <TextView
+                android:id="@+id/TicketInfo_Tv_LabelArrivalTime"
+                style="@style/DataText"
+                android:layout_width="wrap_content"
+                android:layout_marginEnd="2dp"
+                android:text="@string/arrival"
+                app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_LabelDepartureTime"
+                app:layout_constraintEnd_toStartOf="@+id/TicketInfo_Tv_ArrivalTime" />
+
+            <TextView
+                android:id="@+id/TicketInfo_Tv_ArrivalTime"
+                style="@style/DataText"
+                android:layout_width="wrap_content"
+                android:text="@string/arrival"
+                app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_LabelArrivalTime"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/TicketInfo_Tv_LabelDistance"
+                style="@style/DataText"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/distance"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/TicketInfo_Tv_LabelDepartureTime" />
+
+            <TextView
+                android:id="@+id/TicketInfo_Tv_Distance"
+                style="@style/DataText"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="@string/distance"
+                app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_LabelDistance"
+                app:layout_constraintStart_toEndOf="@+id/TicketInfo_Tv_LabelDistance" />
+
+            <TextView
+                android:id="@+id/TicketInfo_Tv_LabelPlace"
+                style="@style/DataText"
+                android:layout_width="wrap_content"
+                android:layout_marginEnd="2dp"
+                android:text="@string/place"
+                app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_LabelDistance"
+                app:layout_constraintEnd_toStartOf="@+id/TicketInfo_Tv_Terminal" />
+
+            <TextView
+                android:id="@+id/TicketInfo_Tv_Terminal"
+                style="@style/DataText"
+                android:layout_width="wrap_content"
+                android:text="@string/place"
+                app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_LabelPlace"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/TicketInfo_Tv_LabelPrice"
+                style="@style/DataText"
+                android:layout_width="wrap_content"
+                android:text="@string/price_paid"
+                android:layout_marginTop="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/TicketInfo_Tv_LabelPurchaseDate" />
+
+            <TextView
+                android:id="@+id/TicketInfo_Tv_PriceDiscount"
+                style="@style/DataText_SemiBold"
+                android:layout_width="wrap_content"
+                android:text="@string/new_price"
+                android:layout_marginStart="3dp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_Price"
+                app:layout_constraintStart_toEndOf="@+id/TicketInfo_Tv_LabelPrice" />
+
+            <TextView
+                android:id="@+id/TicketInfo_Tv_Price"
+                style="@style/DataText"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="15dp"
+                android:text="@string/old_price"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                app:layout_constraintStart_toEndOf="@+id/TicketInfo_Tv_PriceDiscount"
+                app:layout_constraintTop_toBottomOf="@+id/TicketInfo_Tv_LabelPurchaseDate" />
+
+            <TextView
+                android:id="@+id/TicketInfo_Tv_LabelPurchaseDate"
+                style="@style/DataText"
+                android:layout_width="wrap_content"
+                android:text="@string/purchase_date"
+                android:layout_marginTop="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/TicketInfo_Tv_LabelDistance" />
+
+            <TextView
+                android:id="@+id/TicketInfo_Tv_PurchaseDate"
+                style="@style/DataText"
+                android:layout_width="wrap_content"
+                android:text="@string/random_date"
+                android:layout_marginStart="2dp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/TicketInfo_Tv_LabelPurchaseDate"
+                app:layout_constraintStart_toEndOf="@+id/TicketInfo_Tv_LabelPurchaseDate" />
+
+            <TextView
+                android:id="@+id/TicketInfo_Tv_Passengers"
+                style="@style/SecondTitle"
+                android:layout_width="wrap_content"
+                android:text="@string/passengers"
+                android:layout_marginTop="25dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/TicketInfo_Tv_Price" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/TicketInfo_Rv_Passengers"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/TicketInfo_Tv_Passengers" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/TicketInfo_GuidelineStart"
