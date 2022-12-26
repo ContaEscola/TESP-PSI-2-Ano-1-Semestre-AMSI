@@ -47,6 +47,9 @@
     <string name="create_account_subtext">Crie a sua conta para começar a reservar voos e muito mais.</string>
     <string name="splash_screen_text">Reserve já o seu próximo voo!</string>
     <string name="accept_terms">Li e aceito integralmente os termos e condições.</string>
+    <string name="check_in_done">Check-in efetuado.</string>
+    <string name="ticket_deleted">Bilhete cancelado com sucesso. Receberá um reembolso.</string>
+    <string name="cancel_ticket">Cancelar bilhete</string>
 
 
     <!--  Dados User  -->
