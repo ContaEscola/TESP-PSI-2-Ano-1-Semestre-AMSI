@@ -26,6 +26,7 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.helpers.UserDBHelper;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
 import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketsListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.LoginParser;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
@@ -46,12 +47,14 @@ public class SingletonUser {
     private boolean loggedIn = false;
 
     private TicketsListener ticketsListener;
+    private TicketListener ticketListener;
     private LoginListener loginListener;
 
     private SingletonUser(Context context){
         user = null;
         tickets = new ArrayList<>();
         supportTickets = new ArrayList<>();
+        userDB = new UserDBHelper(context);
         getLoggedInOnStart(context);
     }
 
@@ -80,17 +83,14 @@ public class SingletonUser {
                     if (loginListener != null && user != null) {
                         loginListener.onValidateLogin(user, context);
                     } else Toast.makeText(context, R.string.invalid_credentials, Toast.LENGTH_SHORT).show();
-                }, error -> {
-                    System.out.println(R.string.error_login);
-                    Toast.makeText(context, "Erro", Toast.LENGTH_SHORT).show();
-                }){
+                }, error -> Toast.makeText(context, "Erro", Toast.LENGTH_SHORT).show()){
             @Override
             public Map<String, String> getHeaders(){
                 String userAndPass = username+":"+password;
                 byte[] data = userAndPass.getBytes(StandardCharsets.UTF_8);
                 String authorization = "Basic " + Base64.encodeToString(data,Base64.DEFAULT);
 
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("Authorization", authorization);
                 return params;
             }
@@ -170,7 +170,7 @@ public class SingletonUser {
         // Caso não haja internet
         if (!NetworkUtils.isConnectedInternet(context)){
             Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
-            //TODO readTicketsDB();
+            readTicketsDB();
             ticketsListener.onRefreshList(tickets);
             return;
         }
@@ -182,14 +182,114 @@ public class SingletonUser {
                     response -> {
                         tickets = UserJsonParser.parserJsonTickets(response);
                         if (ticketsListener != null && tickets.size()>0){
-                            //TODO userDB.truncateTableTickets();
-                            //TODO addTicketsDB(tickets);
+                            userDB.truncateTableTickets();
+                            addTicketsDB(tickets);
                             ticketsListener.onRefreshList(tickets);
                         }
                     }, error -> Toast.makeText(context, R.string.error_tickets, Toast.LENGTH_SHORT).show());
 
             volleyQueue.add(jsonArrayRequest);
         }
+    }
+
+    /**
+     * Envia um ticket para API de forma a ser efetuado o Check-in.
+     * @param context context da atividade ou fragment
+     * @param ticket ticket a enviar para a API para ser atualizado
+     */
+    public void updateTicketAPI(final Context context, FlightTicket ticket){
+        if (!NetworkUtils.isConnectedInternet(context)){
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (this.user != null){
+            String endPoint = ApiEndPoint.TICKETS + ticket.getId() + "?access-token=" + this.user.getToken();
+
+            StringRequest stringRequest = new StringRequest(Request.Method.PUT, endPoint,
+                    response -> {
+                        Toast.makeText(context, R.string.check_in_done, Toast.LENGTH_SHORT).show();
+                        ticket.setCheckIn(true);
+                        updateTicketDB(ticket);
+                        ticketListener.onRefreshTicket();
+                    }, error -> Toast.makeText(context, R.string.error_tickets, Toast.LENGTH_SHORT).show()
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("checkin","1");
+                    return params;
+                }
+            };
+
+            volleyQueue.add(stringRequest);
+        }
+    }
+
+    /**
+     * Elimina um ticket da BD
+     * @param context context da atividade ou fragment
+     * @param ticket ticket eliminar
+     */
+    public void deleteTicketAPI(final Context context, FlightTicket ticket){
+        if (!NetworkUtils.isConnectedInternet(context)){
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (this.user != null){
+            String endPoint = ApiEndPoint.TICKETS + ticket.getId() + "?access-token=" + this.user.getToken();
+
+            StringRequest stringRequest = new StringRequest(Request.Method.DELETE, endPoint,
+                    response -> {
+                        Toast.makeText(context, R.string.ticket_deleted, Toast.LENGTH_SHORT).show();
+                        deleteTicketDB(ticket.getId());
+                        this.tickets.remove(ticket);
+                        ticketListener.onDeleteTicket();
+                    }, error -> {
+                Toast.makeText(context, "Erro ao eliminar", Toast.LENGTH_SHORT).show();
+            });
+            volleyQueue.add(stringRequest);
+        }
+    }
+
+    /**
+     * Cria todos os bilhetes numa base de dados local para que possam ser visualizados offline
+     * @param tickets lista dos bilhetes a criar na BD
+     */
+    private void addTicketsDB(ArrayList<FlightTicket> tickets) {
+        for (FlightTicket ticket: tickets) {
+            userDB.createTicket(ticket);
+            for (Passenger passenger : ticket.getPassengers()){
+                userDB.createPassenger(passenger,ticket.getId());
+            }
+        }
+    }
+
+    /**
+     * Atualiza um bilhete na BD
+     */
+    private void readTicketsDB() {
+        tickets = userDB.readTickets();
+        for (FlightTicket ticket: tickets){
+            ticket.setPassengers(userDB.readPassengers(ticket.getId()));
+        }
+    }
+
+    /**
+     * Atualiza um bilhete que já esteja na BD local
+     * @param ticket bilhete a atualizar na BD
+     */
+    private void updateTicketDB(FlightTicket ticket) {
+        userDB.updateTicket(ticket);
+    }
+
+    /**
+     *
+     * @param id id do bilhete a eliminar
+     */
+    private void deleteTicketDB(int id){
+        userDB.deleteTicket(id);
     }
 
     /**
@@ -220,30 +320,6 @@ public class SingletonUser {
      */
     public void deleteTicket(FlightTicket ticket) {
         this.tickets.remove(ticket);
-    }
-
-    /**
-     *
-     * @param id Id do bilhete de voo.
-     * @return Devolve a lista de passageiros do bilhete de voo.
-     */
-    public ArrayList<Passenger> getPassengers(int id){
-        FlightTicket ticket = getTicketById(id);
-        if(ticket != null)
-            return ticket.getPassengers();
-
-        return null;
-    }
-
-    /**
-     *
-     * @param id Id do bilhete de voo.
-     * @param passenger Passageiro a adicionar ao bilhete de voo.
-     */
-    public void addPassenger(int id, Passenger passenger){
-        FlightTicket ticket = getTicketById(id);
-        if(ticket != null)
-            ticket.addPassenger(passenger);
     }
 
     /**
@@ -330,5 +406,9 @@ public class SingletonUser {
 
     public void setTicketsListener(TicketsListener ticketsListener) {
         this.ticketsListener = ticketsListener;
+    }
+
+    public void setTicketListener(TicketListener ticketListener) {
+        this.ticketListener = ticketListener;
     }
 }

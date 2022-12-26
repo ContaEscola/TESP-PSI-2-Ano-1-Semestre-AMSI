@@ -1,5 +1,6 @@
 package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -43,7 +44,7 @@ public class TicketsActivity extends AppCompatActivity implements TicketsListene
         FlightTicket ticket = SingletonUser.getInstance(this).getTicketById(id);
         Intent intent = new Intent(this, TicketInfoActivity.class);
         intent.putExtra(TicketInfoActivity.TICKET_ID, (int) ticket.getId());
-        startActivity(intent);
+        startActivityForResult(intent,1);
     }
 
     @Override
@@ -51,5 +52,14 @@ public class TicketsActivity extends AppCompatActivity implements TicketsListene
         adapter = new FlightTicketAdapter(this, SingletonUser.getInstance(this).getTickets());
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1)
+            if (resultCode == Activity.RESULT_OK) {
+                onRefreshList(SingletonUser.getInstance(this).getTickets());
+            }
     }
 }

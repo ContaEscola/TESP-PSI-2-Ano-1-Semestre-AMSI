@@ -1,5 +1,8 @@
 package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
@@ -17,8 +20,9 @@ import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.adapters.TicketInfoPassengersAdapter;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.FlightTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketListener;
 
-public class TicketInfoActivity extends AppCompatActivity {
+public class TicketInfoActivity extends AppCompatActivity implements TicketListener {
 
     public static final String TICKET_ID = "ticket_id";
 
@@ -40,6 +44,8 @@ public class TicketInfoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        SingletonUser.getInstance(this).setTicketListener(this);
 
         initialize();
         getTicketId();
@@ -67,6 +73,17 @@ public class TicketInfoActivity extends AppCompatActivity {
 
         if (idTicket != -1){
             ticket = SingletonUser.getInstance(this).getTicketById(idTicket);
+            btCheckIn.setOnClickListener(v -> SingletonUser.getInstance(this).updateTicketAPI(this,ticket));
+            btCancel.setOnClickListener(v -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(TicketInfoActivity.this);
+                builder.setTitle(R.string.cancel_ticket);
+                builder.setMessage("Se deseja realmente apagar o seu bilhete por favor confirme abaixo.");
+                builder.setPositiveButton(R.string.confirm, (dialog, which) -> {
+                    SingletonUser.getInstance(this).deleteTicketAPI(this, ticket);
+                });
+                builder.setNegativeButton(R.string.cancel,(dialog,which) -> {});
+                builder.show();
+            });
             ticketDetails();
         } else Toast.makeText(this, R.string.error_on_ticket, Toast.LENGTH_SHORT).show();
     }
@@ -94,6 +111,24 @@ public class TicketInfoActivity extends AppCompatActivity {
             recyclerView.setAdapter(adapter);
             recyclerView.setItemAnimator(new DefaultItemAnimator());
         }
-        if (ticket.isCheckIn()) btCheckIn.setVisibility(View.GONE);
+        if (ticket.isCheckIn()){
+            btCheckIn.setVisibility(View.GONE);
+            btCancel.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onRefreshTicket() {
+        btCheckIn.setVisibility(View.GONE);
+        btCancel.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onDeleteTicket() {
+        btCheckIn.setVisibility(View.GONE);
+        btCancel.setVisibility(View.GONE);
+        Intent returnIntent = new Intent();
+        setResult(Activity.RESULT_OK, returnIntent);
+        finish();
     }
 }

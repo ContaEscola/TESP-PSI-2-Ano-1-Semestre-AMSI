@@ -161,4 +161,8 @@ public class FlightTicket {
     public void addPassenger(Passenger passenger) {
         this.passengers.add(passenger);
     }
+
+    public void setPassengers(ArrayList<Passenger> passengers){
+        this.passengers = passengers;
+    }
 }
