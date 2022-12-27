@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/listview_item_border"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:layout_marginBottom="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/Ticket_ConsLayout_Left"
@@ -134,6 +135,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
+        android:id="@+id/Ticket_Bt_Details"
         style="@style/PrimaryButton"
         android:layout_width="0dp"
         android:layout_marginTop="15dp"

@@ -12,7 +12,7 @@
       android:id="@+id/RestaurantDetails_Toolbar"
       layout="@layout/toolbar"/>
 
-  <ScrollView
+  <androidx.core.widget.NestedScrollView
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:fillViewport="true"
@@ -49,7 +49,6 @@
           style="@style/DataText"
           android:layout_width="0dp"
           android:layout_marginStart="2dp"
-          android:text="@string/schedule"
           app:layout_constraintEnd_toStartOf="@+id/RestaurantDetails_GuidelineEnd"
           app:layout_constraintStart_toEndOf="@+id/RestaurantDetails_Tv_LabelSchedule"
           app:layout_constraintTop_toTopOf="@+id/RestaurantDetails_Tv_LabelSchedule" />
@@ -67,7 +66,6 @@
           android:id="@+id/RestaurantDetails_Tv_Description"
           style="@style/DataText"
           android:layout_width="0dp"
-          android:text="@string/random_text"
           android:layout_marginStart="2dp"
           app:layout_constraintEnd_toStartOf="@+id/RestaurantDetails_GuidelineEnd"
           app:layout_constraintStart_toEndOf="@+id/RestaurantDetails_Tv_LabelDescription"
@@ -87,7 +85,6 @@
           style="@style/DataText"
           android:layout_width="0dp"
           android:layout_marginStart="2dp"
-          android:text="@string/phone"
           app:layout_constraintEnd_toStartOf="@+id/RestaurantDetails_GuidelineEnd"
           app:layout_constraintStart_toEndOf="@+id/RestaurantDetails_Tv_LabelPhone"
           app:layout_constraintTop_toTopOf="@+id/RestaurantDetails_Tv_LabelPhone" />
@@ -106,7 +103,6 @@
           style="@style/DataText"
           android:layout_width="0dp"
           android:layout_marginStart="2dp"
-          android:text="@string/website"
           app:layout_constraintEnd_toStartOf="@+id/RestaurantDetails_GuidelineEnd"
           app:layout_constraintStart_toEndOf="@+id/RestaurantDetails_Tv_LabelWebsite"
           app:layout_constraintTop_toTopOf="@+id/RestaurantDetails_Tv_LabelWebsite" />
@@ -120,13 +116,11 @@
           app:layout_constraintStart_toStartOf="@+id/RestaurantDetails_GuidelineStart"
           app:layout_constraintTop_toBottomOf="@+id/RestaurantDetails_Tv_Website" />
 
-      <ListView
-          android:id="@+id/RestaurantDetails_Lv_Menu"
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/RestaurantDetails_Rv_Menu"
           android:layout_width="0dp"
-          android:layout_height="400dp"
+          android:layout_height="wrap_content"
           android:layout_marginTop="20dp"
-          android:divider="@color/transparent"
-          android:dividerHeight="15dp"
           app:layout_constraintEnd_toStartOf="@+id/RestaurantDetails_GuidelineEnd"
           app:layout_constraintStart_toStartOf="@+id/RestaurantDetails_GuidelineStart"
           app:layout_constraintTop_toBottomOf="@id/RestaurantDetails_Tv_Menu" />
@@ -148,6 +142,6 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-  </ScrollView>
+  </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
