@@ -48,7 +48,8 @@
         <activity
             android:name=".ui.views.EditAccountActivity"
             android:exported="false"
-            android:parentActivityName=".ui.views.MainActivity" />
+            android:parentActivityName=".ui.views.MainActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".ui.views.TicketInfoActivity"
             android:exported="false"
