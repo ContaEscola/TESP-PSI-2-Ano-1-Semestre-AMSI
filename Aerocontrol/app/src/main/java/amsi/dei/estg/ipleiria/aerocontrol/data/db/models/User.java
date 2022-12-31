@@ -2,6 +2,12 @@ package amsi.dei.estg.ipleiria.aerocontrol.data.db.models;
 
 public class User {
 
+    public static final String[] GENDERS = {
+            "Masculino",
+            "Feminino",
+            "Outro",
+    };
+
     private int id;
     private String username;
     private String token;
