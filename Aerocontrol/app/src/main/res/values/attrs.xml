@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- COLORS -->
     <attr name="colorSurfaceVariant_400" format="color" />
     <attr name="colorSurfaceVariant_800" format="color" />
     <attr name="colorSurfaceVariant_900" format="color" />
 
     <attr name="colorSuccess" format="color" />
     <attr name="colorOnSuccess" format="color" />
+
+    <attr name="colorPrimary" format="color" />
+
+    <attr name="colorError" format="color"/>
+
+    <!-- States -->
+    <attr name="state_on_error" format="boolean"/>
 </resources>
