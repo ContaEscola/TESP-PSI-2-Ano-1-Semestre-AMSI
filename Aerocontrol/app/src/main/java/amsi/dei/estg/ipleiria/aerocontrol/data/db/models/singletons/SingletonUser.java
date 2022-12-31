@@ -39,6 +39,7 @@ public class SingletonUser {
     private static RequestQueue volleyQueue;
 
     private User user;
+    private User userToUpdate;
     private ArrayList<FlightTicket> tickets;
     private ArrayList<SupportTicket> supportTickets;
 
@@ -52,6 +53,7 @@ public class SingletonUser {
 
     private SingletonUser(Context context){
         user = null;
+        userToUpdate = null;
         tickets = new ArrayList<>();
         supportTickets = new ArrayList<>();
         userDB = new UserDBHelper(context);
@@ -124,6 +126,7 @@ public class SingletonUser {
      */
     public void setUser(User user) {
         this.user = user;
+        this.userToUpdate = user;
     }
 
     /**
@@ -132,6 +135,22 @@ public class SingletonUser {
      */
     public User getUser() {
         return user;
+    }
+
+    /**
+     *
+     * @param user Utilizador que passa a estar logado.
+     */
+    public void setUserToUpdate(User user) {
+        this.userToUpdate = user;
+    }
+
+    /**
+     *
+     * @return Devolve o Utilizador.
+     */
+    public User getUserToUpdate() {
+        return userToUpdate;
     }
 
     /**
