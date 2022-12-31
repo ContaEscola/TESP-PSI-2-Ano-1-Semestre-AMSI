@@ -19,7 +19,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
+        <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
             android:id="@+id/EditAccessData_Et_Username"
             style="@style/TextInput"
             android:layout_width="match_parent"
@@ -37,7 +37,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/EditAccessData_Et_Username" />
 
-        <EditText
+        <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
             android:id="@+id/EditAccessData_Et_Password"
             style="@style/PasswordInput"
             android:layout_width="match_parent"

@@ -18,7 +18,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
+        <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
             android:id="@+id/EditPersonalData_Et_FirstName"
             style="@style/TextInput"
             android:layout_width="match_parent"
@@ -36,7 +36,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/EditPersonalData_Et_FirstName" />
 
-        <EditText
+        <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
             android:id="@+id/EditPersonalData_Et_LastName"
             style="@style/TextInput"
             android:layout_width="match_parent"
@@ -54,14 +54,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/EditPersonalData_Et_LastName" />
 
-        <EditText
-            android:id="@+id/EditPersonalData_Et_Gender"
-            style="@style/TextInput"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/EditPersonalData_ComboBox_Gender"
+            style="@style/ComboBox"
+            android:hint="@string/select_gender"
+            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
-            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content"
+            app:boxStrokeWidth="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/EditPersonalData_Tv_Gender" />
+            app:layout_constraintTop_toBottomOf="@+id/EditPersonalData_Tv_Gender" >
+
+            <AutoCompleteTextView
+                android:id="@+id/EditPersonalData_ACTV_Gender"
+                android:backgroundTint="@android:color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/EditPersonalData_Tv_Birth"
@@ -70,12 +82,17 @@
             android:text="@string/birth"
             android:layout_marginTop="15dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/EditPersonalData_Et_Gender" />
+            app:layout_constraintTop_toBottomOf="@+id/EditPersonalData_ComboBox_Gender" />
 
-        <EditText
-            android:id="@+id/EditPersonalData_Et_Birth"
-            style="@style/DateInput"
+        <!-- android: editable está deprecated mas o inputType none não funciona corretamente -->
+        <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
+            android:id="@+id/EditPersonalData_Et_BirthDate"
             android:layout_width="match_parent"
+            style="@style/DateInput"
+            android:inputType="none"
+            android:editable="false"
+            android:background="@drawable/edit_text_border_states"
+            android:hint="@string/birthdate_format"
             android:layout_marginTop="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -88,9 +105,9 @@
             android:text="@string/country"
             android:layout_marginTop="15dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/EditPersonalData_Et_Birth" />
+            app:layout_constraintTop_toBottomOf="@+id/EditPersonalData_Et_BirthDate" />
 
-        <EditText
+        <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
             android:id="@+id/EditPersonalData_Et_Country"
             style="@style/TextInput"
             android:layout_width="match_parent"
@@ -108,7 +125,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/EditPersonalData_Et_Country" />
 
-        <EditText
+        <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
             android:id="@+id/EditPersonalData_Et_City"
             style="@style/DateInput"
             android:layout_width="match_parent"
@@ -116,6 +133,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/EditPersonalData_Tv_City" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
