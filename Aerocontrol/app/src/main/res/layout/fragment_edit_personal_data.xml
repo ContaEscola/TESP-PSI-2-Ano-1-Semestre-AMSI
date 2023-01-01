@@ -127,7 +127,7 @@
 
         <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
             android:id="@+id/EditPersonalData_Et_City"
-            style="@style/DateInput"
+            style="@style/TextInput"
             android:layout_width="match_parent"
             android:layout_marginTop="5dp"
             app:layout_constraintEnd_toEndOf="parent"

@@ -42,6 +42,8 @@ public class User {
         this.setBirthdate(birthdate);
     }
 
+    public User() {}
+
     public int getId() {
         return id;
     }
