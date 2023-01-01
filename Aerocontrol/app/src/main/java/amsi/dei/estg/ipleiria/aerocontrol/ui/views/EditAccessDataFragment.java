@@ -28,27 +28,46 @@ public class EditAccessDataFragment extends Fragment {
 
         binding.EditAccessDataEtUsername.setText(SingletonUser.getInstance(this.getContext()).getUserToUpdate().getUsername());
 
+        if (SingletonUser.getInstance(getContext()).getUserToUpdate().getPassword() != null && SingletonUser.getInstance(getContext()).getUserToUpdate().getPassword().trim().length() > 0)
+            binding.EditAccessDataEtPassword.setText(SingletonUser.getInstance(this.getContext()).getUserToUpdate().getPassword());
+
         binding.EditAccessDataEtUsername.addTextChangedListener(new MyTextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 super.onTextChanged(s, start, before, count);
                 if (UserValidations.validateUsername(String.valueOf(s))){
                     binding.EditAccessDataEtUsername.disableError();
-                    SingletonUser.getInstance(getContext()).getUserToUpdate().setUsername(String.valueOf(s));
                 } else binding.EditAccessDataEtUsername.enableError(UserValidations.usernameError);
+                SingletonUser.getInstance(getContext()).getUserToUpdate().setUsername(String.valueOf(s));
             }
         });
         binding.EditAccessDataEtPassword.addTextChangedListener(new MyTextWatcher(){
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 super.onTextChanged(s, start, before, count);
-                if (s.length() == 0) return;
+                if (s.length() == 0){
+                    binding.EditAccessDataEtPassword.disableError();
+                    SingletonUser.getInstance(getContext()).getUserToUpdate().setPassword(null);
+                    return;
+                }
                 if (UserValidations.validatePassword(String.valueOf(s))){
                     binding.EditAccessDataEtPassword.disableError();
-                    SingletonUser.getInstance(getContext()).getUserToUpdate().setPassword(String.valueOf(s));
                 } else binding.EditAccessDataEtPassword.enableError(UserValidations.passwordError);
+                SingletonUser.getInstance(getContext()).getUserToUpdate().setPassword(String.valueOf(s));
+
             }
         });
+
+        validationsOnStart();
         return view;
+    }
+
+    private void validationsOnStart() {
+        if (!UserValidations.validateUsername(String.valueOf(binding.EditAccessDataEtUsername.getText())))
+            binding.EditAccessDataEtUsername.enableError(UserValidations.usernameError);
+
+        if (String.valueOf(binding.EditAccessDataEtPassword.getText()).trim().length() > 0)
+            if (!UserValidations.validatePassword(String.valueOf(binding.EditAccessDataEtPassword.getText())))
+                binding.EditAccessDataEtPassword.enableError(UserValidations.passwordError);
     }
 }

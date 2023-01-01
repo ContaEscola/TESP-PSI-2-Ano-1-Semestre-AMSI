@@ -41,10 +41,10 @@ public class EditPersonalDataFragment extends Fragment {
         View view = binding.getRoot();
 
         initializeEts();
-
         binding.EditPersonalDataEtBirthDate.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) showDatePicker();
         });
+        validationsOnStart();
 
         return view;
     }
@@ -63,8 +63,8 @@ public class EditPersonalDataFragment extends Fragment {
                 super.onTextChanged(s, start, before, count);
                 if (UserValidations.validateFirstName(String.valueOf(s))){
                     binding.EditPersonalDataEtFirstName.disableError();
-                    SingletonUser.getInstance(getContext()).getUserToUpdate().setFirstName(String.valueOf(s));
                 } else binding.EditPersonalDataEtFirstName.enableError(UserValidations.firstNameError);
+                SingletonUser.getInstance(getContext()).getUserToUpdate().setFirstName(String.valueOf(s));
             }
         });
 
@@ -74,8 +74,8 @@ public class EditPersonalDataFragment extends Fragment {
                 super.onTextChanged(s, start, before, count);
                 if (UserValidations.validateLastName(String.valueOf(s))){
                     binding.EditPersonalDataEtLastName.disableError();
-                    SingletonUser.getInstance(getContext()).getUserToUpdate().setLastName(String.valueOf(s));
                 } else binding.EditPersonalDataEtLastName.enableError(UserValidations.lastNameError);
+                SingletonUser.getInstance(getContext()).getUserToUpdate().setLastName(String.valueOf(s));
             }
         });
 
@@ -85,8 +85,8 @@ public class EditPersonalDataFragment extends Fragment {
                 super.onTextChanged(s, start, before, count);
                 if (UserValidations.validateCountry(String.valueOf(s))){
                     binding.EditPersonalDataEtCountry.disableError();
-                    SingletonUser.getInstance(getContext()).getUserToUpdate().setCountry(String.valueOf(s));
                 } else binding.EditPersonalDataEtCountry.enableError(UserValidations.countryError);
+                SingletonUser.getInstance(getContext()).getUserToUpdate().setCountry(String.valueOf(s));
             }
         });
 
@@ -96,8 +96,8 @@ public class EditPersonalDataFragment extends Fragment {
                 super.onTextChanged(s, start, before, count);
                 if (UserValidations.validateCity(String.valueOf(s))){
                     binding.EditPersonalDataEtCity.disableError();
-                    SingletonUser.getInstance(getContext()).getUserToUpdate().setCity(String.valueOf(s));
                 } else binding.EditPersonalDataEtCity.enableError(UserValidations.cityError);
+                SingletonUser.getInstance(getContext()).getUserToUpdate().setCity(String.valueOf(s));
             }
         });
 
@@ -107,10 +107,29 @@ public class EditPersonalDataFragment extends Fragment {
                 super.onTextChanged(s, start, before, count);
                 if (UserValidations.validateBirthdate(String.valueOf(s))){
                     binding.EditPersonalDataEtBirthDate.disableError();
-                    SingletonUser.getInstance(getContext()).getUserToUpdate().setBirthdate(String.valueOf(s));
                 } else binding.EditPersonalDataEtBirthDate.enableError(UserValidations.birthdateError);
             }
         });
+    }
+
+    private void validationsOnStart() {
+        if (!UserValidations.validateFirstName(String.valueOf(binding.EditPersonalDataEtFirstName.getText())))
+            binding.EditPersonalDataEtFirstName.enableError(UserValidations.firstNameError);
+
+        if (!UserValidations.validateLastName(String.valueOf(binding.EditPersonalDataEtLastName.getText())))
+            binding.EditPersonalDataEtLastName.enableError(UserValidations.lastNameError);
+
+        if (!UserValidations.validateGender(String.valueOf(binding.EditPersonalDataACTVGender.getText())))
+            binding.EditPersonalDataACTVGender.setError(UserValidations.genderError);
+
+        if (!UserValidations.validateBirthdate(String.valueOf(binding.EditPersonalDataEtBirthDate.getText())))
+            binding.EditPersonalDataEtBirthDate.enableError(UserValidations.birthdateError);
+
+        if (!UserValidations.validateCountry(String.valueOf(binding.EditPersonalDataEtCountry.getText())))
+            binding.EditPersonalDataEtCountry.enableError(UserValidations.countryError);
+
+        if (!UserValidations.validateCity(String.valueOf(binding.EditPersonalDataEtCity.getText())))
+            binding.EditPersonalDataEtCity.enableError(UserValidations.cityError);
     }
 
     private void comboBoxGenders() {
@@ -120,23 +139,24 @@ public class EditPersonalDataFragment extends Fragment {
         binding.EditPersonalDataACTVGender.setOnItemClickListener((parent, view, position, id) -> {
             if (UserValidations.validateGender(User.GENDERS[position]))
                 SingletonUser.getInstance(getContext()).getUserToUpdate().setUsername(User.GENDERS[position]);
+            else binding.EditPersonalDataACTVGender.setError(UserValidations.genderError);
         });
     }
 
     private void getBirthdate() {
+
+        binding.EditPersonalDataEtBirthDate.setText(SingletonUser.getInstance(getContext()).getUserToUpdate().getBirthdate());
+
+
         String stringBirthDate = SingletonUser.getInstance(getContext()).getUserToUpdate().getBirthdate();
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         try {
             birthDate = format.parse(stringBirthDate);
             calendar = Calendar.getInstance();
             if (birthDate != null) {
                 calendar.setTime(birthDate);
             }
-            // +1 no mês um porque o calendar vai de 0 a 11
-            String newBirthdateFormat = calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH)+1) + "/" + calendar.get(Calendar.YEAR);
-            binding.EditPersonalDataEtBirthDate.setText(newBirthdateFormat);
-
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -147,8 +167,10 @@ public class EditPersonalDataFragment extends Fragment {
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        SingletonUser.getInstance(getContext()).getUserToUpdate().setBirthdate(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
-                        binding.EditPersonalDataEtBirthDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                        //String date_dd_mm_yyyy = String.format("%02/%02d/%04d",dayOfMonth,(monthOfYear)+1,year);
+                        String date_dd_mm_yyyy = getString(R.string.date_format,dayOfMonth,monthOfYear+1,year);
+                        SingletonUser.getInstance(getContext()).getUserToUpdate().setBirthdate(date_dd_mm_yyyy);
+                        binding.EditPersonalDataEtBirthDate.setText(date_dd_mm_yyyy);
                     }
                 }, calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),

@@ -26,7 +26,6 @@ public class EditContactsFragment extends Fragment {
         View view = binding.getRoot();
 
         binding.EditContactsEtEmail.setText(SingletonUser.getInstance(getContext()).getUserToUpdate().getEmail());
-
         binding.EditContactsEtPhone.setText(SingletonUser.getInstance(getContext()).getUserToUpdate().getPhone());
         binding.EditContactsEtPhoneCode.setText(SingletonUser.getInstance(getContext()).getUserToUpdate().getPhoneCountryCode());
 
@@ -36,8 +35,8 @@ public class EditContactsFragment extends Fragment {
                 super.onTextChanged(s, start, before, count);
                 if (UserValidations.validateEmail(String.valueOf(s))){
                     binding.EditContactsEtEmail.disableError();
-                    SingletonUser.getInstance(getContext()).getUserToUpdate().setEmail(String.valueOf(s));
                 } else binding.EditContactsEtEmail.enableError(UserValidations.emailError);
+                SingletonUser.getInstance(getContext()).getUserToUpdate().setEmail(String.valueOf(s));
             }
         });
         binding.EditContactsEtPhone.addTextChangedListener(new MyTextWatcher(){
@@ -46,8 +45,8 @@ public class EditContactsFragment extends Fragment {
                 super.onTextChanged(s, start, before, count);
                 if (UserValidations.validatePhone(String.valueOf(s))){
                     binding.EditContactsEtPhone.disableError();
-                    SingletonUser.getInstance(getContext()).getUserToUpdate().setPhone(String.valueOf(s));
                 } else binding.EditContactsEtPhone.enableError(UserValidations.phoneError);
+                SingletonUser.getInstance(getContext()).getUserToUpdate().setPhone(String.valueOf(s));
             }
         });
         binding.EditContactsEtPhoneCode.addTextChangedListener(new MyTextWatcher(){
@@ -56,11 +55,26 @@ public class EditContactsFragment extends Fragment {
                 super.onTextChanged(s, start, before, count);
                 if (UserValidations.validatePhoneCode(String.valueOf(s))){
                     binding.EditContactsEtPhoneCode.disableError();
-                    SingletonUser.getInstance(getContext()).getUserToUpdate().setPhoneCountryCode(String.valueOf(s));
                 } else binding.EditContactsEtPhoneCode.enableError(UserValidations.phoneCodeError);
+                SingletonUser.getInstance(getContext()).getUserToUpdate().setPhoneCountryCode(String.valueOf(s));
             }
         });
 
+
+        validationsOnStart();
+
         return view;
+    }
+
+    private void validationsOnStart() {
+        if (!UserValidations.validateEmail(String.valueOf(binding.EditContactsEtEmail.getText())))
+            binding.EditContactsEtEmail.enableError(UserValidations.emailError);
+
+        if (!UserValidations.validatePhone(String.valueOf(binding.EditContactsEtPhone.getText())))
+            binding.EditContactsEtPhone.enableError(UserValidations.phoneError);
+
+        if (!UserValidations.validatePhoneCode(String.valueOf(binding.EditContactsEtPhoneCode.getText())))
+            binding.EditContactsEtPhoneCode.enableError(UserValidations.phoneCodeError);
+
     }
 }
