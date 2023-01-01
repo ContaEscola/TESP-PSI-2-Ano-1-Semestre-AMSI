@@ -125,8 +125,7 @@ public class SingletonUser {
      * @param user Utilizador que passa a estar logado.
      */
     public void setUser(User user) {
-        this.user = user;
-        this.userToUpdate = user;
+        this.user = (User) user;
     }
 
     /**
@@ -138,11 +137,70 @@ public class SingletonUser {
     }
 
     /**
-     *
-     * @param user Utilizador que passa a estar logado.
+     * Envia o utilizador para a API para que possa ser atualizado
+     * @param context Contexto da Atividade ou Fragment
      */
-    public void setUserToUpdate(User user) {
-        this.userToUpdate = user;
+    public void updateUserAPI(final Context context, final String password){
+        if (!NetworkUtils.isConnectedInternet(context)){
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (this.user != null){
+            //TODO String endPoint;
+            String endPoint = "";
+            StringRequest stringRequest = new StringRequest(Request.Method.PUT, endPoint,
+                    response -> {
+                        Toast.makeText(context, R.string.save_data_success, Toast.LENGTH_SHORT).show();
+                        this.setUser(userToUpdate);
+                        UserPreferences.getInstance(context).setUser(userToUpdate);
+                    }, error -> Toast.makeText(context, R.string.save_data_failed, Toast.LENGTH_SHORT).show()
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("old_password", password);
+                    params.put("username", userToUpdate.getUsername());
+                    if (userToUpdate.getPassword() != null && userToUpdate.getPassword().length() > 0)
+                        params.put("password", userToUpdate.getPassword());
+                    params.put("firstName", userToUpdate.getFirstName());
+                    params.put("lastName", userToUpdate.getLastName());
+                    params.put("gender", userToUpdate.getGender());
+                    params.put("country", userToUpdate.getCountry());
+                    params.put("city", userToUpdate.getCity());
+                    params.put("email", userToUpdate.getEmail());
+                    params.put("phone", userToUpdate.getPhone());
+                    params.put("phoneCountryCode", userToUpdate.getPhoneCountryCode());
+                    params.put("birthdate", userToUpdate.getBirthdate());
+                    return params;
+                }
+            };
+
+            volleyQueue.add(stringRequest);
+        }
+    }
+
+    /**
+     *
+     * @param user Objeto do tipo utilizador que será atualizado.
+     */
+    public void setUserToUpdate(final User user) {
+        // Atribuição feita atributo a atributo, porque caso seja feita this.userToUpdate = user
+        // o this.user (Objeto recebido nos parâmetros) fica ligado como pointer ao this.userToUpdate
+        this.userToUpdate = new User();
+        this.userToUpdate.setId(user.getId());
+        this.userToUpdate.setUsername(user.getUsername());
+        this.userToUpdate.setToken(user.getToken());
+        this.userToUpdate.setPassword(null);
+        this.userToUpdate.setFirstName(user.getFirstName());
+        this.userToUpdate.setLastName(user.getLastName());
+        this.userToUpdate.setGender(user.getGender());
+        this.userToUpdate.setCountry(user.getCountry());
+        this.userToUpdate.setCity(user.getCity());
+        this.userToUpdate.setEmail(user.getEmail());
+        this.userToUpdate.setPhone(user.getPhone());
+        this.userToUpdate.setPhoneCountryCode(user.getPhoneCountryCode());
+        this.userToUpdate.setBirthdate(user.getBirthdate());
     }
 
     /**

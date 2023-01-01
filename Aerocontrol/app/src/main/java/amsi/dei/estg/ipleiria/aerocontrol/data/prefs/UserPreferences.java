@@ -160,7 +160,7 @@ public class UserPreferences {
         this.setEmail(user.getEmail());
         this.setPhone(user.getPhone());
         this.setPhoneCountryCode(user.getPhoneCountryCode());
-        this.setBirthdate(user.getBirthdate().toString());
+        this.setBirthdate(user.getBirthdate());
     }
 
     public User getUser(){

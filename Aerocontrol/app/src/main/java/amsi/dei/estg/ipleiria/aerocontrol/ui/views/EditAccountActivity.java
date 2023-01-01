@@ -2,6 +2,8 @@ package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,8 +11,17 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+
 import amsi.dei.estg.ipleiria.aerocontrol.R;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
 import amsi.dei.estg.ipleiria.aerocontrol.databinding.ActivityEditAccountBinding;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.UserValidations;
 
 public class EditAccountActivity extends AppCompatActivity {
 
@@ -26,6 +37,9 @@ public class EditAccountActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        SingletonUser.getInstance(this).setUserToUpdate(SingletonUser.getInstance(this).getUser());
+        convertBirthdate();
 
         replaceFragment(new EditAccessDataFragment());
         enableActiveFragmentFocus(binding.EditAccountTvAccessData);
@@ -48,17 +62,7 @@ public class EditAccountActivity extends AppCompatActivity {
             disableActiveFragmentFocus(binding.EditAccountTvContacts,binding.EditAccountTvAccessData);
         });
 
-        binding.EditAccountBtSave.setOnClickListener(v ->  {
-            //TODO VALIDACOES
-            AlertDialog.Builder builder = new AlertDialog.Builder(EditAccountActivity.this);
-            builder.setTitle(R.string.cancel_ticket);
-            builder.setMessage("Se deseja realmente apagar o seu bilhete por favor confirme abaixo.");
-            builder.setPositiveButton(R.string.confirm, (dialog, which) -> {
-                //SingletonUser.getInstance(this).deleteTicketAPI(this, ticket);
-            });
-            builder.setNegativeButton(R.string.cancel,(dialog,which) -> {});
-            builder.show();
-        });
+        binding.EditAccountBtSave.setOnClickListener(v ->  saveData());
     }
 
     private void disableActiveFragmentFocus(TextView tv1, TextView tv2) {
@@ -76,5 +80,68 @@ public class EditAccountActivity extends AppCompatActivity {
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.EditAccount_Fragment,fragment).commit();
+    }
+
+    private void convertBirthdate(){
+        String stringBirthDate = SingletonUser.getInstance(this).getUserToUpdate().getBirthdate();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            Date birthDate = format.parse(stringBirthDate);
+            Calendar calendar = Calendar.getInstance();
+            if (birthDate != null) {
+                calendar.setTime(birthDate);
+            }
+            // +1 no mês um porque o calendar vai de 0 a 11
+            String newBirthdateFormat = calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH)+1) + "/" + calendar.get(Calendar.YEAR);
+            SingletonUser.getInstance(this).getUserToUpdate().setBirthdate(newBirthdateFormat);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void saveData() {
+        HashMap<String, ArrayList<String>> errors = UserValidations.validateUser(SingletonUser.getInstance(this).getUserToUpdate());
+        AlertDialog.Builder builder = new AlertDialog.Builder(EditAccountActivity.this);
+        if (errors != null){
+            builder.setTitle(R.string.errors_found);
+            StringBuilder errorsMessage = new StringBuilder(getString(R.string.solve_errors));
+            if (errors.get("Contacts") != null){
+                errorsMessage.append("\n" + "Contactos:");
+                for (String erro: errors.get("Contacts")) {
+                    errorsMessage.append("\n \t- ").append(erro);
+                }
+            }
+            if (errors.get("AccessData") != null){
+                errorsMessage.append("\n" + "Dados de Acesso:");
+                for (String erro: errors.get("AccessData")) {
+                    errorsMessage.append("\n \t- ").append(erro);
+                }
+            }
+            if (errors.get("PersonalData") != null){
+                errorsMessage.append("\n" + "Dados Pessoais:");
+                for (String erro: errors.get("PersonalData")) {
+                    errorsMessage.append("\n \t- ").append(erro);
+                }
+            }
+            builder.setMessage(errorsMessage);
+            builder.setPositiveButton(R.string.confirm, (dialog, which) -> {});
+        }
+        else {
+            builder.setTitle(R.string.save_data);
+            builder.setMessage(R.string.verify_password);
+            EditText password = new EditText(this);
+            password.setHint(getString(R.string.password));
+            password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            builder.setView(password);
+            builder.setPositiveButton(R.string.confirm, (dialog, which) -> {
+                SingletonUser.getInstance(this).updateUserAPI(this);
+                System.out.println(password.getText());
+            });
+            builder.setNegativeButton(R.string.cancel,(dialog,which) -> {});
+
+        }
+        builder.show();
     }
 }
