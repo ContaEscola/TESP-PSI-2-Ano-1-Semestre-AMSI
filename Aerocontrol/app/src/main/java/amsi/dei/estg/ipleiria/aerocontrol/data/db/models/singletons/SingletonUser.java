@@ -28,6 +28,7 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketsListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.UpdateUserListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.LoginParser;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.UserJsonParser;
@@ -50,6 +51,7 @@ public class SingletonUser {
     private TicketsListener ticketsListener;
     private TicketListener ticketListener;
     private LoginListener loginListener;
+    private UpdateUserListener updateUserListener;
 
     private SingletonUser(Context context){
         user = null;
@@ -140,29 +142,30 @@ public class SingletonUser {
      * Envia o utilizador para a API para que possa ser atualizado
      * @param context Contexto da Atividade ou Fragment
      */
-    public void updateUserAPI(final Context context, final String password){
+    public void updateUserAPI(final Context context, final String confirm_password){
         if (!NetworkUtils.isConnectedInternet(context)){
             Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (this.user != null){
-            //TODO String endPoint;
-            String endPoint = "";
+        if (this.user != null && userToUpdate != null){
+            String endPoint = ApiEndPoint.UPDATE_ACCOUNT + this.user.getId() + "?access-token=" + this.user.getToken();
             StringRequest stringRequest = new StringRequest(Request.Method.PUT, endPoint,
                     response -> {
-                        Toast.makeText(context, R.string.save_data_success, Toast.LENGTH_SHORT).show();
-                        this.setUser(userToUpdate);
+                        if(updateUserListener != null){
+                            updateUserListener.onUpdateUser(context.getString(R.string.save_data_success));
+                            this.setUser(userToUpdate);
+                        }
                         UserPreferences.getInstance(context).setUser(userToUpdate);
                     }, error -> Toast.makeText(context, R.string.save_data_failed, Toast.LENGTH_SHORT).show()
             ) {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("old_password", password);
+                    params.put("confirm_password", confirm_password);
                     params.put("username", userToUpdate.getUsername());
                     if (userToUpdate.getPassword() != null && userToUpdate.getPassword().length() > 0)
-                        params.put("password", userToUpdate.getPassword());
+                        params.put("password_hash", userToUpdate.getPassword());
                     params.put("firstName", userToUpdate.getFirstName());
                     params.put("lastName", userToUpdate.getLastName());
                     params.put("gender", userToUpdate.getGender());
@@ -171,11 +174,12 @@ public class SingletonUser {
                     params.put("email", userToUpdate.getEmail());
                     params.put("phone", userToUpdate.getPhone());
                     params.put("phoneCountryCode", userToUpdate.getPhoneCountryCode());
+                    userToUpdate.convertBirthdayToSave();
                     params.put("birthdate", userToUpdate.getBirthdate());
+                    userToUpdate.convertBirthdayToDisplay();
                     return params;
                 }
             };
-
             volleyQueue.add(stringRequest);
         }
     }
@@ -209,26 +213,6 @@ public class SingletonUser {
      */
     public User getUserToUpdate() {
         return userToUpdate;
-    }
-
-    /**
-     *
-     * @param user Utilizador atualizado.
-     */
-    public void editUser(User user){
-        if(!this.user.getUsername().equals(user.getUsername())) this.user.setUsername(user.getUsername());
-        // TODO Password encriptada, logo impossivel fazer comparação
-        //if(!this.user.getPassword().equals(user.getPassword())) this.user.setPassword(user.getPassword());
-        this.user.setPassword(user.getPassword());
-        if(!this.user.getFirstName().equals(user.getFirstName())) this.user.setFirstName(user.getFirstName());
-        if(!this.user.getLastName().equals(user.getLastName())) this.user.setLastName(user.getLastName());
-        if(!this.user.getGender().equals(user.getGender())) this.user.setGender(user.getGender());
-        if(!this.user.getCountry().equals(user.getCountry())) this.user.setCountry(user.getCountry());
-        if(!this.user.getCity().equals(user.getCity())) this.user.setCity(user.getCity());
-        if(!this.user.getEmail().equals(user.getEmail())) this.user.setEmail(user.getEmail());
-        if(!this.user.getPhone().equals(user.getPhone())) this.user.setPhone(user.getPhone());
-        if(!this.user.getPhone().equals(user.getPhone())) this.user.setPhoneCountryCode(user.getPhoneCountryCode());
-        if(!this.user.getBirthdate().equals(user.getBirthdate())) this.user.setBirthdate(user.getBirthdate());
     }
 
     /**
@@ -487,5 +471,9 @@ public class SingletonUser {
 
     public void setTicketListener(TicketListener ticketListener) {
         this.ticketListener = ticketListener;
+    }
+
+    public void setUpdateUserListener(UpdateUserListener updateUserListener) {
+        this.updateUserListener = updateUserListener;
     }
 }
