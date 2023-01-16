@@ -98,7 +98,7 @@ public class UserValidations {
         // Valida os dados de acesso
         if (!validateUsername(user.getUsername())) accessData.add("Username");
         if (user.getPassword() != null) {
-            if (user.getPassword().length() > 0 || !validatePassword(user.getPassword()))
+            if (!validatePassword(user.getPassword()))
                 accessData.add("Password");
         }
         // Valida os dados pessoais
