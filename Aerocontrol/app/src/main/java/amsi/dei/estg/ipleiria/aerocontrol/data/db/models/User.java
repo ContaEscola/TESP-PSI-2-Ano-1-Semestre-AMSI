@@ -1,5 +1,10 @@
 package amsi.dei.estg.ipleiria.aerocontrol.data.db.models;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class User {
 
     public static final String[] GENDERS = {
@@ -146,5 +151,43 @@ public class User {
 
     public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
+    }
+
+    public void convertBirthdayToDisplay(){
+        String stringBirthDate = this.getBirthdate();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            Date birthDate = format.parse(stringBirthDate);
+            Calendar calendar = Calendar.getInstance();
+            if (birthDate != null) {
+                calendar.setTime(birthDate);
+            }
+            // +1 no mês um porque o calendar vai de 0 a 11
+            String newBirthdateFormat = calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH)+1) + "/" + calendar.get(Calendar.YEAR);
+            this.setBirthdate(newBirthdateFormat);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void convertBirthdayToSave(){
+        String stringBirthDate = this.getBirthdate();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
+        try {
+            Date birthDate = format.parse(stringBirthDate);
+            Calendar calendar = Calendar.getInstance();
+            if (birthDate != null) {
+                calendar.setTime(birthDate);
+            }
+            // +1 no mês um porque o calendar vai de 0 a 11
+            String newBirthdateFormat = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH)+1) + "-" + calendar.get(Calendar.DAY_OF_MONTH);
+            this.setBirthdate(newBirthdateFormat);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }

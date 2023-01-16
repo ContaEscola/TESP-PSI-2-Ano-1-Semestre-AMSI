@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     public void onValidateLogin(User user, Context context) {
         UserPreferences.getInstance(this).setUser(user);    // Coloca o user no SharedPreferences
         SingletonUser.getInstance(this).setUser(user);      // Coloca o user na Singleton
+        SingletonUser.getInstance(this).getUser().convertBirthdayToDisplay();
         SingletonUser.getInstance(this).setLoggedIn(true);  // Dá Set à variável do LoggedIn para true
 
         Toast.makeText(context, "Dados válidos", Toast.LENGTH_SHORT).show();

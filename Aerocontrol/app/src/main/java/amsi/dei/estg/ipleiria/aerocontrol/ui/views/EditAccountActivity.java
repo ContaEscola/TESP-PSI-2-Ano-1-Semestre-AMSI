@@ -5,25 +5,23 @@ import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
 import amsi.dei.estg.ipleiria.aerocontrol.databinding.ActivityEditAccountBinding;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.UpdateUserListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.UserValidations;
 
-public class EditAccountActivity extends AppCompatActivity {
+public class EditAccountActivity extends AppCompatActivity implements UpdateUserListener {
 
     ActivityEditAccountBinding binding;
 
@@ -38,8 +36,8 @@ public class EditAccountActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        SingletonUser.getInstance(this).setUpdateUserListener(this);
         SingletonUser.getInstance(this).setUserToUpdate(SingletonUser.getInstance(this).getUser());
-        convertBirthdate();
 
         replaceFragment(new EditAccessDataFragment());
         enableActiveFragmentFocus(binding.EditAccountTvAccessData);
@@ -82,25 +80,6 @@ public class EditAccountActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().replace(R.id.EditAccount_Fragment,fragment).commit();
     }
 
-    private void convertBirthdate(){
-        String stringBirthDate = SingletonUser.getInstance(this).getUserToUpdate().getBirthdate();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
-        try {
-            Date birthDate = format.parse(stringBirthDate);
-            Calendar calendar = Calendar.getInstance();
-            if (birthDate != null) {
-                calendar.setTime(birthDate);
-            }
-            // +1 no mês um porque o calendar vai de 0 a 11
-            String newBirthdateFormat = calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH)+1) + "/" + calendar.get(Calendar.YEAR);
-            SingletonUser.getInstance(this).getUserToUpdate().setBirthdate(newBirthdateFormat);
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
     private void saveData() {
         HashMap<String, ArrayList<String>> errors = UserValidations.validateUser(SingletonUser.getInstance(this).getUserToUpdate());
         AlertDialog.Builder builder = new AlertDialog.Builder(EditAccountActivity.this);
@@ -136,12 +115,16 @@ public class EditAccountActivity extends AppCompatActivity {
             password.setTransformationMethod(PasswordTransformationMethod.getInstance());
             builder.setView(password);
             builder.setPositiveButton(R.string.confirm, (dialog, which) -> {
-                SingletonUser.getInstance(this).updateUserAPI(this);
-                System.out.println(password.getText());
+                SingletonUser.getInstance(this).updateUserAPI(this,password.getText().toString());
             });
             builder.setNegativeButton(R.string.cancel,(dialog,which) -> {});
 
         }
         builder.show();
+    }
+
+    @Override
+    public void onUpdateUser(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }
