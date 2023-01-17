@@ -19,8 +19,8 @@ import amsi.dei.estg.ipleiria.aerocontrol.databinding.FragmentAccountLoggedoutBi
 
 public class AccountFragment extends Fragment {
 
-    FragmentAccountLoggedinBinding bindingLoggedIn;
-    FragmentAccountLoggedoutBinding bindingLoggedOut;
+    private FragmentAccountLoggedinBinding bindingLoggedIn;
+    private FragmentAccountLoggedoutBinding bindingLoggedOut;
 
     public AccountFragment() {
         // Required empty public constructor
@@ -36,7 +36,7 @@ public class AccountFragment extends Fragment {
         }
         else {
             bindingLoggedOut = FragmentAccountLoggedoutBinding.inflate(getLayoutInflater());
-            view = bindingLoggedIn.getRoot();
+            view = bindingLoggedOut.getRoot();
             initializeLoggedOut();
         }
 
