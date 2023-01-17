@@ -6,28 +6,24 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.adapters.RestaurantsListAdapter;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Restaurant;
-import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Store;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonEnterprises;
+import amsi.dei.estg.ipleiria.aerocontrol.databinding.FragmentRestaurantsBinding;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.EnterprisesListenerRestaurant;
 
 public class RestaurantsFragment extends Fragment implements EnterprisesListenerRestaurant {
 
     private RestaurantsListAdapter adapter;
-    private RecyclerView recyclerView;
 
-    private EditText tvSearch;
+    private FragmentRestaurantsBinding binding;
 
     public RestaurantsFragment() {
         // Required empty public constructor
@@ -35,17 +31,15 @@ public class RestaurantsFragment extends Fragment implements EnterprisesListener
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_restaurants, container, false);
+        binding = FragmentRestaurantsBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
 
-        recyclerView = view.findViewById(R.id.Restaurants_Rv_Restaurants);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.RestaurantsRvRestaurants.setLayoutManager(new LinearLayoutManager(getContext()));
 
         SingletonEnterprises.getInstance(this.getContext()).setEnterprisesListenerRestaurant(this);
         SingletonEnterprises.getInstance(this.getContext()).getRestaurantsAPI(this.getContext());
 
-        tvSearch = view.findViewById(R.id.Restaurants_Et_Search);
-
-        tvSearch.addTextChangedListener(new TextWatcher() {
+        binding.RestaurantsEtSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
@@ -57,8 +51,8 @@ public class RestaurantsFragment extends Fragment implements EnterprisesListener
                         auxRestaurants.add(restaurant);
                     }
                 }
-                recyclerView.setAdapter(new RestaurantsListAdapter(getContext(),auxRestaurants));
-                recyclerView.setItemAnimator(new DefaultItemAnimator());
+                binding.RestaurantsRvRestaurants.setAdapter(new RestaurantsListAdapter(getContext(),auxRestaurants));
+                binding.RestaurantsRvRestaurants.setItemAnimator(new DefaultItemAnimator());
             }
 
             @Override
@@ -70,8 +64,7 @@ public class RestaurantsFragment extends Fragment implements EnterprisesListener
     @Override
     public void onRefreshList(ArrayList<Restaurant> restaurants) {
         adapter = new RestaurantsListAdapter(this.getContext(),SingletonEnterprises.getInstance(getContext()).getRestaurants());
-        recyclerView.setAdapter(adapter);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        // https://stackoverflow.com/questions/31367599/how-to-update-recyclerview-adapter-data
+        binding.RestaurantsRvRestaurants.setAdapter(adapter);
+        binding.RestaurantsRvRestaurants.setItemAnimator(new DefaultItemAnimator());
     }
 }
