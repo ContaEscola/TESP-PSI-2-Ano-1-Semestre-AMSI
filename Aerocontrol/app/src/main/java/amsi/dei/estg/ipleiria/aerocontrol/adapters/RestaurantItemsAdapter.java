@@ -17,6 +17,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.ArrayList;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Restaurant;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.RestaurantItem;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
@@ -26,17 +27,19 @@ public class RestaurantItemsAdapter extends RecyclerView.Adapter<RestaurantItems
     private Context context;
     private LayoutInflater layoutInflater;
     private ArrayList<RestaurantItem> items;
+    private Restaurant restaurant;
 
-    public RestaurantItemsAdapter(Context context, ArrayList<RestaurantItem> items){
+    public RestaurantItemsAdapter(Context context, ArrayList<RestaurantItem> items, Restaurant restaurant){
         this.context = context;
         this.items = items;
+        this.restaurant = restaurant;
     }
 
     @NonNull
     @Override
     public ViewHolderList onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_restaurant_menu_item,parent,false);
-        return new RestaurantItemsAdapter.ViewHolderList(item);
+        return new RestaurantItemsAdapter.ViewHolderList(item, restaurant);
     }
 
     @Override
@@ -54,11 +57,13 @@ public class RestaurantItemsAdapter extends RecyclerView.Adapter<RestaurantItems
 
         ImageView ivItem;
         TextView tvItem;
+        Restaurant restaurant;
 
-        public ViewHolderList(@NonNull View view){
+        public ViewHolderList(@NonNull View view,Restaurant restaurant){
             super(view);
             this.ivItem = view.findViewById(R.id.RestaurantItem_Iv_Image);
             this.tvItem = view.findViewById(R.id.RestaurantItem_Tv_Name);
+            this.restaurant = restaurant;
         }
 
         public void updateItem(RestaurantItem item){
@@ -69,7 +74,10 @@ public class RestaurantItemsAdapter extends RecyclerView.Adapter<RestaurantItems
             }
             if (NetworkUtils.isConnectedInternet(itemView.getContext())){
                 Glide.with(this.itemView.getContext())
-                        .load(ApiEndPoint.RESTAURANTS_ITEMS_IMAGE_FOLDER+item.getImage())
+                        .load(ApiEndPoint.RESTAURANTS_IMAGE_FOLDER +
+                                restaurant.getName().replace(" ", "_") +
+                                "/menu/" +
+                                item.getImage())
                         .placeholder(R.drawable.placeholder)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(ivItem);

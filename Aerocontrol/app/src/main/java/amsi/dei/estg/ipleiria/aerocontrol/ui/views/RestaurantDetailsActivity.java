@@ -63,7 +63,7 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
 
     private void restaurantDetails() {
         if (restaurant.getMenu().size() > 0){
-            adapter = new RestaurantItemsAdapter(this, restaurant.getMenu());
+            adapter = new RestaurantItemsAdapter(this, restaurant.getMenu(), restaurant);
             recyclerView.setAdapter(adapter);
             recyclerView.setItemAnimator(new DefaultItemAnimator());
         } else tvMenuLabel.setText("");
