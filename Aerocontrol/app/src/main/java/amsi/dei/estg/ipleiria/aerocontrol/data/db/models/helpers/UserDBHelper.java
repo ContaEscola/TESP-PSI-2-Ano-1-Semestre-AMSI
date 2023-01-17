@@ -10,12 +10,14 @@ import java.util.ArrayList;
 
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.FlightTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Passenger;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
 
 public class UserDBHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "aerocontrol_user";
     private static final String TABLE_NAME_TICKETS = "flight_tickets";
     private static final String TABLE_NAME_PASSENGERS = "passengers";
+    private static final String TABLE_NAME_SUPPORT_TICKETS = "support_tickets";
 
     private static final int DB_VERSION=1;
 
@@ -43,6 +45,10 @@ public class UserDBHelper extends SQLiteOpenHelper {
     public static final String PASSENGERS_EXTRA_BAGGAGE = "extra_baggage";
     public static final String PASSENGERS_TICKET_ID = "flight_ticket_id";
 
+    //Campos da tabela support tickets
+    public static final String SUPPORT_TICKET_ID = "id";
+    public static final String SUPPORT_TICKET_TITLE = "title";
+    public static final String SUPPORT_TICKET_STATE = "state";
 
     private final SQLiteDatabase database;
 
@@ -78,14 +84,21 @@ public class UserDBHelper extends SQLiteOpenHelper {
                 PASSENGERS_TICKET_ID + " INTEGER NOT NULL," +
                 "FOREIGN KEY (" + PASSENGERS_TICKET_ID + ") REFERENCES " + TABLE_NAME_TICKETS + "(" + TICKETS_ID + ")" + ");";
 
+        String createSupportTicketTable = "CREATE TABLE " + TABLE_NAME_SUPPORT_TICKETS +
+                "( " + SUPPORT_TICKET_ID + " INTEGER PRIMARY KEY NOT NULL, " +
+                SUPPORT_TICKET_TITLE + " TEXT NOT NULL," +
+                SUPPORT_TICKET_STATE + " TEXT NOT NULL) ;";
+
         db.execSQL(createTicketsTable);
         db.execSQL(createPassengersTable);
+        db.execSQL(createSupportTicketTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_PASSENGERS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_TICKETS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_SUPPORT_TICKETS);
         this.onCreate(db);
     }
 
@@ -231,5 +244,65 @@ public class UserDBHelper extends SQLiteOpenHelper {
      */
     public void truncateTablePassengers(){
         this.database.delete(TABLE_NAME_PASSENGERS,null,null);
+    }
+
+    /**
+     * Cria um suport ticket na BD local
+     * @param supportTicket support ticket a criar
+     */
+    public void createSupportTicket (SupportTicket supportTicket){
+        ContentValues values = new ContentValues();
+        values.put(SUPPORT_TICKET_ID, supportTicket.getId());
+        values.put(SUPPORT_TICKET_TITLE, supportTicket.getTitle());
+        values.put(SUPPORT_TICKET_STATE, supportTicket.getState());
+        this.database.insert(TABLE_NAME_SUPPORT_TICKETS, null, values);
+    }
+
+    /**
+     * Lê os support ticket da BD
+     * @return Devolve todos os support ticket que estão na BD local
+     */
+    public ArrayList<SupportTicket> readSupportTickets(){
+        ArrayList<SupportTicket> supportTickets = new ArrayList<>();
+        Cursor cursor = this.database.rawQuery("SELECT * FROM " + TABLE_NAME_SUPPORT_TICKETS, null);
+        if(cursor.moveToFirst()){
+            do{
+                supportTickets.add(new SupportTicket(cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2)));
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        return supportTickets;
+    }
+
+    /**
+     * Atualiza o suporte ticket na BD
+     * @param supportTicket support ticket a ser autalizado
+     * @return Devolve o número de rows atualizadas.
+     */
+    public boolean updateSupportTicket(SupportTicket supportTicket){
+        ContentValues values = new ContentValues();
+        values.put(SUPPORT_TICKET_ID, supportTicket.getId());
+        values.put(SUPPORT_TICKET_TITLE, supportTicket.getTitle());
+        values.put(SUPPORT_TICKET_STATE, supportTicket.getState());
+        return this.database.update(TABLE_NAME_SUPPORT_TICKETS, values, "id = ?", new String[]{"" + supportTicket.getId()}) > 0;
+    }
+
+    /**
+     * Apaga um support ticket da BD
+     * @param idSupportTicket id do support ticket a ser eliminado
+     */
+    public void deleteSupportTicket(int idSupportTicket){
+        deleteSupportTicket(idSupportTicket);
+        this.database.delete(TABLE_NAME_SUPPORT_TICKETS, "id = ?", new String[]{"" + idSupportTicket});
+    }
+
+    /**
+     * Dá truncate à tabela dos support ticket
+     */
+    public void truncateTableSupportTickets(){
+        truncateTableSupportTickets();
+        this.database.delete(TABLE_NAME_SUPPORT_TICKETS,null,null);
     }
 }
