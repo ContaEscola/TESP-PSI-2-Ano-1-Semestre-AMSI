@@ -68,7 +68,7 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<RestaurantsList
             this.tvRestaurant.setText(restaurant.getName());
             if (NetworkUtils.isConnectedInternet(itemView.getContext())) {
                 Glide.with(this.itemView.getContext())
-                        .load(ApiEndPoint.RESTAURANTS_IMAGE_FOLDER + restaurant.getLogo())
+                        .load(ApiEndPoint.RESTAURANTS_IMAGE_FOLDER + restaurant.getName().replace(" ","_") + "/" + restaurant.getLogo())
                         .placeholder(R.drawable.placeholder)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(ivRestaurant);
