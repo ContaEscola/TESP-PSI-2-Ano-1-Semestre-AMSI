@@ -193,6 +193,8 @@
     <string name="birthdate_error">Formato inválido.\nExemplo: 30/04/2000</string>
     <string name="errors_found">Erros encontrados</string>
     <string name="solve_errors">Antes de prosseguir, resolva os seguintes erros:</string>
+    <string name="no_apps_to_emails">Não existem aplicações no dispositivo para o envio de emails.</string>
+    <string name="email_message_invalid">Escreva um email e uma mensagem válidos!</string>
 
 
 </resources>
