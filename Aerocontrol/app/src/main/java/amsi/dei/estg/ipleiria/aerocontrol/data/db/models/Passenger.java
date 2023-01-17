@@ -4,10 +4,10 @@ public class Passenger {
     private int id;
     private String name;
     private String gender;
-    private int seat;
+    private String seat;
     private boolean extraBaggage;
 
-    public Passenger(int id, String name, String gender, int seat, boolean extraBaggage){
+    public Passenger(int id, String name, String gender, String seat, boolean extraBaggage){
         this.setSeat(seat);
         this.setExtraBaggage(extraBaggage);
         this.setId(id);
@@ -39,11 +39,11 @@ public class Passenger {
         this.gender = gender;
     }
 
-    public int getSeat() {
+    public String getSeat() {
         return seat;
     }
 
-    public void setSeat(int seat) {
+    public void setSeat(String seat) {
         this.seat = seat;
     }
 

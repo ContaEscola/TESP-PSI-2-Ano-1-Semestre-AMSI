@@ -44,7 +44,7 @@ public class UserJsonParser {
                                 jsonObjectPassenger.getInt("id"),
                                 jsonObjectPassenger.getString("name"),
                                 jsonObjectPassenger.getString("gender"),
-                                jsonObjectPassenger.getInt("seat"),
+                                jsonObjectPassenger.getString("seat"),
                                 extraBaggage);
                         ticket.addPassenger(passenger);
                     }

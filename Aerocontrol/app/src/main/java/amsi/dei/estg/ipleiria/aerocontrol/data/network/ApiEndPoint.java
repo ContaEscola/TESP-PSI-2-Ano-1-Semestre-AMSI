@@ -18,6 +18,6 @@ public class ApiEndPoint {
     public final static String STORES = API_ENDPOINT + "stores";
     public final static String STORES_IMAGE_FOLDER = API_FOLDER_ENDPOINT + "stores/";
 
-    public final static String TICKETS = API_ENDPOINT + "flighttickets/";
-    public final static String MY_TICKETS = TICKETS + "mytickets";
+    public final static String TICKETS = API_ENDPOINT + "flight-tickets/";
+    public final static String MY_TICKETS = TICKETS + "my-tickets";
 }

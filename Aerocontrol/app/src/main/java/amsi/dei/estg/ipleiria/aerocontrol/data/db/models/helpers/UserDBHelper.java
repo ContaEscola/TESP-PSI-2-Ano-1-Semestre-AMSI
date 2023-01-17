@@ -73,7 +73,7 @@ public class UserDBHelper extends SQLiteOpenHelper {
                 "( " + PASSENGERS_ID + " INTEGER PRIMARY KEY NOT NULL, " +
                 PASSENGERS_NAME + " TEXT NOT NULL," +
                 PASSENGERS_GENDER + " TEXT NOT NULL," +
-                PASSENGERS_SEAT + " INTEGER NOT NULL, " +
+                PASSENGERS_SEAT + " TEXT NOT NULL, " +
                 PASSENGERS_EXTRA_BAGGAGE + " BOOLEAN NOT NULL," +
                 PASSENGERS_TICKET_ID + " INTEGER NOT NULL," +
                 "FOREIGN KEY (" + PASSENGERS_TICKET_ID + ") REFERENCES " + TABLE_NAME_TICKETS + "(" + TICKETS_ID + ")" + ");";
@@ -210,7 +210,7 @@ public class UserDBHelper extends SQLiteOpenHelper {
                 passengers.add(new Passenger(cursor.getInt(0),
                         cursor.getString(1),
                         cursor.getString(2),
-                        cursor.getInt(3),
+                        cursor.getString(3),
                         cursor.getInt(4) == 1));
             }while(cursor.moveToNext());
         }
