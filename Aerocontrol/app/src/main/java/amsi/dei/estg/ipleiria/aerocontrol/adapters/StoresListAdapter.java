@@ -68,7 +68,7 @@ public class StoresListAdapter extends RecyclerView.Adapter<StoresListAdapter.Vi
             this.tvStore.setText(store.getName());
             if (NetworkUtils.isConnectedInternet(itemView.getContext())) {
                 Glide.with(this.itemView.getContext())
-                        .load(ApiEndPoint.STORES_IMAGE_FOLDER + store.getLogo())
+                        .load(ApiEndPoint.STORES_IMAGE_FOLDER + store.getName().replace(" ","_") + "/" +store.getLogo())
                         .placeholder(R.drawable.placeholder)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(ivStore);
