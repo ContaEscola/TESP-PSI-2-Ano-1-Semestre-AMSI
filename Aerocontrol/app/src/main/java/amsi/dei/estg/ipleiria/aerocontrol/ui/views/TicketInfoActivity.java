@@ -6,20 +6,17 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.adapters.TicketInfoPassengersAdapter;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.FlightTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
+import amsi.dei.estg.ipleiria.aerocontrol.databinding.ActivityTicketInfoBinding;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketListener;
 
 public class TicketInfoActivity extends AppCompatActivity implements TicketListener {
@@ -28,44 +25,23 @@ public class TicketInfoActivity extends AppCompatActivity implements TicketListe
 
     private FlightTicket ticket;
 
-    private TextView tvDate, tvState, tvDeparture, tvArrival, tvDepartureTime, tvArrivalTime,
-            tvDistance, tvTerminal, tvOriginalPrice, tvPaidPrice, tvPurchaseDate;
-    private Button btCheckIn, btCancel;
+    private ActivityTicketInfoBinding binding;
 
-    private RecyclerView recyclerView;
     private TicketInfoPassengersAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ticket_info);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.TicketInfo_Toolbar);
-        setSupportActionBar(myToolbar);
+        binding = ActivityTicketInfoBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        setSupportActionBar(binding.TicketInfoToolbar.getRoot());
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         SingletonUser.getInstance(this).setTicketListener(this);
 
-        initialize();
         getTicketId();
-    }
-
-    private void initialize() {
-        tvDate = findViewById(R.id.TicketInfo_Tv_Date);
-        tvState = findViewById(R.id.TicketInfo_Tv_State);
-        tvDeparture = findViewById(R.id.TicketInfo_Tv_DepartureCity);
-        tvArrival = findViewById(R.id.TicketInfo_Tv_ArrivalCity);
-        tvDepartureTime = findViewById(R.id.TicketInfo_Tv_DepartureTime);
-        tvArrivalTime = findViewById(R.id.TicketInfo_Tv_ArrivalTime);
-        tvDistance = findViewById(R.id.TicketInfo_Tv_Distance);
-        tvTerminal = findViewById(R.id.TicketInfo_Tv_Terminal);
-        tvOriginalPrice = findViewById(R.id.TicketInfo_Tv_Price);
-        tvPaidPrice = findViewById(R.id.TicketInfo_Tv_PriceDiscount);
-        tvPurchaseDate = findViewById(R.id.TicketInfo_Tv_PurchaseDate);
-        recyclerView = findViewById(R.id.TicketInfo_Rv_Passengers);
-        btCheckIn = findViewById(R.id.TicketInfo_Bt_CheckIn);
-        btCancel = findViewById(R.id.TicketInfo_Bt_Cancel);
     }
 
     private void getTicketId() {
@@ -73,8 +49,8 @@ public class TicketInfoActivity extends AppCompatActivity implements TicketListe
 
         if (idTicket != -1){
             ticket = SingletonUser.getInstance(this).getTicketById(idTicket);
-            btCheckIn.setOnClickListener(v -> SingletonUser.getInstance(this).updateTicketAPI(this,ticket));
-            btCancel.setOnClickListener(v -> {
+            binding.TicketInfoBtCheckIn.setOnClickListener(v -> SingletonUser.getInstance(this).updateTicketAPI(this,ticket));
+            binding.TicketInfoBtCancel.setOnClickListener(v -> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(TicketInfoActivity.this);
                 builder.setTitle(R.string.cancel_ticket);
                 builder.setMessage("Se deseja realmente apagar o seu bilhete por favor confirme abaixo.");
@@ -89,44 +65,44 @@ public class TicketInfoActivity extends AppCompatActivity implements TicketListe
     }
 
     private void ticketDetails() {
-        tvDate.setText(ticket.getFlightDate());
-        tvState.setText(ticket.getFlightState());
-        tvDeparture.setText(ticket.getFlightOrigin());
-        tvArrival.setText(ticket.getFlightArrival());
-        tvDepartureTime.setText(ticket.getFlightDepartureTime());
-        tvArrivalTime.setText(ticket.getFlightArrivalTime());
-        tvDistance.setText(getString(R.string.km,ticket.getDistance()));
-        tvTerminal.setText(ticket.getTerminal());
-        if (ticket.getOriginalPrice() == ticket.getPricePaid()) tvOriginalPrice.setText("");
+        binding.TicketInfoTvDate.setText(ticket.getFlightDate());
+        binding.TicketInfoTvState.setText(ticket.getFlightState());
+        binding.TicketInfoTvDepartureCity.setText(ticket.getFlightOrigin());
+        binding.TicketInfoTvArrivalCity.setText(ticket.getFlightArrival());
+        binding.TicketInfoTvDepartureTime.setText(ticket.getFlightDepartureTime());
+        binding.TicketInfoTvArrivalTime.setText(ticket.getFlightArrivalTime());
+        binding.TicketInfoTvDistance.setText(getString(R.string.km,ticket.getDistance()));
+        binding.TicketInfoTvTerminal.setText(ticket.getTerminal());
+        if (ticket.getOriginalPrice() == ticket.getPricePaid()) binding.TicketInfoTvPrice.setText("");
         else{
-            tvOriginalPrice.setText(getString(R.string.euro_symbol,ticket.getOriginalPrice()));
-            tvOriginalPrice.setPaintFlags(tvOriginalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            binding.TicketInfoTvPrice.setText(getString(R.string.euro_symbol,ticket.getOriginalPrice()));
+            binding.TicketInfoTvPrice.setPaintFlags(binding.TicketInfoTvPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
-        tvPaidPrice.setText(getString(R.string.euro_symbol,ticket.getPricePaid()));
-        tvPurchaseDate.setText(ticket.getPurchaseDate());
+        binding.TicketInfoTvPriceDiscount.setText(getString(R.string.euro_symbol,ticket.getPricePaid()));
+        binding.TicketInfoTvPurchaseDate.setText(ticket.getPurchaseDate());
 
         if (ticket.getPassengers().size() > 0){
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            binding.TicketInfoRvPassengers.setLayoutManager(new LinearLayoutManager(this));
             adapter = new TicketInfoPassengersAdapter(this, ticket.getPassengers());
-            recyclerView.setAdapter(adapter);
-            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            binding.TicketInfoRvPassengers.setAdapter(adapter);
+            binding.TicketInfoRvPassengers.setItemAnimator(new DefaultItemAnimator());
         }
         if (ticket.isCheckIn()){
-            btCheckIn.setVisibility(View.GONE);
-            btCancel.setVisibility(View.GONE);
+            binding.TicketInfoBtCheckIn.setVisibility(View.GONE);
+            binding.TicketInfoBtCancel.setVisibility(View.GONE);
         }
     }
 
     @Override
     public void onRefreshTicket() {
-        btCheckIn.setVisibility(View.GONE);
-        btCancel.setVisibility(View.GONE);
+        binding.TicketInfoBtCheckIn.setVisibility(View.GONE);
+        binding.TicketInfoBtCancel.setVisibility(View.GONE);
     }
 
     @Override
     public void onDeleteTicket() {
-        btCheckIn.setVisibility(View.GONE);
-        btCancel.setVisibility(View.GONE);
+        binding.TicketInfoBtCheckIn.setVisibility(View.GONE);
+        binding.TicketInfoBtCancel.setVisibility(View.GONE);
         Intent returnIntent = new Intent();
         setResult(Activity.RESULT_OK, returnIntent);
         finish();

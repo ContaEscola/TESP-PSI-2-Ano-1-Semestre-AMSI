@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -16,25 +14,26 @@ import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.adapters.FlightTicketAdapter;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.FlightTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
+import amsi.dei.estg.ipleiria.aerocontrol.databinding.ActivityTicketsBinding;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketsListener;
 
 public class TicketsActivity extends AppCompatActivity implements TicketsListener {
 
-    private RecyclerView recyclerView;
+    private ActivityTicketsBinding binding;
+
     private FlightTicketAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tickets);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.Tickets_Toolbar);
-        setSupportActionBar(myToolbar);
+        binding = ActivityTicketsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        setSupportActionBar(binding.TicketsToolbar.getRoot());
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        recyclerView = findViewById(R.id.Tickets_Rv_MyTickets);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        binding.TicketsRvMyTickets.setLayoutManager(new LinearLayoutManager(this));
 
         SingletonUser.getInstance(this).setTicketsListener(this);
         SingletonUser.getInstance(this).getTicketsAPI(this);
@@ -50,8 +49,8 @@ public class TicketsActivity extends AppCompatActivity implements TicketsListene
     @Override
     public void onRefreshList(ArrayList<FlightTicket> tickets) {
         adapter = new FlightTicketAdapter(this, SingletonUser.getInstance(this).getTickets());
-        recyclerView.setAdapter(adapter);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        binding.TicketsRvMyTickets.setAdapter(adapter);
+        binding.TicketsRvMyTickets.setItemAnimator(new DefaultItemAnimator());
     }
 
     @Override
