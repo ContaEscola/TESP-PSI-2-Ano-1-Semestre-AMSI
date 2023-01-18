@@ -302,7 +302,6 @@ public class UserDBHelper extends SQLiteOpenHelper {
      * Dá truncate à tabela dos support ticket
      */
     public void truncateTableSupportTickets(){
-        truncateTableSupportTickets();
         this.database.delete(TABLE_NAME_SUPPORT_TICKETS,null,null);
     }
 }

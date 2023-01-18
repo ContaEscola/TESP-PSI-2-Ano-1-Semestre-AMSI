@@ -26,6 +26,7 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.helpers.UserDBHelper;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
 import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketsListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketsListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.UpdateUserListener;
@@ -52,6 +53,7 @@ public class SingletonUser {
     private TicketListener ticketListener;
     private LoginListener loginListener;
     private UpdateUserListener updateUserListener;
+    private SupportTicketsListener supportTicketsListener;
 
     private SingletonUser(Context context){
         user = null;
@@ -384,6 +386,45 @@ public class SingletonUser {
     }
 
     /**
+     * Vai buscar os dados dos support ticket à API
+     * @param context context da atividade ou fragment
+     */
+    public void getSupportTicketsAPI(final Context context){
+        // Caso não haja internet
+        if (!NetworkUtils.isConnectedInternet(context)){
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            supportTicketsListener.onRefreshList(supportTickets);
+            return;
+        }
+
+        if (this.user != null){
+            String endPoint = ApiEndPoint.MY_SUPPORT_TICKETS + "?access-token=" + this.user.getToken();
+
+            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, endPoint, null,
+                    response -> {
+                        supportTickets = UserJsonParser.parserJsonSupportTickets(response);
+                        if (supportTicketsListener != null && supportTickets.size()>0){
+                            userDB.truncateTableSupportTickets();
+                            addSupportTicketsDB(supportTickets);
+                            supportTicketsListener.onRefreshList(supportTickets);
+                        }
+                    }, error -> Toast.makeText(context, R.string.error_support_tickets, Toast.LENGTH_SHORT).show());
+
+            volleyQueue.add(jsonArrayRequest);
+        }
+    }
+
+    /**
+     * Cria todos os support tickets numa base de dados local para que possam ser visualizados offline
+     * @param supportTickets lista dos support ticket a criar na BD
+     */
+    private void addSupportTicketsDB(ArrayList<SupportTicket> supportTickets) {
+        for (SupportTicket supportTicket: supportTickets) {
+            userDB.createSupportTicket(supportTicket);
+        }
+    }
+
+    /**
      *
      * @return Devolve a lista dos tickets de suporte.
      */
@@ -475,5 +516,9 @@ public class SingletonUser {
 
     public void setUpdateUserListener(UpdateUserListener updateUserListener) {
         this.updateUserListener = updateUserListener;
+    }
+
+    public void setSupportTicketsListener(SupportTicketsListener supportTicketsListener) {
+        this.supportTicketsListener = supportTicketsListener;
     }
 }

@@ -67,6 +67,11 @@ public class AccountFragment extends Fragment {
             startActivity(intent);
         });
 
+        bindingLoggedIn.AccountLoggedInConsLayoutSupportTicket.setOnClickListener(v -> {
+            Intent intent = new Intent(this.getContext(), SupportTicketActivity.class);
+            startActivity(intent);
+        });
+
         bindingLoggedIn.AccountLoggedInConsLayoutSupport.setOnClickListener(v -> openSupportIntent());
     }
 

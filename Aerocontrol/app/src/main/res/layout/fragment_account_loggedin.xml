@@ -117,7 +117,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/AccountLoggedIn_ConsLayout_LostAndFound"
+            android:id="@+id/AccountLoggedIn_ConsLayout_SupportTicket"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="10dp"
@@ -141,7 +141,7 @@
         <TextView
             android:layout_width="wrap_content"
             style="@style/DataText_Light"
-            android:text="@string/lost_and_found"
+            android:text="@string/my_support_ticket"
             android:layout_marginStart="60dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/AccountLoggedIn_Iv_LostItems"
