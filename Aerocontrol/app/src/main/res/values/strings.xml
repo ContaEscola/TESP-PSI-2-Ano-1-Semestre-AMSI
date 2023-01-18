@@ -58,6 +58,7 @@
     <string name="select_gender">Selecione um género</string>
     <string name="insert_birth_date">Insira a data de nascimento.</string>
     <string name="verify_password">Para guardar os seus dados é necessário verificar a password.</string>
+    <string name="signup_verification">Verifique o seu email para mais instruções!</string>
 
 
     <!--  Dados User  -->
@@ -197,6 +198,6 @@
     <string name="phone_error">O nº de telemóvel só pode conter números, e tem de ter de 4 a 15 números.</string>
     <string name="phone_code_error">Formato inválido.\nExemplo: +000</string>
     <string name="birthdate_error">Formato inválido.\nExemplo: 30/04/2000</string>
-    <string name="signup_verification">Verifique o seu email para mais instruções!</string>
+
 
 </resources>

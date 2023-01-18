@@ -26,6 +26,7 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.helpers.UserDBHelper;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
 import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.ResetPasswordListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.SignupListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketsListener;
@@ -55,6 +56,7 @@ public class SingletonUser {
     private LoginListener loginListener;
     private UpdateUserListener updateUserListener;
     private SignupListener signupListener;
+    private ResetPasswordListener resetPasswordListener;
 
     private SingletonUser(Context context){
         user = null;
@@ -106,6 +108,11 @@ public class SingletonUser {
         volleyQueue.add(stringRequest);
     }
 
+    /**
+     * Faz o Registo através da API
+     * @param user Utilizador a registar
+     * @param context Context da atividade ou fragmento
+     */
     public void signupAPI(User user, final Context context){
         // Caso não haja internet
         if (!NetworkUtils.isConnectedInternet(context)){
@@ -136,6 +143,36 @@ public class SingletonUser {
                 params.put("email", user.getEmail());
                 params.put("phone", user.getPhone());
                 params.put("phone_country_code", user.getPhoneCountryCode());
+                return params;
+            }
+        };
+
+        volleyQueue.add(stringRequest);
+    }
+
+    /**
+     * Envia um email para resetar a password através da API
+     * @param email Email do utilizador
+     * @param context Context da atividade ou fragmento
+     */
+    public void resetPasswordAPI(final String email, final Context context){
+        // Caso não haja internet
+        if (!NetworkUtils.isConnectedInternet(context)){
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiEndPoint.RESETPASSWORD,
+                response -> {
+                    String message = SignupJsonParser.parserJsonSignup(response);
+                    if (resetPasswordListener != null && message != null) {
+                        resetPasswordListener.onEmailSent(message);
+                    } else Toast.makeText(context, "Erro", Toast.LENGTH_SHORT).show();
+                }, error -> System.out.println(error.getNetworkTimeMs())){
+            @Override
+            public Map<String, String> getParams(){
+                Map<String, String> params = new HashMap<>();
+                params.put("email", email);
                 return params;
             }
         };
@@ -519,5 +556,9 @@ public class SingletonUser {
 
     public void setSignupListener(SignupListener signupListener){
         this.signupListener = signupListener;
+    }
+
+    public void setResetPasswordListener(ResetPasswordListener resetPasswordListener){
+        this.resetPasswordListener = resetPasswordListener;
     }
 }
