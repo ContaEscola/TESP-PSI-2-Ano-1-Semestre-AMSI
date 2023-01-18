@@ -164,7 +164,7 @@ public class User {
                 calendar.setTime(birthDate);
             }
             // +1 no mês um porque o calendar vai de 0 a 11
-            String newBirthdateFormat = calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH)+1) + "/" + calendar.get(Calendar.YEAR);
+            String newBirthdateFormat = String.format("%02d/%02d/%04d",calendar.get(Calendar.DAY_OF_MONTH),(calendar.get(Calendar.MONTH)+1),calendar.get(Calendar.YEAR));
             this.setBirthdate(newBirthdateFormat);
 
         } catch (ParseException e) {
@@ -183,7 +183,7 @@ public class User {
                 calendar.setTime(birthDate);
             }
             // +1 no mês um porque o calendar vai de 0 a 11
-            String newBirthdateFormat = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH)+1) + "-" + calendar.get(Calendar.DAY_OF_MONTH);
+            String newBirthdateFormat = String.format("%04d-%02d-%02d",calendar.get(Calendar.YEAR),(calendar.get(Calendar.MONTH)+1),calendar.get(Calendar.DAY_OF_MONTH));
             this.setBirthdate(newBirthdateFormat);
 
         } catch (ParseException e) {
