@@ -126,7 +126,7 @@ public class SingletonUser {
                     if (signupListener != null && message != null) {
                         signupListener.onSignup(message);
                     } else Toast.makeText(context, "Erro", Toast.LENGTH_SHORT).show();
-                }, error -> System.out.println(error.getNetworkTimeMs())){
+                }, error -> Toast.makeText(context, "Erro", Toast.LENGTH_SHORT).show()){
             @Override
             public Map<String, String> getParams(){
                 Map<String, String> params = new HashMap<>();
@@ -168,7 +168,7 @@ public class SingletonUser {
                     if (resetPasswordListener != null && message != null) {
                         resetPasswordListener.onEmailSent(message);
                     } else Toast.makeText(context, "Erro", Toast.LENGTH_SHORT).show();
-                }, error -> System.out.println(error.getNetworkTimeMs())){
+                }, error -> Toast.makeText(context, "Erro", Toast.LENGTH_SHORT).show()){
             @Override
             public Map<String, String> getParams(){
                 Map<String, String> params = new HashMap<>();
