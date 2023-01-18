@@ -37,6 +37,11 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
             Intent intent = new Intent(this, RegisterActivity.class);
             startActivity(intent);
         });
+
+        binding.LoginTvResetPassword.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ResetPasswordActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void login(){

@@ -9,6 +9,7 @@ public class ApiEndPoint {
 
     public final static String LOGIN = API_ENDPOINT + "auth/login";
     public final static String SIGNUP = API_ENDPOINT + "auth/signup";
+    public final static String RESETPASSWORD = API_ENDPOINT + "user/reset-password";
     public final static String UPDATE_ACCOUNT = API_ENDPOINT + "user/";
 
     //Entities
