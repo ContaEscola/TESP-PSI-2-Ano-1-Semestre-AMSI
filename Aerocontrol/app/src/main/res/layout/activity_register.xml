@@ -197,6 +197,7 @@
                     app:layout_constraintTop_toTopOf="@+id/Register_Et_PhoneCode" />
 
                 <Button
+                    android:id="@+id/Register_Bt_Signup"
                     style="@style/PrimaryButton"
                     android:layout_width="match_parent"
                     android:layout_marginTop="25dp"
