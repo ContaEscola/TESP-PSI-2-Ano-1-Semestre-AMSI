@@ -66,7 +66,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Register_Tv_CreateAccountText" />
 
-                <EditText
+                <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
                     android:id="@+id/Register_Et_username"
                     style="@style/TextInput"
                     android:layout_width="0dp"
@@ -76,7 +76,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Register_tv_AccessData" />
 
-                <EditText
+                <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
                     android:id="@+id/Register_Et_password"
                     style="@style/PasswordInput"
                     android:layout_width="0dp"
@@ -95,7 +95,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Register_Et_password" />
 
-                <EditText
+                <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
                     android:id="@+id/Register_Et_FirstName"
                     style="@style/TextInput"
                     android:layout_width="0dp"
@@ -105,7 +105,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Register_Tv_PersonalData" />
 
-                <EditText
+                <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
                     android:id="@+id/Register_Et_LastName"
                     style="@style/TextInput"
                     android:layout_width="0dp"
@@ -115,27 +115,40 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Register_Et_FirstName" />
 
-                <EditText
-                    android:id="@+id/Register_Et_Gender"
-                    style="@style/TextInput"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/Register_ComboBox_Gender"
+                    style="@style/ComboBox"
                     android:layout_width="0dp"
                     android:layout_marginTop="15dp"
                     android:hint="@string/gender_italic"
+                    app:boxStrokeWidth="0dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/Register_Et_LastName" />
+                    app:layout_constraintTop_toBottomOf="@+id/Register_Et_LastName">
 
-                <EditText
+                    <AutoCompleteTextView
+                        android:id="@+id/Register_ACTV_Gender"
+                        android:backgroundTint="@android:color/transparent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- android: editable está deprecated mas o inputType none não funciona corretamente -->
+                <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
                     android:id="@+id/Register_Et_birth"
-                    style="@style/TextInput"
+                    style="@style/DateInput"
+                    android:inputType="none"
+                    android:editable="false"
                     android:layout_width="0dp"
                     android:layout_marginTop="15dp"
                     android:hint="@string/birth_italic"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/Register_Et_Gender" />
+                    app:layout_constraintTop_toBottomOf="@+id/Register_ComboBox_Gender" />
 
-                <EditText
+                <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
                     android:id="@+id/Register_Et_Country"
                     style="@style/TextInput"
                     android:layout_width="0dp"
@@ -145,7 +158,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Register_Et_birth" />
 
-                <EditText
+                <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
                     android:id="@+id/Register_Et_City"
                     style="@style/TextInput"
                     android:layout_width="0dp"
@@ -164,7 +177,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Register_Et_City" />
 
-                <EditText
+                <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
                     android:id="@+id/Register_Et_Email"
                     style="@style/EmailInput"
                     android:layout_width="0dp"
@@ -174,7 +187,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Register_Tv_Contacts" />
 
-                <EditText
+                <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
                     android:id="@+id/Register_Et_PhoneCode"
                     style="@style/PhoneInput"
                     android:layout_width="0dp"
@@ -185,7 +198,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Register_Et_Email" />
 
-                <EditText
+                <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
                     android:id="@+id/Register_Et_Phone"
                     style="@style/PhoneInput"
                     android:layout_width="0dp"

@@ -178,6 +178,12 @@
     <string name="invalid_credentials">Credenciais inválidas</string>
     <string name="insert_all_data">Preencha todos os campos.</string>
     <string name="error_on_ticket">Erro ao encontrar o bilhete</string>
+    <string name="errors_found">Erros encontrados</string>
+    <string name="solve_errors">Antes de prosseguir, resolva os seguintes erros:</string>
+    <string name="no_apps_to_emails">Não existem aplicações no dispositivo para o envio de emails.</string>
+    <string name="email_message_invalid">Escreva um email e uma mensagem válidos!</string>
+    <string name="fill_fields_without_errors">Preencha todos os campos sem erros!</string>
+
 
     <!-- Erros User -->
     <string name="username_error">O username tem de ter de 2 a 30 caracteres.</string>
@@ -191,10 +197,6 @@
     <string name="phone_error">O nº de telemóvel só pode conter números, e tem de ter de 4 a 15 números.</string>
     <string name="phone_code_error">Formato inválido.\nExemplo: +000</string>
     <string name="birthdate_error">Formato inválido.\nExemplo: 30/04/2000</string>
-    <string name="errors_found">Erros encontrados</string>
-    <string name="solve_errors">Antes de prosseguir, resolva os seguintes erros:</string>
-    <string name="no_apps_to_emails">Não existem aplicações no dispositivo para o envio de emails.</string>
-    <string name="email_message_invalid">Escreva um email e uma mensagem válidos!</string>
-
+    <string name="signup_verification">Verifique o seu email para mais instruções!</string>
 
 </resources>
