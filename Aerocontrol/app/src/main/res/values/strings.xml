@@ -179,6 +179,7 @@
     <string name="invalid_credentials">Credenciais inválidas</string>
     <string name="insert_all_data">Preencha todos os campos.</string>
     <string name="error_on_ticket">Erro ao encontrar o bilhete</string>
+    <string name="error_on_support_ticket">Erro ao encontrar o ticket de suporte</string>
 
     <!-- Erros User -->
     <string name="username_error">O username tem de ter de 2 a 30 caracteres.</string>

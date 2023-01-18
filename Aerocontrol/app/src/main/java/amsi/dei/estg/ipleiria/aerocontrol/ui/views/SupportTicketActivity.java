@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import java.util.ArrayList;
@@ -37,6 +38,13 @@ public class SupportTicketActivity extends AppCompatActivity implements SupportT
 
         SingletonUser.getInstance(this).setSupportTicketsListener(this::onRefreshList);
         SingletonUser.getInstance(this).getSupportTicketsAPI(this);
+    }
+
+    public void showSupportTicketDetails(int id){
+        SupportTicket supportTicket = SingletonUser.getInstance(this).getSupportTicketById(id);
+        Intent intent = new Intent(this, SupportTicketInfoActivity.class);
+        intent.putExtra(SupportTicketInfoActivity.SUPPORT_TICKET_ID, (int) supportTicket.getId());
+        startActivityForResult(intent, 1);
     }
 
     @Override

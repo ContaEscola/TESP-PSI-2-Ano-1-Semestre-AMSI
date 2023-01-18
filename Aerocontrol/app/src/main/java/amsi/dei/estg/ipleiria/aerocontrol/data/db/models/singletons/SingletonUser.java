@@ -26,6 +26,7 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.helpers.UserDBHelper;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
 import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketsListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketsListener;
@@ -54,6 +55,7 @@ public class SingletonUser {
     private LoginListener loginListener;
     private UpdateUserListener updateUserListener;
     private SupportTicketsListener supportTicketsListener;
+    private SupportTicketListener supportTicketListener;
 
     private SingletonUser(Context context){
         user = null;
@@ -520,5 +522,9 @@ public class SingletonUser {
 
     public void setSupportTicketsListener(SupportTicketsListener supportTicketsListener) {
         this.supportTicketsListener = supportTicketsListener;
+    }
+
+    public void setSupportTicketListener(SupportTicketListener supportTicketListener) {
+        this.supportTicketListener = supportTicketListener;
     }
 }

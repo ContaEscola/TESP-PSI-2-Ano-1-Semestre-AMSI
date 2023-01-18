@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
 import amsi.dei.estg.ipleiria.aerocontrol.ui.views.MainActivity;
+import amsi.dei.estg.ipleiria.aerocontrol.ui.views.SupportTicketActivity;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 
 public class SupportTicketsListAdapter extends RecyclerView.Adapter<SupportTicketsListAdapter.ViewHolderList> {
@@ -53,15 +55,20 @@ public class SupportTicketsListAdapter extends RecyclerView.Adapter<SupportTicke
     public class ViewHolderList extends RecyclerView.ViewHolder {
 
         TextView tvTicket, tvState;
+        Button btDetails;
         public ViewHolderList(@NonNull View view) {
             super(view);
             this.tvTicket = view.findViewById(R.id.SupportTicket_Tv_Ticket);
             this.tvState = view.findViewById(R.id.SupportTicket_Tv_State);
+            this.btDetails = view.findViewById(R.id.SupportTicket_Bt_Details);
         }
 
         public void updateSupportTicket(SupportTicket supportTicket) {
             this.tvTicket.setText("Ticket nº" + supportTicket.getId() + " - " + supportTicket.getTitle());
             this.tvState.setText(supportTicket.getState());
+            this.btDetails.setOnClickListener(view -> {
+                ((SupportTicketActivity) context).showSupportTicketDetails(supportTicket.getId());
+            });
         }
     }
 }
