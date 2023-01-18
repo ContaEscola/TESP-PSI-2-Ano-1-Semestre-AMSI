@@ -206,14 +206,14 @@ public class SingletonUser {
                     params.put("username", userToUpdate.getUsername());
                     if (userToUpdate.getPassword() != null && userToUpdate.getPassword().length() > 0)
                         params.put("password_hash", userToUpdate.getPassword());
-                    params.put("firstName", userToUpdate.getFirstName());
-                    params.put("lastName", userToUpdate.getLastName());
+                    params.put("first_name", userToUpdate.getFirstName());
+                    params.put("last_name", userToUpdate.getLastName());
                     params.put("gender", userToUpdate.getGender());
                     params.put("country", userToUpdate.getCountry());
                     params.put("city", userToUpdate.getCity());
                     params.put("email", userToUpdate.getEmail());
                     params.put("phone", userToUpdate.getPhone());
-                    params.put("phoneCountryCode", userToUpdate.getPhoneCountryCode());
+                    params.put("phone_country_code", userToUpdate.getPhoneCountryCode());
                     userToUpdate.convertBirthdayToSave();
                     params.put("birthdate", userToUpdate.getBirthdate());
                     userToUpdate.convertBirthdayToDisplay();
