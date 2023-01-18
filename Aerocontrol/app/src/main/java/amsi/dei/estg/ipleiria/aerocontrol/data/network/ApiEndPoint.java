@@ -8,6 +8,7 @@ public class ApiEndPoint {
     private final static String API_FOLDER_ENDPOINT = ENDPOINT + "/aerocontrol/common/uploads/";
 
     public final static String LOGIN = API_ENDPOINT + "auth/login";
+    public final static String SIGNUP = API_ENDPOINT + "auth/signup";
     public final static String UPDATE_ACCOUNT = API_ENDPOINT + "user/";
 
     //Entities

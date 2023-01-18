@@ -26,11 +26,13 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.helpers.UserDBHelper;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
 import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.SignupListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketsListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.UpdateUserListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.LoginParser;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.SignupJsonParser;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.UserJsonParser;
 
 public class SingletonUser {
@@ -52,6 +54,7 @@ public class SingletonUser {
     private TicketListener ticketListener;
     private LoginListener loginListener;
     private UpdateUserListener updateUserListener;
+    private SignupListener signupListener;
 
     private SingletonUser(Context context){
         user = null;
@@ -96,6 +99,43 @@ public class SingletonUser {
 
                 Map<String, String> params = new HashMap<>();
                 params.put("Authorization", authorization);
+                return params;
+            }
+        };
+
+        volleyQueue.add(stringRequest);
+    }
+
+    public void signupAPI(User user, final Context context){
+        // Caso não haja internet
+        if (!NetworkUtils.isConnectedInternet(context)){
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiEndPoint.SIGNUP,
+                response -> {
+                    String message = SignupJsonParser.parserJsonSignup(response);
+                    if (signupListener != null && message != null) {
+                        signupListener.onSignup(message);
+                    } else Toast.makeText(context, "Erro", Toast.LENGTH_SHORT).show();
+                }, error -> System.out.println(error.getNetworkTimeMs())){
+            @Override
+            public Map<String, String> getParams(){
+                Map<String, String> params = new HashMap<>();
+                params.put("username", user.getUsername());
+                params.put("password_hash", user.getPassword());
+                params.put("first_name", user.getFirstName());
+                params.put("last_name", user.getLastName());
+                params.put("gender", user.getGender());
+                user.convertBirthdayToSave();
+                params.put("birthdate", user.getBirthdate());
+                user.convertBirthdayToDisplay();
+                params.put("country", user.getCountry());
+                params.put("city", user.getCity());
+                params.put("email", user.getEmail());
+                params.put("phone", user.getPhone());
+                params.put("phone_country_code", user.getPhoneCountryCode());
                 return params;
             }
         };
@@ -475,5 +515,9 @@ public class SingletonUser {
 
     public void setUpdateUserListener(UpdateUserListener updateUserListener) {
         this.updateUserListener = updateUserListener;
+    }
+
+    public void setSignupListener(SignupListener signupListener){
+        this.signupListener = signupListener;
     }
 }
