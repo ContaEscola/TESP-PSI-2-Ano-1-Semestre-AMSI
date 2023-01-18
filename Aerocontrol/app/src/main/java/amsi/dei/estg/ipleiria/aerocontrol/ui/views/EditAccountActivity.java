@@ -8,7 +8,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -23,15 +22,14 @@ import amsi.dei.estg.ipleiria.aerocontrol.utils.UserValidations;
 
 public class EditAccountActivity extends AppCompatActivity implements UpdateUserListener {
 
-    ActivityEditAccountBinding binding;
+    private ActivityEditAccountBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityEditAccountBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.EditAccount_Toolbar);
-        setSupportActionBar(myToolbar);
+        setSupportActionBar(binding.EditAccountToolbar.getRoot());
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
