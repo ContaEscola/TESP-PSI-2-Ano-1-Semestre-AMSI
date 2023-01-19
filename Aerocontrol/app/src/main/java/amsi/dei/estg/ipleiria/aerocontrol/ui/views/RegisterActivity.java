@@ -245,17 +245,17 @@ public class RegisterActivity extends AppCompatActivity implements SignupListene
 
     private void signup(){
         User user = new User();
-        user.setUsername(String.valueOf(binding.RegisterEtUsername.getText()));
-        user.setPassword(String.valueOf(binding.RegisterEtPassword.getText()));
-        user.setFirstName(String.valueOf(binding.RegisterEtFirstName.getText()));
-        user.setLastName(String.valueOf(binding.RegisterEtLastName.getText()));
-        user.setGender(String.valueOf(binding.RegisterACTVGender.getText()));
-        user.setBirthdate(String.valueOf(binding.RegisterEtBirth.getText()));
-        user.setCountry(String.valueOf(binding.RegisterEtCountry.getText()));
-        user.setCity(String.valueOf(binding.RegisterEtCity.getText()));
-        user.setEmail(String.valueOf(binding.RegisterEtEmail.getText()));
-        user.setPhoneCountryCode(String.valueOf(binding.RegisterEtPhoneCode.getText()));
-        user.setPhone(String.valueOf(binding.RegisterEtPhone.getText()));
+        user.setUsername(String.valueOf(binding.RegisterEtUsername.getText()).trim());
+        user.setPassword(String.valueOf(binding.RegisterEtPassword.getText()).trim());
+        user.setFirstName(String.valueOf(binding.RegisterEtFirstName.getText()).trim());
+        user.setLastName(String.valueOf(binding.RegisterEtLastName.getText()).trim());
+        user.setGender(String.valueOf(binding.RegisterACTVGender.getText()).trim());
+        user.setBirthdate(String.valueOf(binding.RegisterEtBirth.getText()).trim());
+        user.setCountry(String.valueOf(binding.RegisterEtCountry.getText()).trim());
+        user.setCity(String.valueOf(binding.RegisterEtCity.getText()).trim());
+        user.setEmail(String.valueOf(binding.RegisterEtEmail.getText()).trim());
+        user.setPhoneCountryCode(String.valueOf(binding.RegisterEtPhoneCode.getText()).trim());
+        user.setPhone(String.valueOf(binding.RegisterEtPhone.getText()).trim());
         SingletonUser.getInstance(this).signupAPI(user,this);
     }
 
