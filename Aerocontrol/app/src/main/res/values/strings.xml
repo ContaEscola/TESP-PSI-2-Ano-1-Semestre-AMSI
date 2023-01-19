@@ -44,6 +44,7 @@
     <string name="date_format">%1$02d/%2$02d/%3$04d</string>
     <string name="save_data">Guardar Alterações</string>
     <string name="save_data_success">Alterações efetuadas com sucesso!</string>
+    <string name="create_data_success">Mensagem criada com sucesso!</string>
     <string name="save_data_failed">Alterações não efetuadas, algo correu mal!</string>
 
 

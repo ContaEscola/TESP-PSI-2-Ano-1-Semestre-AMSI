@@ -26,6 +26,7 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.helpers.UserDBHelper;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
 import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.SetSupportTicketMessage;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketsListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketListener;
@@ -56,6 +57,7 @@ public class SingletonUser {
     private UpdateUserListener updateUserListener;
     private SupportTicketsListener supportTicketsListener;
     private SupportTicketListener supportTicketListener;
+    private SetSupportTicketMessage setSupportTicketMessage;
 
     private SingletonUser(Context context){
         user = null;
@@ -413,6 +415,38 @@ public class SingletonUser {
                     }, error -> Toast.makeText(context, R.string.error_support_tickets, Toast.LENGTH_SHORT).show());
 
             volleyQueue.add(jsonArrayRequest);
+        }
+    }
+
+    /**
+     * Vai criar mensagem no support ticket à API
+     * @param context context da atividade ou fragment
+     */
+    public void setMessageSupportTicketAPI(final Context context, String message, Integer support_ticket_id){
+        if (!NetworkUtils.isConnectedInternet(context)){
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (this.user != null){
+            String endPoint = ApiEndPoint.SUPPORT_TICKET_MESSAGE + "?access-token=" + this.user.getToken();
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, endPoint,
+                    response -> {
+                        if(setSupportTicketMessage != null){
+                            setSupportTicketMessage.onSetSupportTicketMessage(context.getString(R.string.create_data_success));
+                        }
+                    }, error -> Toast.makeText(context, R.string.save_data_failed, Toast.LENGTH_SHORT).show()
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("message", message);
+                    params.put("sender_id", user.getId()+"");
+                    params.put("support_ticket_id", support_ticket_id+"");
+                    return params;
+                }
+            };
+            volleyQueue.add(stringRequest);
         }
     }
 
