@@ -7,8 +7,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.FlightTicket;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.LostItem;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Passenger;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.TicketMessage;
 
 public class UserJsonParser {
     public static ArrayList<FlightTicket> parserJsonTickets(JSONArray jsonArray) {
@@ -71,12 +73,35 @@ public class UserJsonParser {
                             jsonObject.getString("title"),
                             jsonObject.getString("state"));
                     supportTickets.add(supportTicket);
+
+                    JSONArray messages = jsonObject.getJSONArray("messages");
+                    for (int j=0; j< messages.length(); j++){
+                        JSONObject jsonObjectMessage = (JSONObject) messages.get(j);
+                        TicketMessage message = new TicketMessage(
+                                jsonObjectMessage.getInt("id"),
+                                jsonObjectMessage.getString("message"),
+                                jsonObjectMessage.getString("sender")
+                        );
+                        supportTicket.addMessage(message);
+                    }
+
+                    JSONArray lostItems = jsonObject.getJSONArray("items");
+                    for (int j=0; j< lostItems.length(); j++){
+                        JSONObject jsonObjectLostItems = (JSONObject) lostItems.get(j);
+                        LostItem lostItem = new LostItem(
+                                jsonObjectLostItems.getInt("id"),
+                                jsonObjectLostItems.getString("description"),
+                                jsonObjectLostItems.getString("state"),
+                                jsonObjectLostItems.getString("image")
+                        );
+                        supportTicket.addItem(lostItem);
+                    }
+
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-
         return supportTickets;
     }
 }

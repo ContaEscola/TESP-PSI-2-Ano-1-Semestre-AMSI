@@ -41,8 +41,8 @@
         app:layout_constraintBaseline_toBaselineOf="@id/SupportTicketInfo_Bt_Close"
         app:layout_constraintStart_toEndOf="@+id/SupportTicketInfo_Tv_LabelState" />
 
-    <ListView
-        android:id="@+id/SupportTicketInfo_Lv_Tickets"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/SupportTicketInfo_Rv_Tickets"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/message_border"
@@ -50,10 +50,12 @@
         android:dividerHeight="40dp"
         android:layout_marginTop="35dp"
         android:paddingVertical="20dp"
+        android:paddingHorizontal="15dp"
         app:layout_constraintBottom_toTopOf="@+id/SupportTicketInfo_ConsLayout_Message"
         app:layout_constraintEnd_toStartOf="@+id/SupportTicketInfo_GuidelineEnd"
         app:layout_constraintStart_toStartOf="@+id/SupportTicketInfo_GuidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/SupportTicketInfo_Bt_Close" />
+        app:layout_constraintTop_toBottomOf="@+id/SupportTicketInfo_Bt_Close"
+        />
 
     <Button
         android:id="@+id/SupportTicketInfo_Bt_Close"

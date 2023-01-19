@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/colorSurface"
+    android:layout_marginBottom="10dp">
+
+    <TextView
+        android:id="@+id/SupportTicketMessage_Tv_NameLeft"
+        style="@style/DataText_Light"
+        android:layout_width="wrap_content"
+        android:text="@string/username"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="visible"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/SupportTicketMessage_ConsLayout_Left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/message_item_border"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="10dp"
+        android:visibility="visible"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SupportTicketMessage_Tv_NameLeft">
+
+
+        <TextView
+            android:id="@+id/SupportTicketMessage_Tv_MessageLeft"
+            style="@style/DataText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxEms="11"
+            android:text="@string/message_support_ticket"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/SupportTicketMessage_Tv_NameRight"
+        style="@style/DataText_Light"
+        android:layout_width="wrap_content"
+        android:text="@string/username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="visible"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/SupportTicketMessage_ConsLayout_Right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/message_item_border"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="10dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SupportTicketMessage_Tv_NameRight">
+
+
+        <TextView
+            android:id="@+id/SupportTicketMessage_Tv_MessageRight"
+            style="@style/DataText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxEms="11"
+            android:text="@string/message_support_ticket"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
