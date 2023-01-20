@@ -54,8 +54,10 @@
     <string name="splash_screen_text">Reserve já o seu próximo voo!</string>
     <string name="accept_terms">Li e aceito integralmente os termos e condições.</string>
     <string name="check_in_done">Check-in efetuado.</string>
+    <string name="support_ticket_done">Suporte ticket concluido.</string>
     <string name="ticket_deleted">Bilhete cancelado com sucesso. Receberá um reembolso.</string>
     <string name="cancel_ticket">Cancelar bilhete</string>
+    <string name="conclude_support_ticket">Concluir suporte ticket</string>
     <string name="select_gender">Selecione um género</string>
     <string name="insert_birth_date">Insira a data de nascimento.</string>
     <string name="verify_password">Para guardar os seus dados é necessário verificar a password.</string>

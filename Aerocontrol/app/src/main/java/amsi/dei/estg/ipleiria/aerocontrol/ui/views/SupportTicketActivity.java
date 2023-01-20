@@ -18,7 +18,7 @@ import amsi.dei.estg.ipleiria.aerocontrol.databinding.ActivitySupportTicketListB
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketsListener;
 
-public class SupportTicketActivity extends AppCompatActivity implements SupportTicketListener {
+public class SupportTicketActivity extends AppCompatActivity implements SupportTicketsListener {
 
     private ActivitySupportTicketListBinding binding;
 

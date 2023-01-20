@@ -451,6 +451,40 @@ public class SingletonUser {
     }
 
     /**
+     * Envia um support ticket para API de forma a alterar o estado.
+     * @param context context da atividade ou fragment
+     * @param supportTicket a enviar para a API para ser atualizado
+     */
+    public void updateSupportTicketAPI(final Context context, SupportTicket supportTicket){
+        if (!NetworkUtils.isConnectedInternet(context)){
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (this.user != null){
+            String endPoint = ApiEndPoint.SUPPORT_TICKETS + supportTicket.getId() + "?access-token=" + this.user.getToken();
+
+            StringRequest stringRequest = new StringRequest(Request.Method.PUT, endPoint,
+                    response -> {
+                        Toast.makeText(context, R.string.support_ticket_done, Toast.LENGTH_SHORT).show();
+                        supportTicket.setState("Concluido");
+                        updateSupportTicketDB(supportTicket);
+                        supportTicketListener.onRefreshSupportTicket();
+                    }, error -> Toast.makeText(context, R.string.error_support_tickets, Toast.LENGTH_SHORT).show()
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("state","Concluido");
+                    return params;
+                }
+            };
+
+            volleyQueue.add(stringRequest);
+        }
+    }
+
+    /**
      * Cria todos os support tickets numa base de dados local para que possam ser visualizados offline
      * @param supportTickets lista dos support ticket a criar na BD
      */
@@ -458,6 +492,14 @@ public class SingletonUser {
         for (SupportTicket supportTicket: supportTickets) {
             userDB.createSupportTicket(supportTicket);
         }
+    }
+
+    /**
+     * Atualiza um support ticket que já esteja na BD local
+     * @param supportTicket bilhete a atualizar na BD
+     */
+    private void updateSupportTicketDB(SupportTicket supportTicket) {
+        userDB.updateSupportTicket(supportTicket);
     }
 
     /**

@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -48,7 +49,15 @@ public class SupportTicketInfoActivity extends AppCompatActivity implements Supp
 
         getSupportTicketId();
 
-        binding.SupportTicketInfoIBtSend.setOnClickListener(v -> saveData());
+    }
+
+    private void getSupportTicketId(){
+        if (support_ticket_id != -1){
+            supportTicket = SingletonUser.getInstance(this).getSupportTicketById(support_ticket_id);
+            binding.SupportTicketInfoIBtSend.setOnClickListener(v -> saveData());
+            binding.SupportTicketInfoBtClose.setOnClickListener(v -> closeSupportTicket());
+            supportTicketMessage();
+        } else Toast.makeText(this, R.string.error_on_support_ticket, Toast.LENGTH_SHORT).show();
     }
 
     private void saveData() {
@@ -57,11 +66,15 @@ public class SupportTicketInfoActivity extends AppCompatActivity implements Supp
         binding.editTextTextPersonName.setText("");
     }
 
-    private void getSupportTicketId(){
-        if (support_ticket_id != -1){
-            supportTicket = SingletonUser.getInstance(this).getSupportTicketById(support_ticket_id);
-            supportTicketMessage();
-        } else Toast.makeText(this, R.string.error_on_support_ticket, Toast.LENGTH_SHORT).show();
+    private void closeSupportTicket(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(SupportTicketInfoActivity.this);
+        builder.setTitle(R.string.conclude_support_ticket);
+        builder.setMessage("Se deseja realmente concluir o seu suporte ticket por favor confirme abaixo.");
+        builder.setPositiveButton(R.string.confirm, (dialog, which) -> {
+            SingletonUser.getInstance(this).updateSupportTicketAPI(this, supportTicket);
+        });
+        builder.setNegativeButton(R.string.cancel,(dialog,which) -> {});
+        builder.show();
     }
 
     private void supportTicketMessage(){
@@ -74,10 +87,13 @@ public class SupportTicketInfoActivity extends AppCompatActivity implements Supp
             System.out.println(supportTicket.getMessages().get(0).getMessage());
             binding.SupportTicketInfoRvTickets.setItemAnimator(new DefaultItemAnimator());
         }
+        if (supportTicket.getState().equals("Concluido")){
+            binding.SupportTicketInfoBtClose.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
-    public void onRefreshList(ArrayList<SupportTicket> supportTickets) {
-
+    public void onRefreshSupportTicket() {
+        binding.SupportTicketInfoBtClose.setVisibility(View.INVISIBLE);
     }
 }
