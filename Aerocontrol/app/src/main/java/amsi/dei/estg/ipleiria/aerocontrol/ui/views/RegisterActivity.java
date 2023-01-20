@@ -65,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity implements SignupListene
                     String date_dd_mm_yyyy = getString(R.string.date_format,dayOfMonth,monthOfYear+1,year);
                     binding.RegisterEtBirth.setText(date_dd_mm_yyyy);
                 }, calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH)+1,
+                calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH));
 
         picker.setTitle(getString(R.string.insert_birth_date));
