@@ -15,7 +15,6 @@ public class FlightsJsonParser {
             try {
                 for (int i = 0; i < response.length(); i++){
                     JSONObject jsonObject = (JSONObject) response.get(i);
-                    System.out.println(jsonObject);
                     Airport airport = new Airport(
                             jsonObject.getInt("id"),
                             jsonObject.getString("country"),

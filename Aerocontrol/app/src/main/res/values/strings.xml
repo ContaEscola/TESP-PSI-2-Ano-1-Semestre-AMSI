@@ -93,7 +93,7 @@
     <string name="flight_destiny">Destino:</string>
     <string name="flight_passengers">Nº Passageiros:</string>
     <string name="flight_departure_date">Data de partida:</string>
-    <string name="flight_arrival_date">Data de chegada:</string>
+    <string name="flight_come_back_date">Data de volta:</string>
 
 
     <!--  Titulos  -->

@@ -38,23 +38,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/FlightSearch_Bt_OneWay" />
 
-        <Button
-            android:id="@+id/FlightSearch_Bt_NoScale"
-            style="@style/SecondaryButtonOutlinePill"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="@string/flight_no_scales"
-            app:layout_constraintStart_toStartOf="@+id/FlightSearch_Bt_OneWay"
-            app:layout_constraintTop_toBottomOf="@+id/FlightSearch_Bt_OneWay" />
-
-        <Button
-            android:id="@+id/FlightSearch_Bt_WithScale"
-            style="@style/SecondaryButtonPill"
-            android:layout_width="wrap_content"
-            android:text="@string/flight_with_scale"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/FlightSearch_Bt_NoScale" />
-
         <TextView
             android:id="@+id/FlightSearch_Tv_Origin"
             style="@style/InputLabel"
@@ -73,7 +56,7 @@
             app:boxStrokeWidth="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/FlightSearch_Tv_Origin"
-            app:layout_constraintTop_toBottomOf="@+id/FlightSearch_Bt_NoScale" >
+            app:layout_constraintTop_toBottomOf="@+id/FlightSearch_Bt_OneWay" >
 
             <AutoCompleteTextView
                 android:id="@+id/FlightSearch_ACTV_Origin"
@@ -143,7 +126,9 @@
 
         <EditText
             android:id="@+id/FlightSearch_Et_DepartureDate"
-            style="@style/DateTimeInput"
+            style="@style/Input"
+            android:inputType="none"
+            android:editable="false"
             android:layout_width="0dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
@@ -155,14 +140,16 @@
             android:id="@+id/FlightSearch_Tv_ArrivalDate"
             style="@style/InputLabel"
             android:layout_width="wrap_content"
-            android:text="@string/flight_arrival_date"
+            android:text="@string/flight_come_back_date"
             app:layout_constraintBottom_toBottomOf="@+id/FlightSearch_Et_ArrivalDate"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/FlightSearch_Et_ArrivalDate" />
 
         <EditText
             android:id="@+id/FlightSearch_Et_ArrivalDate"
-            style="@style/DateTimeInput"
+            style="@style/Input"
+            android:inputType="none"
+            android:editable="false"
             android:layout_width="0dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
