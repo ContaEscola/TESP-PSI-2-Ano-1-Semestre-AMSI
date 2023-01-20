@@ -37,7 +37,7 @@ public class SupportActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("message/rfc822");
         intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"aerocontrol.acc@gmail.com"});
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Support Aerocontrol");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Suporte Aerocontrol");
         intent.putExtra(Intent.EXTRA_TEXT, binding.SupportEtMessage.getText().toString());
         try {
             startActivity(Intent.createChooser(intent, "Enviar email..."));
