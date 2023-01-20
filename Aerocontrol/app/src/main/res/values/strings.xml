@@ -198,6 +198,7 @@
     <string name="phone_error">O nº de telemóvel só pode conter números, e tem de ter de 4 a 15 números.</string>
     <string name="phone_code_error">Formato inválido.\nExemplo: +000</string>
     <string name="birthdate_error">Formato inválido.\nExemplo: 30/04/2000</string>
+    <string name="error_airports">Erro ao carregar os aeroportos disponiveis</string>
 
 
 </resources>

@@ -22,4 +22,6 @@ public class ApiEndPoint {
 
     public final static String TICKETS = API_ENDPOINT + "flight-tickets/";
     public final static String MY_TICKETS = TICKETS + "my-tickets";
+
+    public final static String AIRPORTS = API_ENDPOINT + "airports";
 }
