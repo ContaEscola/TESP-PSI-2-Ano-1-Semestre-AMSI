@@ -423,7 +423,7 @@ public class SingletonUser {
      * Vai criar mensagem no support ticket à API
      * @param context context da atividade ou fragment
      */
-    public void setMessageSupportTicketAPI(final Context context, String message, Integer support_ticket_id){
+    public void setMessageSupportTicketAPI(final Context context, String message, SupportTicket supportTicket){
         if (!NetworkUtils.isConnectedInternet(context)){
             Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
             return;
@@ -433,6 +433,7 @@ public class SingletonUser {
             String endPoint = ApiEndPoint.SUPPORT_TICKET_MESSAGE + "?access-token=" + this.user.getToken();
             StringRequest stringRequest = new StringRequest(Request.Method.POST, endPoint,
                     response -> {
+                        supportTicket.addMessage(new TicketMessage(0, message, user.getUsername()));
                         if(setSupportTicketMessage != null){
                             setSupportTicketMessage.onSetSupportTicketMessage(context.getString(R.string.create_data_success));
                         }
@@ -443,7 +444,7 @@ public class SingletonUser {
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("message", message);
                     params.put("sender_id", user.getId()+"");
-                    params.put("support_ticket_id", support_ticket_id+"");
+                    params.put("support_ticket_id", supportTicket.getId() +"");
                     return params;
                 }
             };

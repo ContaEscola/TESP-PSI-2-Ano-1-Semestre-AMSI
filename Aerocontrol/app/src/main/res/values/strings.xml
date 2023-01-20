@@ -40,6 +40,7 @@
     <string name="next">Avançar</string>
     <string name="confirm">Confirmar</string>
     <string name="cancel">Cancelar</string>
+    <string name="ok">OK</string>
     <string name="birthdate_format">DD-MM-YYYY</string>
     <string name="date_format">%1$02d/%2$02d/%3$04d</string>
     <string name="save_data">Guardar Alterações</string>
@@ -61,6 +62,7 @@
     <string name="select_gender">Selecione um género</string>
     <string name="insert_birth_date">Insira a data de nascimento.</string>
     <string name="verify_password">Para guardar os seus dados é necessário verificar a password.</string>
+    <string name="support_ticket_image">Imagem do ticket de suporte</string>
 
 
     <!--  Dados User  -->

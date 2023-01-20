@@ -39,17 +39,19 @@ public class UserJsonParser {
                             checkIn);
                     tickets.add(ticket);
 
-                    JSONArray passengers = jsonObject.getJSONArray("passengers");
-                    for (int j=0; j < passengers.length(); j++){
-                        JSONObject jsonObjectPassenger = (JSONObject) passengers.get(j);
-                        boolean extraBaggage = jsonObjectPassenger.getInt("extra_baggage") == 1;
-                        Passenger passenger = new Passenger(
-                                jsonObjectPassenger.getInt("id"),
-                                jsonObjectPassenger.getString("name"),
-                                jsonObjectPassenger.getString("gender"),
-                                jsonObjectPassenger.getString("seat"),
-                                extraBaggage);
-                        ticket.addPassenger(passenger);
+                    if (jsonObject.has("passengers")) {
+                        JSONArray passengers = jsonObject.getJSONArray("passengers");
+                        for (int j = 0; j < passengers.length(); j++) {
+                            JSONObject jsonObjectPassenger = (JSONObject) passengers.get(j);
+                            boolean extraBaggage = jsonObjectPassenger.getInt("extra_baggage") == 1;
+                            Passenger passenger = new Passenger(
+                                    jsonObjectPassenger.getInt("id"),
+                                    jsonObjectPassenger.getString("name"),
+                                    jsonObjectPassenger.getString("gender"),
+                                    jsonObjectPassenger.getString("seat"),
+                                    extraBaggage);
+                            ticket.addPassenger(passenger);
+                        }
                     }
 
                 }
@@ -85,16 +87,18 @@ public class UserJsonParser {
                         supportTicket.addMessage(message);
                     }
 
-                    JSONArray lostItems = jsonObject.getJSONArray("items");
-                    for (int j=0; j< lostItems.length(); j++){
-                        JSONObject jsonObjectLostItems = (JSONObject) lostItems.get(j);
-                        LostItem lostItem = new LostItem(
-                                jsonObjectLostItems.getInt("id"),
-                                jsonObjectLostItems.getString("description"),
-                                jsonObjectLostItems.getString("state"),
-                                jsonObjectLostItems.getString("image")
-                        );
-                        supportTicket.addItem(lostItem);
+                    if (jsonObject.has("items")) {
+                        JSONArray lostItems = jsonObject.getJSONArray("items");
+                        for (int j = 0; j < lostItems.length(); j++) {
+                            JSONObject jsonObjectLostItems = (JSONObject) lostItems.get(j);
+                            LostItem lostItem = new LostItem(
+                                    jsonObjectLostItems.getInt("id"),
+                                    jsonObjectLostItems.getString("description"),
+                                    jsonObjectLostItems.getString("state"),
+                                    jsonObjectLostItems.getString("image")
+                            );
+                            supportTicket.addItem(lostItem);
+                        }
                     }
 
                 }
