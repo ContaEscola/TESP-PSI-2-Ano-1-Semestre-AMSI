@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.FlightTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Passenger;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.TicketMessage;
 
 public class UserDBHelper extends SQLiteOpenHelper {
 
@@ -18,6 +19,7 @@ public class UserDBHelper extends SQLiteOpenHelper {
     private static final String TABLE_NAME_TICKETS = "flight_tickets";
     private static final String TABLE_NAME_PASSENGERS = "passengers";
     private static final String TABLE_NAME_SUPPORT_TICKETS = "support_tickets";
+    private static final String TABLE_NAME_SUPPORT_TICKET_MESSAGES = "ticket_messages";
 
     private static final int DB_VERSION=1;
 
@@ -49,6 +51,12 @@ public class UserDBHelper extends SQLiteOpenHelper {
     public static final String SUPPORT_TICKET_ID = "id";
     public static final String SUPPORT_TICKET_TITLE = "title";
     public static final String SUPPORT_TICKET_STATE = "state";
+
+    //Campos da tabela support ticket messages
+    public static final String TICKET_MESSAGES_ID = "id";
+    public static final String TICKET_MESSAGES_MESSAGE = "message";
+    public static final String TICKET_MESSAGES_SENDER = "sender";
+    public static final String TICKET_MESSAGES_TICKET_ID = "support_ticket_id";
 
     private final SQLiteDatabase database;
 
@@ -89,9 +97,17 @@ public class UserDBHelper extends SQLiteOpenHelper {
                 SUPPORT_TICKET_TITLE + " TEXT NOT NULL," +
                 SUPPORT_TICKET_STATE + " TEXT NOT NULL) ;";
 
+        String createTicketMessagesTable = "CREATE TABLE " + TABLE_NAME_SUPPORT_TICKET_MESSAGES +
+                "( " + TICKET_MESSAGES_ID + " INTEGER PRIMARY KEY NOT NULL, " +
+                TICKET_MESSAGES_MESSAGE + " TEXT NOT NULL," +
+                TICKET_MESSAGES_SENDER + " TEXT NOT NULL," +
+                TICKET_MESSAGES_TICKET_ID + " INTEGER NOT NULL," +
+                "FOREIGN KEY (" + TICKET_MESSAGES_TICKET_ID + ") REFERENCES " + TABLE_NAME_SUPPORT_TICKETS + "(" + SUPPORT_TICKET_ID + ")" + ");";
+
         db.execSQL(createTicketsTable);
         db.execSQL(createPassengersTable);
         db.execSQL(createSupportTicketTable);
+        db.execSQL(createTicketMessagesTable);
     }
 
     @Override
@@ -99,6 +115,7 @@ public class UserDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_PASSENGERS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_TICKETS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_SUPPORT_TICKETS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_SUPPORT_TICKET_MESSAGES);
         this.onCreate(db);
     }
 
@@ -304,4 +321,43 @@ public class UserDBHelper extends SQLiteOpenHelper {
     public void truncateTableSupportTickets(){
         this.database.delete(TABLE_NAME_SUPPORT_TICKETS,null,null);
     }
+
+    /**
+     * Cria uma mensagem na BD local
+     * @param message Passageiro a criar
+     */
+    public void createMessage (TicketMessage message, int support_ticket_id) {
+        ContentValues values = new ContentValues();
+        values.put(TICKET_MESSAGES_MESSAGE, message.getMessage());
+        values.put(TICKET_MESSAGES_SENDER, message.getSender());
+        values.put(TICKET_MESSAGES_TICKET_ID, support_ticket_id);
+        this.database.insert(TABLE_NAME_SUPPORT_TICKET_MESSAGES, null, values);
+    }
+
+    /**
+     * Lê os passageiros da BD
+     * @return Devolve todos os passageiros que estão na BD local
+     */
+    public ArrayList<TicketMessage> readMessages(int support_ticket_id){
+        ArrayList<TicketMessage> messages = new ArrayList<>();
+        Cursor cursor = this.database.rawQuery("SELECT * FROM " + TABLE_NAME_SUPPORT_TICKET_MESSAGES +
+                " WHERE " + TICKET_MESSAGES_TICKET_ID + " == " +  support_ticket_id +";", null);
+        if(cursor.moveToFirst()){
+            do{
+                messages.add(new TicketMessage(cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2))
+                );
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        return messages;
+    }
+
+    /**
+    *Dá truncate à tabela dos passageiros
+    */
+    /*public void truncateTablePassengers(){
+        this.database.delete(TABLE_NAME_PASSENGERS,null,null);
+    }*/
 }

@@ -64,6 +64,7 @@ public class SupportTicketInfoActivity extends AppCompatActivity implements Supp
         message = binding.editTextTextPersonName.getText().toString();
         SingletonUser.getInstance(this).setMessageSupportTicketAPI(this, message, support_ticket_id);
         binding.editTextTextPersonName.setText("");
+        getSupportTicketId();
     }
 
     private void closeSupportTicket(){

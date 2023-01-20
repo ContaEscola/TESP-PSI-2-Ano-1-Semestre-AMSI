@@ -57,4 +57,8 @@ public class SupportTicket {
     public void addItem(LostItem item){
         this.items.add(item);
     }
+
+    public void setMessages(ArrayList<TicketMessage> messages){
+        this.messages = messages;
+    }
 }

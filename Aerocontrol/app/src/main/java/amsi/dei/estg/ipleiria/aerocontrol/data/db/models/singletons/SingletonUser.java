@@ -397,6 +397,7 @@ public class SingletonUser {
         // Caso não haja internet
         if (!NetworkUtils.isConnectedInternet(context)){
             Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            readSupportTicketsDB();
             supportTicketsListener.onRefreshList(supportTickets);
             return;
         }
@@ -491,6 +492,19 @@ public class SingletonUser {
     private void addSupportTicketsDB(ArrayList<SupportTicket> supportTickets) {
         for (SupportTicket supportTicket: supportTickets) {
             userDB.createSupportTicket(supportTicket);
+            for (TicketMessage message : supportTicket.getMessages()){
+                userDB.createMessage(message,supportTicket.getId());
+            }
+        }
+    }
+
+    /**
+     * Atualiza um support ticket na BD
+     */
+    private void readSupportTicketsDB() {
+        supportTickets = userDB.readSupportTickets();
+        for (SupportTicket supportTicket: supportTickets){
+            supportTicket.setMessages(userDB.readMessages(supportTicket.getId()));
         }
     }
 
