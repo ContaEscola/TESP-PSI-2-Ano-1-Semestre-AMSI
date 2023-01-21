@@ -137,16 +137,16 @@
             app:layout_constraintTop_toBottomOf="@+id/FlightSearch_Et_Passengers" />
 
         <TextView
-            android:id="@+id/FlightSearch_Tv_ArrivalDate"
+            android:id="@+id/FlightSearch_Tv_ComeBackDate"
             style="@style/InputLabel"
             android:layout_width="wrap_content"
             android:text="@string/flight_come_back_date"
-            app:layout_constraintBottom_toBottomOf="@+id/FlightSearch_Et_ArrivalDate"
+            app:layout_constraintBottom_toBottomOf="@+id/FlightSearch_Et_ComeBackDate"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/FlightSearch_Et_ArrivalDate" />
+            app:layout_constraintTop_toTopOf="@+id/FlightSearch_Et_ComeBackDate" />
 
         <EditText
-            android:id="@+id/FlightSearch_Et_ArrivalDate"
+            android:id="@+id/FlightSearch_Et_ComeBackDate"
             style="@style/Input"
             android:inputType="none"
             android:editable="false"
@@ -154,17 +154,18 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/FlightSearch_Tv_ArrivalDate"
+            app:layout_constraintStart_toEndOf="@+id/FlightSearch_Tv_ComeBackDate"
             app:layout_constraintTop_toBottomOf="@+id/FlightSearch_Et_DepartureDate" />
 
         <Button
+            android:id="@+id/FlightSearch_Bt_Search"
             style="@style/PrimaryButton"
             android:layout_width="match_parent"
             android:text="@string/search"
             android:layout_marginTop="25dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/FlightSearch_Et_ArrivalDate" />
+            app:layout_constraintTop_toBottomOf="@+id/FlightSearch_Et_ComeBackDate" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

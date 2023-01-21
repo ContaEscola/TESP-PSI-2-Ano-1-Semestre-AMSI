@@ -199,6 +199,10 @@
     <string name="phone_code_error">Formato inválido.\nExemplo: +000</string>
     <string name="birthdate_error">Formato inválido.\nExemplo: 30/04/2000</string>
     <string name="error_airports">Erro ao carregar os aeroportos disponiveis</string>
+    <string name="no_flights_found">Não foram encontrados voos, exprimente outra data!</string>
+    <string name="no_flights_found_search_more_dates">Não foram encontrados voos, a procurar nas próximas datas.</string>
+    <string name="origin_arrival">Origem - Destino</string>
+    <string name="reserved">Reservado</string>
 
 
 </resources>
