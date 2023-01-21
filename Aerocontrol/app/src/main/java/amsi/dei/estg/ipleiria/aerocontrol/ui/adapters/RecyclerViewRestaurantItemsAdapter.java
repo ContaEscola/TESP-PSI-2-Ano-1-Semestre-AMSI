@@ -1,4 +1,4 @@
-package amsi.dei.estg.ipleiria.aerocontrol.adapters;
+package amsi.dei.estg.ipleiria.aerocontrol.ui.adapters;
 
 import android.content.Context;
 import android.graphics.Paint;
@@ -17,46 +17,50 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.ArrayList;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Restaurant;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.RestaurantItem;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 
-public class RestaurantItemsAdapter extends RecyclerView.Adapter<RestaurantItemsAdapter.ViewHolderList> {
+public class RecyclerViewRestaurantItemsAdapter extends RecyclerView.Adapter<RecyclerViewRestaurantItemsAdapter.ViewHolder> {
 
     private Context context;
-    private LayoutInflater layoutInflater;
-    private ArrayList<RestaurantItem> items;
+    private Restaurant relativeRestaurant;
+    private ArrayList<RestaurantItem> restaurantItems;
 
-    public RestaurantItemsAdapter(Context context, ArrayList<RestaurantItem> items){
+    public RecyclerViewRestaurantItemsAdapter(Context context, Restaurant relativeRestaurant){
         this.context = context;
-        this.items = items;
+        this.relativeRestaurant = relativeRestaurant;
+        this.restaurantItems = relativeRestaurant.getMenu();
     }
 
     @NonNull
     @Override
-    public ViewHolderList onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_restaurant_menu_item,parent,false);
-        return new RestaurantItemsAdapter.ViewHolderList(item);
+        return new ViewHolder(item, relativeRestaurant);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderList holder, int position) {
-        RestaurantItem item = items.get(position);
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        RestaurantItem item = restaurantItems.get(position);
         holder.updateItem(item);
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return restaurantItems.size();
     }
 
-    public static class ViewHolderList extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
 
+        Restaurant relativeRestaurant;
         ImageView ivItem;
         TextView tvItem;
 
-        public ViewHolderList(@NonNull View view){
+        public ViewHolder(@NonNull View view, Restaurant relativeRestaurant){
             super(view);
+            this.relativeRestaurant = relativeRestaurant;
             this.ivItem = view.findViewById(R.id.RestaurantItem_Iv_Image);
             this.tvItem = view.findViewById(R.id.RestaurantItem_Tv_Name);
         }
@@ -69,7 +73,7 @@ public class RestaurantItemsAdapter extends RecyclerView.Adapter<RestaurantItems
             }
             if (NetworkUtils.isConnectedInternet(itemView.getContext())){
                 Glide.with(this.itemView.getContext())
-                        .load(ApiEndPoint.RESTAURANTS_ITEMS_IMAGE_FOLDER+item.getImage())
+                        .load(item.getImageAPIPath(relativeRestaurant))
                         .placeholder(R.drawable.placeholder)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(ivItem);
