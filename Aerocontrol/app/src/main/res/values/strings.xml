@@ -214,6 +214,7 @@
     <string name="no_flights_found_search_more_dates">Não foram encontrados voos, a procurar nas próximas datas.</string>
     <string name="origin_arrival">Origem - Destino</string>
     <string name="reserved">Reservado</string>
+    <string name="error_passenger_name">Por favor preencha o nome de cada passageiro.</string>
 
 
 </resources>
