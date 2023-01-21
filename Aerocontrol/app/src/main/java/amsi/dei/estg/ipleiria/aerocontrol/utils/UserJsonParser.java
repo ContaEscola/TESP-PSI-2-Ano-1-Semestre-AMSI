@@ -76,15 +76,17 @@ public class UserJsonParser {
                             jsonObject.getString("state"));
                     supportTickets.add(supportTicket);
 
-                    JSONArray messages = jsonObject.getJSONArray("messages");
-                    for (int j=0; j< messages.length(); j++){
-                        JSONObject jsonObjectMessage = (JSONObject) messages.get(j);
-                        TicketMessage message = new TicketMessage(
-                                jsonObjectMessage.getInt("id"),
-                                jsonObjectMessage.getString("message"),
-                                jsonObjectMessage.getString("sender")
-                        );
-                        supportTicket.addMessage(message);
+                    if (jsonObject.has("messages")) {
+                        JSONArray messages = jsonObject.getJSONArray("messages");
+                        for (int j = 0; j < messages.length(); j++) {
+                            JSONObject jsonObjectMessage = (JSONObject) messages.get(j);
+                            TicketMessage message = new TicketMessage(
+                                    jsonObjectMessage.getInt("id"),
+                                    jsonObjectMessage.getString("message"),
+                                    jsonObjectMessage.getString("sender")
+                            );
+                            supportTicket.addMessage(message);
+                        }
                     }
 
                     if (jsonObject.has("items")) {

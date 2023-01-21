@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -72,6 +73,8 @@ public class SupportTicketActivity extends AppCompatActivity implements SupportT
         layout.addView(title);
 
         EditText message = new EditText(this);
+        message.setSingleLine(false);
+        message.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION);
         message.setHint(getString(R.string.message));
         layout.addView(message);
 

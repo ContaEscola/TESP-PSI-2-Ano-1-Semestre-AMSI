@@ -87,18 +87,18 @@ public class FlightSearchResultsActivity extends AppCompatActivity {
             }
 
             if (adapterGo.getSelectedFlight() != null && adapterBack.getSelectedFlight() != null) {
-                Intent intent = new Intent(context, FlightTicketPassengers.class);
-                intent.putExtra(FlightTicketPassengers.FLIGHT_GO_ID, adapterGo.getSelectedFlight().getId());
-                intent.putExtra(FlightTicketPassengers.TWO_WAY_TRIP, true);
-                intent.putExtra(FlightTicketPassengers.FLIGHT_BACK_ID, adapterBack.getSelectedFlight().getId());
-                intent.putExtra(FlightTicketPassengers.NUM_PASSENGERS, num_passengers);
+                Intent intent = new Intent(context, FlightTicketPassengersActivity.class);
+                intent.putExtra(FlightTicketPassengersActivity.FLIGHT_GO_ID, adapterGo.getSelectedFlight().getId());
+                intent.putExtra(FlightTicketPassengersActivity.TWO_WAY_TRIP, true);
+                intent.putExtra(FlightTicketPassengersActivity.FLIGHT_BACK_ID, adapterBack.getSelectedFlight().getId());
+                intent.putExtra(FlightTicketPassengersActivity.NUM_PASSENGERS, num_passengers);
                 context.startActivity(intent);
             }
         } else {
-            Intent intent = new Intent(context, FlightTicketPassengers.class);
-            intent.putExtra(FlightTicketPassengers.FLIGHT_GO_ID, flight.getId());
-            intent.putExtra(FlightTicketPassengers.TWO_WAY_TRIP, false);
-            intent.putExtra(FlightTicketPassengers.NUM_PASSENGERS, num_passengers);
+            Intent intent = new Intent(context, FlightTicketPassengersActivity.class);
+            intent.putExtra(FlightTicketPassengersActivity.FLIGHT_GO_ID, flight.getId());
+            intent.putExtra(FlightTicketPassengersActivity.TWO_WAY_TRIP, false);
+            intent.putExtra(FlightTicketPassengersActivity.NUM_PASSENGERS, num_passengers);
             context.startActivity(intent);
         }
     }
