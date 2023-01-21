@@ -1,7 +1,26 @@
 package amsi.dei.estg.ipleiria.aerocontrol.data.db.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.ArrayList;
 
+import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.StringUtils;
+
+@JsonPropertyOrder({
+    "id",
+    "name",
+    "description",
+    "phone",
+    "open_time",
+    "close_time",
+    "logo",
+    "website",
+    "menu"
+})
 public class Restaurant {
 
     private int id;
@@ -10,7 +29,11 @@ public class Restaurant {
     private String phone;
     private String logo;
     private String website;
+
+    @JsonProperty("open_time")
     private String openTime;
+
+    @JsonProperty("close_time")
     private String closeTime;
 
     private ArrayList<RestaurantItem> menu;
@@ -26,6 +49,8 @@ public class Restaurant {
         this.setCloseTime(closeTime);
         menu = new ArrayList<>();
     }
+
+    public Restaurant() {};
 
     public int getId() {
         return id;
@@ -75,18 +100,22 @@ public class Restaurant {
         this.website = website;
     }
 
+    @JsonProperty("open_time")
     public String getOpenTime() {
         return openTime;
     }
 
+    @JsonProperty("open_time")
     public void setOpenTime(String openTime) {
         this.openTime = openTime;
     }
 
+    @JsonProperty("close_time")
     public String getCloseTime() {
         return closeTime;
     }
 
+    @JsonProperty("close_time")
     public void setCloseTime(String closeTime) {
         this.closeTime = closeTime;
     }
@@ -101,5 +130,26 @@ public class Restaurant {
 
     public void addMenuItem(RestaurantItem item) {
         this.menu.add(item);
+    }
+
+    public String getUploadAPIPath() {
+        return ApiEndPoint.ENDPOINT_RESTAURANTS_UPLOADS + "/" + StringUtils.convertWhiteSpaceToUnderscores(getName());
+    }
+
+    /**
+     * Devolve o caminho do logo onde está guardado na Api
+     * @return
+     */
+    public String getLogoAPIPath() {
+        return getUploadAPIPath() + "/" +  getLogo();
+    }
+
+    //    Converter array de json para array de objetos
+    //    https://stackoverflow.com/questions/6349421/how-to-use-jackson-to-deserialise-an-array-of-objects
+    public static Restaurant[] parseJsonToRestaurants(String jsonString) throws JsonProcessingException {
+        final ObjectMapper mapper = new ObjectMapper();
+
+        return mapper.readValue(jsonString, Restaurant[].class);
+
     }
 }
