@@ -10,6 +10,7 @@ import android.widget.Toast;
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Store;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonEnterprises;
+import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiConfig;
 
 public class StoreDetailsActivity extends AppCompatActivity {
 
@@ -31,7 +32,7 @@ public class StoreDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initialize();
-        getStoreId();
+        getStoreIdFromIntent();
     }
 
     private void initialize() {
@@ -42,18 +43,22 @@ public class StoreDetailsActivity extends AppCompatActivity {
         tvWebsite = findViewById(R.id.StoreDetails_Tv_Website);
     }
 
-    private void getStoreId() {
+    private void getStoreIdFromIntent() {
         idStore = getIntent().getIntExtra(STORE_ID,-1);
 
         if (idStore != -1){
             store = SingletonEnterprises.getInstance(this).getStoreById(idStore);
-            storeDetails();
-        } else Toast.makeText(this, R.string.error_na_loja, Toast.LENGTH_SHORT).show();
+            setStoreInView();
+        } else Toast.makeText(this, R.string.error_no_loja, Toast.LENGTH_SHORT).show();
     }
 
-    private void storeDetails() {
+    private void setStoreInView() {
         if (!store.getName().equals("null")) tvName.setText(store.getName());
-        if (!store.getOpenTime().equals("null") && !store.getCloseTime().equals("null")) tvSchedule.setText(store.getOpenTime() + " - " + store.getCloseTime());
+        if(store.getOpenTime().equals(ApiConfig.API_CUSTOM_NULL) || store.getCloseTime().equals(ApiConfig.API_CUSTOM_NULL) || store.getOpenTime().equals(store.getCloseTime()))
+            tvSchedule.setText(R.string.open_anytime);
+        else
+            tvSchedule.setText(store.getOpenTime() + " - " + store.getCloseTime());
+
         if (!store.getDescription().equals("null")) tvDescription.setText(store.getDescription());
         if (!store.getPhone().equals("null")) tvPhone.setText(store.getPhone());
         if (!store.getWebsite().equals("null")) tvWebsite.setText(store.getWebsite());

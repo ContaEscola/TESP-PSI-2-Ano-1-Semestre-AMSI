@@ -5,6 +5,6 @@ import java.util.ArrayList;
 
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Store;
 
-public interface EnterprisesListenerStore {
+public interface StoresListener {
     void onRefreshList(ArrayList<Store> stores);
 }

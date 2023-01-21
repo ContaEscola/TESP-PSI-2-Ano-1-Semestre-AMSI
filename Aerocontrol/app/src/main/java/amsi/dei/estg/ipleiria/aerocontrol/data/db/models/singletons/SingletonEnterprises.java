@@ -18,7 +18,8 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Restaurant;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.RestaurantItem;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Store;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.EnterprisesListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.RestaurantsListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.StoresListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 
 public class SingletonEnterprises {
@@ -40,7 +41,7 @@ public class SingletonEnterprises {
     }
 	
 	public void setStoresListener(StoresListener storesListener) {
-	        this.storesListener = storesListener;
+        this.storesListener = storesListener;
     }
 
     private SingletonEnterprises(Context context){
@@ -106,7 +107,7 @@ public class SingletonEnterprises {
                     restaurants.clear();
                     Collections.addAll(restaurants, restaurantsArray);
 
-                    if (enterprisesListener != null && restaurants.size()>0){
+                    if (restaurantsListener != null && restaurants.size()>0){
                         EnterprisesDBManager.getInstance(context).truncateTableRestaurants();
                         createRestaurantsDB(restaurants);
                         restaurantsListener.onRefreshList(restaurants);
@@ -196,7 +197,7 @@ public class SingletonEnterprises {
 
         // Dados já foram recarregados, para evitar que o utilizador spamme
         if(stores.size() > 0) {
-            enterprisesListenerStore.onRefreshList(stores);
+            storesListener.onRefreshList(stores);
             return;
         }
 
@@ -204,19 +205,27 @@ public class SingletonEnterprises {
         if (!NetworkUtils.isConnectedInternet(context)){
             Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
             readStoresDB();
-            enterprisesListenerStore.onRefreshList(stores);
+            storesListener.onRefreshList(stores);
             return;
         }
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, ApiEndPoint.STORES, null,
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, ApiEndPoint.ENDPOINT_STORES, null,
                 response -> {
-                    stores = EnterprisesJsonParser.parserJsonStores(response);
-                    if (enterprisesListenerStore != null && stores.size()>0){
-                        enterprisesDB.truncateTableItems();
-                        enterprisesDB.truncateTableStores();
-                        createStoresDB(stores);
-                        enterprisesListenerStore.onRefreshList(stores);
+
+                    try {
+                        Store[] storesArray = Store.parseJsonToStores(response.toString());
+                        stores.clear();
+                        Collections.addAll(stores, storesArray);
+
+                        if (storesListener != null && stores.size()>0){
+                            EnterprisesDBManager.getInstance(context).truncateTableStores();
+                            createStoresDB(stores);
+                            storesListener.onRefreshList(stores);
+                        }
+                    } catch (JsonProcessingException e) {
+                        Toast.makeText(context, R.string.error_stores, Toast.LENGTH_SHORT).show();
                     }
+
                 }, error -> {
             Toast.makeText(context, R.string.error_stores, Toast.LENGTH_SHORT).show();
         });
@@ -230,7 +239,7 @@ public class SingletonEnterprises {
      */
     private void createStoresDB(ArrayList<Store> stores){
         for (Store store: stores) {
-            enterprisesDB.createStore(store);
+            EnterprisesDBManager.getInstance(context).createStore(store);
         }
     }
 
@@ -238,7 +247,7 @@ public class SingletonEnterprises {
      * Vai buscar à BD local todas as lojas existentes na mesma.
      */
     private void readStoresDB(){
-        stores = enterprisesDB.readStores();
+        stores = EnterprisesDBManager.getInstance(context).readStores();
     }
 
     /**
