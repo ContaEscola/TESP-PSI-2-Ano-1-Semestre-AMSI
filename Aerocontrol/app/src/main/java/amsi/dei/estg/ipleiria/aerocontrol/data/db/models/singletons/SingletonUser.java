@@ -390,6 +390,41 @@ public class SingletonUser {
     }
 
     /**
+     * Criar novo support ticket
+     * @param context context da atividade ou fragment
+     * @param title titulo a enviar para a API para ser guardado
+     * @param message mensagem a enviar para a API para ser guardada
+     */
+    public void createSupportTicketAPI(final Context context, String title, String message){
+        if (!NetworkUtils.isConnectedInternet(context)){
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (this.user != null){
+            String endPoint = ApiEndPoint.SUPPORT_TICKETS + "?access-token=" + this.user.getToken();
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, endPoint,
+                    response -> {
+                        Toast.makeText(context, "eu estou aqui", Toast.LENGTH_SHORT).show();
+                    }, error -> Toast.makeText(context, R.string.save_data_failed, Toast.LENGTH_SHORT).show()
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("title", title);
+                    params.put("message", message);
+                    return params;
+                }
+            };
+
+            volleyQueue.add(stringRequest);
+        }
+
+
+    }
+
+    /**
      * Vai buscar os dados dos support ticket à API
      * @param context context da atividade ou fragment
      */

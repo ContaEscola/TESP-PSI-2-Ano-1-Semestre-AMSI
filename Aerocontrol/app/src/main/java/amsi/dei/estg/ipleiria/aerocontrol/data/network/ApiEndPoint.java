@@ -21,8 +21,8 @@ public class ApiEndPoint {
     public final static String TICKETS = API_ENDPOINT + "flight-tickets/";
     public final static String MY_TICKETS = TICKETS + "my-tickets";
 
-    public final static String SUPPORT_TICKETS = API_ENDPOINT + "support-tickets/";
-    public final static String MY_SUPPORT_TICKETS = SUPPORT_TICKETS + "my-support-tickets";
+    public final static String SUPPORT_TICKETS = API_ENDPOINT + "support-tickets";
+    public final static String MY_SUPPORT_TICKETS = SUPPORT_TICKETS + "/my-support-tickets";
     public final static String LOST_ITEM_IMAGE_FOLDER = API_FOLDER_ENDPOINT + "lost-items/";
     public final static String SUPPORT_TICKET_MESSAGE = API_ENDPOINT + "ticket-messages";
 }
