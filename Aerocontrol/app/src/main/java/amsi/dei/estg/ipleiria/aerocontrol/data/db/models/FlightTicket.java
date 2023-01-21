@@ -7,18 +7,39 @@ public class FlightTicket {
 
     private int id;
     private String paymentMethod;
-    private double price;
+    private String flightState;
+    private String flightOrigin;
+    private String flightArrival;
+    private String flightOriginTime;
+    private String flightArrivalTime;
+    private String terminal;
+    private double originalPrice;
+    private double pricePaid;
+    private Date flightDate;
     private Date purchaseDate;
+    private float distance;
     private boolean checkIn;
 
     private ArrayList<Passenger> passengers;
 
-    public FlightTicket(int id, String paymentMethod, double price, Date purchaseDate, boolean checkIn){
+    public FlightTicket(int id, String paymentMethod, String flightState, String flightOrigin, String flightArrival,
+                        String flightOriginTime, String flightArrivalTime, String terminal, double originalPrice,
+                        double pricePaid, Date flightDate, Date purchaseDate, float distance, boolean checkIn){
         this.setId(id);
         this.setPaymentMethod(paymentMethod);
-        this.setPrice(price);
+        this.setFlightState(flightState);
+        this.setFlightOrigin(flightOrigin);
+        this.setFlightArrival(flightArrival);
+        this.setFlightOriginTime(flightOriginTime);
+        this.setFlightArrivalTime(flightArrivalTime);
+        this.setTerminal(terminal);
+        this.setOriginalPrice(originalPrice);
+        this.setPricePaid(pricePaid);
+        this.setFlightDate(flightDate);
         this.setPurchaseDate(purchaseDate);
+        this.setDistance(distance);
         this.setCheckIn(checkIn);
+
         passengers = new ArrayList<>();
     }
 
@@ -38,12 +59,76 @@ public class FlightTicket {
         this.paymentMethod = paymentMethod;
     }
 
-    public double getPrice() {
-        return price;
+    public String getFlightState() {
+        return flightState;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setFlightState(String flightState) {
+        this.flightState = flightState;
+    }
+
+    public String getFlightOrigin() {
+        return flightOrigin;
+    }
+
+    public void setFlightOrigin(String flightOrigin) {
+        this.flightOrigin = flightOrigin;
+    }
+
+    public String getFlightArrival() {
+        return flightArrival;
+    }
+
+    public void setFlightArrival(String flightArrival) {
+        this.flightArrival = flightArrival;
+    }
+
+    public String getFlightOriginTime() {
+        return flightOriginTime;
+    }
+
+    public void setFlightOriginTime(String flightOriginTime) {
+        this.flightOriginTime = flightOriginTime;
+    }
+
+    public String getFlightArrivalTime() {
+        return flightArrivalTime;
+    }
+
+    public void setFlightArrivalTime(String flightArrivalTime) {
+        this.flightArrivalTime = flightArrivalTime;
+    }
+
+    public String getTerminal() {
+        return terminal;
+    }
+
+    public void setTerminal(String terminal) {
+        this.terminal = terminal;
+    }
+
+    public double getPricePaid() {
+        return pricePaid;
+    }
+
+    public void setPricePaid(double pricePaid) {
+        this.pricePaid = pricePaid;
+    }
+
+    public double getOriginalPrice() {
+        return originalPrice;
+    }
+
+    public void setOriginalPrice(double originalPrice) {
+        this.originalPrice = originalPrice;
+    }
+
+    public Date getFlightDate() {
+        return flightDate;
+    }
+
+    public void setFlightDate(Date flightDate) {
+        this.flightDate = flightDate;
     }
 
     public Date getPurchaseDate() {
@@ -52,6 +137,14 @@ public class FlightTicket {
 
     public void setPurchaseDate(Date purchaseDate) {
         this.purchaseDate = purchaseDate;
+    }
+
+    public float getDistance() {
+        return distance;
+    }
+
+    public void setDistance(float distance) {
+        this.distance = distance;
     }
 
     public boolean isCheckIn() {

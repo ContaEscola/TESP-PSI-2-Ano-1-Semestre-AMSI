@@ -1,7 +1,23 @@
 package amsi.dei.estg.ipleiria.aerocontrol.data.db.models;
 
-import java.sql.Time;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.StringUtils;
+
+@JsonPropertyOrder({
+    "id",
+    "name",
+    "description",
+    "phone",
+    "open_time",
+    "close_time",
+    "logo",
+    "website"
+})
 public class Store {
 
     private int id;
@@ -10,10 +26,14 @@ public class Store {
     private String phone;
     private String logo;
     private String website;
-    private Time openTime;
-    private Time closeTime;
 
-    public Store(int id, String name, String description, String phone, String logo, String website, Time openTime, Time closeTime){
+    @JsonProperty("open_time")
+    private String openTime;
+
+    @JsonProperty("close_time")
+    private String closeTime;
+
+    public Store(int id, String name, String description, String phone, String logo, String website, String openTime, String closeTime){
         this.setId(id);
         this.setName(name);
         this.setDescription(description);
@@ -23,6 +43,8 @@ public class Store {
         this.setOpenTime(openTime);
         this.setCloseTime(closeTime);
     }
+
+    public Store() {}
 
     public int getId() {
         return id;
@@ -72,19 +94,45 @@ public class Store {
         this.website = website;
     }
 
-    public Time getOpenTime() {
+    @JsonProperty("open_time")
+    public String getOpenTime() {
         return openTime;
     }
 
-    public void setOpenTime(Time openTime) {
+    @JsonProperty("open_time")
+    public void setOpenTime(String openTime) {
         this.openTime = openTime;
     }
 
-    public Time getCloseTime() {
+    @JsonProperty("close_time")
+    public String getCloseTime() {
         return closeTime;
     }
 
-    public void setCloseTime(Time closeTime) {
+    @JsonProperty("close_time")
+    public void setCloseTime(String closeTime) {
         this.closeTime = closeTime;
+    }
+
+    public String getUploadAPIPath() {
+        return ApiEndPoint.ENDPOINT_STORES_UPLOADS + "/" + StringUtils.convertWhiteSpaceToUnderscores(getName());
+    }
+
+    /**
+     * Devolve o caminho do logo onde está guardado na Api
+     * @return
+     */
+    public String getLogoAPIPath() {
+        return getUploadAPIPath() + "/" +  getLogo();
+    }
+
+
+    //    Converter array de json para array de objetos
+    //    https://stackoverflow.com/questions/6349421/how-to-use-jackson-to-deserialise-an-array-of-objects
+    public static Store[] parseJsonToStores(String jsonString) throws JsonProcessingException {
+        final ObjectMapper mapper = new ObjectMapper();
+
+        return mapper.readValue(jsonString, Store[].class);
+
     }
 }

@@ -19,6 +19,7 @@ public class EnterprisesDBOpenHelper extends SQLiteOpenHelper {
     public static final String TBL_RESTAURANT ="restaurant";
     public static final String TBL_RESTAURANT_ITEM ="restaurant_item";
 
+    public static final String TBL_STORE ="store";
 
 
     // Campos da tabela restaurant/store(enterprise)
@@ -51,6 +52,19 @@ public class EnterprisesDBOpenHelper extends SQLiteOpenHelper {
                     COL_ENTERPRISE_CLOSE_TIME + " TEXT" +
                     ");";
 
+    // Sql para criar a tabela stores
+    private static final String CREATE_TBL_STORE =
+            "CREATE TABLE " + TBL_STORE + "( " +
+                    COL_ENTERPRISE_ID + " INTEGER PRIMARY KEY NOT NULL, " +
+                    COL_ENTERPRISE_NAME + " TEXT NOT NULL," +
+                    COL_ENTERPRISE_DESCRIPTION + " TEXT NOT NULL," +
+                    COL_ENTERPRISE_PHONE + " TEXT NOT NULL, " +
+                    COL_ENTERPRISE_LOGO + " TEXT," +
+                    COL_ENTERPRISE_WEBSITE + " TEXT," +
+                    COL_ENTERPRISE_OPEN_TIME + " TEXT," +
+                    COL_ENTERPRISE_CLOSE_TIME + " TEXT" +
+                    ");";
+
     // Sql para criar a tabela restaurant item
     private static final String CREATE_TBL_RESTAURANT_ITEM =
             "CREATE TABLE " + TBL_RESTAURANT_ITEM + "( " +
@@ -73,6 +87,7 @@ public class EnterprisesDBOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TBL_RESTAURANT);
         db.execSQL(CREATE_TBL_RESTAURANT_ITEM);
+        db.execSQL(CREATE_TBL_STORE);
     }
 
     @Override

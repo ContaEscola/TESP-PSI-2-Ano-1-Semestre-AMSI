@@ -16,14 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
-import amsi.dei.estg.ipleiria.aerocontrol.ui.adapters.RecyclerViewRestaurantsListAdapter;
+import amsi.dei.estg.ipleiria.aerocontrol.ui.adapters.RecyclerViewRestaurantsAdapter;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Restaurant;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonEnterprises;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.EnterprisesListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.RestaurantsListener;
 
-public class RestaurantsFragment extends Fragment implements EnterprisesListener {
+public class RestaurantsFragment extends Fragment implements RestaurantsListener {
 
-    private RecyclerViewRestaurantsListAdapter adapter;
+    private RecyclerViewRestaurantsAdapter adapter;
     private RecyclerView recyclerView;
 
     private EditText tvSearch;
@@ -40,7 +40,7 @@ public class RestaurantsFragment extends Fragment implements EnterprisesListener
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        SingletonEnterprises.getInstance(this.getContext()).setEnterprisesListener(this);
+        SingletonEnterprises.getInstance(this.getContext()).setRestaurantsListener(this);
         SingletonEnterprises.getInstance(this.getContext()).getRestaurantsAPI(this.getContext());
 
         tvSearch = view.findViewById(R.id.Restaurants_Et_Search);
@@ -57,15 +57,12 @@ public class RestaurantsFragment extends Fragment implements EnterprisesListener
             @Override
             public void afterTextChanged(Editable s) {}
         });
-
-
-
         return view;
     }
 
     @Override
     public void onRefreshList(ArrayList<Restaurant> restaurants) {
-        adapter = new RecyclerViewRestaurantsListAdapter(this.getContext(), restaurants);
+        adapter = new RecyclerViewRestaurantsAdapter(this.getContext(), restaurants);
         recyclerView.setAdapter(adapter);
         // https://stackoverflow.com/questions/31367599/how-to-update-recyclerview-adapter-data
     }

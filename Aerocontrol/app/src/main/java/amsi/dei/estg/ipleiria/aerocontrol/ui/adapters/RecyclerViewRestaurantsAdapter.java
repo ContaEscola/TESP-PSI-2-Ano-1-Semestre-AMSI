@@ -16,20 +16,19 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Restaurant;
 import amsi.dei.estg.ipleiria.aerocontrol.ui.views.MainActivity;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 
-public class RecyclerViewRestaurantsListAdapter extends RecyclerView.Adapter<RecyclerViewRestaurantsListAdapter.ViewHolder> implements Filterable {
+public class RecyclerViewRestaurantsAdapter extends RecyclerView.Adapter<RecyclerViewRestaurantsAdapter.ViewHolder> implements Filterable {
 
     private Context context;
     private ArrayList<Restaurant> restaurantsOriginal;
     private ArrayList<Restaurant> restaurantsFiltered;
 
-    public RecyclerViewRestaurantsListAdapter(Context context, ArrayList<Restaurant> restaurants){
+    public RecyclerViewRestaurantsAdapter(Context context, ArrayList<Restaurant> restaurants){
         this.context = context;
         this.restaurantsOriginal = restaurants;
         this.restaurantsFiltered = new ArrayList<>(restaurants);

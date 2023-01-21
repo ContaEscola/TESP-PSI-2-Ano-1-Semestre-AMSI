@@ -156,6 +156,8 @@
     <string name="no_internet_connection">Sem ligação de internet!</string>
     <string name="error_restaurants">Erro ao mostrar os restaurantes.</string>
     <string name="error_no_restaurant">Restaurante não encontrado!</string>
+    <string name="error_no_loja">Loja não encontrada!</string>
+    <string name="error_stores">Erro ao mostrar as lojas.</string>
 
 
 </resources>

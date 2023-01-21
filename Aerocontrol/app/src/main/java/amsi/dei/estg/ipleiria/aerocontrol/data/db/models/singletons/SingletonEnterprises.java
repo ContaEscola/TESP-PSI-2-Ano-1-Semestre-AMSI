@@ -18,7 +18,8 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Restaurant;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.RestaurantItem;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Store;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.EnterprisesListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.RestaurantsListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.StoresListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 
 public class SingletonEnterprises {
@@ -31,11 +32,16 @@ public class SingletonEnterprises {
 
     private RequestQueue volleyQueue;
 
-    private EnterprisesListener enterprisesListener;
+    private RestaurantsListener restaurantsListener;
+    private StoresListener storesListener;
 
 
-    public void setEnterprisesListener(EnterprisesListener enterprisesListener) {
-        this.enterprisesListener = enterprisesListener;
+    public void setRestaurantsListener(RestaurantsListener restaurantsListener) {
+        this.restaurantsListener = restaurantsListener;
+    }
+	
+	public void setStoresListener(StoresListener storesListener) {
+        this.storesListener = storesListener;
     }
 
     private SingletonEnterprises(Context context){
@@ -82,7 +88,7 @@ public class SingletonEnterprises {
 
         // Dados já foram recarregados, para evitar que o utilizador spamme
         if(restaurants.size() > 0) {
-            enterprisesListener.onRefreshList(restaurants);
+            restaurantsListener.onRefreshList(restaurants);
             return;
         }
 
@@ -90,7 +96,7 @@ public class SingletonEnterprises {
         if (!NetworkUtils.isConnectedInternet(context)){
             Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
             readRestaurantsDB();
-            enterprisesListener.onRefreshList(restaurants);
+            restaurantsListener.onRefreshList(restaurants);
             return;
         }
 
@@ -101,10 +107,10 @@ public class SingletonEnterprises {
                     restaurants.clear();
                     Collections.addAll(restaurants, restaurantsArray);
 
-                    if (enterprisesListener != null && restaurants.size()>0){
+                    if (restaurantsListener != null && restaurants.size()>0){
                         EnterprisesDBManager.getInstance(context).truncateTableRestaurants();
                         createRestaurantsDB(restaurants);
-                        enterprisesListener.onRefreshList(restaurants);
+                        restaurantsListener.onRefreshList(restaurants);
                     }
                 } catch (JsonProcessingException e) {
                     Toast.makeText(context, R.string.error_restaurants, Toast.LENGTH_SHORT).show();
@@ -181,6 +187,67 @@ public class SingletonEnterprises {
      */
     public ArrayList<Store> getStores(){
         return stores;
+    }
+
+    /**
+     * Vai buscar os dados das lojas à API
+     * @param context context da atividade ou fragment
+     */
+    public void getStoresAPI(final Context context){
+
+        // Dados já foram recarregados, para evitar que o utilizador spamme
+        if(stores.size() > 0) {
+            storesListener.onRefreshList(stores);
+            return;
+        }
+
+        // Caso não haja internet
+        if (!NetworkUtils.isConnectedInternet(context)){
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            readStoresDB();
+            storesListener.onRefreshList(stores);
+            return;
+        }
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, ApiEndPoint.ENDPOINT_STORES, null,
+                response -> {
+
+                    try {
+                        Store[] storesArray = Store.parseJsonToStores(response.toString());
+                        stores.clear();
+                        Collections.addAll(stores, storesArray);
+
+                        if (storesListener != null && stores.size()>0){
+                            EnterprisesDBManager.getInstance(context).truncateTableStores();
+                            createStoresDB(stores);
+                            storesListener.onRefreshList(stores);
+                        }
+                    } catch (JsonProcessingException e) {
+                        Toast.makeText(context, R.string.error_stores, Toast.LENGTH_SHORT).show();
+                    }
+
+                }, error -> {
+            Toast.makeText(context, R.string.error_stores, Toast.LENGTH_SHORT).show();
+        });
+
+        volleyQueue.add(jsonArrayRequest);
+    }
+
+    /**
+     * Cria todas as lojas numa base de dados local para que possam ser visualizados offline
+     * @param stores lista das lojas a criar na BD
+     */
+    private void createStoresDB(ArrayList<Store> stores){
+        for (Store store: stores) {
+            EnterprisesDBManager.getInstance(context).createStore(store);
+        }
+    }
+
+    /**
+     * Vai buscar à BD local todas as lojas existentes na mesma.
+     */
+    private void readStoresDB(){
+        stores = EnterprisesDBManager.getInstance(context).readStores();
     }
 
     /**

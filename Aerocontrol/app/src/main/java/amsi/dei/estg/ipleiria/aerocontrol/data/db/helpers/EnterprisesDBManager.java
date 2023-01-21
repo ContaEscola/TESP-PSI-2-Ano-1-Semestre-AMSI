@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Restaurant;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.RestaurantItem;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Store;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiConfig;
 
 public class EnterprisesDBManager {
@@ -148,7 +149,67 @@ public class EnterprisesDBManager {
      * Dá truncate à tabela dos itens do restaurante
      */
     public void truncateTableRestaurantItems() {
-        database.execSQL("delete from " + EnterprisesDBOpenHelper.TBL_RESTAURANT_ITEM);
+        database.execSQL("DELETE FROM " + EnterprisesDBOpenHelper.TBL_RESTAURANT_ITEM);
+    }
+
+
+    private ContentValues convertStoreToContentValues(Store store) {
+        ContentValues values = new ContentValues();
+
+        values.put(EnterprisesDBOpenHelper.COL_ENTERPRISE_ID, store.getId());
+        values.put(EnterprisesDBOpenHelper.COL_ENTERPRISE_NAME, store.getName());
+        values.put(EnterprisesDBOpenHelper.COL_ENTERPRISE_DESCRIPTION, store.getDescription());
+        values.put(EnterprisesDBOpenHelper.COL_ENTERPRISE_PHONE, store.getPhone());
+        if (store.getLogo() != null)
+            values.put(EnterprisesDBOpenHelper.COL_ENTERPRISE_LOGO, store.getLogo());
+        if (store.getWebsite() != null)
+            values.put(EnterprisesDBOpenHelper.COL_ENTERPRISE_WEBSITE, store.getWebsite());
+        if (store.getOpenTime().equals(ApiConfig.API_CUSTOM_NULL))
+            values.put(EnterprisesDBOpenHelper.COL_ENTERPRISE_OPEN_TIME, store.getOpenTime());
+        if (store.getCloseTime().equals(ApiConfig.API_CUSTOM_NULL))
+            values.put(EnterprisesDBOpenHelper.COL_ENTERPRISE_CLOSE_TIME, store.getCloseTime());
+
+        return values;
+    }
+
+    /**
+     * Cria uma loja na BD local
+     * @param store Loja a criar
+     */
+    public void createStore(Store store){
+        ContentValues values = convertStoreToContentValues(store);
+
+        this.database.insert(EnterprisesDBOpenHelper.TBL_STORE, null, values);
+    }
+
+    /**
+     * Lê as lojas da BD
+     * @return Devolve todas as lojas que estão na BD local
+     */
+    public ArrayList<Store> readStores(){
+        ArrayList<Store> stores = new ArrayList<>();
+        Cursor cursor = this.database.rawQuery("SELECT * FROM " + EnterprisesDBOpenHelper.TBL_STORE, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                stores.add(new Store(cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getString(5),
+                        cursor.getString(6),
+                        cursor.getString(7)));
+            }while(cursor.moveToNext());
+        }
+        return stores;
+    }
+
+    /**
+     * Dá truncate à tabela das lojas
+     */
+    public void truncateTableStores(){
+        database.execSQL("DELETE FROM "+ EnterprisesDBOpenHelper.TBL_STORE);
     }
 
 }

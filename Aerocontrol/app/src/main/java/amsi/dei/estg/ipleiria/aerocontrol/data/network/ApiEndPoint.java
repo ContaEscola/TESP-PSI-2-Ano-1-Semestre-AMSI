@@ -12,4 +12,6 @@ public class ApiEndPoint {
     public final static String ENDPOINT_RESTAURANTS_UPLOADS = ENDPOINT_API_UPLOADS + "/restaurants";
     public final static String RESTAURANT_ITEMS_FOLDER = "/menu";
 
+    public final static String ENDPOINT_STORES = ENDPOINT_API + "/stores";
+    public final static String ENDPOINT_STORES_UPLOADS = ENDPOINT_API_UPLOADS + "/stores";
 }
