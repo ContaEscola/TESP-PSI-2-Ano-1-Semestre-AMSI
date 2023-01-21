@@ -1,9 +1,11 @@
-package amsi.dei.estg.ipleiria.aerocontrol.data.models.singletons;
+package amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons;
+
+import android.content.Context;
 
 import java.util.ArrayList;
 
-import amsi.dei.estg.ipleiria.aerocontrol.data.models.Flight;
-import amsi.dei.estg.ipleiria.aerocontrol.data.models.PaymentMethod;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Flight;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.PaymentMethod;
 
 public class SingletonFlights {
 
@@ -17,7 +19,7 @@ public class SingletonFlights {
         paymentMethods = new ArrayList<>();
     }
 
-    public static synchronized SingletonFlights getInstance(){
+    public static synchronized SingletonFlights getInstance(Context context){
         if (instance == null) instance = new SingletonFlights();
         return instance;
     }
