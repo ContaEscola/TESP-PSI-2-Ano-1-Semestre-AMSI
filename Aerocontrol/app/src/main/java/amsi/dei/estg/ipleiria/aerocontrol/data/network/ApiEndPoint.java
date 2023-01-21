@@ -8,6 +8,8 @@ public class ApiEndPoint {
     private final static String API_FOLDER_ENDPOINT = ENDPOINT + "/aerocontrol/common/uploads/";
 
     public final static String LOGIN = API_ENDPOINT + "auth/login";
+    public final static String SIGNUP = API_ENDPOINT + "auth/signup";
+    public final static String RESETPASSWORD = API_ENDPOINT + "user/reset-password";
     public final static String UPDATE_ACCOUNT = API_ENDPOINT + "user/";
 
     //Entities
@@ -25,4 +27,8 @@ public class ApiEndPoint {
     public final static String MY_SUPPORT_TICKETS = SUPPORT_TICKETS + "/my-support-tickets";
     public final static String LOST_ITEM_IMAGE_FOLDER = API_FOLDER_ENDPOINT + "lost-items/";
     public final static String SUPPORT_TICKET_MESSAGE = API_ENDPOINT + "ticket-messages";
+    
+    public final static String AIRPORTS = API_ENDPOINT + "airports";
+
+    public final static String FLIGHT_SEARCH = API_ENDPOINT + "flight/search";
 }

@@ -29,11 +29,14 @@ import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.SetSupportTicketMessage;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketsListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.ResetPasswordListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.SignupListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketsListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.UpdateUserListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.LoginParser;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.SignupJsonParser;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.UserJsonParser;
 
 public class SingletonUser {
@@ -55,6 +58,8 @@ public class SingletonUser {
     private TicketListener ticketListener;
     private LoginListener loginListener;
     private UpdateUserListener updateUserListener;
+    private SignupListener signupListener;
+    private ResetPasswordListener resetPasswordListener;
     private SupportTicketsListener supportTicketsListener;
     private SupportTicketListener supportTicketListener;
     private SetSupportTicketMessage setSupportTicketMessage;
@@ -102,6 +107,78 @@ public class SingletonUser {
 
                 Map<String, String> params = new HashMap<>();
                 params.put("Authorization", authorization);
+                return params;
+            }
+        };
+
+        volleyQueue.add(stringRequest);
+    }
+
+    /**
+     * Faz o Registo através da API
+     * @param user Utilizador a registar
+     * @param context Context da atividade ou fragmento
+     */
+    public void signupAPI(User user, final Context context){
+        // Caso não haja internet
+        if (!NetworkUtils.isConnectedInternet(context)){
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiEndPoint.SIGNUP,
+                response -> {
+                    String message = SignupJsonParser.parserJsonSignup(response);
+                    if (signupListener != null && message != null) {
+                        signupListener.onSignup(message);
+                    } else Toast.makeText(context, "Erro", Toast.LENGTH_SHORT).show();
+                }, error -> Toast.makeText(context, "Erro", Toast.LENGTH_SHORT).show()){
+            @Override
+            public Map<String, String> getParams(){
+                Map<String, String> params = new HashMap<>();
+                params.put("username", user.getUsername());
+                params.put("password_hash", user.getPassword());
+                params.put("first_name", user.getFirstName());
+                params.put("last_name", user.getLastName());
+                params.put("gender", user.getGender());
+                user.convertBirthdayToSave();
+                params.put("birthdate", user.getBirthdate());
+                user.convertBirthdayToDisplay();
+                params.put("country", user.getCountry());
+                params.put("city", user.getCity());
+                params.put("email", user.getEmail());
+                params.put("phone", user.getPhone());
+                params.put("phone_country_code", user.getPhoneCountryCode());
+                return params;
+            }
+        };
+
+        volleyQueue.add(stringRequest);
+    }
+
+    /**
+     * Envia um email para resetar a password através da API
+     * @param email Email do utilizador
+     * @param context Context da atividade ou fragmento
+     */
+    public void resetPasswordAPI(final String email, final Context context){
+        // Caso não haja internet
+        if (!NetworkUtils.isConnectedInternet(context)){
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiEndPoint.RESETPASSWORD,
+                response -> {
+                    String message = SignupJsonParser.parserJsonSignup(response);
+                    if (resetPasswordListener != null && message != null) {
+                        resetPasswordListener.onEmailSent(message);
+                    } else Toast.makeText(context, "Erro", Toast.LENGTH_SHORT).show();
+                }, error -> Toast.makeText(context, "Erro", Toast.LENGTH_SHORT).show()){
+            @Override
+            public Map<String, String> getParams(){
+                Map<String, String> params = new HashMap<>();
+                params.put("email", email);
                 return params;
             }
         };
@@ -172,14 +249,14 @@ public class SingletonUser {
                     params.put("username", userToUpdate.getUsername());
                     if (userToUpdate.getPassword() != null && userToUpdate.getPassword().length() > 0)
                         params.put("password_hash", userToUpdate.getPassword());
-                    params.put("firstName", userToUpdate.getFirstName());
-                    params.put("lastName", userToUpdate.getLastName());
+                    params.put("first_name", userToUpdate.getFirstName());
+                    params.put("last_name", userToUpdate.getLastName());
                     params.put("gender", userToUpdate.getGender());
                     params.put("country", userToUpdate.getCountry());
                     params.put("city", userToUpdate.getCity());
                     params.put("email", userToUpdate.getEmail());
                     params.put("phone", userToUpdate.getPhone());
-                    params.put("phoneCountryCode", userToUpdate.getPhoneCountryCode());
+                    params.put("phone_country_code", userToUpdate.getPhoneCountryCode());
                     userToUpdate.convertBirthdayToSave();
                     params.put("birthdate", userToUpdate.getBirthdate());
                     userToUpdate.convertBirthdayToDisplay();
@@ -646,6 +723,14 @@ public class SingletonUser {
         this.updateUserListener = updateUserListener;
     }
 
+    public void setSignupListener(SignupListener signupListener){
+        this.signupListener = signupListener;
+    }
+
+    public void setResetPasswordListener(ResetPasswordListener resetPasswordListener){
+        this.resetPasswordListener = resetPasswordListener;
+    }
+    
     public void setSupportTicketsListener(SupportTicketsListener supportTicketsListener) {
         this.supportTicketsListener = supportTicketsListener;
     }

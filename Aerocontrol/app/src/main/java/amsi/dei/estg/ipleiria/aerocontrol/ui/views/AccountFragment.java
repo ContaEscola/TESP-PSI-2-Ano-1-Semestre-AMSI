@@ -50,6 +50,11 @@ public class AccountFragment extends Fragment {
         });
 
         bindingLoggedOut.AccountLoggedOutConsLayoutSupport.setOnClickListener(v -> openSupportIntent());
+
+        bindingLoggedOut.AccountLoggedOutBtCreateAccount.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), RegisterActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void initializeLoggedIn() {

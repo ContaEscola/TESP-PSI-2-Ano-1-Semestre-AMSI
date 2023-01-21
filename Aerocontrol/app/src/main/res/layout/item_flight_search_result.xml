@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/listview_flight_result_item_border"
-    android:padding="10dp">
-
-    <TextView
-        android:id="@+id/FlightSearchResults_Tv_Company"
-        android:layout_width="wrap_content"
-        style="@style/DataText"
-        android:text="@string/company"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+    android:padding="10dp"
+    android:layout_marginBottom="20dp">
 
     <TextView
         android:id="@+id/FlightSearchResults_Tv_SeatsAvailable"
@@ -41,16 +35,38 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/FlightSearchResults_Tv_Seats" />
 
+    <TextView
+        android:id="@+id/FlightSearchResults_Tv_PriceDiscount"
+        style="@style/DataText_Bold"
+        android:layout_width="0dp"
+        android:layout_marginEnd="15dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/new_price"
+        app:layout_constraintEnd_toStartOf="@+id/FlightSearchResults_Tv_Price"
+        app:layout_constraintTop_toBottomOf="@+id/FlightSearchResults_Tv_Seats" />
+
+    <TextView
+        android:id="@+id/FlightSearchResults_Tv_Date"
+        style="@style/DataText_SemiBold"
+        android:layout_width="0dp"
+        android:layout_marginTop="15dp"
+        android:textAlignment="center"
+        android:text="@string/random_date"
+        app:layout_constraintEnd_toEndOf="@+id/FlightSearchResults_ConsLayout_Right"
+        app:layout_constraintStart_toStartOf="@+id/FlightSearchResults_ConsLayout_Right"
+        app:layout_constraintTop_toBottomOf="@+id/FlightSearchResults_Tv_SeatsAvailable" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/FlightSearchResults_ConsLayout_Right"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
-        app:layout_constraintEnd_toStartOf="@+id/FlightSearchResults_Tv_SeatsAvailable"
+        app:layout_constraintEnd_toStartOf="@+id/FlightSearchResults_Bt_Reserve"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/FlightSearchResults_Tv_Company">
+        app:layout_constraintTop_toBottomOf="@+id/FlightSearchResults_Tv_Date">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/FlightSearchResults_ConsLayout_DepartureDetails"
@@ -137,11 +153,11 @@
     <Button
         android:id="@+id/FlightSearchResults_Bt_Reserve"
         style="@style/SecondaryButton"
-        android:width="170dp"
         android:layout_width="wrap_content"
-        android:text="@string/reserve"
         android:layout_marginTop="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/FlightSearchResults_ConsLayout_Right" />
+        android:width="170dp"
+        android:text="@string/reserve"
+        app:layout_constraintBottom_toBottomOf="@+id/FlightSearchResults_ConsLayout_Right"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
