@@ -1,13 +1,15 @@
-package amsi.dei.estg.ipleiria.aerocontrol.data.models.singletons;
+package amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons;
+
+import android.content.Context;
 
 import java.util.ArrayList;
 
-import amsi.dei.estg.ipleiria.aerocontrol.data.models.FlightTicket;
-import amsi.dei.estg.ipleiria.aerocontrol.data.models.LostItem;
-import amsi.dei.estg.ipleiria.aerocontrol.data.models.Passenger;
-import amsi.dei.estg.ipleiria.aerocontrol.data.models.SupportTicket;
-import amsi.dei.estg.ipleiria.aerocontrol.data.models.TicketMessage;
-import amsi.dei.estg.ipleiria.aerocontrol.data.models.User;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.FlightTicket;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.LostItem;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Passenger;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.TicketMessage;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.User;
 
 public class SingletonUser {
     private static SingletonUser instance = null;
@@ -22,7 +24,7 @@ public class SingletonUser {
         supportTickets = new ArrayList<>();
     }
 
-    public static synchronized SingletonUser getInstance(){
+    public static synchronized SingletonUser getInstance(Context context){
         if (instance == null) instance = new SingletonUser();
         return instance;
     }

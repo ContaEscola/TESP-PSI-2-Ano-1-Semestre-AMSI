@@ -1,4 +1,4 @@
-package amsi.dei.estg.ipleiria.aerocontrol.data.models;
+package amsi.dei.estg.ipleiria.aerocontrol.data.db.models;
 
 import java.util.ArrayList;
 

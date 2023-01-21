@@ -99,8 +99,9 @@
     <string name="description">Descrição:</string>
     <string name="website">Website:</string>
     <string name="store_restaurant_phone">Telemóvel:</string>
-    <string name="menu">Ementas</string>
+    <string name="menu">Ementa</string>
     <string name="store">Store name</string>
+    <string name="open_anytime">Aberto 24 horas</string>
 
 
     <!--  Ticket Info  -->
@@ -152,6 +153,11 @@
     <string name="new_ticket">Novo Ticket</string>
     <string name="see_item">Ver Item</string>
     <string name="btn_close_support_ticket">Fechar ticket</string>
+    <string name="no_internet_connection">Sem ligação de internet!</string>
+    <string name="error_restaurants">Erro ao mostrar os restaurantes.</string>
+    <string name="error_no_restaurant">Restaurante não encontrado!</string>
+    <string name="error_no_loja">Loja não encontrada!</string>
+    <string name="error_stores">Erro ao mostrar as lojas.</string>
 
 
 </resources>

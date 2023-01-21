@@ -1,14 +1,14 @@
-package amsi.dei.estg.ipleiria.aerocontrol.data.models;
+package amsi.dei.estg.ipleiria.aerocontrol.data.db.models;
 
-public class PaymentMethod {
+public class Passenger {
     private int id;
-    private boolean state;
     private String name;
+    private String gender;
 
-    public PaymentMethod(int id, boolean state, String name){
+    public Passenger(int id, String name, String gender){
         this.setId(id);
-        this.setState(state);
         this.setName(name);
+        this.setGender(gender);
     }
 
     public int getId() {
@@ -19,19 +19,19 @@ public class PaymentMethod {
         this.id = id;
     }
 
-    public boolean getState() {
-        return state;
-    }
-
-    public void setState(boolean state) {
-        this.state = state;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }
