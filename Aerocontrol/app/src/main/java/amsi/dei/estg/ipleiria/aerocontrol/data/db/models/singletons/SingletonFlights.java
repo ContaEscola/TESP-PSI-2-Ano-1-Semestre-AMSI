@@ -25,6 +25,7 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.PaymentMethod;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.AirportsListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightsListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.PaymentMethodsListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.FlightsJsonParser;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 
@@ -34,6 +35,7 @@ public class SingletonFlights {
 
     private AirportsListener airportsListener;
     private FlightsListener flightsListener;
+    private PaymentMethodsListener paymentMethodsListener;
 
     private static RequestQueue volleyQueue;
 
@@ -175,8 +177,6 @@ public class SingletonFlights {
         return flightsBack;
     }
 
-
-
     public void setTicketPassengers(ArrayList<Passenger> passengers) {
         this.ticketPassengers = passengers;
     }
@@ -184,6 +184,31 @@ public class SingletonFlights {
     public ArrayList<Passenger> getTicketPassengers(){
         return this.ticketPassengers;
     }
+
+    /**
+     * Obtém os métodos de pagamento e o seu status(Ativo ou Inativo) da API
+     * @param context Contexto da atividade ou fragment
+     */
+    public void getPaymentMethodsAPI(Context context){
+        // Caso não haja internet
+        if (!NetworkUtils.isConnectedInternet(context)){
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, ApiEndPoint.PAYMENT_METHODS, null,
+                response -> {
+                    paymentMethods = FlightsJsonParser.parserPaymentMethods(response);
+                    if (paymentMethodsListener != null && paymentMethods.size()>0){
+                        paymentMethodsListener.onPaymentMethodsRefresh(paymentMethods);
+                    } else Toast.makeText(context, R.string.error_payment_methods, Toast.LENGTH_SHORT).show();
+                }, error -> {
+            Toast.makeText(context, R.string.error_payment_methods, Toast.LENGTH_SHORT).show();
+        });
+
+        volleyQueue.add(jsonArrayRequest);
+    }
+
 
     /**
      *
@@ -221,5 +246,9 @@ public class SingletonFlights {
 
     public void setFlightsListener(FlightsListener flightsListener){
         this.flightsListener = flightsListener;
+    }
+
+    public void setPaymentMethodsListener(PaymentMethodsListener paymentMethodsListener){
+        this.paymentMethodsListener = paymentMethodsListener;
     }
 }

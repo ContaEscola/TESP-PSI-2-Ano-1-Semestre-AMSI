@@ -31,4 +31,6 @@ public class ApiEndPoint {
     public final static String AIRPORTS = API_ENDPOINT + "airports";
 
     public final static String FLIGHT_SEARCH = API_ENDPOINT + "flight/search";
+
+    public static final String PAYMENT_METHODS = API_ENDPOINT + "payment-methods";
 }
