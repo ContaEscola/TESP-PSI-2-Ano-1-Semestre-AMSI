@@ -215,6 +215,10 @@
     <string name="origin_arrival">Origem - Destino</string>
     <string name="reserved">Reservado</string>
     <string name="error_passenger_name">Por favor preencha o nome de cada passageiro.</string>
+    <string name="error_payment_methods">Erro ao mostrar os métodos de pagamento, tente novamente mais tarde.</string>
+    <string name="select_payment_method">Selecione um método de pagamento!</string>
+    <string name="payment_method_not_available">Método de pagamento não está disponivel neste momento, pedimos desculpa!</string>
+    <string name="confirm_payment">Confirme o pagamento!</string>
 
 
 </resources>
