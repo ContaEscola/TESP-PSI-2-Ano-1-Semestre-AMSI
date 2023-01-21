@@ -1,13 +1,18 @@
 package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import android.os.Bundle;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 
 public class PaymentMethodActivity extends AppCompatActivity {
+
+    public static final String FLIGHT_GO_ID = "flight_go_id";
+    public static final String FLIGHT_BACK_ID = "flight_back_id";
+    public static final String NUM_PASSENGERS = "num_passengers";
+    public static final String TWO_WAY_TRIP = "two_way_trip";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

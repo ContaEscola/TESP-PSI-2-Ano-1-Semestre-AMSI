@@ -20,6 +20,7 @@ import java.util.Map;
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Airport;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Flight;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Passenger;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.PaymentMethod;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.AirportsListener;
@@ -40,6 +41,7 @@ public class SingletonFlights {
     private ArrayList<Flight> flightsGo;
     private ArrayList<Flight> flightsBack;
     private ArrayList<PaymentMethod> paymentMethods;
+    private ArrayList<Passenger> ticketPassengers;
 
     private SingletonFlights(){
         flightsGo = new ArrayList<>();
@@ -173,6 +175,15 @@ public class SingletonFlights {
         return flightsBack;
     }
 
+
+
+    public void setTicketPassengers(ArrayList<Passenger> passengers) {
+        this.ticketPassengers = passengers;
+    }
+
+    public ArrayList<Passenger> getTicketPassengers(){
+        return this.ticketPassengers;
+    }
 
     /**
      *

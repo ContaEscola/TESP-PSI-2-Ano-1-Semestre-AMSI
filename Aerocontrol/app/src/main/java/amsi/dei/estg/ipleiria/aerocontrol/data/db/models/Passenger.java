@@ -15,6 +15,12 @@ public class Passenger {
         this.setGender(gender);
     }
 
+    public Passenger() {
+        this.setExtraBaggage(false);
+        this.setGender(User.GENDERS[0]);
+        this.setName("");
+    }
+
     public int getId() {
         return id;
     }
