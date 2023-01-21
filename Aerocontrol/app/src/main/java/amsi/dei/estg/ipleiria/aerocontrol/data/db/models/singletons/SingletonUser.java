@@ -483,7 +483,7 @@ public class SingletonUser {
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, endPoint,
                     response -> {
-                        Toast.makeText(context, "eu estou aqui", Toast.LENGTH_SHORT).show();
+                        
                     }, error -> Toast.makeText(context, R.string.save_data_failed, Toast.LENGTH_SHORT).show()
             ) {
                 @Override
