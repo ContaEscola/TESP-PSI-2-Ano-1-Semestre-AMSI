@@ -31,7 +31,7 @@ import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketsListener;
-import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.helpers.UserDBHelper;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.helpers.UserDBOpenHelper;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.UserJsonParser;
 
 public class SingletonUser {
@@ -46,10 +46,23 @@ public class SingletonUser {
 
     private RequestQueue volleyQueue;
 
+    private LoginListener loginListener;
     private TicketsListener ticketsListener;
     private TicketListener ticketListener;
-    private static UserDBHelper userDB;
-    private LoginListener loginListener;
+    private static UserDBOpenHelper userDB;
+
+
+    public void setLoginListener(LoginListener loginListener) {
+        this.loginListener = loginListener;
+    }
+
+    public void setTicketsListener(TicketsListener ticketsListener) {
+        this.ticketsListener = ticketsListener;
+    }
+
+    public void setTicketListener(TicketListener ticketListener) {
+        this.ticketListener = ticketListener;
+    }
 
     private SingletonUser(Context context){
         user = null;
@@ -59,7 +72,7 @@ public class SingletonUser {
         //https://developer.android.com/training/volley/requestqueue?hl=pt-br
         volleyQueue = Volley.newRequestQueue(context.getApplicationContext());
 
-        userDB = new UserDBHelper(context);
+        userDB = new UserDBOpenHelper(context);
         getLoggedInOnStart(context);
     }
 
@@ -445,15 +458,5 @@ public class SingletonUser {
             supportTicket.addMessage(message);
     }
 
-    public void setLoginListener(LoginListener loginListener) {
-        this.loginListener = loginListener;
-    }
 
-    public void setTicketsListener(TicketsListener ticketsListener) {
-        this.ticketsListener = ticketsListener;
-    }
-
-    public void setTicketListener(TicketListener ticketListener) {
-        this.ticketListener = ticketListener;
-    }
 }

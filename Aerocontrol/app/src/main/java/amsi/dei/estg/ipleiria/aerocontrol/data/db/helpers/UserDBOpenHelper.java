@@ -1,4 +1,4 @@
-package amsi.dei.estg.ipleiria.aerocontrol.data.db.models.helpers;
+package amsi.dei.estg.ipleiria.aerocontrol.data.db.helpers;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.FlightTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Passenger;
 
-public class UserDBHelper extends SQLiteOpenHelper {
+public class UserDBOpenHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "aerocontrol_user";
     private static final String TABLE_NAME_TICKETS = "flight_tickets";
@@ -46,7 +46,7 @@ public class UserDBHelper extends SQLiteOpenHelper {
 
     private final SQLiteDatabase database;
 
-    public UserDBHelper(Context context) {
+    public UserDBOpenHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         this.database = this.getWritableDatabase();
     }
