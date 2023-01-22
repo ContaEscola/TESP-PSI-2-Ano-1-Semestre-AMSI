@@ -1,19 +1,26 @@
 package amsi.dei.estg.ipleiria.aerocontrol.data.db.models;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Passenger {
     private int id;
     private String name;
     private String gender;
-    private int seat;
+    private String seat;
+
+    @JsonProperty("extra_baggage")
     private boolean extraBaggage;
 
-    public Passenger(int id, String name, String gender, int seat, boolean extraBaggage){
+    public Passenger(int id, String name, String gender, String seat, boolean extraBaggage){
         this.setSeat(seat);
         this.setExtraBaggage(extraBaggage);
         this.setId(id);
         this.setName(name);
         this.setGender(gender);
     }
+
+    public Passenger() {}
 
     public int getId() {
         return id;
@@ -39,18 +46,20 @@ public class Passenger {
         this.gender = gender;
     }
 
-    public int getSeat() {
+    public String getSeat() {
         return seat;
     }
 
-    public void setSeat(int seat) {
+    public void setSeat(String seat) {
         this.seat = seat;
     }
 
+    @JsonGetter("extra_baggage")
     public boolean haveExtraBaggage() {
         return extraBaggage;
     }
 
+    @JsonProperty("extra_baggage")
     public void setExtraBaggage(boolean extraBaggage) {
         this.extraBaggage = extraBaggage;
     }

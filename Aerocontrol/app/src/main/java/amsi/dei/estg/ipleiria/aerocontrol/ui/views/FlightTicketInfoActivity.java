@@ -17,12 +17,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
-import amsi.dei.estg.ipleiria.aerocontrol.adapters.TicketInfoPassengersAdapter;
+import amsi.dei.estg.ipleiria.aerocontrol.ui.adapters.RecyclerViewFlightTicketPassengersAdapter;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.FlightTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketListener;
 
-public class TicketInfoActivity extends AppCompatActivity implements TicketListener {
+public class FlightTicketInfoActivity extends AppCompatActivity implements FlightTicketListener {
 
     public static final String TICKET_ID = "ticket_id";
 
@@ -33,7 +33,7 @@ public class TicketInfoActivity extends AppCompatActivity implements TicketListe
     private Button btCheckIn, btCancel;
 
     private RecyclerView recyclerView;
-    private TicketInfoPassengersAdapter adapter;
+    private RecyclerViewFlightTicketPassengersAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +45,10 @@ public class TicketInfoActivity extends AppCompatActivity implements TicketListe
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        SingletonUser.getInstance(this).setTicketListener(this);
+        SingletonUser.getInstance(this).setFlightTicketListener(this);
 
         initialize();
-        getTicketId();
+        getFlightTicketIdFromIntent();
     }
 
     private void initialize() {
@@ -63,19 +63,23 @@ public class TicketInfoActivity extends AppCompatActivity implements TicketListe
         tvOriginalPrice = findViewById(R.id.TicketInfo_Tv_Price);
         tvPaidPrice = findViewById(R.id.TicketInfo_Tv_PriceDiscount);
         tvPurchaseDate = findViewById(R.id.TicketInfo_Tv_PurchaseDate);
+
         recyclerView = findViewById(R.id.TicketInfo_Rv_Passengers);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
         btCheckIn = findViewById(R.id.TicketInfo_Bt_CheckIn);
         btCancel = findViewById(R.id.TicketInfo_Bt_Cancel);
     }
 
-    private void getTicketId() {
+    private void getFlightTicketIdFromIntent() {
         int idTicket = getIntent().getIntExtra(TICKET_ID,-1);
 
         if (idTicket != -1){
-            ticket = SingletonUser.getInstance(this).getTicketById(idTicket);
+            ticket = SingletonUser.getInstance(this).getFlightTicketById(idTicket);
             btCheckIn.setOnClickListener(v -> SingletonUser.getInstance(this).updateTicketAPI(this,ticket));
             btCancel.setOnClickListener(v -> {
-                AlertDialog.Builder builder = new AlertDialog.Builder(TicketInfoActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(FlightTicketInfoActivity.this);
                 builder.setTitle(R.string.cancel_ticket);
                 builder.setMessage("Se deseja realmente apagar o seu bilhete por favor confirme abaixo.");
                 builder.setPositiveButton(R.string.confirm, (dialog, which) -> {
@@ -84,11 +88,11 @@ public class TicketInfoActivity extends AppCompatActivity implements TicketListe
                 builder.setNegativeButton(R.string.cancel,(dialog,which) -> {});
                 builder.show();
             });
-            ticketDetails();
+            setFlightTicketInView();
         } else Toast.makeText(this, R.string.error_on_ticket, Toast.LENGTH_SHORT).show();
     }
 
-    private void ticketDetails() {
+    private void setFlightTicketInView() {
         tvDate.setText(ticket.getFlightDate());
         tvState.setText(ticket.getFlightState());
         tvDeparture.setText(ticket.getFlightOrigin());
@@ -97,36 +101,36 @@ public class TicketInfoActivity extends AppCompatActivity implements TicketListe
         tvArrivalTime.setText(ticket.getFlightArrivalTime());
         tvDistance.setText(getString(R.string.km,ticket.getDistance()));
         tvTerminal.setText(ticket.getTerminal());
-        if (ticket.getOriginalPrice() == ticket.getPricePaid()) tvOriginalPrice.setText("");
+        if (ticket.getOriginalPrice() == ticket.getPaidPrice()) tvOriginalPrice.setText("");
         else{
             tvOriginalPrice.setText(getString(R.string.euro_symbol,ticket.getOriginalPrice()));
             tvOriginalPrice.setPaintFlags(tvOriginalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
-        tvPaidPrice.setText(getString(R.string.euro_symbol,ticket.getPricePaid()));
+        tvPaidPrice.setText(getString(R.string.euro_symbol,ticket.getPaidPrice()));
         tvPurchaseDate.setText(ticket.getPurchaseDate());
 
         if (ticket.getPassengers().size() > 0){
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            adapter = new TicketInfoPassengersAdapter(this, ticket.getPassengers());
+            adapter = new RecyclerViewFlightTicketPassengersAdapter(this, ticket.getPassengers());
             recyclerView.setAdapter(adapter);
-            recyclerView.setItemAnimator(new DefaultItemAnimator());
         }
         if (ticket.isCheckIn()){
-            btCheckIn.setVisibility(View.GONE);
-            btCancel.setVisibility(View.GONE);
+            hideActionBtns();
         }
+    }
+
+    private void hideActionBtns() {
+        btCheckIn.setVisibility(View.GONE);
+        btCancel.setVisibility(View.GONE);
     }
 
     @Override
     public void onRefreshTicket() {
-        btCheckIn.setVisibility(View.GONE);
-        btCancel.setVisibility(View.GONE);
+        hideActionBtns();
     }
 
     @Override
     public void onDeleteTicket() {
-        btCheckIn.setVisibility(View.GONE);
-        btCancel.setVisibility(View.GONE);
+        hideActionBtns();
         Intent returnIntent = new Intent();
         setResult(Activity.RESULT_OK, returnIntent);
         finish();

@@ -1,70 +1,89 @@
 package amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons;
 
 import android.content.Context;
-import android.util.Base64;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.helpers.UserDBManager;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.FlightTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.LostItem;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Passenger;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.TicketMessage;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.User;
-import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.helpers.UserDBHelper;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
+import amsi.dei.estg.ipleiria.aerocontrol.data.network.models.LoginRequest;
 import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketListener;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketsListener;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.UpdateUserListener;
-import amsi.dei.estg.ipleiria.aerocontrol.utils.LoginParser;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
-import amsi.dei.estg.ipleiria.aerocontrol.utils.UserJsonParser;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketsListener;
 
 public class SingletonUser {
 
     private static SingletonUser instance = null;
 
-    private static RequestQueue volleyQueue;
-
     private User user;
-    private User userToUpdate;
-    private ArrayList<FlightTicket> tickets;
-    private ArrayList<SupportTicket> supportTickets;
-
-    private static UserDBHelper userDB;
-
     private boolean loggedIn = false;
 
-    private TicketsListener ticketsListener;
-    private TicketListener ticketListener;
+    private ArrayList<FlightTicket> flightTickets;
+    private ArrayList<SupportTicket> supportTickets;
+
+    private Context context;
+
+    private RequestQueue volleyQueue;
+
     private LoginListener loginListener;
-    private UpdateUserListener updateUserListener;
+    private FlightTicketsListener flightTicketsListener;
+    private FlightTicketListener flightTicketListener;
+	private UpdateUserListener updateUserListener;
+
+    public void setLoginListener(LoginListener loginListener) {
+        this.loginListener = loginListener;
+    }
+
+    public void setFlightTicketsListener(FlightTicketsListener flightTicketsListener) {
+        this.flightTicketsListener = flightTicketsListener;
+    }
+
+    public void setFlightTicketListener(FlightTicketListener flightTicketListener) {
+        this.flightTicketListener = flightTicketListener;
+    }
+    
+	public void setUpdateUserListener(UpdateUserListener updateUserListener) {
+        this.updateUserListener = updateUserListener;
+    }
 
     private SingletonUser(Context context){
-        user = null;
-        userToUpdate = null;
-        tickets = new ArrayList<>();
-        supportTickets = new ArrayList<>();
-        userDB = new UserDBHelper(context);
+        this.user = null;
+        this.userToUpdate = null;
+        this.flightTickets = new ArrayList<>();
+        this.supportTickets = new ArrayList<>();
+        this.context = context;
+
+        //https://developer.android.com/training/volley/requestqueue?hl=pt-br
+        volleyQueue = Volley.newRequestQueue(context.getApplicationContext());
+
         getLoggedInOnStart(context);
     }
 
     public static synchronized SingletonUser getInstance(Context context){
-        volleyQueue = Volley.newRequestQueue(context);
-
         if (instance == null) instance = new SingletonUser(context);
         return instance;
     }
@@ -81,21 +100,39 @@ public class SingletonUser {
             return;
         }
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiEndPoint.LOGIN,
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiEndPoint.ENDPOINT_LOGIN,
                 response -> {
-                    User user = LoginParser.parserJsonLogin(response);
-                    if (loginListener != null && user != null) {
-                        loginListener.onValidateLogin(user, context);
-                    } else Toast.makeText(context, R.string.invalid_credentials, Toast.LENGTH_SHORT).show();
-                }, error -> Toast.makeText(context, "Erro", Toast.LENGTH_SHORT).show()){
+                    try {
+                        User user = User.parseJsonToUser(response);
+                        this.user = user; // Set do user autenticado na Singleton
+                        setLoggedIn(true); // Dá Set à variável do LoggedIn para true
+
+                        if (loginListener != null)
+                            loginListener.onValidateLogin(user, context);
+
+                    } catch (JsonProcessingException e) {
+                        Toast.makeText(context, R.string.common_error, Toast.LENGTH_SHORT).show();
+                    }
+
+                }, error -> {
+                    //https://stackoverflow.com/questions/24700582/handle-volley-error
+                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                        Toast.makeText(context, R.string.common_error, Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof AuthFailureError) {
+                        Toast.makeText(context, R.string.invalid_credentials, Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof ServerError) {
+                        Toast.makeText(context, R.string.common_error, Toast.LENGTH_SHORT).show();
+                    }
+
+
+        }){
             @Override
             public Map<String, String> getHeaders(){
-                String userAndPass = username+":"+password;
-                byte[] data = userAndPass.getBytes(StandardCharsets.UTF_8);
-                String authorization = "Basic " + Base64.encodeToString(data,Base64.DEFAULT);
+                String authorizationToken = LoginRequest.getHttpBasicAuthToken(username, password);
 
-                Map<String, String> params = new HashMap<>();
-                params.put("Authorization", authorization);
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", authorizationToken);
                 return params;
             }
         };
@@ -127,7 +164,7 @@ public class SingletonUser {
      * @param user Utilizador que passa a estar logado.
      */
     public void setUser(User user) {
-        this.user = (User) user;
+        this.user = user;
     }
 
     /**
@@ -219,34 +256,42 @@ public class SingletonUser {
      *
      * @return Devolve a lista de todos os bilhetes de voo.
      */
-    public ArrayList<FlightTicket> getTickets() {
-        return tickets;
+    public ArrayList<FlightTicket> getFlightTickets() {
+        return flightTickets;
     }
 
     /**
-     * Vai buscar os dados dos bilhetes à API
+     * Vai buscar os dados dos bilhetes de voo à API
      * @param context context da atividade ou fragment
      */
-    public void getTicketsAPI(final Context context){
+    public void getFlightTicketsAPI(final Context context){
         // Caso não haja internet
         if (!NetworkUtils.isConnectedInternet(context)){
             Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
-            readTicketsDB();
-            ticketsListener.onRefreshList(tickets);
+            readFlightTicketsDB();
+            flightTicketsListener.onRefreshList(flightTickets);
             return;
         }
 
         if (this.user != null){
-            String endPoint = ApiEndPoint.MY_TICKETS + "?access-token=" + this.user.getToken();
+            String endPoint = ApiEndPoint.ENDPOINT_MY_FLIGHT_TICKETS + "?access-token=" + this.user.getToken();
 
             JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, endPoint, null,
                     response -> {
-                        tickets = UserJsonParser.parserJsonTickets(response);
-                        if (ticketsListener != null && tickets.size()>0){
-                            userDB.truncateTableTickets();
-                            addTicketsDB(tickets);
-                            ticketsListener.onRefreshList(tickets);
+                        try {
+                            FlightTicket[] flightTicketsArray = FlightTicket.parseJsonToFlightTickets(response.toString());
+                            flightTickets.clear();
+                            Collections.addAll(flightTickets, flightTicketsArray);
+
+                            if (flightTicketsListener != null && flightTickets.size()>0){
+                                UserDBManager.getInstance(context).truncateTableFlightTickets();
+                                addFlightTicketsDB(flightTickets);
+                                flightTicketsListener.onRefreshList(flightTickets);
+                            }
+                        } catch (JsonProcessingException e) {
+                            Toast.makeText(context, R.string.error_tickets, Toast.LENGTH_SHORT).show();
                         }
+
                     }, error -> Toast.makeText(context, R.string.error_tickets, Toast.LENGTH_SHORT).show());
 
             volleyQueue.add(jsonArrayRequest);
@@ -265,14 +310,16 @@ public class SingletonUser {
         }
 
         if (this.user != null){
-            String endPoint = ApiEndPoint.TICKETS + ticket.getId() + "?access-token=" + this.user.getToken();
+            String endPoint = ApiEndPoint.ENDPOINT_FLIGHT_TICKETS + "/" + ticket.getId() + "?access-token=" + this.user.getToken();
 
             StringRequest stringRequest = new StringRequest(Request.Method.PUT, endPoint,
                     response -> {
                         Toast.makeText(context, R.string.check_in_done, Toast.LENGTH_SHORT).show();
+
                         ticket.setCheckIn(true);
-                        updateTicketDB(ticket);
-                        ticketListener.onRefreshTicket();
+                        updateFlightTicketDB(ticket);
+
+                        flightTicketListener.onRefreshTicket();
                     }, error -> Toast.makeText(context, R.string.error_tickets, Toast.LENGTH_SHORT).show()
             ) {
                 @Override
@@ -299,16 +346,16 @@ public class SingletonUser {
         }
 
         if (this.user != null){
-            String endPoint = ApiEndPoint.TICKETS + ticket.getId() + "?access-token=" + this.user.getToken();
+            String endPoint = ApiEndPoint.ENDPOINT_FLIGHT_TICKETS + "/" + ticket.getId() + "?access-token=" + this.user.getToken();
 
             StringRequest stringRequest = new StringRequest(Request.Method.DELETE, endPoint,
                     response -> {
                         Toast.makeText(context, R.string.ticket_deleted, Toast.LENGTH_SHORT).show();
-                        deleteTicketDB(ticket.getId());
-                        this.tickets.remove(ticket);
-                        ticketListener.onDeleteTicket();
+                        deleteFlightTicketDB(ticket.getId());
+                        this.flightTickets.remove(ticket);
+                        flightTicketListener.onDeleteTicket();
                     }, error -> {
-                Toast.makeText(context, "Erro ao eliminar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Erro ao eliminar.", Toast.LENGTH_SHORT).show();
             });
             volleyQueue.add(stringRequest);
         }
@@ -318,39 +365,40 @@ public class SingletonUser {
      * Cria todos os bilhetes numa base de dados local para que possam ser visualizados offline
      * @param tickets lista dos bilhetes a criar na BD
      */
-    private void addTicketsDB(ArrayList<FlightTicket> tickets) {
+    private void addFlightTicketsDB(ArrayList<FlightTicket> tickets) {
         for (FlightTicket ticket: tickets) {
-            userDB.createTicket(ticket);
+            UserDBManager.getInstance(context).createFlightTicket(ticket);
+            int flightTicketId = ticket.getId();
             for (Passenger passenger : ticket.getPassengers()){
-                userDB.createPassenger(passenger,ticket.getId());
+                UserDBManager.getInstance(context).createPassenger(passenger, flightTicketId);
             }
         }
     }
 
     /**
-     * Atualiza um bilhete na BD
+     * Vai buscar à BD local todos os bilhetes de voo.
      */
-    private void readTicketsDB() {
-        tickets = userDB.readTickets();
-        for (FlightTicket ticket: tickets){
-            ticket.setPassengers(userDB.readPassengers(ticket.getId()));
+    private void readFlightTicketsDB() {
+        flightTickets = UserDBManager.getInstance(context).readFlightTickets();
+        for (FlightTicket ticket: flightTickets){
+            ticket.setPassengers(UserDBManager.getInstance(context).readPassengers(ticket.getId()));
         }
     }
 
     /**
-     * Atualiza um bilhete que já esteja na BD local
-     * @param ticket bilhete a atualizar na BD
+     * Atualiza um bilhete de voo que já esteja na BD local
+     * @param ticket bilhete de voo a atualizar na BD
      */
-    private void updateTicketDB(FlightTicket ticket) {
-        userDB.updateTicket(ticket);
+    private void updateFlightTicketDB(FlightTicket ticket) {
+        UserDBManager.getInstance(context).updateFlightTicket(ticket);
     }
 
     /**
      *
-     * @param id id do bilhete a eliminar
+     * @param id id do bilhete de voo a eliminar
      */
-    private void deleteTicketDB(int id){
-        userDB.deleteTicket(id);
+    private void deleteFlightTicketDB(int id){
+        UserDBManager.getInstance(context).deleteFlightTicket(id);
     }
 
     /**
@@ -358,8 +406,8 @@ public class SingletonUser {
      * @param id Id do bilhete de voo.
      * @return Devolve o bilhete de voo.
      */
-    public FlightTicket getTicketById(int id){
-        for(FlightTicket ticket : tickets) {
+    public FlightTicket getFlightTicketById(int id){
+        for(FlightTicket ticket : flightTickets) {
             if(ticket.getId() == id) {
                 return ticket;
             }
@@ -372,7 +420,7 @@ public class SingletonUser {
      * @param ticket Bilhete de voo a adicionar.
      */
     public void addTicket(FlightTicket ticket) {
-        this.tickets.add(ticket);
+        this.flightTickets.add(ticket);
     }
 
     /**
@@ -380,7 +428,31 @@ public class SingletonUser {
      * @param ticket Bilhete de voo a apagar.
      */
     public void deleteTicket(FlightTicket ticket) {
-        this.tickets.remove(ticket);
+        this.flightTickets.remove(ticket);
+    }
+
+    /**
+     *
+     * @param id Id do bilhete de voo.
+     * @return Devolve a lista de passageiros do bilhete de voo.
+     */
+    public ArrayList<Passenger> getPassengers(int id){
+        FlightTicket ticket = getFlightTicketById(id);
+        if(ticket != null)
+            return ticket.getPassengers();
+
+        return null;
+    }
+
+    /**
+     *
+     * @param id Id do bilhete de voo.
+     * @param passenger Passageiro a adicionar ao bilhete de voo.
+     */
+    public void addPassenger(int id, Passenger passenger){
+        FlightTicket ticket = getFlightTicketById(id);
+        if(ticket != null)
+            ticket.addPassenger(passenger);
     }
 
     /**
@@ -461,19 +533,5 @@ public class SingletonUser {
             supportTicket.addMessage(message);
     }
 
-    public void setLoginListener(LoginListener loginListener) {
-        this.loginListener = loginListener;
-    }
 
-    public void setTicketsListener(TicketsListener ticketsListener) {
-        this.ticketsListener = ticketsListener;
-    }
-
-    public void setTicketListener(TicketListener ticketListener) {
-        this.ticketListener = ticketListener;
-    }
-
-    public void setUpdateUserListener(UpdateUserListener updateUserListener) {
-        this.updateUserListener = updateUserListener;
-    }
 }

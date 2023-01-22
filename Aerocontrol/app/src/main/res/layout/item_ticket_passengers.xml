@@ -21,6 +21,7 @@
         style="@style/DataText_Light"
         android:layout_width="0dp"
         android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
         android:text="@string/name"
         app:layout_constraintEnd_toEndOf="@+id/Passenger_Tv_LabelName"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,9 +82,8 @@
         style="@style/CheckBox"
         android:layout_width="wrap_content"
         android:clickable="false"
-        app:layout_constraintBottom_toBottomOf="@+id/Passenger_Tv_Gender"
+        app:layout_constraintBaseline_toBaselineOf="@+id/Passenger_Tv_Gender"
         app:layout_constraintEnd_toEndOf="@+id/Passenger_Tv_LabelBaggage"
-        app:layout_constraintStart_toStartOf="@+id/Passenger_Tv_LabelBaggage"
-        app:layout_constraintTop_toTopOf="@id/Passenger_Tv_Gender" />
+        app:layout_constraintStart_toStartOf="@+id/Passenger_Tv_LabelBaggage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
