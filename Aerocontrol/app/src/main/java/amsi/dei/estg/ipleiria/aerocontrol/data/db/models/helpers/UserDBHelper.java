@@ -264,7 +264,7 @@ public class UserDBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Cria um suport ticket na BD local
+     * Cria um support ticket na BD local
      * @param supportTicket support ticket a criar
      */
     public void createSupportTicket (SupportTicket supportTicket){
@@ -310,6 +310,7 @@ public class UserDBHelper extends SQLiteOpenHelper {
      * Dá truncate à tabela dos support ticket
      */
     public void truncateTableSupportTickets(){
+        this.truncateTableMessages();
         this.database.delete(TABLE_NAME_SUPPORT_TICKETS,null,null);
     }
 
@@ -346,9 +347,9 @@ public class UserDBHelper extends SQLiteOpenHelper {
     }
 
     /**
-    *Dá truncate à tabela dos passageiros
+    *Dá truncate à tabela dos mensagens
     */
-    /*public void truncateTablePassengers(){
-        this.database.delete(TABLE_NAME_PASSENGERS,null,null);
-    }*/
+    public void truncateTableMessages(){
+        this.database.delete(TABLE_NAME_SUPPORT_TICKET_MESSAGES,null,null);
+    }
 }
