@@ -307,15 +307,6 @@ public class UserDBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Apaga um support ticket da BD
-     * @param idSupportTicket id do support ticket a ser eliminado
-     */
-    public void deleteSupportTicket(int idSupportTicket){
-        deleteSupportTicket(idSupportTicket);
-        this.database.delete(TABLE_NAME_SUPPORT_TICKETS, "id = ?", new String[]{"" + idSupportTicket});
-    }
-
-    /**
      * Dá truncate à tabela dos support ticket
      */
     public void truncateTableSupportTickets(){
