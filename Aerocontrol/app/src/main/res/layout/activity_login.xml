@@ -66,25 +66,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Login_Tv_Password" />
 
-        <CheckBox
-            android:id="@+id/Login_Cb_SaveSession"
-            style="@style/CheckBox"
-            android:layout_marginTop="15dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Login_Et_Password" />
-
         <TextView
-            android:id="@+id/Login_Et_SaveSession"
-            style="@style/DataText"
-            android:letterSpacing=".1"
-            android:text="@string/save_session"
-            app:layout_constraintBottom_toBottomOf="@+id/Login_Cb_SaveSession"
-            app:layout_constraintStart_toEndOf="@+id/Login_Cb_SaveSession"
-            app:layout_constraintTop_toTopOf="@+id/Login_Cb_SaveSession" />
-
-
-        <TextView
-            android:id="@+id/Login_Et_ResetPassword"
+            android:id="@+id/Login_Tv_ResetPassword"
             style="@style/RedirectText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -92,18 +75,17 @@
             android:letterSpacing=".1"
             android:text="@string/forgot_password"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Login_Cb_SaveSession" />
+            app:layout_constraintTop_toBottomOf="@+id/Login_Et_Password" />
 
         <TextView
-            android:id="@+id/Login_Et_CreateAccount"
+            android:id="@+id/Login_Tv_CreateAccount"
             style="@style/RedirectText"
             android:layout_width="wrap_content"
-
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:text="@string/no_account"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Login_Et_ResetPassword" />
+            app:layout_constraintTop_toBottomOf="@+id/Login_Tv_ResetPassword" />
 
         <Button
             android:id="@+id/Login_Bt_Login"
@@ -115,7 +97,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Login_Et_CreateAccount" />
+            app:layout_constraintTop_toBottomOf="@+id/Login_Tv_CreateAccount" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

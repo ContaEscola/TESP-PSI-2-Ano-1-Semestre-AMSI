@@ -14,4 +14,6 @@ public class ApiEndPoint {
 
     public final static String ENDPOINT_STORES = ENDPOINT_API + "/stores";
     public final static String ENDPOINT_STORES_UPLOADS = ENDPOINT_API_UPLOADS + "/stores";
+
+    public final static String ENDPOINT_LOGIN = ENDPOINT_API + "/auth/login";
 }

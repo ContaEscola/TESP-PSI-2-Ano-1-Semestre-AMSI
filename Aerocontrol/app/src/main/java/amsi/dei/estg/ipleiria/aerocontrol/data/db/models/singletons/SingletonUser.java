@@ -1,40 +1,134 @@
 package amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons;
 
 import android.content.Context;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.FlightTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.LostItem;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Passenger;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.TicketMessage;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.User;
+import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
+import amsi.dei.estg.ipleiria.aerocontrol.data.network.models.LoginRequest;
+import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 
 public class SingletonUser {
+
     private static SingletonUser instance = null;
 
     private User user;
+    private boolean loggedIn = false;
+
     private ArrayList<FlightTicket> tickets;
     private ArrayList<SupportTicket> supportTickets;
 
-    private SingletonUser(){
+    private RequestQueue volleyQueue;
+
+    private LoginListener loginListener;
+
+    private SingletonUser(Context context){
         user = null;
         tickets = new ArrayList<>();
         supportTickets = new ArrayList<>();
+
+        //https://developer.android.com/training/volley/requestqueue?hl=pt-br
+        volleyQueue = Volley.newRequestQueue(context.getApplicationContext());
+
+        getLoggedInOnStart(context);
     }
 
     public static synchronized SingletonUser getInstance(Context context){
-        if (instance == null) instance = new SingletonUser();
+        if (instance == null) instance = new SingletonUser(context);
         return instance;
     }
 
     /**
-     *
-     * @return Devolve o Utilizador.
+     * Vai buscar os dados do login à API
+     * @param context context da atividade ou fragment
      */
-    public User getUser() {
-        return user;
+    public void getLoginAPI(final String username, final String password, final Context context){
+
+        // Caso não haja internet
+        if (!NetworkUtils.isConnectedInternet(context)){
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiEndPoint.ENDPOINT_LOGIN,
+                response -> {
+                    try {
+                        User user = User.parseJsonToUser(response);
+                        this.user = user; // Set do user autenticado na Singleton
+                        setLoggedIn(true); // Dá Set à variável do LoggedIn para true
+
+                        if (loginListener != null)
+                            loginListener.onValidateLogin(user, context);
+
+                    } catch (JsonProcessingException e) {
+                        Toast.makeText(context, R.string.common_error, Toast.LENGTH_SHORT).show();
+                    }
+
+                }, error -> {
+                    //https://stackoverflow.com/questions/24700582/handle-volley-error
+                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                        Toast.makeText(context, R.string.common_error, Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof AuthFailureError) {
+                        Toast.makeText(context, R.string.invalid_credentials, Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof ServerError) {
+                        Toast.makeText(context, R.string.common_error, Toast.LENGTH_SHORT).show();
+                    }
+
+
+        }){
+            @Override
+            public Map<String, String> getHeaders(){
+                String authorizationToken = LoginRequest.getHttpBasicAuthToken(username, password);
+
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", authorizationToken);
+                return params;
+            }
+        };
+
+        volleyQueue.add(stringRequest);
+    }
+
+    /**
+     * Verifica se o utilizador está autenticado através do username no SharedPreferences.
+     */
+    private void getLoggedInOnStart(Context context) {
+        if(!UserPreferences.getInstance(context).getUsername().equals("")) {
+            this.setLoggedIn(true);
+            this.setUser(UserPreferences.getInstance(context).getUser());
+        }
+        else this.setLoggedIn(false);
+    }
+
+    public void setLoggedIn (boolean loggedIn){
+        this.loggedIn = loggedIn;
+    }
+
+    public boolean isLoggedIn(){
+        return this.loggedIn;
     }
 
     /**
@@ -43,6 +137,14 @@ public class SingletonUser {
      */
     public void setUser(User user) {
         this.user = user;
+    }
+
+    /**
+     *
+     * @return Devolve o Utilizador.
+     */
+    public User getUser() {
+        return user;
     }
 
     /**
@@ -205,4 +307,7 @@ public class SingletonUser {
             supportTicket.addMessage(message);
     }
 
+    public void setLoginListener(LoginListener loginListener) {
+        this.loginListener = loginListener;
+    }
 }
