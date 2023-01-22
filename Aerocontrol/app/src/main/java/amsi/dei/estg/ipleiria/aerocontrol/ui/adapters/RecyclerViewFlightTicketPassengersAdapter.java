@@ -1,4 +1,4 @@
-package amsi.dei.estg.ipleiria.aerocontrol.adapters;
+package amsi.dei.estg.ipleiria.aerocontrol.ui.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
