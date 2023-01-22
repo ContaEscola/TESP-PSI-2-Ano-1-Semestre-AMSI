@@ -1,5 +1,19 @@
 package amsi.dei.estg.ipleiria.aerocontrol.data.db.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiConfig;
+import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.StringUtils;
+
+@JsonPropertyOrder({
+    "id",
+    "item",
+    "image",
+    "state",
+    "restaurant_id"
+})
 public class RestaurantItem {
 
     private int id;
@@ -13,8 +27,10 @@ public class RestaurantItem {
         this.setState(state);
         this.setItem(item);
         this.setImage(image);
-        this.setRestaurant_id(restaurant_id);
+        this.setRestaurantId(restaurant_id);
     }
+
+    public RestaurantItem() {};
 
     public int getId() {
         return id;
@@ -48,11 +64,24 @@ public class RestaurantItem {
         this.image = image;
     }
 
-    public int getRestaurant_id() {
+    @JsonProperty("restaurant_id")
+    public int getRestaurantId() {
         return restaurant_id;
     }
 
-    public void setRestaurant_id(int restaurant_id) {
+    @JsonProperty("restaurant_id")
+    public void setRestaurantId(int restaurant_id) {
         this.restaurant_id = restaurant_id;
+    }
+
+
+    /**
+     * @param restaurant O restaurante a que este item está associado
+     * @return Devolve o caminho da imagem onde está guardado na Api
+     */
+    public String getImageAPIPath(Restaurant restaurant) {
+        String restaurantPath = restaurant.getUploadAPIPath();
+        String itemImagePath = restaurantPath + ApiEndPoint.RESTAURANT_ITEMS_FOLDER + "/" + getImage();
+        return itemImagePath;
     }
 }

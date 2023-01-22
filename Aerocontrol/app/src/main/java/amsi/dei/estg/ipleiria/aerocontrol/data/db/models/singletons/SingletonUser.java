@@ -1,16 +1,18 @@
 package amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons;
 
 import android.content.Context;
-import android.util.Base64;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,45 +24,46 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Passenger;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.TicketMessage;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.User;
-import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.helpers.UserDBHelper;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
+import amsi.dei.estg.ipleiria.aerocontrol.data.network.models.LoginRequest;
 import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketsListener;
-import amsi.dei.estg.ipleiria.aerocontrol.utils.LoginParser;
-import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.helpers.UserDBHelper;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.UserJsonParser;
 
 public class SingletonUser {
 
     private static SingletonUser instance = null;
 
-    private static RequestQueue volleyQueue;
-
     private User user;
+    private boolean loggedIn = false;
+
     private ArrayList<FlightTicket> tickets;
     private ArrayList<SupportTicket> supportTickets;
 
-    private static UserDBHelper userDB;
-
-    private boolean loggedIn = false;
+    private RequestQueue volleyQueue;
 
     private TicketsListener ticketsListener;
     private TicketListener ticketListener;
+    private static UserDBHelper userDB;
     private LoginListener loginListener;
 
     private SingletonUser(Context context){
         user = null;
         tickets = new ArrayList<>();
         supportTickets = new ArrayList<>();
+
+        //https://developer.android.com/training/volley/requestqueue?hl=pt-br
+        volleyQueue = Volley.newRequestQueue(context.getApplicationContext());
+
         userDB = new UserDBHelper(context);
         getLoggedInOnStart(context);
     }
 
     public static synchronized SingletonUser getInstance(Context context){
-        volleyQueue = Volley.newRequestQueue(context);
-
         if (instance == null) instance = new SingletonUser(context);
         return instance;
     }
@@ -77,21 +80,39 @@ public class SingletonUser {
             return;
         }
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiEndPoint.LOGIN,
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiEndPoint.ENDPOINT_LOGIN,
                 response -> {
-                    User user = LoginParser.parserJsonLogin(response);
-                    if (loginListener != null && user != null) {
-                        loginListener.onValidateLogin(user, context);
-                    } else Toast.makeText(context, R.string.invalid_credentials, Toast.LENGTH_SHORT).show();
-                }, error -> Toast.makeText(context, "Erro", Toast.LENGTH_SHORT).show()){
+                    try {
+                        User user = User.parseJsonToUser(response);
+                        this.user = user; // Set do user autenticado na Singleton
+                        setLoggedIn(true); // Dá Set à variável do LoggedIn para true
+
+                        if (loginListener != null)
+                            loginListener.onValidateLogin(user, context);
+
+                    } catch (JsonProcessingException e) {
+                        Toast.makeText(context, R.string.common_error, Toast.LENGTH_SHORT).show();
+                    }
+
+                }, error -> {
+                    //https://stackoverflow.com/questions/24700582/handle-volley-error
+                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                        Toast.makeText(context, R.string.common_error, Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof AuthFailureError) {
+                        Toast.makeText(context, R.string.invalid_credentials, Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof ServerError) {
+                        Toast.makeText(context, R.string.common_error, Toast.LENGTH_SHORT).show();
+                    }
+
+
+        }){
             @Override
             public Map<String, String> getHeaders(){
-                String userAndPass = username+":"+password;
-                byte[] data = userAndPass.getBytes(StandardCharsets.UTF_8);
-                String authorization = "Basic " + Base64.encodeToString(data,Base64.DEFAULT);
+                String authorizationToken = LoginRequest.getHttpBasicAuthToken(username, password);
 
-                Map<String, String> params = new HashMap<>();
-                params.put("Authorization", authorization);
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", authorizationToken);
                 return params;
             }
         };
@@ -320,6 +341,30 @@ public class SingletonUser {
      */
     public void deleteTicket(FlightTicket ticket) {
         this.tickets.remove(ticket);
+    }
+
+    /**
+     *
+     * @param id Id do bilhete de voo.
+     * @return Devolve a lista de passageiros do bilhete de voo.
+     */
+    public ArrayList<Passenger> getPassengers(int id){
+        FlightTicket ticket = getTicketById(id);
+        if(ticket != null)
+            return ticket.getPassengers();
+
+        return null;
+    }
+
+    /**
+     *
+     * @param id Id do bilhete de voo.
+     * @param passenger Passageiro a adicionar ao bilhete de voo.
+     */
+    public void addPassenger(int id, Passenger passenger){
+        FlightTicket ticket = getTicketById(id);
+        if(ticket != null)
+            ticket.addPassenger(passenger);
     }
 
     /**
