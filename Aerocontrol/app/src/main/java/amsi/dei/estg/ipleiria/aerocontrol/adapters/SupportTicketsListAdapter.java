@@ -3,13 +3,11 @@ package amsi.dei.estg.ipleiria.aerocontrol.adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,13 +18,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.ArrayList;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
-import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.LostItem;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
-import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
-import amsi.dei.estg.ipleiria.aerocontrol.ui.views.MainActivity;
 import amsi.dei.estg.ipleiria.aerocontrol.ui.views.SupportTicketActivity;
-import amsi.dei.estg.ipleiria.aerocontrol.ui.views.TicketInfoActivity;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 
 public class SupportTicketsListAdapter extends RecyclerView.Adapter<SupportTicketsListAdapter.ViewHolderList> {
@@ -73,7 +67,8 @@ public class SupportTicketsListAdapter extends RecyclerView.Adapter<SupportTicke
         public void updateSupportTicket(SupportTicket supportTicket) {
             this.tvTicket.setText("Ticket nº" + supportTicket.getId() + " - " + supportTicket.getTitle());
             this.tvState.setText(supportTicket.getState());
-            if (!supportTicket.getItems().isEmpty()){
+            this.btImage.setVisibility(View.GONE); // Reforçar o GONE porque o Android dá conflito e mostra as imagens quando não deve
+            if (supportTicket.getItems() != null && supportTicket.getItems().size() > 0){
                 this.btImage.setVisibility(View.VISIBLE);
                 this.btImage.setOnClickListener(view -> {
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getRootView().getContext());
