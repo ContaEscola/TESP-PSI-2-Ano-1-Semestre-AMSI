@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.FlightTicket;
-import amsi.dei.estg.ipleiria.aerocontrol.ui.views.TicketsActivity;
+import amsi.dei.estg.ipleiria.aerocontrol.ui.views.Activities.TicketsActivity;
 
 public class FlightTicketAdapter extends RecyclerView.Adapter<FlightTicketAdapter.ViewHolderList> {
 

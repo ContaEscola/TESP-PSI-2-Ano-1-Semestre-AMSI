@@ -1,4 +1,4 @@
-package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
+package amsi.dei.estg.ipleiria.aerocontrol.ui.views.Fragments;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -25,6 +25,7 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonFli
 import amsi.dei.estg.ipleiria.aerocontrol.databinding.FragmentFlightSearchBinding;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.AirportsListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightsListener;
+import amsi.dei.estg.ipleiria.aerocontrol.ui.views.Activities.FlightSearchResultsActivity;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.Validations;
 
 public class FlightSearchFragment extends Fragment implements AirportsListener, FlightsListener {
@@ -156,7 +157,7 @@ public class FlightSearchFragment extends Fragment implements AirportsListener, 
 
     @Override
     public void onRefreshFlights(ArrayList<Flight> flightsGo, ArrayList<Flight> flightsBack) {
-        Intent intent = new Intent(getContext(),FlightSearchResultsActivity.class);
+        Intent intent = new Intent(getContext(), FlightSearchResultsActivity.class);
         intent.putExtra(FlightSearchResultsActivity.TWO_WAY_TRIP, two_way_trip);
         int numPassengers = Integer.parseInt(binding.FlightSearchEtPassengers.getText().toString());
         intent.putExtra(FlightSearchResultsActivity.NUM_PASSENGERS, numPassengers);

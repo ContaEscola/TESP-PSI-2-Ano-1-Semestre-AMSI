@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Store;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
-import amsi.dei.estg.ipleiria.aerocontrol.ui.views.MainActivity;
+import amsi.dei.estg.ipleiria.aerocontrol.ui.views.Activities.MainActivity;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 
 public class StoresListAdapter extends RecyclerView.Adapter<StoresListAdapter.ViewHolderList> {

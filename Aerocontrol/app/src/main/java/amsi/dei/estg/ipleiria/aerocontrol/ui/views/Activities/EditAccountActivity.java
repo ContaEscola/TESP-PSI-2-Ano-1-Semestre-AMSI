@@ -1,4 +1,4 @@
-package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
+package amsi.dei.estg.ipleiria.aerocontrol.ui.views.Activities;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -18,6 +18,9 @@ import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
 import amsi.dei.estg.ipleiria.aerocontrol.databinding.ActivityEditAccountBinding;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.UpdateUserListener;
+import amsi.dei.estg.ipleiria.aerocontrol.ui.views.Fragments.EditAccessDataFragment;
+import amsi.dei.estg.ipleiria.aerocontrol.ui.views.Fragments.EditContactsFragment;
+import amsi.dei.estg.ipleiria.aerocontrol.ui.views.Fragments.EditPersonalDataFragment;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.UserValidations;
 
 public class EditAccountActivity extends AppCompatActivity implements UpdateUserListener {

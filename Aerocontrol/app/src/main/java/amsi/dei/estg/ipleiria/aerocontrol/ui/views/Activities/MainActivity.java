@@ -1,4 +1,4 @@
-package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
+package amsi.dei.estg.ipleiria.aerocontrol.ui.views.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,10 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Restaurant;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Store;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonEnterprises;
 import amsi.dei.estg.ipleiria.aerocontrol.databinding.ActivityMainBinding;
+import amsi.dei.estg.ipleiria.aerocontrol.ui.views.Fragments.AccountFragment;
+import amsi.dei.estg.ipleiria.aerocontrol.ui.views.Fragments.FlightSearchFragment;
+import amsi.dei.estg.ipleiria.aerocontrol.ui.views.Fragments.RestaurantsFragment;
+import amsi.dei.estg.ipleiria.aerocontrol.ui.views.Fragments.StoresFragment;
 
 public class MainActivity extends AppCompatActivity {
 

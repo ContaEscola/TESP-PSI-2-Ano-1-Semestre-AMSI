@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
-import amsi.dei.estg.ipleiria.aerocontrol.ui.views.SupportTicketActivity;
+import amsi.dei.estg.ipleiria.aerocontrol.ui.views.Activities.SupportTicketActivity;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 
 public class SupportTicketsListAdapter extends RecyclerView.Adapter<SupportTicketsListAdapter.ViewHolderList> {
