@@ -26,6 +26,7 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.AirportsListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightsListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.PaymentMethodsListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketBoughtListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.FlightsJsonParser;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 
@@ -36,6 +37,7 @@ public class SingletonFlights {
     private AirportsListener airportsListener;
     private FlightsListener flightsListener;
     private PaymentMethodsListener paymentMethodsListener;
+    private TicketBoughtListener ticketBoughtListener;
 
     private static RequestQueue volleyQueue;
 
@@ -143,6 +145,11 @@ public class SingletonFlights {
         volleyQueue.add(stringRequest);
     }
 
+    /**
+     * Converte uma data para o formato que a API recebe.
+     * @param dateToConvert Data a converter
+     * @return Devolve a data convertida
+     */
     public String convertDate(final String dateToConvert){
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         String newDate = null;
@@ -159,6 +166,52 @@ public class SingletonFlights {
             e.printStackTrace();
         }
         return newDate;
+    }
+
+    /**
+     * Envia o request da compra de um bilhete de voo para a API
+     * @param context contexto da atividade ou fragmento
+     * @param two_way_trip true se ida/volta, false se for só ida
+     * @param flightGoId id do bilhete de ida
+     * @param flightBackId id do bilhete de volta (-1 se for só de ida)
+     * @param num_passengers número de passageiros dos voo
+     * @param paymentMethod método de pagamento escolhido para o pagamento
+     * @param token Token do utilizador
+     */
+    public void buyTicketAPI(Context context, boolean two_way_trip, int flightGoId, int flightBackId, int num_passengers, String paymentMethod, String token) {
+        // Caso não haja internet
+        if (!NetworkUtils.isConnectedInternet(context)){
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String endpoint = ApiEndPoint.TICKETS + "?access-token=" + token;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, endpoint,
+                response -> {
+                    if (ticketBoughtListener != null) {
+                        ticketBoughtListener.onTicketBought();
+                    } else Toast.makeText(context, "Bilhete comprado, mas ocorreu um erro!", Toast.LENGTH_SHORT).show();
+
+                }, error -> Toast.makeText(context, R.string.error_buying_ticket, Toast.LENGTH_SHORT).show()){
+            @Override
+            public Map<String, String> getParams(){
+                Map<String, String> params = new HashMap<>();
+                params.put("flightGo_id", String.valueOf(flightGoId));
+                params.put("flightBack_id", flightBackId == -1 ? "" : String.valueOf(flightBackId));
+                params.put("payment_method", paymentMethod);
+                params.put("numPassengers", String.valueOf(num_passengers));
+                for (int i = 0; i < num_passengers; i++){
+                    Passenger passenger = ticketPassengers.get(0);
+                    params.put("name[" + i + "]", passenger.getName());
+                    params.put("gender[" + i + "]", passenger.getGender());
+                    params.put("extra_baggage[" + i + "]", passenger.haveExtraBaggage() ? "1" : "0");
+                }
+                return params;
+            }
+        };
+
+        volleyQueue.add(stringRequest);
     }
 
     /**
@@ -179,10 +232,6 @@ public class SingletonFlights {
 
     public void setTicketPassengers(ArrayList<Passenger> passengers) {
         this.ticketPassengers = passengers;
-    }
-
-    public ArrayList<Passenger> getTicketPassengers(){
-        return this.ticketPassengers;
     }
 
     /**
@@ -208,7 +257,6 @@ public class SingletonFlights {
 
         volleyQueue.add(jsonArrayRequest);
     }
-
 
     /**
      *
@@ -250,5 +298,9 @@ public class SingletonFlights {
 
     public void setPaymentMethodsListener(PaymentMethodsListener paymentMethodsListener){
         this.paymentMethodsListener = paymentMethodsListener;
+    }
+
+    public void setTicketBoughtListener(TicketBoughtListener ticketBoughtListener){
+        this.ticketBoughtListener = ticketBoughtListener;
     }
 }

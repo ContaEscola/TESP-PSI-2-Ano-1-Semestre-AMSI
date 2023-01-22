@@ -102,8 +102,8 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.ViewHolder
             if (flight.getDiscountPercentage() == 0)
                 this.tvPriceDiscount.setVisibility(View.GONE);
             else {
-                double priceDiscount = flight.getPrice() - (flight.getPrice() * flight.getDiscountPercentage());
-                this.tvPrice.setText(context.getString(R.string.euro_symbol,priceDiscount));
+                double priceDiscount = flight.getPrice() - flight.getPrice() * (flight.getDiscountPercentage() / 100.0);
+                this.tvPriceDiscount.setText(context.getString(R.string.euro_symbol,priceDiscount));
                 this.tvPrice.setTextColor(itemView.getContext().getResources().getColor(R.color.orange_red));
                 this.tvPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             }

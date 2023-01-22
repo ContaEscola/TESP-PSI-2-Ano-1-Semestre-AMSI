@@ -219,6 +219,7 @@
     <string name="select_payment_method">Selecione um método de pagamento!</string>
     <string name="payment_method_not_available">Método de pagamento não está disponivel neste momento, pedimos desculpa!</string>
     <string name="confirm_payment">Confirme o pagamento!</string>
+    <string name="error_buying_ticket">Ocorreu um erro ao comprar o bilhete, por favor compre mais tarde!</string>
 
 
 </resources>
