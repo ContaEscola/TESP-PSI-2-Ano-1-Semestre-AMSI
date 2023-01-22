@@ -466,7 +466,14 @@ public class SingletonUser {
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, endPoint,
                     response -> {
-                        
+                        SupportTicket supportTicket = new SupportTicket(0, title, "Por Rever");
+                        TicketMessage ticketMessage = new TicketMessage(0, message, user.getUsername());
+                        supportTicket.addMessage(ticketMessage);
+                        addSupportTicket(supportTicket);
+                        addSupportTicketDB(supportTicket);
+                        if (supportTicketListener != null)
+                            supportTicketListener.onRefreshSupportTicket();
+                        else Toast.makeText(context, "Ticket criado mas ocorreu um erro", Toast.LENGTH_SHORT).show();
                     }, error -> Toast.makeText(context, R.string.save_data_failed, Toast.LENGTH_SHORT).show()
             ) {
                 @Override
@@ -595,6 +602,14 @@ public class SingletonUser {
                 userDB.createMessage(message,supportTicket.getId());
             }
         }
+    }
+
+    /**
+     * Cria o novo ticket numa base de dados local para que possa ser visualizado offline
+     * @param supportTicket support ticket a criar na BD
+     */
+    private void addSupportTicketDB(SupportTicket supportTicket) {
+        userDB.createSupportTicket(supportTicket);
     }
 
     /**

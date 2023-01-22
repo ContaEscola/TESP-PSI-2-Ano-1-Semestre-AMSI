@@ -1,22 +1,15 @@
 package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.method.PasswordTransformationMethod;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.ArrayList;
 
@@ -24,13 +17,11 @@ import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.adapters.SupportTicketsListAdapter;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
-import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
 import amsi.dei.estg.ipleiria.aerocontrol.databinding.ActivitySupportTicketListBinding;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketsListener;
-import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 
-public class SupportTicketActivity extends AppCompatActivity implements SupportTicketsListener {
+public class SupportTicketActivity extends AppCompatActivity implements SupportTicketsListener, SupportTicketListener {
 
     private ActivitySupportTicketListBinding binding;
 
@@ -48,7 +39,7 @@ public class SupportTicketActivity extends AppCompatActivity implements SupportT
 
         binding.SupportTicketRvTickets.setLayoutManager(new LinearLayoutManager(this));
 
-        SingletonUser.getInstance(this).setSupportTicketsListener(this::onRefreshList);
+        SingletonUser.getInstance(this).setSupportTicketsListener(this);
         SingletonUser.getInstance(this).getSupportTicketsAPI(this);
 
         binding.SupportTicketFabAdd.setOnClickListener(v -> createSupportTicket());
@@ -62,6 +53,8 @@ public class SupportTicketActivity extends AppCompatActivity implements SupportT
     }
 
     public void createSupportTicket(){
+        SingletonUser.getInstance(this).setSupportTicketListener(this);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.create_support_ticket);
 
@@ -88,10 +81,19 @@ public class SupportTicketActivity extends AppCompatActivity implements SupportT
         builder.show();
     }
 
-    @Override
-    public void onRefreshList(ArrayList<SupportTicket> supportTickets) {
+    private void setAdapter(){
         adapter = new SupportTicketsListAdapter(this, SingletonUser.getInstance(this).getSupportTickets());
         binding.SupportTicketRvTickets.setAdapter(adapter);
         binding.SupportTicketRvTickets.setItemAnimator(new DefaultItemAnimator());
+    }
+
+    @Override
+    public void onRefreshList(ArrayList<SupportTicket> supportTickets) {
+        setAdapter();
+    }
+
+    @Override
+    public void onRefreshSupportTicket() {
+        setAdapter();
     }
 }

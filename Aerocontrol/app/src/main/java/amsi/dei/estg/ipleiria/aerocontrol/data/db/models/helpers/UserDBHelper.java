@@ -269,7 +269,7 @@ public class UserDBHelper extends SQLiteOpenHelper {
      */
     public void createSupportTicket (SupportTicket supportTicket){
         ContentValues values = new ContentValues();
-        values.put(SUPPORT_TICKET_ID, supportTicket.getId());
+        values.put(SUPPORT_TICKET_ID, supportTicket.getId() == 0 ? null : supportTicket.getId());
         values.put(SUPPORT_TICKET_TITLE, supportTicket.getTitle());
         values.put(SUPPORT_TICKET_STATE, supportTicket.getState());
         this.database.insert(TABLE_NAME_SUPPORT_TICKETS, null, values);
