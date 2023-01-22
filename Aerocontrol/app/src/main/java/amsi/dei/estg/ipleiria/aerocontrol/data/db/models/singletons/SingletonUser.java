@@ -533,7 +533,7 @@ public class SingletonUser {
                         supportTicket.addMessage(ticketMessage);
                         if(supportTicketMessageListener != null){
                             supportTicketMessageListener.onSupportTicketMessage(context.getString(R.string.create_data_success));
-                        }
+                        } else Toast.makeText(context, R.string.message_sent_error_showing, Toast.LENGTH_SHORT).show();
                     }, error -> Toast.makeText(context, R.string.save_data_failed, Toast.LENGTH_SHORT).show()
             ) {
                 @Override
