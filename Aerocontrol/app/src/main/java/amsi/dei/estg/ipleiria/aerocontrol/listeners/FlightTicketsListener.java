@@ -4,6 +4,6 @@ import java.util.ArrayList;
 
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.FlightTicket;
 
-public interface TicketsListener {
+public interface FlightTicketsListener {
     void onRefreshList(ArrayList<FlightTicket> tickets);
 }

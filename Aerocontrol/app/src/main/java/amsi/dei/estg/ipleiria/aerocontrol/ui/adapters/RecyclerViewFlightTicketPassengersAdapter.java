@@ -15,26 +15,25 @@ import java.util.ArrayList;
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Passenger;
 
-public class TicketInfoPassengersAdapter extends RecyclerView.Adapter<TicketInfoPassengersAdapter.ViewHolderList> {
+public class RecyclerViewFlightTicketPassengersAdapter extends RecyclerView.Adapter<RecyclerViewFlightTicketPassengersAdapter.ViewHolder> {
 
     private Context context;
-    private LayoutInflater layoutInflater;
     private ArrayList<Passenger> passengers;
 
-    public TicketInfoPassengersAdapter(Context context, ArrayList<Passenger> passengers){
+    public RecyclerViewFlightTicketPassengersAdapter(Context context, ArrayList<Passenger> passengers){
         this.context = context;
         this.passengers = passengers;
     }
 
     @NonNull
     @Override
-    public TicketInfoPassengersAdapter.ViewHolderList onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ticket_passengers,parent,false);
-        return new TicketInfoPassengersAdapter.ViewHolderList(item);
+        return new ViewHolder(item);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TicketInfoPassengersAdapter.ViewHolderList holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Passenger passenger = passengers.get(position);
         holder.updatePassenger(passenger);
     }
@@ -44,12 +43,12 @@ public class TicketInfoPassengersAdapter extends RecyclerView.Adapter<TicketInfo
         return passengers.size();
     }
 
-    public static class ViewHolderList extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView tvName, tvGender, tvSeat;
         CheckBox cbBaggage;
 
-        public ViewHolderList(@NonNull View view) {
+        public ViewHolder(@NonNull View view) {
             super(view);
             this.tvName = view.findViewById(R.id.Passenger_Tv_Name);
             this.tvGender = view.findViewById(R.id.Passenger_Tv_Gender);

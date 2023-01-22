@@ -16,25 +16,25 @@ import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.FlightTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.ui.views.FlightTicketsActivity;
 
-public class FlightTicketAdapter extends RecyclerView.Adapter<FlightTicketAdapter.ViewHolderList> {
+public class RecyclerViewFlightTicketsAdapter extends RecyclerView.Adapter<RecyclerViewFlightTicketsAdapter.ViewHolder> {
 
     private Context context;
     private ArrayList<FlightTicket> tickets;
 
-    public FlightTicketAdapter(Context context, ArrayList<FlightTicket> tickets){
+    public RecyclerViewFlightTicketsAdapter(Context context, ArrayList<FlightTicket> tickets){
         this.context = context;
         this.tickets = tickets;
     }
 
     @NonNull
     @Override
-    public FlightTicketAdapter.ViewHolderList onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ticket,parent,false);
-        return new ViewHolderList(item);
+        return new ViewHolder(item);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FlightTicketAdapter.ViewHolderList holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         FlightTicket ticket = tickets.get(position);
         holder.updateTicket(ticket,context);
     }
@@ -44,12 +44,12 @@ public class FlightTicketAdapter extends RecyclerView.Adapter<FlightTicketAdapte
         return tickets.size();
     }
 
-    public static class ViewHolderList extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView tvDate, tvState, tvDeparture, tvArrival, tvDepartureTime, tvArrivalTime;
         Button btDetails;
 
-        public ViewHolderList(@NonNull View view) {
+        public ViewHolder(@NonNull View view) {
             super(view);
             this.tvDate = view.findViewById(R.id.Ticket_Tv_Date);
             this.tvState = view.findViewById(R.id.Ticket_Tv_State);
