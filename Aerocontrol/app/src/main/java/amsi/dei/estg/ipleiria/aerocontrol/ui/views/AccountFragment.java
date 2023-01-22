@@ -20,7 +20,7 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
 
 public class AccountFragment extends Fragment {
 
-    public static final int REQUEST_LOGIN_ACTIVITY = 1;
+    private static final int REQUEST_LOGIN_ACTIVITY = 1;
 
     private Button btLogin, btLogout;
     private TextView tvUsername;
@@ -64,7 +64,7 @@ public class AccountFragment extends Fragment {
         btLogout.setOnClickListener(view1 -> logout());
 
         myTicketsLayout.setOnClickListener(view1 -> {
-            Intent intent = new Intent(this.getContext(),TicketsActivity.class);
+            Intent intent = new Intent(this.getContext(), FlightTicketsActivity.class);
             startActivity(intent);
         });
     }
