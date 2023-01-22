@@ -28,7 +28,7 @@ public class SingletonEnterprises {
     private ArrayList<Restaurant> restaurants;
     private ArrayList<Store> stores;
 
-    private static Context context;
+    private Context context;
 
     private RequestQueue volleyQueue;
 
