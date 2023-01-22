@@ -1,21 +1,37 @@
 package amsi.dei.estg.ipleiria.aerocontrol.data.db.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.Date;
 
 public class User {
 
     private int id;
     private String username;
+
+    @JsonProperty("token")
     private String authKey;
+
     private String password;
+
+    @JsonProperty("first_name")
     private String firstName;
+
+    @JsonProperty("last_name")
     private String lastName;
+
     private String gender;
     private String country;
     private String city;
     private String email;
     private String phone;
+
+    @JsonProperty("phone_country_code")
     private String phoneCountryCode;
+
     private Date birthdate;
 
     // ArrayList de FlightTickets?
@@ -38,6 +54,8 @@ public class User {
         this.setBirthdate(birthdate);
     }
 
+    public User() {}
+
     public int getId() {
         return id;
     }
@@ -45,6 +63,7 @@ public class User {
     public void setId(int id) {
         this.id = id;
     }
+
 
     public String getUsername() {
         return username;
@@ -54,10 +73,12 @@ public class User {
         this.username = username;
     }
 
+    @JsonProperty("token")
     public String getAuthKey() {
         return authKey;
     }
 
+    @JsonProperty("token")
     public void setAuthKey(String authKey) {
         this.authKey = authKey;
     }
@@ -70,18 +91,22 @@ public class User {
         this.password = password;
     }
 
+    @JsonProperty("first_name")
     public String getFirstName() {
         return firstName;
     }
 
+    @JsonProperty("first_name")
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    @JsonProperty("last_name")
     public String getLastName() {
         return lastName;
     }
 
+    @JsonProperty("last_name")
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -126,10 +151,12 @@ public class User {
         this.phone = phone;
     }
 
+    @JsonProperty("phone_country_code")
     public String getPhoneCountryCode() {
         return phoneCountryCode;
     }
 
+    @JsonProperty("phone_country_code")
     public void setPhoneCountryCode(String phoneCountryCode) {
         this.phoneCountryCode = phoneCountryCode;
     }
@@ -140,5 +167,10 @@ public class User {
 
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
+    }
+
+    public static User parseJsonToUser(String jsonString) throws JsonProcessingException {
+        final ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(jsonString, User.class);
     }
 }
