@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.adapters.SupportTicketsListAdapter;
@@ -82,7 +83,9 @@ public class SupportTicketActivity extends AppCompatActivity implements SupportT
     }
 
     private void setAdapter(){
-        adapter = new SupportTicketsListAdapter(this, SingletonUser.getInstance(this).getSupportTickets());
+        ArrayList<SupportTicket> reversedList = new ArrayList<>(SingletonUser.getInstance(this).getSupportTickets());
+        Collections.reverse(reversedList);
+        adapter = new SupportTicketsListAdapter(this, reversedList);
         binding.SupportTicketRvTickets.setAdapter(adapter);
         binding.SupportTicketRvTickets.setItemAnimator(new DefaultItemAnimator());
     }
