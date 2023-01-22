@@ -5,34 +5,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorSurface"
-    tools:context=".ui.views.TicketsActivity">
+    tools:context=".ui.views.FlightTicketsActivity">
 
     <include
         android:id="@+id/Tickets_Toolbar"
         layout="@layout/toolbar"/>
 
-    <TextView
-        android:id="@+id/Tickets_Tv_Title"
-        style="@style/SecondTitle"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="@string/my_tickets"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Tickets_Toolbar" />
-
-    <ListView
-        android:id="@+id/Tickets_Lv_MyTickets"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="40dp"
         android:layout_marginBottom="40dp"
-        android:divider="@color/transparent"
-        android:dividerHeight="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/Tickets_GuidelineEnd"
         app:layout_constraintStart_toStartOf="@+id/Tickets_GuidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/Tickets_Tv_Title" />
+        app:layout_constraintTop_toBottomOf="@+id/Tickets_Toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/Tickets_Tv_Title"
+                style="@style/SecondTitle"
+                android:layout_width="wrap_content"
+                android:text="@string/my_tickets"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/Tickets_Rv_MyTickets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Tickets_Tv_Title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/Tickets_GuidelineStart"

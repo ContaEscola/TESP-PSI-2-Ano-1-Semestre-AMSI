@@ -28,7 +28,7 @@ public class SingletonEnterprises {
     private ArrayList<Restaurant> restaurants;
     private ArrayList<Store> stores;
 
-    private static Context context;
+    private Context context;
 
     private RequestQueue volleyQueue;
 
@@ -86,7 +86,7 @@ public class SingletonEnterprises {
      */
     public void getRestaurantsAPI(final Context context){
 
-        // Dados já foram recarregados, para evitar que o utilizador spamme
+        // Dados já foram recarregados, para evitar que o utilizador dê spam
         if(restaurants.size() > 0) {
             restaurantsListener.onRefreshList(restaurants);
             return;
@@ -195,7 +195,7 @@ public class SingletonEnterprises {
      */
     public void getStoresAPI(final Context context){
 
-        // Dados já foram recarregados, para evitar que o utilizador spamme
+        // Dados já foram recarregados, para evitar que o utilizador dê spam
         if(stores.size() > 0) {
             storesListener.onRefreshList(stores);
             return;

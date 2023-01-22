@@ -153,7 +153,7 @@ public class UserPreferences {
 
     public void setUser(User user){
         this.setId(user.getId());
-        this.setToken(user.getAuthKey());
+        this.setToken(user.getToken());
         this.setUsername(user.getUsername());
         this.setFirstName(user.getFirstName());
         this.setLastName(user.getLastName());

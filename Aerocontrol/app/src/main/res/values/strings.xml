@@ -47,6 +47,9 @@
     <string name="create_account_subtext">Crie a sua conta para começar a reservar voos e muito mais.</string>
     <string name="splash_screen_text">Reserve já o seu próximo voo!</string>
     <string name="accept_terms">Li e aceito integralmente os termos e condições.</string>
+    <string name="check_in_done">Check-in efetuado.</string>
+    <string name="ticket_deleted">Bilhete cancelado com sucesso. Receberá um reembolso.</string>
+    <string name="cancel_ticket">Cancelar bilhete</string>
 
 
     <!--  Dados User  -->
@@ -118,8 +121,11 @@
     <string name="old_price"><strike>500€</strike></string>
     <string name="new_price">400€</string>
     <string name="random_date">15/01/2023</string>
-    <string name="seat">Lugar:</string>
-    <string name="check_in">Check In</string>
+    <string name="seat">Lugar</string>
+    <string name="check_in">Check-in</string>
+    <string name="price_paid">Preço do bilhete:</string>
+    <string name="euro_symbol">%1$.2f €</string>
+    <string name="km">%1$.2f km</string>
 
 
     <!-- Search Ticket Info  -->
@@ -154,16 +160,17 @@
     <string name="see_item">Ver Item</string>
     <string name="btn_close_support_ticket">Fechar ticket</string>
 
-
     <!--  Erros  -->
     <string name="common_error">Erro, por favor tente mais tarde!</string>
-    <string name="no_internet_connection">Sem ligação de internet!</string>
+    <string name="no_internet_connection">Sem ligação de internet</string>
     <string name="error_restaurants">Erro ao mostrar os restaurantes.</string>
-    <string name="error_no_restaurant">Restaurante não encontrado!</string>
-    <string name="error_no_loja">Loja não encontrada!</string>
+    <string name="error_no_restaurant">Restaurante não encontrado</string>
+    <string name="error_no_loja">Loja não encontrada</string>
     <string name="error_stores">Erro ao mostrar as lojas.</string>
-    <string name="error_login">Erro ao dar Login!</string>
-    <string name="invalid_credentials">Credenciais inválidas!</string>
+    <string name="error_tickets">Erro ao mostrar os seus bilhetes.</string>
+    <string name="error_login">Erro ao dar Login</string>
+    <string name="invalid_credentials">Credenciais inválidas</string>
     <string name="insert_all_data">Preencha todos os campos.</string>
+    <string name="error_on_ticket">Erro ao encontrar o bilhete</string>
 
 </resources>

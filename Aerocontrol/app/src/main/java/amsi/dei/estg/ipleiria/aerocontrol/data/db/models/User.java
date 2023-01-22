@@ -12,8 +12,7 @@ public class User {
     private int id;
     private String username;
 
-    @JsonProperty("token")
-    private String authKey;
+    private String token;
 
     private String password;
 
@@ -37,11 +36,11 @@ public class User {
     // ArrayList de FlightTickets?
     // ArrayList de SupportTickets?
 
-    public User (int id, String username, String authKey, String password, String firstName, String lastName, String gender,
+    public User (int id, String username, String token, String password, String firstName, String lastName, String gender,
                  String country, String city, String email, String phone, String phoneCountryCode, Date birthdate){
         this.setId(id);
         this.setUsername(username);
-        this.setAuthKey(authKey);
+        this.setToken(token);
         this.setPassword(password);
         this.setFirstName(firstName);
         this.setLastName(lastName);
@@ -73,14 +72,12 @@ public class User {
         this.username = username;
     }
 
-    @JsonProperty("token")
-    public String getAuthKey() {
-        return authKey;
+    public String getToken() {
+        return token;
     }
 
-    @JsonProperty("token")
-    public void setAuthKey(String authKey) {
-        this.authKey = authKey;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getPassword() {

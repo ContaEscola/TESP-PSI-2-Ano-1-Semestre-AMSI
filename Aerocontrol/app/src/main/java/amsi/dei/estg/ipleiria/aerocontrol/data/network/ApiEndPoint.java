@@ -16,4 +16,7 @@ public class ApiEndPoint {
     public final static String ENDPOINT_STORES_UPLOADS = ENDPOINT_API_UPLOADS + "/stores";
 
     public final static String ENDPOINT_LOGIN = ENDPOINT_API + "/auth/login";
+
+    public final static String ENDPOINT_FLIGHT_TICKETS = ENDPOINT_API + "/flight-tickets";
+    public final static String ENDPOINT_MY_FLIGHT_TICKETS = ENDPOINT_FLIGHT_TICKETS + "/my-tickets";
 }
