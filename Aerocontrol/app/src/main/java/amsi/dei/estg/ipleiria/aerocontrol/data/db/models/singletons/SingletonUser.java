@@ -576,15 +576,16 @@ public class SingletonUser {
         }
 
         if (this.user != null){
-            String endPoint = ApiEndPoint.SUPPORT_TICKETS + supportTicket.getId() + "?access-token=" + this.user.getToken();
+            String endPoint = ApiEndPoint.SUPPORT_TICKETS + "/" + supportTicket.getId() + "?access-token=" + this.user.getToken();
 
             StringRequest stringRequest = new StringRequest(Request.Method.PUT, endPoint,
                     response -> {
                         Toast.makeText(context, R.string.support_ticket_done, Toast.LENGTH_SHORT).show();
                         supportTicket.setState("Concluido");
                         updateSupportTicketDB(supportTicket);
-                        supportTicketListener.onRefreshSupportTicket();
-                    }, error -> Toast.makeText(context, R.string.error_support_tickets, Toast.LENGTH_SHORT).show()
+                        if (supportTicketListener != null)
+                            supportTicketListener.onRefreshSupportTicket();
+                    }, error -> Toast.makeText(context, R.string.error_closing_support_ticket, Toast.LENGTH_SHORT).show()
             ) {
                 @Override
                 protected Map<String, String> getParams() {
