@@ -184,7 +184,7 @@
     <string name="error_na_loja">Loja não encontrada</string>
     <string name="error_stores">Erro ao mostrar as lojas.</string>
     <string name="error_tickets">Erro ao mostrar os seus bilhetes.</string>
-    <string name="error_support_tickets">Erro ao mostrar os seus suporte tickets.</string>
+    <string name="error_support_tickets">Erro ao mostrar os seus tickets de suporte.</string>
     <string name="error_login">Erro ao dar Login</string>
     <string name="invalid_credentials">Credenciais inválidas</string>
     <string name="insert_all_data">Preencha todos os campos.</string>

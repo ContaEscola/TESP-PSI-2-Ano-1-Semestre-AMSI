@@ -17,7 +17,6 @@ import java.util.Map;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.FlightTicket;
-import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.LostItem;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Passenger;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.TicketMessage;
@@ -26,11 +25,11 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.helpers.UserDBHelper;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
 import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.SetSupportTicketMessage;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.ResetPasswordListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketMessageListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.SignupListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketsListener;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.ResetPasswordListener;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.SignupListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketsListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.UpdateUserListener;
@@ -62,7 +61,7 @@ public class SingletonUser {
     private ResetPasswordListener resetPasswordListener;
     private SupportTicketsListener supportTicketsListener;
     private SupportTicketListener supportTicketListener;
-    private SetSupportTicketMessage setSupportTicketMessage;
+    private SupportTicketMessageListener supportTicketMessageListener;
 
     private SingletonUser(Context context){
         user = null;
@@ -451,22 +450,6 @@ public class SingletonUser {
     }
 
     /**
-     *
-     * @param ticket Bilhete de voo a adicionar.
-     */
-    public void addTicket(FlightTicket ticket) {
-        this.tickets.add(ticket);
-    }
-
-    /**
-     *
-     * @param ticket Bilhete de voo a apagar.
-     */
-    public void deleteTicket(FlightTicket ticket) {
-        this.tickets.remove(ticket);
-    }
-
-    /**
      * Criar novo support ticket
      * @param context context da atividade ou fragment
      * @param title titulo a enviar para a API para ser guardado
@@ -535,7 +518,7 @@ public class SingletonUser {
      * Vai criar mensagem no support ticket à API
      * @param context context da atividade ou fragment
      */
-    public void setMessageSupportTicketAPI(final Context context, String message, SupportTicket supportTicket){
+    public void createMessageSupportTicketAPI(final Context context, String message, SupportTicket supportTicket){
         if (!NetworkUtils.isConnectedInternet(context)){
             Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
             return;
@@ -545,9 +528,11 @@ public class SingletonUser {
             String endPoint = ApiEndPoint.SUPPORT_TICKET_MESSAGE + "?access-token=" + this.user.getToken();
             StringRequest stringRequest = new StringRequest(Request.Method.POST, endPoint,
                     response -> {
-                        supportTicket.addMessage(new TicketMessage(0, message, user.getUsername()));
-                        if(setSupportTicketMessage != null){
-                            setSupportTicketMessage.onSetSupportTicketMessage(context.getString(R.string.create_data_success));
+                        TicketMessage ticketMessage = new TicketMessage(0, message, user.getUsername());
+                        createSupportTicketMessageDB(ticketMessage, supportTicket.getId());
+                        supportTicket.addMessage(ticketMessage);
+                        if(supportTicketMessageListener != null){
+                            supportTicketMessageListener.onSupportTicketMessage(context.getString(R.string.create_data_success));
                         }
                     }, error -> Toast.makeText(context, R.string.save_data_failed, Toast.LENGTH_SHORT).show()
             ) {
@@ -631,6 +616,15 @@ public class SingletonUser {
     }
 
     /**
+     * Cria uma mensagem num ticket de suporte já existente na BD Local
+     * @param message Mensagem a criar
+     * @param supportTicket_id id do Support ticket
+     */
+    private void createSupportTicketMessageDB(TicketMessage message, int supportTicket_id) {
+        userDB.createMessage(message, supportTicket_id);
+    }
+
+    /**
      *
      * @return Devolve a lista dos tickets de suporte.
      */
@@ -658,54 +652,6 @@ public class SingletonUser {
      */
     public void addSupportTicket(SupportTicket supportTicket) {
         this.supportTickets.add(supportTicket);
-    }
-
-    /**
-     *
-     * @param id Id do ticket de suporte.
-     * @return Devolve os itens dos perdidos e achados associados ao ticket de suporte.
-     */
-    public ArrayList<LostItem> getLostItems(int id){
-        SupportTicket supportTicket = getSupportTicketById(id);
-        if(supportTicket != null)
-            return supportTicket.getItems();
-
-        return null;
-    }
-
-    /**
-     *
-     * @param id Id do ticket de suporte.
-     * @param item Item a adicionar à lista de perdidos e achados associados ao ticket de suporte.
-     */
-    public void addLostItem(int id, LostItem item){
-        SupportTicket supportTicket = getSupportTicketById(id);
-        if(supportTicket != null)
-            supportTicket.addItem(item);
-    }
-
-    /**
-     *
-     * @param id Id do ticket de suporte.
-     * @return Devolve a lista das mensagens associadas ao ticket de suporte.
-     */
-    public ArrayList<TicketMessage> getMessages(int id){
-        SupportTicket supportTicket = getSupportTicketById(id);
-        if(supportTicket != null)
-            return supportTicket.getMessages();
-
-        return null;
-    }
-
-    /**
-     *
-     * @param id Id do ticket de suporte.
-     * @param message Adiciona a mensagem à lista de mensagens do ticket de suporte.
-     */
-    public void addMessage(int id, TicketMessage message){
-        SupportTicket supportTicket = getSupportTicketById(id);
-        if(supportTicket != null)
-            supportTicket.addMessage(message);
     }
 
     public void setLoginListener(LoginListener loginListener) {
@@ -738,5 +684,9 @@ public class SingletonUser {
 
     public void setSupportTicketListener(SupportTicketListener supportTicketListener) {
         this.supportTicketListener = supportTicketListener;
+    }
+
+    public void setSupportTicketMessageListener(SupportTicketMessageListener supportTicketMessageListener) {
+        this.supportTicketMessageListener = supportTicketMessageListener;
     }
 }

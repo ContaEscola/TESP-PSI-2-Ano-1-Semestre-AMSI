@@ -14,9 +14,10 @@ import amsi.dei.estg.ipleiria.aerocontrol.adapters.TicketMessageAdapter;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
 import amsi.dei.estg.ipleiria.aerocontrol.databinding.ActivitySupportTicketInfoBinding;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketMessageListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketListener;
 
-public class SupportTicketInfoActivity extends AppCompatActivity implements SupportTicketListener {
+public class SupportTicketInfoActivity extends AppCompatActivity implements SupportTicketListener, SupportTicketMessageListener {
 
     public static final String SUPPORT_TICKET_ID = "support_ticket_id";
 
@@ -40,6 +41,7 @@ public class SupportTicketInfoActivity extends AppCompatActivity implements Supp
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         SingletonUser.getInstance(this).setSupportTicketListener(this);
+        SingletonUser.getInstance(this).setSupportTicketMessageListener(this);
 
         support_ticket_id = getIntent().getIntExtra(SUPPORT_TICKET_ID, -1);
 
@@ -49,15 +51,25 @@ public class SupportTicketInfoActivity extends AppCompatActivity implements Supp
     private void getSupportTicketId(){
         if (support_ticket_id != -1){
             supportTicket = SingletonUser.getInstance(this).getSupportTicketById(support_ticket_id);
-            binding.SupportTicketInfoIBtSend.setOnClickListener(v -> saveData());
-            binding.SupportTicketInfoBtClose.setOnClickListener(v -> closeSupportTicket());
-            supportTicketMessage();
+            if (supportTicket.getState().equals("Concluido")){
+                binding.SupportTicketInfoBtClose.setVisibility(View.INVISIBLE);
+                binding.SupportTicketInfoEtMessage.setEnabled(false);
+                binding.SupportTicketInfoEtMessage.setHint(R.string.support_ticket_closed);
+                binding.SupportTicketInfoIBtSend.setClickable(false);
+                binding.SupportTicketInfoIBtSend.setFocusable(false);
+            } else {
+                binding.SupportTicketInfoIBtSend.setOnClickListener(v -> saveData());
+                binding.SupportTicketInfoBtClose.setOnClickListener(v -> closeSupportTicket());
+                binding.SupportTicketInfoTvTitle.setText("Ticket nº" + supportTicket.getId() + " - " + supportTicket.getTitle());
+                binding.SupportTicketInfoTvState.setText(supportTicket.getState());
+            }
+            supportTicketMessages();
         } else Toast.makeText(this, R.string.error_on_support_ticket, Toast.LENGTH_SHORT).show();
     }
 
     private void saveData() {
         message = binding.SupportTicketInfoEtMessage.getText().toString();
-        SingletonUser.getInstance(this).setMessageSupportTicketAPI(this, message, supportTicket);
+        SingletonUser.getInstance(this).createMessageSupportTicketAPI(this, message, supportTicket);
         binding.SupportTicketInfoEtMessage.setText("");
     }
 
@@ -72,9 +84,7 @@ public class SupportTicketInfoActivity extends AppCompatActivity implements Supp
         builder.show();
     }
 
-    private void supportTicketMessage(){
-        binding.SupportTicketInfoTvTitle.setText("Ticket nº" + supportTicket.getId() + " - " + supportTicket.getTitle());
-        binding.SupportTicketInfoTvState.setText(supportTicket.getState());
+    private void supportTicketMessages(){
         if (supportTicket.getMessages().size() > 0){
             binding.SupportTicketInfoRvTickets.setLayoutManager(new LinearLayoutManager(this));
             adapter = new TicketMessageAdapter(this, supportTicket.getMessages());
@@ -82,17 +92,15 @@ public class SupportTicketInfoActivity extends AppCompatActivity implements Supp
             binding.SupportTicketInfoRvTickets.setItemAnimator(new DefaultItemAnimator());
             binding.SupportTicketInfoRvTickets.scrollToPosition(adapter.getItemCount() - 1);
         }
-        if (supportTicket.getState().equals("Concluido")){
-            binding.SupportTicketInfoBtClose.setVisibility(View.INVISIBLE);
-            binding.SupportTicketInfoEtMessage.setEnabled(false);
-            binding.SupportTicketInfoEtMessage.setHint(R.string.support_ticket_closed);
-            binding.SupportTicketInfoIBtSend.setClickable(false);
-            binding.SupportTicketInfoIBtSend.setFocusable(false);
-        }
     }
 
     @Override
     public void onRefreshSupportTicket() {
         finish();
+    }
+
+    @Override
+    public void onSupportTicketMessage(String message) {
+        supportTicketMessages();
     }
 }
