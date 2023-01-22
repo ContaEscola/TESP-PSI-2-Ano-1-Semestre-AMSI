@@ -57,7 +57,7 @@
     <string name="splash_screen_text">Reserve já o seu próximo voo!</string>
     <string name="accept_terms">Li e aceito integralmente os termos e condições.</string>
     <string name="check_in_done">Check-in efetuado.</string>
-    <string name="support_ticket_done">Suporte ticket concluido.</string>
+    <string name="support_ticket_done">Ticket de suporte fechado.</string>
     <string name="support_ticket_create">Suporte ticket criado.</string>
     <string name="ticket_deleted">Bilhete cancelado com sucesso. Receberá um reembolso.</string>
     <string name="cancel_ticket">Cancelar bilhete</string>
@@ -220,6 +220,9 @@
     <string name="payment_method_not_available">Método de pagamento não está disponivel neste momento, pedimos desculpa!</string>
     <string name="confirm_payment">Confirme o pagamento!</string>
     <string name="error_buying_ticket">Ocorreu um erro ao comprar o bilhete, por favor compre mais tarde!</string>
+    <string name="close_support_ticket">Se deseja realmente concluir o seu suporte ticket por favor confirme abaixo.</string>
+    <string name="error_closing_support_ticket">Erro ao fechar o ticket de suporte</string>
+    <string name="support_ticket_closed">O ticket já está fechado!</string>
 
 
 </resources>

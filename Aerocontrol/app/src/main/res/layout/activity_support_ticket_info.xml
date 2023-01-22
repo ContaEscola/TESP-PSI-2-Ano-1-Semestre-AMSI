@@ -77,7 +77,7 @@
         app:layout_constraintStart_toStartOf="@+id/SupportTicketInfo_GuidelineStart">
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/SupportTicketInfo_Et_Message"
             style="@style/TextInput"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

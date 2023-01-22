@@ -37,6 +37,7 @@
         <activity    
             android:name=".ui.views.SupportTicketInfoActivity"
             android:exported="false"
+            android:windowSoftInputMode="adjustPan"
             android:parentActivityName=".ui.views.SupportTicketActivity" />
         <activity
             android:name=".ui.views.SupportTicketActivity"

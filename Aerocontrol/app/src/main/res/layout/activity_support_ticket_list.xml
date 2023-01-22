@@ -31,8 +31,6 @@
         android:layout_height="0dp"
         android:layout_marginBottom="40dp"
         android:layout_marginTop="35dp"
-        android:divider="@color/transparent"
-        android:dividerHeight="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/SupportTicket_GuidelineEnd"
         app:layout_constraintStart_toStartOf="@+id/SupportTicket_GuidelineStart"
