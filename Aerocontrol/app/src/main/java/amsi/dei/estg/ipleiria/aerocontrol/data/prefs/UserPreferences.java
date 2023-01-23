@@ -3,7 +3,10 @@ package amsi.dei.estg.ipleiria.aerocontrol.data.prefs;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.Date;
+
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.User;
+import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiConfig;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.DateDisplayFormatUtils;
 
 public class UserPreferences {
@@ -126,12 +129,13 @@ public class UserPreferences {
         return sp.getString(PREF_KEY_PHONE_COUNTRY_CODE,"");
     }
 
-    public void setBirthdate(String birthdate){
-        editor.putString(PREF_KEY_BIRTHDATE,birthdate).apply();
+    public void setBirthdate(Date birthdate){
+        editor.putString(PREF_KEY_BIRTHDATE,birthdate.toString()).apply();
     }
 
-    public String getBirthdate(){
-        return sp.getString(PREF_KEY_BIRTHDATE,"");
+    public Date getBirthdate(){
+        String dateString = sp.getString(PREF_KEY_BIRTHDATE,"");
+        return DateDisplayFormatUtils.formatStringToDate(dateString, ApiConfig.API_DATE_FORMAT);
     }
 
     public void clearUser(){
@@ -161,7 +165,7 @@ public class UserPreferences {
         this.setEmail(user.getEmail());
         this.setPhone(user.getPhone());
         this.setPhoneCountryCode(user.getPhoneCountryCode());
-        this.setBirthdate(DateDisplayFormatUtils.formatDateToString(user.getBirthdate(), null));
+        this.setBirthdate(user.getBirthdate());
     }
 
     public User getUser(){
@@ -178,7 +182,7 @@ public class UserPreferences {
                 this.getEmail(),
                 this.getPhone(),
                 this.getPhoneCountryCode(),
-                DateDisplayFormatUtils.formatStringToDate(this.getBirthdate(), null)
+                this.getBirthdate()
         );
     }
 }
