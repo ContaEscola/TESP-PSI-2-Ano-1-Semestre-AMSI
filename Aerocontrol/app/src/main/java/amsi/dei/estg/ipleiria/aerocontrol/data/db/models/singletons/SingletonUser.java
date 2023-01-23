@@ -36,6 +36,7 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.models.LoginRequest;
 import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketMessageListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.SignupListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.UpdateUserListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
@@ -72,6 +73,7 @@ public class SingletonUser {
 
     private SupportTicketsListener supportTicketsListener;
     private SupportTicketListener supportTicketListener;
+    private SupportTicketMessageListener supportTicketMessageListener;
 
     public void setLoginListener(LoginListener loginListener) {
         this.loginListener = loginListener;
@@ -102,6 +104,10 @@ public class SingletonUser {
 
     public void setSupportTicketListener(SupportTicketListener supportTicketListener) {
         this.supportTicketListener = supportTicketListener;
+    }
+
+    public void setSupportTicketMessageListener(SupportTicketMessageListener supportTicketMessageListener) {
+        this.supportTicketMessageListener = supportTicketMessageListener;
     }
 
     private SingletonUser(Context context){
@@ -630,11 +636,11 @@ public class SingletonUser {
         }
 
         if (this.user != null){
-            String endPoint = ApiEndPoint.SUPPORT_TICKET_MESSAGE + "?access-token=" + this.user.getToken();
+            String endPoint = ApiEndPoint.ENDPOINT_SUPPORT_TICKET_MESSAGES + "?access-token=" + this.user.getToken();
             StringRequest stringRequest = new StringRequest(Request.Method.POST, endPoint,
                     response -> {
-                        if(setSupportTicketMessage != null){
-                            setSupportTicketMessage.onSetSupportTicketMessage(context.getString(R.string.create_data_success));
+                        if(supportTicketMessageListener != null){
+                            supportTicketMessageListener.onSetSupportTicketMessage(context.getString(R.string.create_data_success));
                         }
                     }, error -> Toast.makeText(context, R.string.save_data_failed, Toast.LENGTH_SHORT).show()
             ) {
@@ -663,7 +669,7 @@ public class SingletonUser {
         }
 
         if (this.user != null){
-            String endPoint = ApiEndPoint.SUPPORT_TICKETS + supportTicket.getId() + "?access-token=" + this.user.getToken();
+            String endPoint = ApiEndPoint.ENDPOINT_SUPPORT_TICKETS + "/" + supportTicket.getId() + "?access-token=" + this.user.getToken();
 
             StringRequest stringRequest = new StringRequest(Request.Method.PUT, endPoint,
                     response -> {
@@ -691,9 +697,9 @@ public class SingletonUser {
      */
     private void addSupportTicketsDB(ArrayList<SupportTicket> supportTickets) {
         for (SupportTicket supportTicket: supportTickets) {
-            userDB.createSupportTicket(supportTicket);
+            UserDBManager.getInstance(context).createSupportTicket(supportTicket);
             for (TicketMessage message : supportTicket.getMessages()){
-                userDB.createMessage(message,supportTicket.getId());
+                UserDBManager.getInstance(context).createMessage(message,supportTicket.getId());
             }
         }
     }
@@ -702,9 +708,9 @@ public class SingletonUser {
      * Atualiza um support ticket na BD
      */
     private void readSupportTicketsDB() {
-        supportTickets = userDB.readSupportTickets();
+        supportTickets = UserDBManager.getInstance(context).readSupportTickets();
         for (SupportTicket supportTicket: supportTickets){
-            supportTicket.setMessages(userDB.readMessages(supportTicket.getId()));
+            supportTicket.setMessages(UserDBManager.getInstance(context).readMessages(supportTicket.getId()));
         }
     }
 
@@ -713,7 +719,7 @@ public class SingletonUser {
      * @param supportTicket bilhete a atualizar na BD
      */
     private void updateSupportTicketDB(SupportTicket supportTicket) {
-        userDB.updateSupportTicket(supportTicket);
+        UserDBManager.getInstance(context).updateSupportTicket(supportTicket);
     }
 
     /**

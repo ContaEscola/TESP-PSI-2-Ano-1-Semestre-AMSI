@@ -1,5 +1,5 @@
 package amsi.dei.estg.ipleiria.aerocontrol.listeners;
 
-public interface SetSupportTicketMessage {
+public interface SupportTicketMessageListener {
     void onSetSupportTicketMessage(String message);
 }

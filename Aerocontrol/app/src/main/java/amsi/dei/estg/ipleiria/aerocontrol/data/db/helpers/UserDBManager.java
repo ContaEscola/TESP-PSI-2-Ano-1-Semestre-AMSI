@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.FlightTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Passenger;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
-import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiConfig;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.TicketMessage;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.DateDisplayFormatUtils;
 
 public class UserDBManager {
@@ -246,5 +246,44 @@ public class UserDBManager {
      */
     public void truncateTableSupportTickets(){
         this.database.delete(UserDBOpenHelper.TBL_SUPPORT_TICKET,null,null);
+    }
+
+    private ContentValues convertSupportTicketMessageToContentValues(TicketMessage message, final int supportTicketId) {
+        ContentValues values = new ContentValues();
+
+        values.put(UserDBOpenHelper.COL_SUPPORT_TICKET_MESSAGE_MESSAGE, message.getMessage());
+        values.put(UserDBOpenHelper.COL_SUPPORT_TICKET_MESSAGE_SENDER_ID, message.getSender());
+        values.put(UserDBOpenHelper.COL_SUPPORT_TICKET_MESSAGE_SUPPORT_TICKET_ID, supportTicketId);
+
+        return values;
+    }
+
+    /**
+     * Cria uma mensagem na BD local
+     * @param message Passageiro a criar
+     */
+    public void createMessage (TicketMessage message, int support_ticket_id) {
+        ContentValues values = convertSupportTicketMessageToContentValues(message, support_ticket_id);
+        this.database.insert(UserDBOpenHelper.TBL_SUPPORT_TICKET_MESSAGE, null, values);
+    }
+
+    /**
+     * Lê os passageiros da BD
+     * @return Devolve todos os passageiros que estão na BD local
+     */
+    public ArrayList<TicketMessage> readMessages(int support_ticket_id){
+        ArrayList<TicketMessage> messages = new ArrayList<>();
+        Cursor cursor = this.database.rawQuery("SELECT * FROM " + UserDBOpenHelper.TBL_SUPPORT_TICKET_MESSAGE +
+                " WHERE " + UserDBOpenHelper.COL_SUPPORT_TICKET_MESSAGE_SUPPORT_TICKET_ID + " == " +  support_ticket_id +";", null);
+        if(cursor.moveToFirst()){
+            do{
+                messages.add(new TicketMessage(cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2))
+                );
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        return messages;
     }
 }

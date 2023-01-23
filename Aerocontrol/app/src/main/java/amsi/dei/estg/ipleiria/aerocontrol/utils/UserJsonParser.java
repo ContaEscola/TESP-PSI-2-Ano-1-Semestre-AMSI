@@ -7,8 +7,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.FlightTicket;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.LostItem;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Passenger;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.TicketMessage;
 
 public class UserJsonParser {
 

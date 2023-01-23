@@ -1,4 +1,4 @@
-package amsi.dei.estg.ipleiria.aerocontrol.adapters;
+package amsi.dei.estg.ipleiria.aerocontrol.ui.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -16,26 +16,26 @@ import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.TicketMessage;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
 
-public class TicketMessageAdapter extends RecyclerView.Adapter<TicketMessageAdapter.ViewHolderList> {
+public class RecyclerViewSupportTicketMessagesAdapter extends RecyclerView.Adapter<RecyclerViewSupportTicketMessagesAdapter.ViewHolderList> {
 
     private Context context;
     private LayoutInflater layoutInflater;
     private ArrayList<TicketMessage> messages;
 
-    public TicketMessageAdapter(Context context, ArrayList<TicketMessage> messages){
+    public RecyclerViewSupportTicketMessagesAdapter(Context context, ArrayList<TicketMessage> messages){
         this.context = context;
         this.messages = messages;
     }
 
     @NonNull
     @Override
-    public TicketMessageAdapter.ViewHolderList onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerViewSupportTicketMessagesAdapter.ViewHolderList onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_support_ticket_message, parent, false);
         return new ViewHolderList(item);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TicketMessageAdapter.ViewHolderList holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerViewSupportTicketMessagesAdapter.ViewHolderList holder, int position) {
         TicketMessage message = messages.get(position);
         holder.showMessage(message, context);
     }
