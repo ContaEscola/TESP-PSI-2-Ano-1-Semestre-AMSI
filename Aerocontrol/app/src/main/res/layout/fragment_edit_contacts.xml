@@ -19,7 +19,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
+        <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
             android:id="@+id/EditContacts_Et_Email"
             style="@style/EmailInput"
             android:layout_width="match_parent"
@@ -37,7 +37,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/EditContacts_Et_Email" />
 
-        <EditText
+        <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
             android:id="@+id/EditContacts_Et_PhoneCode"
             style="@style/PhoneInput"
             android:layout_width="0dp"
@@ -47,7 +47,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/EditContacts_Tv_Phone" />
 
-        <EditText
+        <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
             android:id="@+id/EditContacts_Et_Phone"
             style="@style/PhoneInput"
             android:layout_width="0dp"

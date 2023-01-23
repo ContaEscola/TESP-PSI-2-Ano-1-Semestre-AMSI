@@ -1,11 +1,15 @@
 package amsi.dei.estg.ipleiria.aerocontrol.data.db.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
+import java.util.Date;
+
+import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiConfig;
 
 public class FlightTicket {
 
@@ -26,7 +30,10 @@ public class FlightTicket {
     private double originalPrice;
     private double paidPrice;
     private String flightDate;
-    private String purchaseDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = ApiConfig.API_DATE_TIME_FORMAT)
+    private Date purchaseDate;
+
     private float distance;
 
     @JsonProperty("checkin")
@@ -36,7 +43,7 @@ public class FlightTicket {
 
     public FlightTicket(int id, String paymentMethod, String flightState, String flightOrigin, String flightArrival,
                         String flightDepartureTime, String flightArrivalTime, String terminal, double originalPrice,
-                        double paidPrice, String flightDate, String purchaseDate, float distance, boolean checkIn){
+                        double paidPrice, String flightDate, Date purchaseDate, float distance, boolean checkIn){
         this.setId(id);
         this.setPaymentMethod(paymentMethod);
         this.setFlightState(flightState);
@@ -149,11 +156,11 @@ public class FlightTicket {
         this.flightDate = flightDate;
     }
 
-    public String getPurchaseDate() {
+    public Date getPurchaseDate() {
         return purchaseDate;
     }
 
-    public void setPurchaseDate(String purchaseDate) {
+    public void setPurchaseDate(Date purchaseDate) {
         this.purchaseDate = purchaseDate;
     }
 

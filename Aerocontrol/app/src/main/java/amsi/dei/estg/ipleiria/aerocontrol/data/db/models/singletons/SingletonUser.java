@@ -10,9 +10,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.fasterxml.jackson.core.JsonProcessingException;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,10 +30,12 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Passenger;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.TicketMessage;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.User;
+import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiBodyHelper;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.models.LoginRequest;
 import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.UpdateUserListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketsListener;
@@ -40,6 +45,7 @@ public class SingletonUser {
     private static SingletonUser instance = null;
 
     private User user;
+    private User userToUpdate;
     private boolean loggedIn = false;
 
     private ArrayList<FlightTicket> flightTickets;
@@ -52,6 +58,7 @@ public class SingletonUser {
     private LoginListener loginListener;
     private FlightTicketsListener flightTicketsListener;
     private FlightTicketListener flightTicketListener;
+	private UpdateUserListener updateUserListener;
 
     public void setLoginListener(LoginListener loginListener) {
         this.loginListener = loginListener;
@@ -64,9 +71,14 @@ public class SingletonUser {
     public void setFlightTicketListener(FlightTicketListener flightTicketListener) {
         this.flightTicketListener = flightTicketListener;
     }
+    
+	public void setUpdateUserListener(UpdateUserListener updateUserListener) {
+        this.updateUserListener = updateUserListener;
+    }
 
     private SingletonUser(Context context){
         this.user = null;
+        this.userToUpdate = null;
         this.flightTickets = new ArrayList<>();
         this.supportTickets = new ArrayList<>();
         this.context = context;
@@ -170,23 +182,72 @@ public class SingletonUser {
     }
 
     /**
-     *
-     * @param user Utilizador atualizado.
+     * Envia o utilizador para a API para que possa ser atualizado
+     * @param context Contexto da Atividade ou Fragment
      */
-    public void editUser(User user){
-        if(!this.user.getUsername().equals(user.getUsername())) this.user.setUsername(user.getUsername());
-        // TODO Password encriptada, logo impossivel fazer comparação
-        //if(!this.user.getPassword().equals(user.getPassword())) this.user.setPassword(user.getPassword());
-        this.user.setPassword(user.getPassword());
-        if(!this.user.getFirstName().equals(user.getFirstName())) this.user.setFirstName(user.getFirstName());
-        if(!this.user.getLastName().equals(user.getLastName())) this.user.setLastName(user.getLastName());
-        if(!this.user.getGender().equals(user.getGender())) this.user.setGender(user.getGender());
-        if(!this.user.getCountry().equals(user.getCountry())) this.user.setCountry(user.getCountry());
-        if(!this.user.getCity().equals(user.getCity())) this.user.setCity(user.getCity());
-        if(!this.user.getEmail().equals(user.getEmail())) this.user.setEmail(user.getEmail());
-        if(!this.user.getPhone().equals(user.getPhone())) this.user.setPhone(user.getPhone());
-        if(!this.user.getPhone().equals(user.getPhone())) this.user.setPhoneCountryCode(user.getPhoneCountryCode());
-        if(!this.user.getBirthdate().equals(user.getBirthdate())) this.user.setBirthdate(user.getBirthdate());
+    public void updateUserAPI(final Context context, final String confirm_password){
+        if (!NetworkUtils.isConnectedInternet(context)){
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (this.user != null && userToUpdate != null){
+            String endPoint = ApiEndPoint.ENDPOINT_UPDATE_ACCOUNT + "/" + this.user.getId() + "?access-token=" + this.user.getToken();
+
+            try {
+                String jsonUser = User.convertUserToJson(userToUpdate);
+
+                String fullJson = ApiBodyHelper.addAttributeToJsonBody(jsonUser, "confirm_password", confirm_password);
+                Map<String, Object> jsonParams = ApiBodyHelper.convertJsonStringToMap(fullJson);
+
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, endPoint, new JSONObject(jsonParams),
+                        response -> {
+                            setUser(userToUpdate);
+                            UserPreferences.getInstance(context).setUser(userToUpdate);
+
+                            if(updateUserListener != null)
+                                updateUserListener.onUpdateUser(context.getString(R.string.save_data_success));
+
+                        },
+                        error -> Toast.makeText(context, R.string.save_data_failed, Toast.LENGTH_SHORT).show()
+                );
+                volleyQueue.add(jsonObjectRequest);
+            }
+            catch (JsonProcessingException e) {
+                Toast.makeText(context, R.string.save_data_failed, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    /**
+     *
+     * @param user Objeto do tipo utilizador que será atualizado.
+     */
+    public void setUserToUpdate(final User user) {
+        // Atribuição feita atributo a atributo, porque caso seja feita this.userToUpdate = user
+        // o this.user (Objeto recebido nos parâmetros) fica ligado como pointer ao this.userToUpdate
+        this.userToUpdate = new User();
+        this.userToUpdate.setId(user.getId());
+        this.userToUpdate.setUsername(user.getUsername());
+        this.userToUpdate.setToken(user.getToken());
+        this.userToUpdate.setPassword(null);
+        this.userToUpdate.setFirstName(user.getFirstName());
+        this.userToUpdate.setLastName(user.getLastName());
+        this.userToUpdate.setGender(user.getGender());
+        this.userToUpdate.setCountry(user.getCountry());
+        this.userToUpdate.setCity(user.getCity());
+        this.userToUpdate.setEmail(user.getEmail());
+        this.userToUpdate.setPhone(user.getPhone());
+        this.userToUpdate.setPhoneCountryCode(user.getPhoneCountryCode());
+        this.userToUpdate.setBirthdate(user.getBirthdate());
+    }
+
+    /**
+     *
+     * @return Devolve o Utilizador.
+     */
+    public User getUserToUpdate() {
+        return userToUpdate;
     }
 
     /**

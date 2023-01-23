@@ -1,19 +1,32 @@
 package amsi.dei.estg.ipleiria.aerocontrol.data.db.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+
+import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiConfig;
 
 public class User {
 
+    public static final String[] GENDERS = {
+            "Masculino",
+            "Feminino",
+            "Outro",
+    };
+
     private int id;
     private String username;
-
     private String token;
 
+    @JsonProperty("password_hash")
     private String password;
 
     @JsonProperty("first_name")
@@ -31,6 +44,7 @@ public class User {
     @JsonProperty("phone_country_code")
     private String phoneCountryCode;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = ApiConfig.API_DATE_FORMAT)
     private Date birthdate;
 
     // ArrayList de FlightTickets?
@@ -80,10 +94,13 @@ public class User {
         this.token = token;
     }
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonProperty("password_hash")
     public String getPassword() {
         return password;
     }
 
+    @JsonProperty("password_hash")
     public void setPassword(String password) {
         this.password = password;
     }
@@ -169,5 +186,10 @@ public class User {
     public static User parseJsonToUser(String jsonString) throws JsonProcessingException {
         final ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(jsonString, User.class);
+    }
+
+    public static String convertUserToJson(User user) throws JsonProcessingException {
+        final ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(user);
     }
 }

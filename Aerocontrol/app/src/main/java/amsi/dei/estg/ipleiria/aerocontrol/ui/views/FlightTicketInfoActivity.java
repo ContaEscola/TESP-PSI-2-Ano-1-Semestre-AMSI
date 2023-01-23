@@ -21,6 +21,7 @@ import amsi.dei.estg.ipleiria.aerocontrol.ui.adapters.RecyclerViewFlightTicketPa
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.FlightTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketListener;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.DateDisplayFormatUtils;
 
 public class FlightTicketInfoActivity extends AppCompatActivity implements FlightTicketListener {
 
@@ -107,7 +108,7 @@ public class FlightTicketInfoActivity extends AppCompatActivity implements Fligh
             tvOriginalPrice.setPaintFlags(tvOriginalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
         tvPaidPrice.setText(getString(R.string.euro_symbol,ticket.getPaidPrice()));
-        tvPurchaseDate.setText(ticket.getPurchaseDate());
+        tvPurchaseDate.setText(DateDisplayFormatUtils.formatDateTimeToString(ticket.getPurchaseDate()));
 
         if (ticket.getPassengers().size() > 0){
             adapter = new RecyclerViewFlightTicketPassengersAdapter(this, ticket.getPassengers());

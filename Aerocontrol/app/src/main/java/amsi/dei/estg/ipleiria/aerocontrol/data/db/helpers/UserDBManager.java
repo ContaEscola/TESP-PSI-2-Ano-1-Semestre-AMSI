@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.FlightTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Passenger;
+import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiConfig;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.DateDisplayFormatUtils;
 
 public class UserDBManager {
 
@@ -46,7 +48,7 @@ public class UserDBManager {
         values.put(UserDBOpenHelper.COL_FLIGHT_TICKET_ORIGINAL_PRICE,flightTicket.getOriginalPrice());
         values.put(UserDBOpenHelper.COL_FLIGHT_TICKET_PAID_PRICE, flightTicket.getPaidPrice());
         values.put(UserDBOpenHelper.COL_FLIGHT_TICKET_FLIGHT_DATE,flightTicket.getFlightDate());
-        values.put(UserDBOpenHelper.COL_FLIGHT_TICKET_PURCHASE_DATE, flightTicket.getPurchaseDate());
+        values.put(UserDBOpenHelper.COL_FLIGHT_TICKET_PURCHASE_DATE, flightTicket.getPurchaseDate().toString());
         values.put(UserDBOpenHelper.COL_FLIGHT_TICKET_DISTANCE,flightTicket.getDistance());
         values.put(UserDBOpenHelper.COL_FLIGHT_TICKET_CHECK_IN, flightTicket.isCheckIn());
 
@@ -82,7 +84,7 @@ public class UserDBManager {
                         cursor.getDouble(8),
                         cursor.getDouble(9),
                         cursor.getString(10),
-                        cursor.getString(11),
+                        DateDisplayFormatUtils.formatStringToDateTime(cursor.getString(11), ApiConfig.API_DATE_TIME_FORMAT), // Para o User ter o birthdate com o formato igual a da API
                         cursor.getFloat(12),
                         cursor.getInt(13) == 1) // Verifica se o check in é true ou false
                 );

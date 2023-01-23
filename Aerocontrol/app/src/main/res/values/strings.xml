@@ -40,6 +40,10 @@
     <string name="next">Avançar</string>
     <string name="confirm">Confirmar</string>
     <string name="cancel">Cancelar</string>
+    <string name="birthdate_format">DD-MM-YYYY</string>
+    <string name="save_data">Guardar Alterações</string>
+    <string name="save_data_success">Alterações efetuadas com sucesso!</string>
+    <string name="save_data_failed">Alterações não efetuadas, algo correu mal!</string>
 
 
     <!--  Frases  -->
@@ -50,6 +54,9 @@
     <string name="check_in_done">Check-in efetuado.</string>
     <string name="ticket_deleted">Bilhete cancelado com sucesso. Receberá um reembolso.</string>
     <string name="cancel_ticket">Cancelar bilhete</string>
+    <string name="select_gender">Selecione um género</string>
+    <string name="insert_birth_date">Insira a data de nascimento.</string>
+    <string name="verify_password">Para guardar os seus dados é necessário verificar a password.</string>
 
 
     <!--  Dados User  -->
@@ -172,5 +179,21 @@
     <string name="invalid_credentials">Credenciais inválidas</string>
     <string name="insert_all_data">Preencha todos os campos.</string>
     <string name="error_on_ticket">Erro ao encontrar o bilhete</string>
+
+    <!-- Erros User -->
+    <string name="username_error">O username tem de ter de 2 a 30 caracteres.</string>
+    <string name="password_error">A password tem de ter pelo menos 8 caracteres.</string>
+    <string name="first_name_error">O primeiro nome é obrigatório e não pode exceder os 50 caracteres.</string>
+    <string name="last_name_error">O último nome é obrigatório e não pode exceder os 50 caracteres.</string>
+    <string name="gender_error">Tem de selecionar obrigatoriamente um dos três géneros.</string>
+    <string name="country_error">O país tem de ter de 4 a 50 caracteres.</string>
+    <string name="city_error">A cidade tem de ter de 1 a 75 caracteres.</string>
+    <string name="email_error">Insira um email válido.</string>
+    <string name="phone_error">O nº de telemóvel só pode conter números, e tem de ter de 4 a 15 números.</string>
+    <string name="phone_code_error">Formato inválido.\nExemplo: +000</string>
+    <string name="birthdate_error">Formato inválido.\nExemplo: 30/04/2000</string>
+    <string name="errors_found">Erros encontrados</string>
+    <string name="solve_errors">Antes de prosseguir, resolva os seguintes erros:</string>
+
 
 </resources>

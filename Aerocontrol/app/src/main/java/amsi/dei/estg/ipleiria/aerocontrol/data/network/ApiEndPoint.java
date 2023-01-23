@@ -7,6 +7,9 @@ public class ApiEndPoint {
     private final static String ENDPOINT_API = API_ROOT_FOLDER + "/backend/web/api";
     private final static String ENDPOINT_API_UPLOADS = API_ROOT_FOLDER + "/common/uploads";
 
+	public final static String ENDPOINT_LOGIN = ENDPOINT_API + "/auth/login";
+	public final static String ENDPOINT_UPDATE_ACCOUNT = ENDPOINT_API + "/user";
+
     //Entities
     public final static String ENDPOINT_RESTAURANTS = ENDPOINT_API + "/restaurants";
     public final static String ENDPOINT_RESTAURANTS_UPLOADS = ENDPOINT_API_UPLOADS + "/restaurants";
@@ -14,8 +17,6 @@ public class ApiEndPoint {
 
     public final static String ENDPOINT_STORES = ENDPOINT_API + "/stores";
     public final static String ENDPOINT_STORES_UPLOADS = ENDPOINT_API_UPLOADS + "/stores";
-
-    public final static String ENDPOINT_LOGIN = ENDPOINT_API + "/auth/login";
 
     public final static String ENDPOINT_FLIGHT_TICKETS = ENDPOINT_API + "/flight-tickets";
     public final static String ENDPOINT_MY_FLIGHT_TICKETS = ENDPOINT_FLIGHT_TICKETS + "/my-tickets";

@@ -24,7 +24,7 @@ public class AccountFragment extends Fragment {
 
     private Button btLogin, btLogout;
     private TextView tvUsername;
-    private ConstraintLayout myTicketsLayout;
+    private ConstraintLayout myTicketsLayout, editAccountLayout;
 
     public AccountFragment() {
         // Required empty public constructor
@@ -48,7 +48,7 @@ public class AccountFragment extends Fragment {
     private void initializeLoggedOut(View view) {
         btLogin = view.findViewById(R.id.AccountLoggedOut_Bt_Login);
 
-        btLogin.setOnClickListener(view1 -> {
+        btLogin.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), LoginActivity.class);
             startActivityForResult(intent,REQUEST_LOGIN_ACTIVITY);
         });
@@ -58,13 +58,19 @@ public class AccountFragment extends Fragment {
         btLogout = view.findViewById(R.id.AccountLoggedIn_Bt_Logout);
         tvUsername = view.findViewById(R.id.AccountLoggedIn_Tv_Username);
         myTicketsLayout = view.findViewById(R.id.AccountLoggedIn_ConsLayout_MyTickets);
+        editAccountLayout = view.findViewById(R.id.AccountLoggedIn_ConsLayout_EditData);
 
         tvUsername.setText(SingletonUser.getInstance(this.getContext()).getUser().getUsername());
 
-        btLogout.setOnClickListener(view1 -> logout());
+        btLogout.setOnClickListener(v -> logout());
 
-        myTicketsLayout.setOnClickListener(view1 -> {
+        myTicketsLayout.setOnClickListener(v -> {
             Intent intent = new Intent(this.getContext(), FlightTicketsActivity.class);
+            startActivity(intent);
+        });
+
+        editAccountLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(this.getContext(), EditAccountActivity.class);
             startActivity(intent);
         });
     }
@@ -72,6 +78,7 @@ public class AccountFragment extends Fragment {
     private void logout() {
         SingletonUser.getInstance(this.getContext()).setLoggedIn(false);
         UserPreferences.getInstance(this.getContext()).clearUser();
+        Toast.makeText(getContext(), "Logout com successo!", Toast.LENGTH_SHORT).show();
         refreshFragment();
     }
 
