@@ -11,6 +11,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
 import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
@@ -53,6 +57,11 @@ public class AccountFragment extends Fragment {
         });
 
         bindingLoggedOut.AccountLoggedOutConsLayoutSupport.setOnClickListener(v -> openSupportIntent());
+
+        bindingLoggedOut.AccountLoggedOutBtCreateAccount.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), RegisterActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void initializeLoggedIn() {

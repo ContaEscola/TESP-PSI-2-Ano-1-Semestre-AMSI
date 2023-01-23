@@ -32,6 +32,11 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         SingletonUser.getInstance(this).setLoginListener(this);
 
         binding.LoginBtLogin.setOnClickListener(view -> login());
+
+        binding.LoginTvCreateAccount.setOnClickListener(v -> {
+            Intent intent = new Intent(this, RegisterActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void login(){
