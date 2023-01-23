@@ -48,7 +48,7 @@ public class AccountFragment extends Fragment {
     private void initializeLoggedOut(View view) {
         btLogin = view.findViewById(R.id.AccountLoggedOut_Bt_Login);
 
-        btLogin.setOnClickListener(view1 -> {
+        btLogin.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), LoginActivity.class);
             startActivityForResult(intent,REQUEST_LOGIN_ACTIVITY);
         });
@@ -62,7 +62,7 @@ public class AccountFragment extends Fragment {
 
         tvUsername.setText(SingletonUser.getInstance(this.getContext()).getUser().getUsername());
 
-        btLogout.setOnClickListener(view1 -> logout());
+        btLogout.setOnClickListener(v -> logout());
 
         myTicketsLayout.setOnClickListener(v -> {
             Intent intent = new Intent(this.getContext(), FlightTicketsActivity.class);
@@ -78,6 +78,7 @@ public class AccountFragment extends Fragment {
     private void logout() {
         SingletonUser.getInstance(this.getContext()).setLoggedIn(false);
         UserPreferences.getInstance(this.getContext()).clearUser();
+        Toast.makeText(getContext(), "Logout com successo!", Toast.LENGTH_SHORT).show();
         refreshFragment();
     }
 
