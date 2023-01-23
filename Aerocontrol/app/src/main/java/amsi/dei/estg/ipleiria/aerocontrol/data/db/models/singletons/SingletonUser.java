@@ -36,6 +36,7 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.models.LoginRequest;
 import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketMessageListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.SignupListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.UpdateUserListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
@@ -72,6 +73,7 @@ public class SingletonUser {
 
     private SupportTicketsListener supportTicketsListener;
     private SupportTicketListener supportTicketListener;
+    private SupportTicketMessageListener supportTicketMessageListener;
 
     public void setLoginListener(LoginListener loginListener) {
         this.loginListener = loginListener;
@@ -102,6 +104,10 @@ public class SingletonUser {
 
     public void setSupportTicketListener(SupportTicketListener supportTicketListener) {
         this.supportTicketListener = supportTicketListener;
+    }
+
+    public void setSupportTicketMessageListener(SupportTicketMessageListener supportTicketMessageListener) {
+        this.supportTicketMessageListener = supportTicketMessageListener;
     }
 
     private SingletonUser(Context context){
@@ -597,6 +603,7 @@ public class SingletonUser {
         // Caso não haja internet
         if (!NetworkUtils.isConnectedInternet(context)){
             Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            readSupportTicketsDB();
             supportTicketsListener.onRefreshList(supportTickets);
             return;
         }
@@ -619,13 +626,100 @@ public class SingletonUser {
     }
 
     /**
+     * Vai criar mensagem no support ticket à API
+     * @param context context da atividade ou fragment
+     */
+    public void setMessageSupportTicketAPI(final Context context, String message, Integer support_ticket_id){
+        if (!NetworkUtils.isConnectedInternet(context)){
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (this.user != null){
+            String endPoint = ApiEndPoint.ENDPOINT_SUPPORT_TICKET_MESSAGES + "?access-token=" + this.user.getToken();
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, endPoint,
+                    response -> {
+                        if(supportTicketMessageListener != null){
+                            supportTicketMessageListener.onSetSupportTicketMessage(context.getString(R.string.create_data_success));
+                        }
+                    }, error -> Toast.makeText(context, R.string.save_data_failed, Toast.LENGTH_SHORT).show()
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("message", message);
+                    params.put("sender_id", user.getId()+"");
+                    params.put("support_ticket_id", support_ticket_id+"");
+                    return params;
+                }
+            };
+            volleyQueue.add(stringRequest);
+        }
+    }
+
+    /**
+     * Envia um support ticket para API de forma a alterar o estado.
+     * @param context context da atividade ou fragment
+     * @param supportTicket a enviar para a API para ser atualizado
+     */
+    public void updateSupportTicketAPI(final Context context, SupportTicket supportTicket){
+        if (!NetworkUtils.isConnectedInternet(context)){
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (this.user != null){
+            String endPoint = ApiEndPoint.ENDPOINT_SUPPORT_TICKETS + "/" + supportTicket.getId() + "?access-token=" + this.user.getToken();
+
+            StringRequest stringRequest = new StringRequest(Request.Method.PUT, endPoint,
+                    response -> {
+                        Toast.makeText(context, R.string.support_ticket_done, Toast.LENGTH_SHORT).show();
+                        supportTicket.setState("Concluido");
+                        updateSupportTicketDB(supportTicket);
+                        supportTicketListener.onRefreshSupportTicket();
+                    }, error -> Toast.makeText(context, R.string.error_support_tickets, Toast.LENGTH_SHORT).show()
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("state","Concluido");
+                    return params;
+                }
+            };
+
+            volleyQueue.add(stringRequest);
+        }
+    }
+
+    /**
      * Cria todos os support tickets numa base de dados local para que possam ser visualizados offline
      * @param supportTickets lista dos support ticket a criar na BD
      */
     private void addSupportTicketsDB(ArrayList<SupportTicket> supportTickets) {
         for (SupportTicket supportTicket: supportTickets) {
             UserDBManager.getInstance(context).createSupportTicket(supportTicket);
+            for (TicketMessage message : supportTicket.getMessages()){
+                UserDBManager.getInstance(context).createMessage(message,supportTicket.getId());
+            }
         }
+    }
+
+    /**
+     * Atualiza um support ticket na BD
+     */
+    private void readSupportTicketsDB() {
+        supportTickets = UserDBManager.getInstance(context).readSupportTickets();
+        for (SupportTicket supportTicket: supportTickets){
+            supportTicket.setMessages(UserDBManager.getInstance(context).readMessages(supportTicket.getId()));
+        }
+    }
+
+    /**
+     * Atualiza um support ticket que já esteja na BD local
+     * @param supportTicket bilhete a atualizar na BD
+     */
+    private void updateSupportTicketDB(SupportTicket supportTicket) {
+        UserDBManager.getInstance(context).updateSupportTicket(supportTicket);
     }
 
     /**

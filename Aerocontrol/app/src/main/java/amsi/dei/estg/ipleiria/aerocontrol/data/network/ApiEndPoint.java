@@ -30,4 +30,5 @@ public class ApiEndPoint {
     
     public final static String ENDPOINT_SUPPORT_TICKETS = ENDPOINT_API + "/support-tickets";
     public final static String ENDPOINT_MY_SUPPORT_TICKETS = ENDPOINT_SUPPORT_TICKETS + "/my-support-tickets";
+    public final static String ENDPOINT_SUPPORT_TICKET_MESSAGES = ENDPOINT_API + "/ticket-messages";
 }

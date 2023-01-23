@@ -10,13 +10,14 @@ import android.os.Bundle;
 import java.util.ArrayList;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketsListener;
 import amsi.dei.estg.ipleiria.aerocontrol.ui.adapters.RecyclerViewSupportTicketsAdapter;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
 import amsi.dei.estg.ipleiria.aerocontrol.databinding.ActivitySupportTicketListBinding;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketListener;
 
-public class SupportTicketActivity extends AppCompatActivity implements SupportTicketListener {
+public class SupportTicketActivity extends AppCompatActivity implements SupportTicketsListener {
 
     private ActivitySupportTicketListBinding binding;
 
@@ -33,8 +34,9 @@ public class SupportTicketActivity extends AppCompatActivity implements SupportT
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         binding.SupportTicketRvTickets.setLayoutManager(new LinearLayoutManager(this));
+        binding.SupportTicketRvTickets.setItemAnimator(new DefaultItemAnimator());
 
-        SingletonUser.getInstance(this).setSupportTicketsListener(this::onRefreshList);
+        SingletonUser.getInstance(this).setSupportTicketsListener(this);
         SingletonUser.getInstance(this).getSupportTicketsAPI(this);
     }
 
@@ -47,8 +49,8 @@ public class SupportTicketActivity extends AppCompatActivity implements SupportT
 
     @Override
     public void onRefreshList(ArrayList<SupportTicket> supportTickets) {
-        adapter = new RecyclerViewSupportTicketsAdapter(this, SingletonUser.getInstance(this).getSupportTickets());
+        adapter = new RecyclerViewSupportTicketsAdapter(this, supportTickets);
         binding.SupportTicketRvTickets.setAdapter(adapter);
-        binding.SupportTicketRvTickets.setItemAnimator(new DefaultItemAnimator());
+
     }
 }

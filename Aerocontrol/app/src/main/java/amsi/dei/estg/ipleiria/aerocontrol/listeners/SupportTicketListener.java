@@ -5,5 +5,5 @@ import java.util.ArrayList;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
 
 public interface SupportTicketListener {
-    void onRefreshList(ArrayList<SupportTicket> supportTickets);
+    void onRefreshSupportTicket();
 }

@@ -1,15 +1,8 @@
 package amsi.dei.estg.ipleiria.aerocontrol.data.db.helpers;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import java.util.ArrayList;
-
-import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.FlightTicket;
-import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Passenger;
 
 public class UserDBOpenHelper extends SQLiteOpenHelper {
 
@@ -19,7 +12,7 @@ public class UserDBOpenHelper extends SQLiteOpenHelper {
     public static final String TBL_FLIGHT_TICKET = "flight_ticket";
     public static final String TBL_PASSENGER = "passenger";
     public static final String TBL_SUPPORT_TICKET = "support_ticket";
-
+    public static final String TBL_SUPPORT_TICKET_MESSAGE = "support_ticket_message";
 
 
     // Campos da tabela flight ticket
@@ -50,6 +43,14 @@ public class UserDBOpenHelper extends SQLiteOpenHelper {
     public static final String COL_SUPPORT_TICKET_ID = "id";
     public static final String COL_SUPPORT_TICKET_TITLE = "title";
     public static final String COL_SUPPORT_TICKET_STATE = "state";
+
+    // Campos da tabela support ticket message
+    public static final String COL_SUPPORT_TICKET_MESSAGE_ID = "id";
+    public static final String COL_SUPPORT_TICKET_MESSAGE_MESSAGE = "message";
+    public static final String COL_SUPPORT_TICKET_MESSAGE_SENDER_ID = "sender_id";
+    public static final String COL_SUPPORT_TICKET_MESSAGE_SUPPORT_TICKET_ID = "support_ticket_id";
+
+
 
     // Sql para criar a tabela flight ticket
     private static final String CREATE_TBL_FLIGHT_TICKET =
@@ -91,6 +92,16 @@ public class UserDBOpenHelper extends SQLiteOpenHelper {
                         COL_SUPPORT_TICKET_STATE + " TEXT NOT NULL " +
                         ");";
 
+    // Sql para criar a tabela support ticket message
+    private static final String CREATE_TBL_SUPPORT_TICKET_MESSAGE =
+            "CREATE TABLE " + TBL_SUPPORT_TICKET_MESSAGE + "( " +
+                    COL_SUPPORT_TICKET_MESSAGE_ID + " INTEGER PRIMARY KEY NOT NULL, " +
+                    COL_SUPPORT_TICKET_MESSAGE_MESSAGE + " TEXT NOT NULL," +
+                    COL_SUPPORT_TICKET_MESSAGE_SENDER_ID + " TEXT NOT NULL," +
+                    COL_SUPPORT_TICKET_MESSAGE_SUPPORT_TICKET_ID + " INTEGER NOT NULL," +
+                    "FOREIGN KEY (" + COL_SUPPORT_TICKET_MESSAGE_SUPPORT_TICKET_ID + ") REFERENCES " + TBL_SUPPORT_TICKET + "(" + COL_SUPPORT_TICKET_ID + ")" +
+                    ");";
+
     private final SQLiteDatabase database;
 
     public UserDBOpenHelper(Context context) {
@@ -103,6 +114,7 @@ public class UserDBOpenHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TBL_FLIGHT_TICKET);
         db.execSQL(CREATE_TBL_PASSENGER);
         db.execSQL(CREATE_TBL_SUPPORT_TICKET);
+        db.execSQL(CREATE_TBL_SUPPORT_TICKET_MESSAGE);
     }
 
     @Override
