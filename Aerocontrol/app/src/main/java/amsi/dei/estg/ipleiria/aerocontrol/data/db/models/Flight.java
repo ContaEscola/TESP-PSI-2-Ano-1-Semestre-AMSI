@@ -1,7 +1,5 @@
 package amsi.dei.estg.ipleiria.aerocontrol.data.db.models;
 
-import java.util.Date;
-
 public class Flight {
     private int id;
     private int discountPercentage;
@@ -9,17 +7,18 @@ public class Flight {
     private String state;
     private String originAirport;
     private String arrivalAirport;
-    private Date estimatedDepartureDate;
-    private Date estimatedArrivalDate;
-    private Date departureDate;
-    private Date arrivalDate;
+    private String estimatedDepartureDate;
+    private String estimatedArrivalDate;
+    private String departureDate;
+    private String arrivalDate;
     private double price;
     private float distance;
+    private String passengersLeft;
 
 
     public Flight(int id, int discountPercentage, String terminal, String state, String originAirport,
-                  String arrivalAirport, Date departureDate, Date arrivalDate,Date estimatedDepartureDate,
-                  Date estimatedArrivalDate, double price, float distance){
+                  String arrivalAirport, String departureDate, String arrivalDate,String estimatedDepartureDate,
+                  String estimatedArrivalDate, double price, float distance, String passengersLeft){
         this.setId(id);
         this.setDiscountPercentage(discountPercentage);
         this.setTerminal(terminal);
@@ -32,6 +31,7 @@ public class Flight {
         this.setEstimatedArrivalDate(estimatedArrivalDate);
         this.setPrice(price);
         this.setDistance(distance);
+        this.setPassengersLeft(passengersLeft);
     }
 
     public int getId() {
@@ -82,19 +82,19 @@ public class Flight {
         this.arrivalAirport = arrivalAirport;
     }
 
-    public Date getDepartureDate() {
+    public String getDepartureDate() {
         return departureDate;
     }
 
-    public void setDepartureDate(Date departureDate) {
+    public void setDepartureDate(String departureDate) {
         this.departureDate = departureDate;
     }
 
-    public Date getArrivalDate() {
+    public String getArrivalDate() {
         return arrivalDate;
     }
 
-    public void setArrivalDate(Date arrivalDate) {
+    public void setArrivalDate(String arrivalDate) {
         this.arrivalDate = arrivalDate;
     }
 
@@ -114,19 +114,27 @@ public class Flight {
         this.distance = distance;
     }
 
-    public Date getEstimatedDepartureDate() {
+    public String getEstimatedDepartureDate() {
         return estimatedDepartureDate;
     }
 
-    public void setEstimatedDepartureDate(Date estimatedDepartureDate) {
+    public void setEstimatedDepartureDate(String estimatedDepartureDate) {
         this.estimatedDepartureDate = estimatedDepartureDate;
     }
 
-    public Date getEstimatedArrivalDate() {
+    public String getEstimatedArrivalDate() {
         return estimatedArrivalDate;
     }
 
-    public void setEstimatedArrivalDate(Date estimatedArrivalDate) {
+    public void setEstimatedArrivalDate(String estimatedArrivalDate) {
         this.estimatedArrivalDate = estimatedArrivalDate;
+    }
+
+    public String getPassengersLeft() {
+        return passengersLeft;
+    }
+
+    public void setPassengersLeft(String passengersLeft) {
+        this.passengersLeft = passengersLeft;
     }
 }

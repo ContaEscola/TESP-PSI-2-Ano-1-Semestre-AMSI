@@ -39,9 +39,17 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketsListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketMessageListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.SignupListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.UpdateUserListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketsListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.ResetPasswordListener;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.ResetPasswordJsonParser;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketsListener;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.UserJsonParser;
 
 public class SingletonUser {
 
@@ -59,10 +67,16 @@ public class SingletonUser {
     private RequestQueue volleyQueue;
 
     private LoginListener loginListener;
+    private SignupListener signupListener;
+    private ResetPasswordListener resetPasswordListener;
+	private UpdateUserListener updateUserListener;
+	
     private FlightTicketsListener flightTicketsListener;
     private FlightTicketListener flightTicketListener;
-	private UpdateUserListener updateUserListener;
-    private SignupListener signupListener;
+
+    private SupportTicketsListener supportTicketsListener;
+    private SupportTicketListener supportTicketListener;
+    private SupportTicketMessageListener supportTicketMessageListener;
 
     public void setLoginListener(LoginListener loginListener) {
         this.loginListener = loginListener;
@@ -82,6 +96,21 @@ public class SingletonUser {
 
     public void setSignupListener(SignupListener signupListener) {
         this.signupListener = signupListener;
+    }
+
+	public void setResetPasswordListener(ResetPasswordListener resetPasswordListener){
+        this.resetPasswordListener = resetPasswordListener;
+    }
+	public void setSupportTicketsListener(SupportTicketsListener supportTicketsListener) {
+        this.supportTicketsListener = supportTicketsListener;
+    }
+
+    public void setSupportTicketListener(SupportTicketListener supportTicketListener) {
+        this.supportTicketListener = supportTicketListener;
+    }
+
+    public void setSupportTicketMessageListener(SupportTicketMessageListener supportTicketMessageListener) {
+        this.supportTicketMessageListener = supportTicketMessageListener;
     }
 
     private SingletonUser(Context context){
@@ -154,6 +183,11 @@ public class SingletonUser {
         volleyQueue.add(stringRequest);
     }
 
+    /**
+     * Faz o Registo através da API
+     * @param user Utilizador a registar
+     * @param context Context da atividade ou fragmento
+     */
     public void signupAPI(User user, final Context context){
         // Caso não haja internet
         if (!NetworkUtils.isConnectedInternet(context)){
@@ -174,9 +208,15 @@ public class SingletonUser {
                             signupListener.onSignup();
 
                     }, error -> {
+
                         String body = null;
                         Map<String, Object> bodyParams = null;
                         String errorReturned = "";
+
+                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                            signupListener.onErrorSignup(errorReturned);
+                            return;
+                        }
 
                         if(error.networkResponse.data != null) {
                             try {
@@ -185,18 +225,20 @@ public class SingletonUser {
                                 // Aqui converte a resposta para um Map
                                 bodyParams = ApiBodyHelper.convertJsonStringToMap(body);
 
-                                // Aqui converte a resposta["message"] para um Map
-                                Map<String, Object> bodyMessage = ApiBodyHelper.convertJsonStringToMap((String) bodyParams.get("message"));
+                                if(bodyParams.containsKey("message")) {
+                                    // Aqui converte a resposta["message"] para um Map
+                                    Map<String, Object> bodyMessage = ApiBodyHelper.convertJsonStringToMap((String) bodyParams.get("message"));
 
-
-                                // Aqui faz um for em todos os items da resposta["message"]
-                                for (Object value : bodyMessage.values()) {
-                                    // Busca o ArrayList de erros para cada atributo da resposta["message"]
-                                    ArrayList<String> errorsInAttribute = (ArrayList<String>) value;
-                                    for(String errorInAttribute : errorsInAttribute) {
-                                        // Adiciona cada erro do atributo ao String erro
-                                        errorReturned += errorInAttribute + "\n";
+                                    // Aqui faz um for em todos os items da resposta["message"]
+                                    for (Object value : bodyMessage.values()) {
+                                        // Busca o ArrayList de erros para cada atributo da resposta["message"]
+                                        ArrayList<String> errorsInAttribute = (ArrayList<String>) value;
+                                        for(String errorInAttribute : errorsInAttribute) {
+                                            // Adiciona cada erro do atributo ao String erro
+                                            errorReturned += errorInAttribute + "\n";
+                                        }
                                     }
+
                                 }
 
                             } catch (UnsupportedEncodingException e) {
@@ -206,15 +248,7 @@ public class SingletonUser {
                             }
                         }
 
-                        // https://stackoverflow.com/questions/24700582/handle-volley-error
-                        // https://gist.github.com/kevintanhongann/595c601909d1814641b8
-
-                        // Quer dizer que deu erro num input (exemplo: nome repetido)
-                        if( error instanceof ClientError) {
-                            signupListener.onErrorSignup(errorReturned);
-                        } else {
-                            Toast.makeText(context, R.string.common_error, Toast.LENGTH_SHORT).show();
-                        }
+                        signupListener.onErrorSignup(errorReturned);
             });
 
             volleyQueue.add(jsonObjectRequest);
@@ -222,6 +256,39 @@ public class SingletonUser {
         } catch (JsonProcessingException e) {
             Toast.makeText(context, R.string.common_error, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    /**
+     * Envia um email para resetar a password através da API
+     * @param email Email do utilizador
+     * @param context Context da atividade ou fragmento
+     */
+    public void resetPasswordAPI(final String email, final Context context){
+        // Caso não haja internet
+        if (!NetworkUtils.isConnectedInternet(context)){
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiEndPoint.ENDPOINT_RESET_PASSWORD,
+                response -> {
+                    String message = ResetPasswordJsonParser.parserJsonResetPassword(response);
+                    if (resetPasswordListener != null && message != null) {
+                        resetPasswordListener.onEmailSent(message);
+                    } else Toast.makeText(context, R.string.common_error, Toast.LENGTH_SHORT).show();
+                },
+                error -> {
+                    Toast.makeText(context, R.string.common_error, Toast.LENGTH_SHORT).show();
+                }){
+            @Override
+            public Map<String, String> getParams(){
+                Map<String, String> params = new HashMap<>();
+                params.put("email", email);
+                return params;
+            }
+        };
+
+        volleyQueue.add(stringRequest);
     }
 
     /**
@@ -421,7 +488,7 @@ public class SingletonUser {
      * @param context context da atividade ou fragment
      * @param ticket ticket a enviar para a API para ser atualizado
      */
-    public void updateTicketAPI(final Context context, FlightTicket ticket){
+    public void updateFlightTicketAPI(final Context context, FlightTicket ticket){
         if (!NetworkUtils.isConnectedInternet(context)){
             Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
             return;
@@ -457,7 +524,7 @@ public class SingletonUser {
      * @param context context da atividade ou fragment
      * @param ticket ticket eliminar
      */
-    public void deleteTicketAPI(final Context context, FlightTicket ticket){
+    public void deleteFlightTicketAPI(final Context context, FlightTicket ticket){
         if (!NetworkUtils.isConnectedInternet(context)){
             Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
             return;
@@ -545,7 +612,7 @@ public class SingletonUser {
      *
      * @param ticket Bilhete de voo a apagar.
      */
-    public void deleteTicket(FlightTicket ticket) {
+    public void deleteFlightTicket(FlightTicket ticket) {
         this.flightTickets.remove(ticket);
     }
 
@@ -571,6 +638,133 @@ public class SingletonUser {
         FlightTicket ticket = getFlightTicketById(id);
         if(ticket != null)
             ticket.addPassenger(passenger);
+	}
+
+    /**
+     * Vai buscar os dados dos support ticket à API
+     * @param context context da atividade ou fragment
+     */
+    public void getSupportTicketsAPI(final Context context){
+        // Caso não haja internet
+        if (!NetworkUtils.isConnectedInternet(context)){
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            readSupportTicketsDB();
+            supportTicketsListener.onRefreshList(supportTickets);
+            return;
+        }
+
+        if (this.user != null){
+            String endPoint = ApiEndPoint.ENDPOINT_MY_SUPPORT_TICKETS + "?access-token=" + this.user.getToken();
+
+            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, endPoint, null,
+                    response -> {
+                        supportTickets = UserJsonParser.parserJsonSupportTickets(response);
+                        if (supportTicketsListener != null && supportTickets.size()>0){
+                            UserDBManager.getInstance(context).truncateTableSupportTickets();
+                            addSupportTicketsDB(supportTickets);
+                            supportTicketsListener.onRefreshList(supportTickets);
+                        }
+                    }, error -> Toast.makeText(context, R.string.error_support_tickets, Toast.LENGTH_SHORT).show());
+
+            volleyQueue.add(jsonArrayRequest);
+        }
+    }
+
+    /**
+     * Vai criar mensagem no support ticket à API
+     * @param context context da atividade ou fragment
+     */
+    public void setMessageSupportTicketAPI(final Context context, String message, Integer support_ticket_id){
+        if (!NetworkUtils.isConnectedInternet(context)){
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (this.user != null){
+            String endPoint = ApiEndPoint.ENDPOINT_SUPPORT_TICKET_MESSAGES + "?access-token=" + this.user.getToken();
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, endPoint,
+                    response -> {
+                        if(supportTicketMessageListener != null){
+                            supportTicketMessageListener.onSetSupportTicketMessage(context.getString(R.string.create_data_success));
+                        }
+                    }, error -> Toast.makeText(context, R.string.save_data_failed, Toast.LENGTH_SHORT).show()
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("message", message);
+                    params.put("sender_id", user.getId()+"");
+                    params.put("support_ticket_id", support_ticket_id+"");
+                    return params;
+                }
+            };
+            volleyQueue.add(stringRequest);
+        }
+    }
+
+    /**
+     * Envia um support ticket para API de forma a alterar o estado.
+     * @param context context da atividade ou fragment
+     * @param supportTicket a enviar para a API para ser atualizado
+     */
+    public void updateSupportTicketAPI(final Context context, SupportTicket supportTicket){
+        if (!NetworkUtils.isConnectedInternet(context)){
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (this.user != null){
+            String endPoint = ApiEndPoint.ENDPOINT_SUPPORT_TICKETS + "/" + supportTicket.getId() + "?access-token=" + this.user.getToken();
+
+            StringRequest stringRequest = new StringRequest(Request.Method.PUT, endPoint,
+                    response -> {
+                        Toast.makeText(context, R.string.support_ticket_done, Toast.LENGTH_SHORT).show();
+                        supportTicket.setState("Concluido");
+                        updateSupportTicketDB(supportTicket);
+                        supportTicketListener.onRefreshSupportTicket();
+                    }, error -> Toast.makeText(context, R.string.error_support_tickets, Toast.LENGTH_SHORT).show()
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("state","Concluido");
+                    return params;
+                }
+            };
+
+            volleyQueue.add(stringRequest);
+        }
+    }
+
+    /**
+     * Cria todos os support tickets numa base de dados local para que possam ser visualizados offline
+     * @param supportTickets lista dos support ticket a criar na BD
+     */
+    private void addSupportTicketsDB(ArrayList<SupportTicket> supportTickets) {
+        for (SupportTicket supportTicket: supportTickets) {
+            UserDBManager.getInstance(context).createSupportTicket(supportTicket);
+            for (TicketMessage message : supportTicket.getMessages()){
+                UserDBManager.getInstance(context).createMessage(message,supportTicket.getId());
+            }
+        }
+    }
+
+    /**
+     * Atualiza um support ticket na BD
+     */
+    private void readSupportTicketsDB() {
+        supportTickets = UserDBManager.getInstance(context).readSupportTickets();
+        for (SupportTicket supportTicket: supportTickets){
+            supportTicket.setMessages(UserDBManager.getInstance(context).readMessages(supportTicket.getId()));
+        }
+    }
+
+    /**
+     * Atualiza um support ticket que já esteja na BD local
+     * @param supportTicket bilhete a atualizar na BD
+     */
+    private void updateSupportTicketDB(SupportTicket supportTicket) {
+        UserDBManager.getInstance(context).updateSupportTicket(supportTicket);
     }
 
     /**

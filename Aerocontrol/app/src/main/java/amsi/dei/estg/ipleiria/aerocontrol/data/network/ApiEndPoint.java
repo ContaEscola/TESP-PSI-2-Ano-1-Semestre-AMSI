@@ -10,6 +10,7 @@ public class ApiEndPoint {
 	public final static String ENDPOINT_LOGIN = ENDPOINT_API + "/auth/login";
     public final static String ENDPOINT_SIGNUP = ENDPOINT_API + "/auth/signup";
 	public final static String ENDPOINT_UPDATE_ACCOUNT = ENDPOINT_API + "/user";
+	public final static String ENDPOINT_RESET_PASSWORD = ENDPOINT_API + "/user/reset-password";
 
     //Entities
     public final static String ENDPOINT_RESTAURANTS = ENDPOINT_API + "/restaurants";
@@ -21,4 +22,13 @@ public class ApiEndPoint {
 
     public final static String ENDPOINT_FLIGHT_TICKETS = ENDPOINT_API + "/flight-tickets";
     public final static String ENDPOINT_MY_FLIGHT_TICKETS = ENDPOINT_FLIGHT_TICKETS + "/my-tickets";
+    
+	public final static String ENDPOINT_AIRPORTS = ENDPOINT_API + "/airports";
+
+    public final static String ENDPOINT_FLIGHT_SEARCH = ENDPOINT_API + "/flight/search";
+    
+    
+    public final static String ENDPOINT_SUPPORT_TICKETS = ENDPOINT_API + "/support-tickets";
+    public final static String ENDPOINT_MY_SUPPORT_TICKETS = ENDPOINT_SUPPORT_TICKETS + "/my-support-tickets";
+    public final static String ENDPOINT_SUPPORT_TICKET_MESSAGES = ENDPOINT_API + "/ticket-messages";
 }

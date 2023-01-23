@@ -41,8 +41,10 @@
     <string name="confirm">Confirmar</string>
     <string name="cancel">Cancelar</string>
     <string name="birthdate_format">DD-MM-YYYY</string>
+    <string name="date_format">%1$02d/%2$02d/%3$04d</string>
     <string name="save_data">Guardar Alterações</string>
     <string name="save_data_success">Alterações efetuadas com sucesso!</string>
+    <string name="create_data_success">Mensagem criada com sucesso!</string>
     <string name="save_data_failed">Alterações não efetuadas, algo correu mal!</string>
 
 
@@ -52,11 +54,14 @@
     <string name="splash_screen_text">Reserve já o seu próximo voo!</string>
     <string name="accept_terms">Li e aceito integralmente os termos e condições.</string>
     <string name="check_in_done">Check-in efetuado.</string>
+    <string name="support_ticket_done">Suporte ticket concluido.</string>
     <string name="ticket_deleted">Bilhete cancelado com sucesso. Receberá um reembolso.</string>
     <string name="cancel_ticket">Cancelar bilhete</string>
+    <string name="conclude_support_ticket">Concluir suporte ticket</string>
     <string name="select_gender">Selecione um género</string>
     <string name="insert_birth_date">Insira a data de nascimento.</string>
     <string name="verify_password">Para guardar os seus dados é necessário verificar a password.</string>
+    <string name="signup_verification">Verifique o seu email para mais instruções!</string>
 
 
     <!--  Dados User  -->
@@ -91,14 +96,14 @@
     <string name="flight_destiny">Destino:</string>
     <string name="flight_passengers">Nº Passageiros:</string>
     <string name="flight_departure_date">Data de partida:</string>
-    <string name="flight_arrival_date">Data de chegada:</string>
+    <string name="flight_come_back_date">Data de volta:</string>
 
 
     <!--  Titulos  -->
     <string name="edit_account">Editar dados da conta</string>
     <string name="my_tickets">Meus Bilhetes</string>
     <string name="my_tickets_support">Meus Tickets</string>
-    <string name="lost_and_found">Perdidos e achados</string>
+    <string name="my_support_ticket">Tickets de Suporte</string>
     <string name="resetpass">Repor a sua password</string>
     <string name="my_tickets_info_support">Ticket nº250 - Camisola Perdida</string>
 
@@ -172,13 +177,15 @@
     <string name="no_internet_connection">Sem ligação de internet</string>
     <string name="error_restaurants">Erro ao mostrar os restaurantes.</string>
     <string name="error_no_restaurant">Restaurante não encontrado</string>
-    <string name="error_no_loja">Loja não encontrada</string>
+    <string name="error_na_loja">Loja não encontrada</string>
     <string name="error_stores">Erro ao mostrar as lojas.</string>
     <string name="error_tickets">Erro ao mostrar os seus bilhetes.</string>
+    <string name="error_support_tickets">Erro ao mostrar os seus suporte tickets.</string>
     <string name="error_login">Erro ao dar Login</string>
     <string name="invalid_credentials">Credenciais inválidas</string>
     <string name="insert_all_data">Preencha todos os campos.</string>
     <string name="error_on_ticket">Erro ao encontrar o bilhete</string>
+    <string name="error_on_support_ticket">Erro ao encontrar o ticket de suporte</string>
     <string name="errors_found">Erros encontrados</string>
     <string name="solve_errors">Antes de prosseguir, resolva os seguintes erros:</string>
     <string name="no_apps_to_emails">Não existem aplicações no dispositivo para o envio de emails.</string>
@@ -198,6 +205,11 @@
     <string name="phone_error">O nº de telemóvel só pode conter números, e tem de ter de 4 a 15 números.</string>
     <string name="phone_code_error">Formato inválido.\nExemplo: +000</string>
     <string name="birthdate_error">Formato inválido.\nExemplo: 30/04/2000</string>
-    <string name="signup_verification">Verifique o seu email para mais instruções!</string>
+    <string name="error_airports">Erro ao carregar os aeroportos disponiveis</string>
+    <string name="no_flights_found">Não foram encontrados voos, exprimente outra data!</string>
+    <string name="no_flights_found_search_more_dates">Não foram encontrados voos, a procurar nas próximas datas.</string>
+    <string name="origin_arrival">Origem - Destino</string>
+    <string name="reserved">Reservado</string>
+
 
 </resources>

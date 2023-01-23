@@ -15,6 +15,22 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
 import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
@@ -76,6 +92,11 @@ public class AccountFragment extends Fragment {
 
         bindingLoggedIn.AccountLoggedInConsLayoutEditData.setOnClickListener(v -> {
             Intent intent = new Intent(this.getContext(), EditAccountActivity.class);
+            startActivity(intent);
+        });
+
+        bindingLoggedIn.AccountLoggedInConsLayoutSupportTicket.setOnClickListener(v -> {
+            Intent intent = new Intent(this.getContext(), SupportTicketActivity.class);
             startActivity(intent);
         });
 

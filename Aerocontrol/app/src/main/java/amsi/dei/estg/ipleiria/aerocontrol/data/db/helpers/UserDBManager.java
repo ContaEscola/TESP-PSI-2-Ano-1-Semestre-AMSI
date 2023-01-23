@@ -9,7 +9,8 @@ import java.util.ArrayList;
 
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.FlightTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Passenger;
-import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiConfig;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.TicketMessage;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.DateDisplayFormatUtils;
 
 public class UserDBManager {
@@ -48,7 +49,7 @@ public class UserDBManager {
         values.put(UserDBOpenHelper.COL_FLIGHT_TICKET_ORIGINAL_PRICE,flightTicket.getOriginalPrice());
         values.put(UserDBOpenHelper.COL_FLIGHT_TICKET_PAID_PRICE, flightTicket.getPaidPrice());
         values.put(UserDBOpenHelper.COL_FLIGHT_TICKET_FLIGHT_DATE,flightTicket.getFlightDate());
-        values.put(UserDBOpenHelper.COL_FLIGHT_TICKET_PURCHASE_DATE, flightTicket.getPurchaseDate().toString());
+        values.put(UserDBOpenHelper.COL_FLIGHT_TICKET_PURCHASE_DATE, DateDisplayFormatUtils.formatDateTimeToString(flightTicket.getPurchaseDate()));
         values.put(UserDBOpenHelper.COL_FLIGHT_TICKET_DISTANCE,flightTicket.getDistance());
         values.put(UserDBOpenHelper.COL_FLIGHT_TICKET_CHECK_IN, flightTicket.isCheckIn());
 
@@ -84,7 +85,7 @@ public class UserDBManager {
                         cursor.getDouble(8),
                         cursor.getDouble(9),
                         cursor.getString(10),
-                        DateDisplayFormatUtils.formatStringToDateTime(cursor.getString(11), ApiConfig.API_DATE_TIME_FORMAT), // Para o User ter o birthdate com o formato igual a da API
+                        DateDisplayFormatUtils.formatStringToDateTime(cursor.getString(11), null), // Para o User ter o birthdate com o formate consistente
                         cursor.getFloat(12),
                         cursor.getInt(13) == 1) // Verifica se o check in é true ou false
                 );
@@ -182,5 +183,107 @@ public class UserDBManager {
      */
     public void truncateTablePassengers(){
         this.database.delete(UserDBOpenHelper.TBL_PASSENGER,null,null);
+    }
+
+    private ContentValues convertSupportTicketToContentValues(SupportTicket supportTicket) {
+        ContentValues values = new ContentValues();
+
+        values.put(UserDBOpenHelper.COL_SUPPORT_TICKET_ID, supportTicket.getId());
+        values.put(UserDBOpenHelper.COL_SUPPORT_TICKET_TITLE, supportTicket.getTitle());
+        values.put(UserDBOpenHelper.COL_SUPPORT_TICKET_STATE, supportTicket.getState());
+
+        return values;
+    }
+
+    /**
+     * Cria um suport ticket na BD local
+     * @param supportTicket support ticket a criar
+     */
+    public void createSupportTicket (SupportTicket supportTicket){
+        ContentValues values = convertSupportTicketToContentValues(supportTicket);
+        this.database.insert(UserDBOpenHelper.TBL_SUPPORT_TICKET, null, values);
+    }
+
+    /**
+     * Lê os support ticket da BD
+     * @return Devolve todos os support ticket que estão na BD local
+     */
+    public ArrayList<SupportTicket> readSupportTickets(){
+        ArrayList<SupportTicket> supportTickets = new ArrayList<>();
+        Cursor cursor = this.database.rawQuery("SELECT * FROM " + UserDBOpenHelper.TBL_SUPPORT_TICKET, null);
+        if(cursor.moveToFirst()){
+            do{
+                supportTickets.add(new SupportTicket(cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2)));
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        return supportTickets;
+    }
+
+    /**
+     * Atualiza o suporte ticket na BD
+     * @param supportTicket support ticket a ser autalizado
+     * @return Devolve o número de rows atualizadas.
+     */
+    public boolean updateSupportTicket(SupportTicket supportTicket){
+        ContentValues values = convertSupportTicketToContentValues(supportTicket);
+        return this.database.update(UserDBOpenHelper.TBL_SUPPORT_TICKET, values, "id = ?", new String[]{"" + supportTicket.getId()}) > 0;
+    }
+
+    /**
+     * Apaga um support ticket da BD
+     * @param idSupportTicket id do support ticket a ser eliminado
+     */
+    public void deleteSupportTicket(int idSupportTicket){
+        deleteSupportTicket(idSupportTicket);
+        this.database.delete(UserDBOpenHelper.TBL_SUPPORT_TICKET, "id = ?", new String[]{"" + idSupportTicket});
+    }
+
+    /**
+     * Dá truncate à tabela dos support ticket
+     */
+    public void truncateTableSupportTickets(){
+        this.database.delete(UserDBOpenHelper.TBL_SUPPORT_TICKET,null,null);
+    }
+
+    private ContentValues convertSupportTicketMessageToContentValues(TicketMessage message, final int supportTicketId) {
+        ContentValues values = new ContentValues();
+
+        values.put(UserDBOpenHelper.COL_SUPPORT_TICKET_MESSAGE_MESSAGE, message.getMessage());
+        values.put(UserDBOpenHelper.COL_SUPPORT_TICKET_MESSAGE_SENDER_ID, message.getSender());
+        values.put(UserDBOpenHelper.COL_SUPPORT_TICKET_MESSAGE_SUPPORT_TICKET_ID, supportTicketId);
+
+        return values;
+    }
+
+    /**
+     * Cria uma mensagem na BD local
+     * @param message Passageiro a criar
+     */
+    public void createMessage (TicketMessage message, int support_ticket_id) {
+        ContentValues values = convertSupportTicketMessageToContentValues(message, support_ticket_id);
+        this.database.insert(UserDBOpenHelper.TBL_SUPPORT_TICKET_MESSAGE, null, values);
+    }
+
+    /**
+     * Lê os passageiros da BD
+     * @return Devolve todos os passageiros que estão na BD local
+     */
+    public ArrayList<TicketMessage> readMessages(int support_ticket_id){
+        ArrayList<TicketMessage> messages = new ArrayList<>();
+        Cursor cursor = this.database.rawQuery("SELECT * FROM " + UserDBOpenHelper.TBL_SUPPORT_TICKET_MESSAGE +
+                " WHERE " + UserDBOpenHelper.COL_SUPPORT_TICKET_MESSAGE_SUPPORT_TICKET_ID + " == " +  support_ticket_id +";", null);
+        if(cursor.moveToFirst()){
+            do{
+                messages.add(new TicketMessage(cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2))
+                );
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        return messages;
     }
 }
