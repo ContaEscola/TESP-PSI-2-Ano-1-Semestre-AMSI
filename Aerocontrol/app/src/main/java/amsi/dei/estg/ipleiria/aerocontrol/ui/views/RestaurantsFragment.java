@@ -1,8 +1,6 @@
 package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +11,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.ArrayList;
 
-import amsi.dei.estg.ipleiria.aerocontrol.adapters.RestaurantsListAdapter;
+import amsi.dei.estg.ipleiria.aerocontrol.ui.adapters.RecyclerViewRestaurantsAdapter;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Restaurant;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonEnterprises;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.RestaurantsListener;
 import amsi.dei.estg.ipleiria.aerocontrol.databinding.FragmentRestaurantsBinding;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.EnterprisesListenerRestaurant;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.MyTextWatcher;
 
-public class RestaurantsFragment extends Fragment implements EnterprisesListenerRestaurant {
+public class RestaurantsFragment extends Fragment implements RestaurantsListener {
 
-    private RestaurantsListAdapter adapter;
+    private RecyclerViewRestaurantsAdapter adapter;
 
     private FragmentRestaurantsBinding binding;
 
@@ -33,38 +32,25 @@ public class RestaurantsFragment extends Fragment implements EnterprisesListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentRestaurantsBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
-
+        
         binding.RestaurantsRvRestaurants.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.RestaurantsRvRestaurants.setItemAnimator(new DefaultItemAnimator());
 
-        SingletonEnterprises.getInstance(this.getContext()).setEnterprisesListenerRestaurant(this);
+        SingletonEnterprises.getInstance(this.getContext()).setRestaurantsListener(this);
         SingletonEnterprises.getInstance(this.getContext()).getRestaurantsAPI(this.getContext());
 
-        binding.RestaurantsEtSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
+        binding.RestaurantsEtSearch.addTextChangedListener(new MyTextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                ArrayList<Restaurant> auxRestaurants = new ArrayList<>();
-                for (Restaurant restaurant: SingletonEnterprises.getInstance(getContext()).getRestaurants()) {
-                    if (restaurant.getName().toUpperCase().contains(s.toString().toUpperCase())){
-                        auxRestaurants.add(restaurant);
-                    }
-                }
-                binding.RestaurantsRvRestaurants.setAdapter(new RestaurantsListAdapter(getContext(),auxRestaurants));
-                binding.RestaurantsRvRestaurants.setItemAnimator(new DefaultItemAnimator());
+                adapter.getFilter().filter(s);
             }
-
-            @Override
-            public void afterTextChanged(Editable s) {}
         });
         return view;
     }
 
     @Override
     public void onRefreshList(ArrayList<Restaurant> restaurants) {
-        adapter = new RestaurantsListAdapter(this.getContext(),SingletonEnterprises.getInstance(getContext()).getRestaurants());
+        adapter = new RecyclerViewRestaurantsAdapter(this.getContext(), restaurants);
         binding.RestaurantsRvRestaurants.setAdapter(adapter);
-        binding.RestaurantsRvRestaurants.setItemAnimator(new DefaultItemAnimator());
     }
 }

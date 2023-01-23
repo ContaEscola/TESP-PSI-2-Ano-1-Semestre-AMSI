@@ -48,10 +48,10 @@
           android:id="@+id/RestaurantDetails_Tv_Schedule"
           style="@style/DataText"
           android:layout_width="0dp"
-          android:layout_marginStart="2dp"
+          android:layout_marginStart="5dp"
+          app:layout_constraintBaseline_toBaselineOf="@+id/RestaurantDetails_Tv_LabelSchedule"
           app:layout_constraintEnd_toStartOf="@+id/RestaurantDetails_GuidelineEnd"
-          app:layout_constraintStart_toEndOf="@+id/RestaurantDetails_Tv_LabelSchedule"
-          app:layout_constraintTop_toTopOf="@+id/RestaurantDetails_Tv_LabelSchedule" />
+          app:layout_constraintStart_toEndOf="@+id/RestaurantDetails_Tv_LabelSchedule" />
 
       <TextView
           android:id="@+id/RestaurantDetails_Tv_LabelDescription"
@@ -66,10 +66,10 @@
           android:id="@+id/RestaurantDetails_Tv_Description"
           style="@style/DataText"
           android:layout_width="0dp"
-          android:layout_marginStart="2dp"
+          android:layout_marginStart="5dp"
+          app:layout_constraintBaseline_toBaselineOf="@+id/RestaurantDetails_Tv_LabelDescription"
           app:layout_constraintEnd_toStartOf="@+id/RestaurantDetails_GuidelineEnd"
-          app:layout_constraintStart_toEndOf="@+id/RestaurantDetails_Tv_LabelDescription"
-          app:layout_constraintTop_toTopOf="@+id/RestaurantDetails_Tv_LabelDescription" />
+          app:layout_constraintStart_toEndOf="@+id/RestaurantDetails_Tv_LabelDescription" />
 
       <TextView
           android:id="@+id/RestaurantDetails_Tv_LabelPhone"
@@ -84,10 +84,10 @@
           android:id="@+id/RestaurantDetails_Tv_Phone"
           style="@style/DataText"
           android:layout_width="0dp"
-          android:layout_marginStart="2dp"
+          android:layout_marginStart="5dp"
+          app:layout_constraintBaseline_toBaselineOf="@+id/RestaurantDetails_Tv_LabelPhone"
           app:layout_constraintEnd_toStartOf="@+id/RestaurantDetails_GuidelineEnd"
-          app:layout_constraintStart_toEndOf="@+id/RestaurantDetails_Tv_LabelPhone"
-          app:layout_constraintTop_toTopOf="@+id/RestaurantDetails_Tv_LabelPhone" />
+          app:layout_constraintStart_toEndOf="@+id/RestaurantDetails_Tv_LabelPhone" />
 
       <TextView
           android:id="@+id/RestaurantDetails_Tv_LabelWebsite"
@@ -102,10 +102,10 @@
           android:id="@+id/RestaurantDetails_Tv_Website"
           style="@style/DataText"
           android:layout_width="0dp"
-          android:layout_marginStart="2dp"
+          android:layout_marginStart="5dp"
+          app:layout_constraintBaseline_toBaselineOf="@+id/RestaurantDetails_Tv_LabelWebsite"
           app:layout_constraintEnd_toStartOf="@+id/RestaurantDetails_GuidelineEnd"
-          app:layout_constraintStart_toEndOf="@+id/RestaurantDetails_Tv_LabelWebsite"
-          app:layout_constraintTop_toTopOf="@+id/RestaurantDetails_Tv_LabelWebsite" />
+          app:layout_constraintStart_toEndOf="@+id/RestaurantDetails_Tv_LabelWebsite" />
 
       <TextView
           android:id="@+id/RestaurantDetails_Tv_Menu"

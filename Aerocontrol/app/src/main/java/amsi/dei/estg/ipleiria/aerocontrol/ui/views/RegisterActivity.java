@@ -1,10 +1,14 @@
 package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,15 +20,19 @@ import java.util.GregorianCalendar;
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.User;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
+import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiConfig;
 import amsi.dei.estg.ipleiria.aerocontrol.databinding.ActivityRegisterBinding;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.SignupListener;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.DateDisplayFormatUtils;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.UserValidations;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.Validations;
 
 
 public class RegisterActivity extends AppCompatActivity implements SignupListener {
 
     ActivityRegisterBinding binding;
     Calendar calendar;
+    Date birthDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity implements SignupListene
 
         SingletonUser.getInstance(this).setSignupListener(this);
 
-        startCalender();
+        startCalendar();
         initializeCbGenders();
         setTextChangedListeners();
 
@@ -51,19 +59,26 @@ public class RegisterActivity extends AppCompatActivity implements SignupListene
                 signup();
             } else Toast.makeText(this, R.string.fill_fields_without_errors, Toast.LENGTH_SHORT).show();
         });
+
     }
 
-    private void startCalender(){
-        Date date = new Date();
+    private void startCalendar(){
+        birthDate = new Date();
+
         calendar = new GregorianCalendar();
-        calendar.setTime(date);
+        calendar.setTime(birthDate);
     }
 
     private void showDatePicker(){
         DatePickerDialog picker = new DatePickerDialog(this, R.style.customDatePickerStyle,
                 (DatePickerDialog.OnDateSetListener) (view, year, monthOfYear, dayOfMonth) -> {
-                    String date_dd_mm_yyyy = getString(R.string.date_format,dayOfMonth,monthOfYear+1,year);
-                    binding.RegisterEtBirth.setText(date_dd_mm_yyyy);
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.YEAR, year);
+                cal.set(Calendar.MONTH, monthOfYear);
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                Date date = cal.getTime();
+                birthDate = date;
+                binding.RegisterEtBirth.setText(DateDisplayFormatUtils.formatDateToString(date, Validations.VALIDATION_DATE_FORMAT));
                 }, calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH));
@@ -71,10 +86,10 @@ public class RegisterActivity extends AppCompatActivity implements SignupListene
         picker.setTitle(getString(R.string.insert_birth_date));
 
         picker.setOnShowListener(dialog -> {
-            Button postiveBt = picker.getButton(DialogInterface.BUTTON_POSITIVE);
+            Button positiveBt = picker.getButton(DialogInterface.BUTTON_POSITIVE);
             Button negativeBt = picker.getButton(DialogInterface.BUTTON_NEGATIVE);
-            postiveBt.setTextColor(getResources().getColor(R.color.black_400));
-            postiveBt.setText(R.string.confirm);
+            positiveBt.setTextColor(getResources().getColor(R.color.black_400));
+            positiveBt.setText(R.string.confirm);
             negativeBt.setTextColor(getResources().getColor(R.color.black_400));
             negativeBt.setText(R.string.cancel);
         });
@@ -125,13 +140,6 @@ public class RegisterActivity extends AppCompatActivity implements SignupListene
             }
         });
 
-        binding.RegisterEtBirth.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) {
-                if (UserValidations.validateBirthdate(String.valueOf(binding.RegisterEtBirth.getText())))
-                    binding.RegisterEtBirth.disableError();
-                else binding.RegisterEtBirth.enableError(UserValidations.birthdateError);
-            }
-        });
 
         binding.RegisterEtCountry.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
@@ -149,11 +157,11 @@ public class RegisterActivity extends AppCompatActivity implements SignupListene
             }
         });
 
-        binding.RegisterEtFirstName.setOnFocusChangeListener((v, hasFocus) -> {
+        binding.RegisterEtBirth.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
                 if (UserValidations.validateFirstName(String.valueOf(binding.RegisterEtFirstName.getText())))
-                    binding.RegisterEtFirstName.disableError();
-                else binding.RegisterEtFirstName.enableError(UserValidations.firstNameError);
+                    binding.RegisterEtBirth.disableError();
+                else binding.RegisterEtBirth.enableError(UserValidations.firstNameError);
             }
         });
 
@@ -245,23 +253,37 @@ public class RegisterActivity extends AppCompatActivity implements SignupListene
 
     private void signup(){
         User user = new User();
-        user.setUsername(String.valueOf(binding.RegisterEtUsername.getText()).trim());
-        user.setPassword(String.valueOf(binding.RegisterEtPassword.getText()).trim());
-        user.setFirstName(String.valueOf(binding.RegisterEtFirstName.getText()).trim());
-        user.setLastName(String.valueOf(binding.RegisterEtLastName.getText()).trim());
-        user.setGender(String.valueOf(binding.RegisterACTVGender.getText()).trim());
-        user.setBirthdate(String.valueOf(binding.RegisterEtBirth.getText()).trim());
-        user.setCountry(String.valueOf(binding.RegisterEtCountry.getText()).trim());
-        user.setCity(String.valueOf(binding.RegisterEtCity.getText()).trim());
-        user.setEmail(String.valueOf(binding.RegisterEtEmail.getText()).trim());
-        user.setPhoneCountryCode(String.valueOf(binding.RegisterEtPhoneCode.getText()).trim());
-        user.setPhone(String.valueOf(binding.RegisterEtPhone.getText()).trim());
+        user.setUsername(String.valueOf(binding.RegisterEtUsername.getText()));
+        user.setPassword(String.valueOf(binding.RegisterEtPassword.getText()));
+        user.setFirstName(String.valueOf(binding.RegisterEtFirstName.getText()));
+        user.setLastName(String.valueOf(binding.RegisterEtLastName.getText()));
+        user.setGender(String.valueOf(binding.RegisterACTVGender.getText()));
+        user.setBirthdate(birthDate);
+        user.setCountry(String.valueOf(binding.RegisterEtCountry.getText()));
+        user.setCity(String.valueOf(binding.RegisterEtCity.getText()));
+        user.setEmail(String.valueOf(binding.RegisterEtEmail.getText()));
+        user.setPhoneCountryCode(String.valueOf(binding.RegisterEtPhoneCode.getText()));
+        user.setPhone(String.valueOf(binding.RegisterEtPhone.getText()));
         SingletonUser.getInstance(this).signupAPI(user,this);
     }
 
     @Override
-    public void onSignup(String message) {
+    public void onSignup() {
         Toast.makeText(this, R.string.signup_verification, Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    @Override
+    public void onErrorSignup(String message) {
+        if(message.isEmpty()) {
+            Toast.makeText(this, R.string.common_error, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.errors_found);
+        builder.setMessage(message);
+        builder.setPositiveButton(R.string.confirm, (dialog, which) -> {});
+        builder.show();
     }
 }
