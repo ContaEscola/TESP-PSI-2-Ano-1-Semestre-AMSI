@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.FlightTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Passenger;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiConfig;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.DateDisplayFormatUtils;
 
@@ -182,5 +183,68 @@ public class UserDBManager {
      */
     public void truncateTablePassengers(){
         this.database.delete(UserDBOpenHelper.TBL_PASSENGER,null,null);
+    }
+
+    private ContentValues convertSupportTicketToContentValues(SupportTicket supportTicket) {
+        ContentValues values = new ContentValues();
+
+        values.put(UserDBOpenHelper.COL_SUPPORT_TICKET_ID, supportTicket.getId());
+        values.put(UserDBOpenHelper.COL_SUPPORT_TICKET_TITLE, supportTicket.getTitle());
+        values.put(UserDBOpenHelper.COL_SUPPORT_TICKET_STATE, supportTicket.getState());
+
+        return values;
+    }
+
+    /**
+     * Cria um suport ticket na BD local
+     * @param supportTicket support ticket a criar
+     */
+    public void createSupportTicket (SupportTicket supportTicket){
+        ContentValues values = convertSupportTicketToContentValues(supportTicket);
+        this.database.insert(UserDBOpenHelper.TBL_SUPPORT_TICKET, null, values);
+    }
+
+    /**
+     * Lê os support ticket da BD
+     * @return Devolve todos os support ticket que estão na BD local
+     */
+    public ArrayList<SupportTicket> readSupportTickets(){
+        ArrayList<SupportTicket> supportTickets = new ArrayList<>();
+        Cursor cursor = this.database.rawQuery("SELECT * FROM " + UserDBOpenHelper.TBL_SUPPORT_TICKET, null);
+        if(cursor.moveToFirst()){
+            do{
+                supportTickets.add(new SupportTicket(cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2)));
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        return supportTickets;
+    }
+
+    /**
+     * Atualiza o suporte ticket na BD
+     * @param supportTicket support ticket a ser autalizado
+     * @return Devolve o número de rows atualizadas.
+     */
+    public boolean updateSupportTicket(SupportTicket supportTicket){
+        ContentValues values = convertSupportTicketToContentValues(supportTicket);
+        return this.database.update(UserDBOpenHelper.TBL_SUPPORT_TICKET, values, "id = ?", new String[]{"" + supportTicket.getId()}) > 0;
+    }
+
+    /**
+     * Apaga um support ticket da BD
+     * @param idSupportTicket id do support ticket a ser eliminado
+     */
+    public void deleteSupportTicket(int idSupportTicket){
+        deleteSupportTicket(idSupportTicket);
+        this.database.delete(UserDBOpenHelper.TBL_SUPPORT_TICKET, "id = ?", new String[]{"" + idSupportTicket});
+    }
+
+    /**
+     * Dá truncate à tabela dos support ticket
+     */
+    public void truncateTableSupportTickets(){
+        this.database.delete(UserDBOpenHelper.TBL_SUPPORT_TICKET,null,null);
     }
 }

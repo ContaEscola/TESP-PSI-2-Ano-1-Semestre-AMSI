@@ -100,7 +100,7 @@
     <string name="edit_account">Editar dados da conta</string>
     <string name="my_tickets">Meus Bilhetes</string>
     <string name="my_tickets_support">Meus Tickets</string>
-    <string name="lost_and_found">Perdidos e achados</string>
+    <string name="my_support_ticket">Tickets de Suporte</string>
     <string name="resetpass">Repor a sua password</string>
     <string name="my_tickets_info_support">Ticket nº250 - Camisola Perdida</string>
 
@@ -174,13 +174,15 @@
     <string name="no_internet_connection">Sem ligação de internet</string>
     <string name="error_restaurants">Erro ao mostrar os restaurantes.</string>
     <string name="error_no_restaurant">Restaurante não encontrado</string>
-    <string name="error_no_loja">Loja não encontrada</string>
+    <string name="error_na_loja">Loja não encontrada</string>
     <string name="error_stores">Erro ao mostrar as lojas.</string>
     <string name="error_tickets">Erro ao mostrar os seus bilhetes.</string>
+    <string name="error_support_tickets">Erro ao mostrar os seus suporte tickets.</string>
     <string name="error_login">Erro ao dar Login</string>
     <string name="invalid_credentials">Credenciais inválidas</string>
     <string name="insert_all_data">Preencha todos os campos.</string>
     <string name="error_on_ticket">Erro ao encontrar o bilhete</string>
+    <string name="error_on_support_ticket">Erro ao encontrar o ticket de suporte</string>
     <string name="errors_found">Erros encontrados</string>
     <string name="solve_errors">Antes de prosseguir, resolva os seguintes erros:</string>
     <string name="no_apps_to_emails">Não existem aplicações no dispositivo para o envio de emails.</string>

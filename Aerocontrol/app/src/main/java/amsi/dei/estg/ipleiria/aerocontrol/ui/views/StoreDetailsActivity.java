@@ -40,7 +40,7 @@ public class StoreDetailsActivity extends AppCompatActivity {
         if (idStore != -1){
             store = SingletonEnterprises.getInstance(this).getStoreById(idStore);
             setStoreInView();
-        } else Toast.makeText(this, R.string.error_no_loja, Toast.LENGTH_SHORT).show();
+        } else Toast.makeText(this, R.string.error_na_loja, Toast.LENGTH_SHORT).show();
     }
 
     private void setStoreInView() {

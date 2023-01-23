@@ -43,6 +43,9 @@ import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketsListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.ResetPasswordListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.ResetPasswordJsonParser;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketsListener;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.UserJsonParser;
 
 public class SingletonUser {
 
@@ -60,11 +63,15 @@ public class SingletonUser {
     private RequestQueue volleyQueue;
 
     private LoginListener loginListener;
-    private FlightTicketsListener flightTicketsListener;
-    private FlightTicketListener flightTicketListener;
-	private UpdateUserListener updateUserListener;
     private SignupListener signupListener;
     private ResetPasswordListener resetPasswordListener;
+	private UpdateUserListener updateUserListener;
+	
+    private FlightTicketsListener flightTicketsListener;
+    private FlightTicketListener flightTicketListener;
+
+    private SupportTicketsListener supportTicketsListener;
+    private SupportTicketListener supportTicketListener;
 
     public void setLoginListener(LoginListener loginListener) {
         this.loginListener = loginListener;
@@ -88,6 +95,13 @@ public class SingletonUser {
 
 	public void setResetPasswordListener(ResetPasswordListener resetPasswordListener){
         this.resetPasswordListener = resetPasswordListener;
+    }
+	public void setSupportTicketsListener(SupportTicketsListener supportTicketsListener) {
+        this.supportTicketsListener = supportTicketsListener;
+    }
+
+    public void setSupportTicketListener(SupportTicketListener supportTicketListener) {
+        this.supportTicketListener = supportTicketListener;
     }
 
     private SingletonUser(Context context){
@@ -547,7 +561,7 @@ public class SingletonUser {
      *
      * @param ticket Bilhete de voo a apagar.
      */
-    public void deleteTicket(FlightTicket ticket) {
+    public void deleteFlightTicket(FlightTicket ticket) {
         this.flightTickets.remove(ticket);
     }
 
@@ -573,6 +587,45 @@ public class SingletonUser {
         FlightTicket ticket = getFlightTicketById(id);
         if(ticket != null)
             ticket.addPassenger(passenger);
+	}
+
+    /**
+     * Vai buscar os dados dos support ticket à API
+     * @param context context da atividade ou fragment
+     */
+    public void getSupportTicketsAPI(final Context context){
+        // Caso não haja internet
+        if (!NetworkUtils.isConnectedInternet(context)){
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            supportTicketsListener.onRefreshList(supportTickets);
+            return;
+        }
+
+        if (this.user != null){
+            String endPoint = ApiEndPoint.ENDPOINT_MY_SUPPORT_TICKETS + "?access-token=" + this.user.getToken();
+
+            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, endPoint, null,
+                    response -> {
+                        supportTickets = UserJsonParser.parserJsonSupportTickets(response);
+                        if (supportTicketsListener != null && supportTickets.size()>0){
+                            UserDBManager.getInstance(context).truncateTableSupportTickets();
+                            addSupportTicketsDB(supportTickets);
+                            supportTicketsListener.onRefreshList(supportTickets);
+                        }
+                    }, error -> Toast.makeText(context, R.string.error_support_tickets, Toast.LENGTH_SHORT).show());
+
+            volleyQueue.add(jsonArrayRequest);
+        }
+    }
+
+    /**
+     * Cria todos os support tickets numa base de dados local para que possam ser visualizados offline
+     * @param supportTickets lista dos support ticket a criar na BD
+     */
+    private void addSupportTicketsDB(ArrayList<SupportTicket> supportTickets) {
+        for (SupportTicket supportTicket: supportTickets) {
+            UserDBManager.getInstance(context).createSupportTicket(supportTicket);
+        }
     }
 
     /**
