@@ -14,11 +14,6 @@ public class FlightTicketPassengersActivity extends AppCompatActivity {
     public static final String NUM_PASSENGERS = "num_passengers";
     public static final String TWO_WAY_TRIP = "two_way_trip";
 
-    public static final String FLIGHT_GO_ID = "flight_go_id";
-    public static final String FLIGHT_BACK_ID = "flight_back_id";
-    public static final String NUM_PASSENGERS = "num_passengers";
-    public static final String TWO_WAY_TRIP = "two_way_trip";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -610,7 +610,7 @@ public class SingletonUser {
         }
 
         if (this.user != null){
-            String endPoint = ApiEndPoint.SUPPORT_TICKETS + "?access-token=" + this.user.getToken();
+            String endPoint = ApiEndPoint.ENDPOINT_SUPPORT_TICKETS + "?access-token=" + this.user.getToken();
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, endPoint,
                     response -> {
@@ -673,12 +673,12 @@ public class SingletonUser {
         }
 
         if (this.user != null){
-            String endPoint = ApiEndPoint.SUPPORT_TICKET_MESSAGE + "?access-token=" + this.user.getToken();
+            String endPoint = ApiEndPoint.ENDPOINT_SUPPORT_TICKET_MESSAGES + "?access-token=" + this.user.getToken();
             StringRequest stringRequest = new StringRequest(Request.Method.POST, endPoint,
                     response -> {
                         supportTicket.addMessage(new TicketMessage(0, message, user.getUsername()));
-                        if(setSupportTicketMessage != null){
-                            setSupportTicketMessage.onSetSupportTicketMessage(context.getString(R.string.create_data_success));
+                        if(supportTicketMessageListener != null){
+                            supportTicketMessageListener.onSetSupportTicketMessage(context.getString(R.string.create_data_success));
                         }
                     }, error -> Toast.makeText(context, R.string.save_data_failed, Toast.LENGTH_SHORT).show()
             ) {
