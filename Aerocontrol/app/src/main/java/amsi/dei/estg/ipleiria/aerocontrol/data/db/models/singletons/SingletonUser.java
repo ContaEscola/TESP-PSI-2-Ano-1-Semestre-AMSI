@@ -4,7 +4,6 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.ClientError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -43,7 +42,7 @@ import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketsListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.ResetPasswordListener;
-import amsi.dei.estg.ipleiria.aerocontrol.utils.SignupJsonParser;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.ResetPasswordJsonParser;
 
 public class SingletonUser {
 
@@ -250,7 +249,7 @@ public class SingletonUser {
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiEndPoint.ENDPOINT_RESET_PASSWORD,
                 response -> {
-                    String message = SignupJsonParser.parserJsonSignup(response);
+                    String message = ResetPasswordJsonParser.parserJsonResetPassword(response);
                     if (resetPasswordListener != null && message != null) {
                         resetPasswordListener.onEmailSent(message);
                     } else Toast.makeText(context, R.string.common_error, Toast.LENGTH_SHORT).show();

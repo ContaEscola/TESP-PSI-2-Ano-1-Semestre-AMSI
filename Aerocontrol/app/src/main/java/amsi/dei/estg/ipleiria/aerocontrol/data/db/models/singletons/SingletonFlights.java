@@ -31,26 +31,30 @@ public class SingletonFlights {
 
     private static SingletonFlights instance = null;
 
-    private AirportsListener airportsListener;
-    private FlightsListener flightsListener;
-
-    private static RequestQueue volleyQueue;
-
     private ArrayList<Airport> airports;
     private ArrayList<Flight> flightsGo;
     private ArrayList<Flight> flightsBack;
     private ArrayList<PaymentMethod> paymentMethods;
 
-    private SingletonFlights(){
+    private Context context;
+
+    private RequestQueue volleyQueue;
+
+    private AirportsListener airportsListener;
+    private FlightsListener flightsListener;
+
+
+    private SingletonFlights(Context context){
         flightsGo = new ArrayList<>();
         flightsBack = new ArrayList<>();
         paymentMethods = new ArrayList<>();
         airports = new ArrayList<>();
+
+        volleyQueue = Volley.newRequestQueue(context.getApplicationContext());
     }
 
     public static synchronized SingletonFlights getInstance(Context context){
-        volleyQueue = Volley.newRequestQueue(context);
-        if (instance == null) instance = new SingletonFlights();
+        if (instance == null) instance = new SingletonFlights(context);
         return instance;
     }
 
@@ -71,7 +75,7 @@ public class SingletonFlights {
             return;
         }
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, ApiEndPoint.AIRPORTS, null,
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, ApiEndPoint.ENDPOINT_AIRPORTS, null,
                 response -> {
                     airports = FlightsJsonParser.parserJsonAirports(response);
                     if (airportsListener != null && airports.size() > 0){
@@ -102,7 +106,7 @@ public class SingletonFlights {
             return;
         }
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiEndPoint.FLIGHT_SEARCH,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiEndPoint.ENDPOINT_FLIGHT_SEARCH,
                 response -> {
                     flightsGo = FlightsJsonParser.parserJsonFlights(response, true, context);
                     if (two_way_trip) flightsBack = FlightsJsonParser.parserJsonFlights(response, false, context);

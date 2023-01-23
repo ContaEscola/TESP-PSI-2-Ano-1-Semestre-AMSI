@@ -1,4 +1,4 @@
-package amsi.dei.estg.ipleiria.aerocontrol.adapters;
+package amsi.dei.estg.ipleiria.aerocontrol.ui.adapters;
 
 import android.content.Context;
 import android.graphics.Paint;
@@ -19,7 +19,7 @@ import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Flight;
 import amsi.dei.estg.ipleiria.aerocontrol.ui.views.FlightSearchResultsActivity;
 
-public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.ViewHolderList> {
+public class RecyclerViewFlightsAdapter extends RecyclerView.Adapter<RecyclerViewFlightsAdapter.ViewHolderList> {
 
     private Context context;
     private LayoutInflater layoutInflater;
@@ -29,20 +29,20 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.ViewHolder
     private Flight selectedFlight = null;
     private int currentClickedPosition = -1;
 
-    public FlightAdapter(Context context, ArrayList<Flight> flights){
+    public RecyclerViewFlightsAdapter(Context context, ArrayList<Flight> flights){
         this.context = context;
         this.flights = flights;
     }
 
     @NonNull
     @Override
-    public FlightAdapter.ViewHolderList onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerViewFlightsAdapter.ViewHolderList onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_flight_search_result,parent,false);
-        return new FlightAdapter.ViewHolderList(item);
+        return new RecyclerViewFlightsAdapter.ViewHolderList(item);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FlightAdapter.ViewHolderList holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerViewFlightsAdapter.ViewHolderList holder, int position) {
         Flight flight = getFlights().get(position);
 
         if (holder.getAdapterPosition() == currentClickedPosition) {
