@@ -10,15 +10,16 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import java.util.ArrayList;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
+import amsi.dei.estg.ipleiria.aerocontrol.databinding.FragmentStoresBinding;
 import amsi.dei.estg.ipleiria.aerocontrol.ui.adapters.RecyclerViewStoresAdapter;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Store;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonEnterprises;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.StoresListener;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.MyTextWatcher;
 
 public class StoresFragment extends Fragment implements StoresListener {
 
@@ -40,19 +41,12 @@ public class StoresFragment extends Fragment implements StoresListener {
         SingletonEnterprises.getInstance(this.getContext()).setStoresListener(this);
         SingletonEnterprises.getInstance(this.getContext()).getStoresAPI(this.getContext());
 
-        binding.StoresEtSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
+        binding.StoresEtSearch.addTextChangedListener(new MyTextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 adapter.getFilter().filter(s);
             }
 
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
         });
         return view;
     }

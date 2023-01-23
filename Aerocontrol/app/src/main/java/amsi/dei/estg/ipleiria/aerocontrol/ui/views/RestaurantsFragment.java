@@ -1,29 +1,22 @@
 package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import amsi.dei.estg.ipleiria.aerocontrol.ui.adapters.RecyclerViewRestaurantsAdapter;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Restaurant;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonEnterprises;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.RestaurantsListener;
 import amsi.dei.estg.ipleiria.aerocontrol.databinding.FragmentRestaurantsBinding;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.MyTextWatcher;
 
 public class RestaurantsFragment extends Fragment implements RestaurantsListener {
 
@@ -46,17 +39,11 @@ public class RestaurantsFragment extends Fragment implements RestaurantsListener
         SingletonEnterprises.getInstance(this.getContext()).setRestaurantsListener(this);
         SingletonEnterprises.getInstance(this.getContext()).getRestaurantsAPI(this.getContext());
 
-        binding.RestaurantsEtSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, binding.RestaurantsRvRestaurants.setLayoutManager(new LinearLayoutManager(getContext()));binding.RestaurantsRvRestaurants.setLayoutManager(new LinearLayoutManager(getContext()));int start, int count, int after) {}
-
+        binding.RestaurantsEtSearch.addTextChangedListener(new MyTextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 adapter.getFilter().filter(s);
             }
-
-            @Override
-            public void afterTextChanged(Editable s) {}
         });
         return view;
     }

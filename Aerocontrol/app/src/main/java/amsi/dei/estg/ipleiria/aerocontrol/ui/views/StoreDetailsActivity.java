@@ -3,6 +3,8 @@ package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Store;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonEnterprises;
