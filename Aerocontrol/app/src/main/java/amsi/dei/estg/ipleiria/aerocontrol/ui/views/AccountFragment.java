@@ -14,17 +14,23 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
 import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
+import amsi.dei.estg.ipleiria.aerocontrol.databinding.FragmentAccountLoggedInBinding;
+import amsi.dei.estg.ipleiria.aerocontrol.databinding.FragmentAccountLoggedOutBinding;
 
 public class AccountFragment extends Fragment {
 
     private static final int REQUEST_LOGIN_ACTIVITY = 1;
 
-    private Button btLogin, btLogout;
-    private TextView tvUsername;
-    private ConstraintLayout myTicketsLayout, editAccountLayout;
+    FragmentAccountLoggedInBinding bindingLoggedIn;
+    FragmentAccountLoggedOutBinding bindingLoggedOut;
+
 
     public AccountFragment() {
         // Required empty public constructor
@@ -34,45 +40,49 @@ public class AccountFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = null;
         if (SingletonUser.getInstance(this.getContext()).isLoggedIn()){
-            view = inflater.inflate(R.layout.fragment_account_logged_in, container, false);
-            initializeLoggedIn(view);
+            bindingLoggedIn = FragmentAccountLoggedInBinding.inflate(getLayoutInflater());
+            view = bindingLoggedIn.getRoot();
+            initializeLoggedIn();
         }
         else {
-            view = inflater.inflate(R.layout.fragment_account_logged_out, container, false);
-            initializeLoggedOut(view);
+            bindingLoggedOut = FragmentAccountLoggedOutBinding.inflate(getLayoutInflater());
+            view = bindingLoggedIn.getRoot();
+            initializeLoggedOut();
         }
 
         return view;
     }
 
-    private void initializeLoggedOut(View view) {
-        btLogin = view.findViewById(R.id.AccountLoggedOut_Bt_Login);
-
-        btLogin.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), LoginActivity.class);
-            startActivityForResult(intent,REQUEST_LOGIN_ACTIVITY);
+    private void initializeLoggedOut() {
+        bindingLoggedOut.AccountLoggedOutBtLogin.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivityForResult(intent, REQUEST_LOGIN_ACTIVITY);
         });
+
+        bindingLoggedOut.AccountLoggedOutConsLayoutSupport.setOnClickListener(v -> openSupportIntent());
     }
 
-    private void initializeLoggedIn(View view) {
-        btLogout = view.findViewById(R.id.AccountLoggedIn_Bt_Logout);
-        tvUsername = view.findViewById(R.id.AccountLoggedIn_Tv_Username);
-        myTicketsLayout = view.findViewById(R.id.AccountLoggedIn_ConsLayout_MyTickets);
-        editAccountLayout = view.findViewById(R.id.AccountLoggedIn_ConsLayout_EditData);
+    private void initializeLoggedIn() {
+        bindingLoggedIn.AccountLoggedInTvUsername.setText(SingletonUser.getInstance(this.getContext()).getUser().getUsername());
 
-        tvUsername.setText(SingletonUser.getInstance(this.getContext()).getUser().getUsername());
+        bindingLoggedIn.AccountLoggedInBtLogout.setOnClickListener(v -> logout());
 
-        btLogout.setOnClickListener(v -> logout());
-
-        myTicketsLayout.setOnClickListener(v -> {
+        bindingLoggedIn.AccountLoggedInConsLayoutMyTickets.setOnClickListener(v -> {
             Intent intent = new Intent(this.getContext(), FlightTicketsActivity.class);
             startActivity(intent);
         });
 
-        editAccountLayout.setOnClickListener(v -> {
+        bindingLoggedIn.AccountLoggedInConsLayoutEditData.setOnClickListener(v -> {
             Intent intent = new Intent(this.getContext(), EditAccountActivity.class);
             startActivity(intent);
         });
+
+        bindingLoggedIn.AccountLoggedInConsLayoutSupport.setOnClickListener(v -> openSupportIntent());
+    }
+
+    private void openSupportIntent() {
+        Intent intent = new Intent(this.getContext(), SupportActivity.class);
+        startActivity(intent);
     }
 
     private void logout() {
