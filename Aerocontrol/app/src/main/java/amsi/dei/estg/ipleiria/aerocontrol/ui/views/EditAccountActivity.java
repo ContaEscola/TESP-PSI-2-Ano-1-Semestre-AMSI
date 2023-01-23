@@ -125,4 +125,18 @@ public class EditAccountActivity extends AppCompatActivity implements UpdateUser
     public void onUpdateUser(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onErrorUpdate(String message) {
+        if(message.isEmpty()) {
+            Toast.makeText(this, R.string.common_error, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.errors_found);
+        builder.setMessage(message);
+        builder.setPositiveButton(R.string.confirm, (dialog, which) -> {});
+        builder.show();
+    }
 }

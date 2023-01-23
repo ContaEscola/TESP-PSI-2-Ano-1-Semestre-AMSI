@@ -1,15 +1,11 @@
 package amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.ClientError;
-import com.android.volley.NetworkError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.ServerError;
@@ -24,13 +20,9 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.helpers.UserDBManager;
@@ -44,12 +36,12 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiBodyHelper;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.models.LoginRequest;
 import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketsListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.SignupListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.UpdateUserListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketListener;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketsListener;
 
 public class SingletonUser {
 
@@ -295,7 +287,49 @@ public class SingletonUser {
                                 updateUserListener.onUpdateUser(context.getString(R.string.save_data_success));
 
                         },
-                        error -> Toast.makeText(context, R.string.save_data_failed, Toast.LENGTH_SHORT).show()
+                        error -> {
+                            String body = null;
+                            Map<String, Object> bodyParams = null;
+                            String errorReturned = "";
+
+                            if(error.networkResponse.data != null) {
+                                try {
+                                    // Aqui tem a resposta em String
+                                    body = new String(error.networkResponse.data,"UTF-8");
+                                    // Aqui converte a resposta para um Map
+                                    bodyParams = ApiBodyHelper.convertJsonStringToMap(body);
+
+                                    // Aqui converte a resposta["message"] para um Map
+                                    Map<String, Object> bodyMessage = ApiBodyHelper.convertJsonStringToMap((String) bodyParams.get("message"));
+
+
+                                    // Aqui faz um for em todos os items da resposta["message"]
+                                    for (Object value : bodyMessage.values()) {
+                                        // Busca o ArrayList de erros para cada atributo da resposta["message"]
+                                        ArrayList<String> errorsInAttribute = (ArrayList<String>) value;
+                                        for(String errorInAttribute : errorsInAttribute) {
+                                            // Adiciona cada erro do atributo ao String erro
+                                            errorReturned += errorInAttribute + "\n";
+                                        }
+                                    }
+
+                                } catch (UnsupportedEncodingException e) {
+                                    e.printStackTrace();
+                                } catch (JsonProcessingException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            // https://stackoverflow.com/questions/24700582/handle-volley-error
+                            // https://gist.github.com/kevintanhongann/595c601909d1814641b8
+
+                            // Quer dizer que deu erro num input (exemplo: nome repetido)
+                            if( error instanceof ClientError) {
+                                updateUserListener.onErrorUpdate(errorReturned);
+                            } else {
+                                Toast.makeText(context, R.string.common_error, Toast.LENGTH_SHORT).show();
+                            }
+                        }
                 );
                 volleyQueue.add(jsonObjectRequest);
             }
