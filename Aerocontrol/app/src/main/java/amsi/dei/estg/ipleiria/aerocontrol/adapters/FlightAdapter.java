@@ -17,7 +17,7 @@ import java.util.Date;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Flight;
-import amsi.dei.estg.ipleiria.aerocontrol.ui.views.Activities.FlightSearchResultsActivity;
+import amsi.dei.estg.ipleiria.aerocontrol.ui.views.FlightSearchResultsActivity;
 
 public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.ViewHolderList> {
 

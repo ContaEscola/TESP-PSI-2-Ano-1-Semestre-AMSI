@@ -19,71 +19,71 @@
         android:theme="@style/Theme.App"
         tools:targetApi="31">
         <activity
-            android:name=".ui.views.Activities.PaymentMethodActivity"
+            android:name=".ui.views.PaymentMethodActivity"
             android:exported="false"
             android:launchMode="singleTop"
-            android:parentActivityName=".ui.views.Activities.FlightTicketPassengersActivity" />
+            android:parentActivityName=".ui.views.FlightTicketPassengersActivity" />
         <activity
-            android:name=".ui.views.Activities.FlightTicketPassengersActivity"
+            android:name=".ui.views.FlightTicketPassengersActivity"
             android:exported="false"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustPan"
-            android:parentActivityName=".ui.views.Activities.FlightSearchResultsActivity" />
+            android:parentActivityName=".ui.views.FlightSearchResultsActivity" />
         <activity
-            android:name=".ui.views.Activities.FlightSearchResultsActivity"
+            android:name=".ui.views.FlightSearchResultsActivity"
             android:exported="false"
             android:launchMode="singleTop"
-            android:parentActivityName=".ui.views.Activities.MainActivity" />
+            android:parentActivityName=".ui.views.MainActivity" />
         <activity    
-            android:name=".ui.views.Activities.SupportTicketInfoActivity"
+            android:name=".ui.views.SupportTicketInfoActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan"
-            android:parentActivityName=".ui.views.Activities.SupportTicketActivity" />
+            android:parentActivityName=".ui.views.SupportTicketActivity" />
         <activity
-            android:name=".ui.views.Activities.SupportTicketActivity"
+            android:name=".ui.views.SupportTicketActivity"
             android:exported="false"
             android:launchMode="singleTop"
-            android:parentActivityName=".ui.views.Activities.MainActivity" />
+            android:parentActivityName=".ui.views.MainActivity" />
         <activity
-            android:name=".ui.views.Activities.EditAccountActivity"
+            android:name=".ui.views.EditAccountActivity"
             android:exported="false"
-            android:parentActivityName=".ui.views.Activities.MainActivity"
+            android:parentActivityName=".ui.views.MainActivity"
             android:windowSoftInputMode="adjustPan"/>
         <activity
-            android:name=".ui.views.Activities.TicketInfoActivity"
+            android:name=".ui.views.TicketInfoActivity"
             android:exported="false"
-            android:parentActivityName=".ui.views.Activities.TicketsActivity" />
+            android:parentActivityName=".ui.views.TicketsActivity" />
         <activity
-            android:name=".ui.views.Activities.TicketsActivity"
+            android:name=".ui.views.TicketsActivity"
             android:exported="false"
             android:launchMode="singleTop"
-            android:parentActivityName=".ui.views.Activities.MainActivity" />
+            android:parentActivityName=".ui.views.MainActivity" />
         <activity
-            android:name=".ui.views.Activities.StoreDetailsActivity"
+            android:name=".ui.views.StoreDetailsActivity"
             android:exported="false"
-            android:parentActivityName=".ui.views.Activities.MainActivity" />
+            android:parentActivityName=".ui.views.MainActivity" />
         <activity
-            android:name=".ui.views.Activities.RestaurantDetailsActivity"
+            android:name=".ui.views.RestaurantDetailsActivity"
             android:exported="false"
-            android:parentActivityName=".ui.views.Activities.MainActivity" />
+            android:parentActivityName=".ui.views.MainActivity" />
         <activity
-            android:name=".ui.views.Activities.ResetPasswordActivity"
+            android:name=".ui.views.ResetPasswordActivity"
             android:exported="false"
-            android:parentActivityName=".ui.views.Activities.MainActivity" />
+            android:parentActivityName=".ui.views.MainActivity" />
         <activity
-            android:name=".ui.views.Activities.SupportActivity"
+            android:name=".ui.views.SupportActivity"
             android:exported="false"
-            android:parentActivityName=".ui.views.Activities.MainActivity" />
+            android:parentActivityName=".ui.views.MainActivity" />
         <activity
-            android:name=".ui.views.Activities.RegisterActivity"
+            android:name=".ui.views.RegisterActivity"
             android:exported="false"
-            android:parentActivityName=".ui.views.Activities.MainActivity" />
+            android:parentActivityName=".ui.views.MainActivity" />
         <activity
-            android:name=".ui.views.Activities.LoginActivity"
+            android:name=".ui.views.LoginActivity"
             android:exported="false"
-            android:parentActivityName=".ui.views.Activities.MainActivity" />
+            android:parentActivityName=".ui.views.MainActivity" />
         <activity
-            android:name=".ui.views.Activities.MainActivity"
+            android:name=".ui.views.MainActivity"
             android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"

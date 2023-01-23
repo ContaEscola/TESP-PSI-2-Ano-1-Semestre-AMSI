@@ -1,4 +1,4 @@
-package amsi.dei.estg.ipleiria.aerocontrol.ui.views.Activities;
+package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
 
 import android.app.Activity;
 import android.app.AlertDialog;

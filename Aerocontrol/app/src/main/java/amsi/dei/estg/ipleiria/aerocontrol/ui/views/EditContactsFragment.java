@@ -1,4 +1,4 @@
-package amsi.dei.estg.ipleiria.aerocontrol.ui.views.Fragments;
+package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

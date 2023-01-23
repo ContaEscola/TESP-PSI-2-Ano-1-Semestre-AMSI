@@ -1,4 +1,4 @@
-package amsi.dei.estg.ipleiria.aerocontrol.ui.views.Activities;
+package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
 
 import android.content.Intent;
 import android.os.Bundle;

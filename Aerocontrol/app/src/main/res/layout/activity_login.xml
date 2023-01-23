@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorSurface"
-    tools:context=".ui.views.Activities.LoginActivity">
+    tools:context=".ui.views.LoginActivity">
 
     <include
         android:id="@+id/Login_Toolbar"

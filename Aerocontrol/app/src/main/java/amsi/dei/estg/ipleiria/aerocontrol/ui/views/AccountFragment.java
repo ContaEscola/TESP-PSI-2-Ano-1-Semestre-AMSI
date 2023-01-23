@@ -1,4 +1,4 @@
-package amsi.dei.estg.ipleiria.aerocontrol.ui.views.Fragments;
+package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,12 +16,6 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUse
 import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
 import amsi.dei.estg.ipleiria.aerocontrol.databinding.FragmentAccountLoggedinBinding;
 import amsi.dei.estg.ipleiria.aerocontrol.databinding.FragmentAccountLoggedoutBinding;
-import amsi.dei.estg.ipleiria.aerocontrol.ui.views.Activities.EditAccountActivity;
-import amsi.dei.estg.ipleiria.aerocontrol.ui.views.Activities.LoginActivity;
-import amsi.dei.estg.ipleiria.aerocontrol.ui.views.Activities.RegisterActivity;
-import amsi.dei.estg.ipleiria.aerocontrol.ui.views.Activities.SupportActivity;
-import amsi.dei.estg.ipleiria.aerocontrol.ui.views.Activities.SupportTicketActivity;
-import amsi.dei.estg.ipleiria.aerocontrol.ui.views.Activities.TicketsActivity;
 
 public class AccountFragment extends Fragment {
 
@@ -69,7 +63,7 @@ public class AccountFragment extends Fragment {
         bindingLoggedIn.AccountLoggedInBtLogout.setOnClickListener(view1 -> logout());
 
         bindingLoggedIn.AccountLoggedInConsLayoutMyTickets.setOnClickListener(v -> {
-            Intent intent = new Intent(this.getContext(), TicketsActivity.class);
+            Intent intent = new Intent(this.getContext(),TicketsActivity.class);
             startActivity(intent);
         });
 
