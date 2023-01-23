@@ -78,13 +78,13 @@ public class FlightTicketInfoActivity extends AppCompatActivity implements Fligh
 
         if (idTicket != -1){
             ticket = SingletonUser.getInstance(this).getFlightTicketById(idTicket);
-            btCheckIn.setOnClickListener(v -> SingletonUser.getInstance(this).updateTicketAPI(this,ticket));
+            btCheckIn.setOnClickListener(v -> SingletonUser.getInstance(this).updateFlightTicketAPI(this,ticket));
             btCancel.setOnClickListener(v -> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(FlightTicketInfoActivity.this);
                 builder.setTitle(R.string.cancel_ticket);
                 builder.setMessage("Se deseja realmente apagar o seu bilhete por favor confirme abaixo.");
                 builder.setPositiveButton(R.string.confirm, (dialog, which) -> {
-                    SingletonUser.getInstance(this).deleteTicketAPI(this, ticket);
+                    SingletonUser.getInstance(this).deleteFlightTicketAPI(this, ticket);
                 });
                 builder.setNegativeButton(R.string.cancel,(dialog,which) -> {});
                 builder.show();

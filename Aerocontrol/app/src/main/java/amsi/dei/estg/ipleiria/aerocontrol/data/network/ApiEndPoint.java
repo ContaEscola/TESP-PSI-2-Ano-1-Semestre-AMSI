@@ -10,6 +10,7 @@ public class ApiEndPoint {
 	public final static String ENDPOINT_LOGIN = ENDPOINT_API + "/auth/login";
     public final static String ENDPOINT_SIGNUP = ENDPOINT_API + "/auth/signup";
 	public final static String ENDPOINT_UPDATE_ACCOUNT = ENDPOINT_API + "/user";
+	public final static String ENDPOINT_RESET_PASSWORD = ENDPOINT_API + "/user/reset-password";
 
     //Entities
     public final static String ENDPOINT_RESTAURANTS = ENDPOINT_API + "/restaurants";
