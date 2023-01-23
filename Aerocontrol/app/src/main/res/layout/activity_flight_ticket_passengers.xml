@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorSurface"
-    tools:context=".ui.views.FlightTicketPassengers">
+    tools:context=".ui.views.FlightTicketPassengersActivity">
 
     <include
         android:id="@+id/FlightTicketPassengers_Toolbar"
@@ -21,14 +21,12 @@
         app:layout_constraintStart_toStartOf="@+id/FlightTicketPassengers_GuidelineStart"
         app:layout_constraintTop_toBottomOf="@+id/FlightTicketPassengers_Toolbar" />
 
-    <ListView
-        android:id="@+id/FlightTicketPassengers_Lv_Passengers"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/FlightTicketPassengers_Rv_Passengers"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="20dp"
-        android:divider="@color/transparent"
-        android:dividerHeight="15dp"
         app:layout_constraintBottom_toTopOf="@+id/FlightTicketPassengers_Bt_Next"
         app:layout_constraintEnd_toStartOf="@+id/FlightTicketPassengers_GuidelineEnd"
         app:layout_constraintStart_toStartOf="@+id/FlightTicketPassengers_GuidelineStart"

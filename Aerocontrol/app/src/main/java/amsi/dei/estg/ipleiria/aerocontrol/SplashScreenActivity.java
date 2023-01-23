@@ -6,10 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import amsi.dei.estg.ipleiria.aerocontrol.ui.views.LoginActivity;
 import amsi.dei.estg.ipleiria.aerocontrol.ui.views.MainActivity;
-import amsi.dei.estg.ipleiria.aerocontrol.ui.views.PaymentActivity;
-import amsi.dei.estg.ipleiria.aerocontrol.ui.views.SupportTicketActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
 

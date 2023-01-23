@@ -20,12 +20,14 @@
     <string name="country">País</string>
     <string name="city">Cidade</string>
 
+    <!--  Suporte ticket  -->
+    <string name="title">Titulo</string>
+    <string name="message">Mensagem</string>
 
     <!-- Random -->
     <string name="save_session">Guardar sessão</string>
     <string name="forgot_password"><u>Esqueceu-se da password?</u></string>
     <string name="no_account"><u>Não tem conta?</u></string>
-    <string name="message">Mensagem</string>
     <string name="account">Conta</string>
     <string name="support">Contactar Suporte</string>
     <string name="send">Enviar</string>
@@ -40,6 +42,7 @@
     <string name="next">Avançar</string>
     <string name="confirm">Confirmar</string>
     <string name="cancel">Cancelar</string>
+    <string name="ok">OK</string>
     <string name="birthdate_format">DD-MM-YYYY</string>
     <string name="date_format">%1$02d/%2$02d/%3$04d</string>
     <string name="save_data">Guardar Alterações</string>
@@ -55,12 +58,15 @@
     <string name="accept_terms">Li e aceito integralmente os termos e condições.</string>
     <string name="check_in_done">Check-in efetuado.</string>
     <string name="support_ticket_done">Suporte ticket concluido.</string>
+    <string name="support_ticket_create">Suporte ticket criado.</string>
     <string name="ticket_deleted">Bilhete cancelado com sucesso. Receberá um reembolso.</string>
     <string name="cancel_ticket">Cancelar bilhete</string>
     <string name="conclude_support_ticket">Concluir suporte ticket</string>
     <string name="select_gender">Selecione um género</string>
     <string name="insert_birth_date">Insira a data de nascimento.</string>
     <string name="verify_password">Para guardar os seus dados é necessário verificar a password.</string>
+    <string name="support_ticket_image">Imagem do ticket de suporte</string>
+    <string name="create_support_ticket">Criar novo suporte ticket</string>
     <string name="signup_verification">Verifique o seu email para mais instruções!</string>
 
 
@@ -185,13 +191,13 @@
     <string name="invalid_credentials">Credenciais inválidas</string>
     <string name="insert_all_data">Preencha todos os campos.</string>
     <string name="error_on_ticket">Erro ao encontrar o bilhete</string>
-    <string name="error_on_support_ticket">Erro ao encontrar o ticket de suporte</string>
     <string name="errors_found">Erros encontrados</string>
     <string name="solve_errors">Antes de prosseguir, resolva os seguintes erros:</string>
     <string name="no_apps_to_emails">Não existem aplicações no dispositivo para o envio de emails.</string>
     <string name="email_message_invalid">Escreva um email e uma mensagem válidos!</string>
     <string name="fill_fields_without_errors">Preencha todos os campos sem erros!</string>
 
+    <string name="error_on_support_ticket">Erro ao encontrar o ticket de suporte</string>
 
     <!-- Erros User -->
     <string name="username_error">O username tem de ter de 2 a 30 caracteres.</string>
@@ -210,6 +216,12 @@
     <string name="no_flights_found_search_more_dates">Não foram encontrados voos, a procurar nas próximas datas.</string>
     <string name="origin_arrival">Origem - Destino</string>
     <string name="reserved">Reservado</string>
+    <string name="error_passenger_name">Por favor preencha o nome de cada passageiro.</string>
+    <string name="error_payment_methods">Erro ao mostrar os métodos de pagamento, tente novamente mais tarde.</string>
+    <string name="select_payment_method">Selecione um método de pagamento!</string>
+    <string name="payment_method_not_available">Método de pagamento não está disponivel neste momento, pedimos desculpa!</string>
+    <string name="confirm_payment">Confirme o pagamento!</string>
+    <string name="error_buying_ticket">Ocorreu um erro ao comprar o bilhete, por favor compre mais tarde!</string>
 
 
 </resources>
