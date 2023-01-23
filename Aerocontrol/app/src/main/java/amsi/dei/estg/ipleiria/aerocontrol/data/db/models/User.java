@@ -1,9 +1,18 @@
 package amsi.dei.estg.ipleiria.aerocontrol.data.db.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiConfig;
 
 public class User {
 
@@ -16,22 +25,34 @@ public class User {
     private int id;
     private String username;
     private String token;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonProperty("password_hash")
     private String password;
+
+    @JsonProperty("first_name")
     private String firstName;
+
+    @JsonProperty("last_name")
     private String lastName;
+
     private String gender;
     private String country;
     private String city;
     private String email;
     private String phone;
+
+    @JsonProperty("phone_country_code")
     private String phoneCountryCode;
-    private String birthdate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = ApiConfig.API_DATE_FORMAT)
+    private Date birthdate;
 
     // ArrayList de FlightTickets?
     // ArrayList de SupportTickets?
 
     public User (int id, String username, String token, String password, String firstName, String lastName, String gender,
-                 String country, String city, String email, String phone, String phoneCountryCode, String birthdate){
+                 String country, String city, String email, String phone, String phoneCountryCode, Date birthdate){
         this.setId(id);
         this.setUsername(username);
         this.setToken(token);
@@ -57,6 +78,7 @@ public class User {
         this.id = id;
     }
 
+
     public String getUsername() {
         return username;
     }
@@ -73,26 +95,32 @@ public class User {
         this.token = token;
     }
 
+    @JsonProperty("password_hash")
     public String getPassword() {
         return password;
     }
 
+    @JsonProperty("password_hash")
     public void setPassword(String password) {
         this.password = password;
     }
 
+    @JsonProperty("first_name")
     public String getFirstName() {
         return firstName;
     }
 
+    @JsonProperty("first_name")
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    @JsonProperty("last_name")
     public String getLastName() {
         return lastName;
     }
 
+    @JsonProperty("last_name")
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -137,10 +165,12 @@ public class User {
         this.phone = phone;
     }
 
+    @JsonProperty("phone_country_code")
     public String getPhoneCountryCode() {
         return phoneCountryCode;
     }
 
+    @JsonProperty("phone_country_code")
     public void setPhoneCountryCode(String phoneCountryCode) {
         this.phoneCountryCode = phoneCountryCode;
     }
@@ -153,41 +183,13 @@ public class User {
         this.birthdate = birthdate;
     }
 
-    public void convertBirthdayToDisplay(){
-        String stringBirthDate = this.getBirthdate();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
-        try {
-            Date birthDate = format.parse(stringBirthDate);
-            Calendar calendar = Calendar.getInstance();
-            if (birthDate != null) {
-                calendar.setTime(birthDate);
-            }
-            // +1 no mês um porque o calendar vai de 0 a 11
-            String newBirthdateFormat = String.format("%02d/%02d/%04d",calendar.get(Calendar.DAY_OF_MONTH),(calendar.get(Calendar.MONTH)+1),calendar.get(Calendar.YEAR));
-            this.setBirthdate(newBirthdateFormat);
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+    public static User parseJsonToUser(String jsonString) throws JsonProcessingException {
+        final ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(jsonString, User.class);
     }
 
-    public void convertBirthdayToSave(){
-        String stringBirthDate = this.getBirthdate();
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-
-        try {
-            Date birthDate = format.parse(stringBirthDate);
-            Calendar calendar = Calendar.getInstance();
-            if (birthDate != null) {
-                calendar.setTime(birthDate);
-            }
-            // +1 no mês um porque o calendar vai de 0 a 11
-            String newBirthdateFormat = String.format("%04d-%02d-%02d",calendar.get(Calendar.YEAR),(calendar.get(Calendar.MONTH)+1),calendar.get(Calendar.DAY_OF_MONTH));
-            this.setBirthdate(newBirthdateFormat);
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+    public static String convertUserToJson(User user) throws JsonProcessingException {
+        final ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(user);
     }
 }
