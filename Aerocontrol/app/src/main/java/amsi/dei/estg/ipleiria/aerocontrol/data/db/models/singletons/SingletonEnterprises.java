@@ -117,6 +117,7 @@ public class SingletonEnterprises {
                 }
             }, error -> {
                 Toast.makeText(context, R.string.error_restaurants, Toast.LENGTH_SHORT).show();
+                readRestaurantsDB();
         });
 
         volleyQueue.add(jsonArrayRequest);
@@ -228,6 +229,7 @@ public class SingletonEnterprises {
 
                 }, error -> {
             Toast.makeText(context, R.string.error_stores, Toast.LENGTH_SHORT).show();
+            readStoresDB();
         });
 
         volleyQueue.add(jsonArrayRequest);

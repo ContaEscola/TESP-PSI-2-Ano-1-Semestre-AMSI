@@ -21,15 +21,16 @@ import androidx.fragment.app.FragmentTransaction;
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
 import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
-import amsi.dei.estg.ipleiria.aerocontrol.databinding.FragmentAccountLoggedinBinding;
-import amsi.dei.estg.ipleiria.aerocontrol.databinding.FragmentAccountLoggedoutBinding;
+import amsi.dei.estg.ipleiria.aerocontrol.databinding.FragmentAccountLoggedInBinding;
+import amsi.dei.estg.ipleiria.aerocontrol.databinding.FragmentAccountLoggedOutBinding;
 
 public class AccountFragment extends Fragment {
 
     private static final int REQUEST_LOGIN_ACTIVITY = 1;
 
-    FragmentAccountLoggedinBinding bindingLoggedIn;
-    FragmentAccountLoggedoutBinding bindingLoggedOut;
+    FragmentAccountLoggedInBinding bindingLoggedIn;
+    FragmentAccountLoggedOutBinding bindingLoggedOut;
+
 
     public AccountFragment() {
         // Required empty public constructor
@@ -39,12 +40,12 @@ public class AccountFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = null;
         if (SingletonUser.getInstance(this.getContext()).isLoggedIn()){
-            bindingLoggedIn = FragmentAccountLoggedinBinding.inflate(getLayoutInflater());
+            bindingLoggedIn = FragmentAccountLoggedInBinding.inflate(getLayoutInflater());
             view = bindingLoggedIn.getRoot();
             initializeLoggedIn();
         }
         else {
-            bindingLoggedOut = FragmentAccountLoggedoutBinding.inflate(getLayoutInflater());
+            bindingLoggedOut = FragmentAccountLoggedOutBinding.inflate(getLayoutInflater());
             view = bindingLoggedIn.getRoot();
             initializeLoggedOut();
         }
