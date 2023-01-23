@@ -58,7 +58,7 @@ public class SupportTicketInfoActivity extends AppCompatActivity implements Supp
 
     private void saveData() {
         message = binding.editTextTextPersonName.getText().toString();
-        SingletonUser.getInstance(this).setMessageSupportTicketAPI(this, message, supportTicket);
+        SingletonUser.getInstance(this).setMessageSupportTicketAPI(this, message, supportTicket.getId());
         binding.editTextTextPersonName.setText("");
     }
 
