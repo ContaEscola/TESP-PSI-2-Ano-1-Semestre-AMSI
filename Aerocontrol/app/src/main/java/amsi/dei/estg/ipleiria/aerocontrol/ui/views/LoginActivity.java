@@ -32,24 +32,31 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         SingletonUser.getInstance(this).setLoginListener(this);
 
         binding.LoginBtLogin.setOnClickListener(view -> login());
+
+        binding.LoginTvCreateAccount.setOnClickListener(v -> {
+            Intent intent = new Intent(this, RegisterActivity.class);
+            startActivity(intent);
+        });
+
+        binding.LoginTvResetPassword.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ResetPasswordActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void login(){
         String username = binding.LoginEtUsername.getText().toString();
         String password = binding.LoginEtPassword.getText().toString();
         if(!username.trim().equals("")&&!password.trim().equals(""))
-            SingletonUser.getInstance(this).getLoginAPI(username, password, this);
+            SingletonUser.getInstance(this).getLoginAPI(username.trim(), password.trim(), this);
         else Toast.makeText(this, R.string.insert_all_data, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onValidateLogin(User user, Context context) {
         UserPreferences.getInstance(this).setUser(user);    // Coloca o user no SharedPreferences
-        SingletonUser.getInstance(this).setUser(user);      // Coloca o user na Singleton
-        SingletonUser.getInstance(this).getUser().convertBirthdayToDisplay();
-        SingletonUser.getInstance(this).setLoggedIn(true);  // Dá Set à variável do LoggedIn para true
 
-        Toast.makeText(context, "Dados válidos", Toast.LENGTH_SHORT).show();
+
         Intent returnIntent = new Intent();
         setResult(Activity.RESULT_OK, returnIntent);    // Dá return à atividade com resultado OK
         finish();
