@@ -1,28 +1,28 @@
 package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
 
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 
-import amsi.dei.estg.ipleiria.aerocontrol.adapters.StoresListAdapter;
+import amsi.dei.estg.ipleiria.aerocontrol.R;
+import amsi.dei.estg.ipleiria.aerocontrol.ui.adapters.RecyclerViewStoresAdapter;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Store;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonEnterprises;
-import amsi.dei.estg.ipleiria.aerocontrol.databinding.FragmentStoresBinding;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.EnterprisesListenerStore;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.StoresListener;
 
-public class StoresFragment extends Fragment implements EnterprisesListenerStore {
+public class StoresFragment extends Fragment implements StoresListener {
 
-    private StoresListAdapter adapter;
-
+    private RecyclerViewStoresAdapter adapter;
     private FragmentStoresBinding binding;
 
     public StoresFragment() {
@@ -35,8 +35,9 @@ public class StoresFragment extends Fragment implements EnterprisesListenerStore
         View view = binding.getRoot();
 
         binding.StoresRvStores.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        SingletonEnterprises.getInstance(this.getContext()).setEnterprisesListenerStore(this);
+		binding.StoresRvStores.setItemAnimator(new DefaultItemAnimator());
+		
+        SingletonEnterprises.getInstance(this.getContext()).setStoresListener(this);
         SingletonEnterprises.getInstance(this.getContext()).getStoresAPI(this.getContext());
 
         binding.StoresEtSearch.addTextChangedListener(new TextWatcher() {
@@ -45,14 +46,7 @@ public class StoresFragment extends Fragment implements EnterprisesListenerStore
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                ArrayList<Store> auxStores = new ArrayList<>();
-                for (Store store: SingletonEnterprises.getInstance(getContext()).getStores()) {
-                    if (store.getName().toUpperCase().contains(s.toString().toUpperCase())){
-                        auxStores.add(store);
-                    }
-                }
-                binding.StoresRvStores.setAdapter(new StoresListAdapter(getContext(),auxStores));
-                binding.StoresRvStores.setItemAnimator(new DefaultItemAnimator());
+                adapter.getFilter().filter(s);
             }
 
             @Override
@@ -65,8 +59,7 @@ public class StoresFragment extends Fragment implements EnterprisesListenerStore
 
     @Override
     public void onRefreshList(ArrayList<Store> stores) {
-        adapter = new StoresListAdapter(this.getContext(),SingletonEnterprises.getInstance(getContext()).getStores());
+        adapter = new RecyclerViewStoresAdapter(this.getContext(), stores);
         binding.StoresRvStores.setAdapter(adapter);
-        binding.StoresRvStores.setItemAnimator(new DefaultItemAnimator());
     }
 }
