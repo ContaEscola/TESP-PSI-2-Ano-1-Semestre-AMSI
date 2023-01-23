@@ -1,7 +1,6 @@
 package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -10,11 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import java.sql.SQLOutput;
-import java.util.ArrayList;
-
 import amsi.dei.estg.ipleiria.aerocontrol.R;
-import amsi.dei.estg.ipleiria.aerocontrol.adapters.TicketMessageAdapter;
+import amsi.dei.estg.ipleiria.aerocontrol.ui.adapters.RecyclerViewSupportTicketMessagesAdapter;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
 import amsi.dei.estg.ipleiria.aerocontrol.databinding.ActivitySupportTicketInfoBinding;
@@ -28,7 +24,7 @@ public class SupportTicketInfoActivity extends AppCompatActivity implements Supp
 
     private ActivitySupportTicketInfoBinding binding;
 
-    private TicketMessageAdapter adapter;
+    private RecyclerViewSupportTicketMessagesAdapter adapter;
 
     private String message;
     private Integer support_ticket_id;
@@ -82,7 +78,7 @@ public class SupportTicketInfoActivity extends AppCompatActivity implements Supp
         binding.SupportTicketInfoTvState.setText(supportTicket.getState());
         if (supportTicket.getMessages().size() > 0){
             binding.SupportTicketInfoRvTickets.setLayoutManager(new LinearLayoutManager(this));
-            adapter = new TicketMessageAdapter(this, supportTicket.getMessages());
+            adapter = new RecyclerViewSupportTicketMessagesAdapter(this, supportTicket.getMessages());
             binding.SupportTicketInfoRvTickets.setAdapter(adapter);
             System.out.println(supportTicket.getMessages().get(0).getMessage());
             binding.SupportTicketInfoRvTickets.setItemAnimator(new DefaultItemAnimator());

@@ -12,8 +12,6 @@ import android.widget.DatePicker;
 
 import androidx.fragment.app.Fragment;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -21,8 +19,10 @@ import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.User;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
 import amsi.dei.estg.ipleiria.aerocontrol.databinding.FragmentEditPersonalDataBinding;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.DateDisplayFormatUtils;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.MyTextWatcher;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.UserValidations;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.Validations;
 
 public class EditPersonalDataFragment extends Fragment {
 
@@ -51,7 +51,7 @@ public class EditPersonalDataFragment extends Fragment {
 
     private void initializeEts() {
         comboBoxGenders();
-        getBirthdate();
+        setBirthdateInEditText();
         binding.EditPersonalDataEtFirstName.setText(SingletonUser.getInstance(getContext()).getUserToUpdate().getFirstName());
         binding.EditPersonalDataEtLastName.setText(SingletonUser.getInstance(getContext()).getUserToUpdate().getLastName());
         binding.EditPersonalDataEtCountry.setText(SingletonUser.getInstance(getContext()).getUserToUpdate().getCountry());
@@ -133,33 +133,21 @@ public class EditPersonalDataFragment extends Fragment {
     }
 
     private void comboBoxGenders() {
-        adapter = new ArrayAdapter<>(requireContext(), R.layout.gender_list_item, User.GENDERS);
+        adapter = new ArrayAdapter<>(getContext(), R.layout.gender_list_item, User.GENDERS);
         binding.EditPersonalDataACTVGender.setAdapter(adapter);
         binding.EditPersonalDataACTVGender.setText(SingletonUser.getInstance(getContext()).getUserToUpdate().getGender(),false);
         binding.EditPersonalDataACTVGender.setOnItemClickListener((parent, view, position, id) -> {
             if (UserValidations.validateGender(User.GENDERS[position]))
-                SingletonUser.getInstance(getContext()).getUserToUpdate().setUsername(User.GENDERS[position]);
+                SingletonUser.getInstance(getContext()).getUserToUpdate().setGender(User.GENDERS[position]);
             else binding.EditPersonalDataACTVGender.setError(UserValidations.genderError);
         });
     }
 
-    private void getBirthdate() {
+    private void setBirthdateInEditText() {
+        binding.EditPersonalDataEtBirthDate.setText(DateDisplayFormatUtils.formatDateToString(SingletonUser.getInstance(getContext()).getUserToUpdate().getBirthdate(), Validations.VALIDATION_DATE_FORMAT));
 
-        binding.EditPersonalDataEtBirthDate.setText(SingletonUser.getInstance(getContext()).getUserToUpdate().getBirthdate());
-
-
-        String stringBirthDate = SingletonUser.getInstance(getContext()).getUserToUpdate().getBirthdate();
-
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            birthDate = format.parse(stringBirthDate);
-            calendar = Calendar.getInstance();
-            if (birthDate != null) {
-                calendar.setTime(birthDate);
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        calendar = Calendar.getInstance();
+        calendar.setTime(SingletonUser.getInstance(getContext()).getUserToUpdate().getBirthdate());
     }
 
     private void showDatePicker(){
@@ -167,10 +155,12 @@ public class EditPersonalDataFragment extends Fragment {
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        //String date_dd_mm_yyyy = String.format("%02/%02d/%04d",dayOfMonth,(monthOfYear)+1,year);
-                        String date_dd_mm_yyyy = getString(R.string.date_format,dayOfMonth,monthOfYear+1,year);
-                        SingletonUser.getInstance(getContext()).getUserToUpdate().setBirthdate(date_dd_mm_yyyy);
-                        binding.EditPersonalDataEtBirthDate.setText(date_dd_mm_yyyy);
+                        Calendar cal = Calendar.getInstance();
+                        cal.set(Calendar.YEAR, year);
+                        cal.set(Calendar.MONTH, monthOfYear);
+                        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        SingletonUser.getInstance(getContext()).getUserToUpdate().setBirthdate(cal.getTime());
+                        binding.EditPersonalDataEtBirthDate.setText(DateDisplayFormatUtils.formatDateToString(SingletonUser.getInstance(getContext()).getUserToUpdate().getBirthdate(), Validations.VALIDATION_DATE_FORMAT));
                     }
                 }, calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
@@ -181,11 +171,11 @@ public class EditPersonalDataFragment extends Fragment {
         picker.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                Button postiveBt = picker.getButton(DialogInterface.BUTTON_POSITIVE);
+                Button positiveBt = picker.getButton(DialogInterface.BUTTON_POSITIVE);
                 Button negativeBt = picker.getButton(DialogInterface.BUTTON_NEGATIVE);
 
-                postiveBt.setTextColor(getResources().getColor(R.color.black_400));
-                postiveBt.setText(R.string.confirm);
+                positiveBt.setTextColor(getResources().getColor(R.color.black_400));
+                positiveBt.setText(R.string.confirm);
                 negativeBt.setTextColor(getResources().getColor(R.color.black_400));
                 negativeBt.setText(R.string.cancel);
             }

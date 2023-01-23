@@ -29,8 +29,9 @@ public class ResetPasswordActivity extends AppCompatActivity implements ResetPas
 
         binding.ResetPassBtReset.setOnClickListener(v -> {
             if (binding.ResetPassEtEmail.getText().length() > 0 && Validations.validateEmail(String.valueOf(binding.ResetPassEtEmail.getText()))){
-                SingletonUser.getInstance(this).resetPasswordAPI(String.valueOf(binding.ResetPassEtEmail.getText()),this);
-            }
+                SingletonUser.getInstance(this).resetPasswordAPI(String.valueOf(binding.ResetPassEtEmail.getText()).trim(),this);
+            } else
+                Toast.makeText(this, R.string.email_error, Toast.LENGTH_SHORT).show();
         });
     }
 

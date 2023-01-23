@@ -49,11 +49,11 @@
             android:parentActivityName=".ui.views.MainActivity"
             android:windowSoftInputMode="adjustPan"/>
         <activity
-            android:name=".ui.views.TicketInfoActivity"
+            android:name=".ui.views.FlightTicketInfoActivity"
             android:exported="false"
-            android:parentActivityName=".ui.views.TicketsActivity" />
+            android:parentActivityName=".ui.views.FlightTicketsActivity" />
         <activity
-            android:name=".ui.views.TicketsActivity"
+            android:name=".ui.views.FlightTicketsActivity"
             android:exported="false"
             android:launchMode="singleTop"
             android:parentActivityName=".ui.views.MainActivity" />

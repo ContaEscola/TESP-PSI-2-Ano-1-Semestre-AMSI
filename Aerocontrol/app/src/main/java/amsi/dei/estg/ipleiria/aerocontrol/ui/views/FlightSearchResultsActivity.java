@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
-import amsi.dei.estg.ipleiria.aerocontrol.adapters.FlightAdapter;
+import amsi.dei.estg.ipleiria.aerocontrol.ui.adapters.RecyclerViewFlightsAdapter;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Flight;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonFlights;
 import amsi.dei.estg.ipleiria.aerocontrol.databinding.ActivityFlightSearchResultsBinding;
@@ -26,8 +26,8 @@ public class FlightSearchResultsActivity extends AppCompatActivity {
     private static boolean two_way_trip;
     private static int num_passengers;
 
-    private static FlightAdapter adapterGo;
-    private static FlightAdapter adapterBack;
+    private static RecyclerViewFlightsAdapter adapterGo;
+    private static RecyclerViewFlightsAdapter adapterBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,7 @@ public class FlightSearchResultsActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.no_flights_found, Toast.LENGTH_SHORT).show();
         } else {
             binding.FlightSearchResultsRvFlightsGo.setLayoutManager(new LinearLayoutManager(this));
-            adapterGo = new FlightAdapter(this, SingletonFlights.getInstance(this).getFlightsGo());
+            adapterGo = new RecyclerViewFlightsAdapter(this, SingletonFlights.getInstance(this).getFlightsGo());
             binding.FlightSearchResultsRvFlightsGo.setAdapter(adapterGo);
             binding.FlightSearchResultsRvFlightsGo.setItemAnimator(new DefaultItemAnimator());
             binding.FlightSearchResultsTvOriginArrivalGo.setText(SingletonFlights.getInstance(this).getFlightsGo().get(0).getOriginAirport() + " - " + SingletonFlights.getInstance(this).getFlightsGo().get(0).getArrivalAirport());
@@ -60,7 +60,7 @@ public class FlightSearchResultsActivity extends AppCompatActivity {
 
             if (two_way_trip) {
                 binding.FlightSearchResultsRvFlightsBack.setLayoutManager(new LinearLayoutManager(this));
-                adapterBack = new FlightAdapter(this, SingletonFlights.getInstance(this).getFlightsBack());
+                adapterBack = new RecyclerViewFlightsAdapter(this, SingletonFlights.getInstance(this).getFlightsBack());
                 binding.FlightSearchResultsRvFlightsBack.setAdapter(adapterBack);
                 binding.FlightSearchResultsRvFlightsBack.setItemAnimator(new DefaultItemAnimator());
                 binding.FlightSearchResultsTvOriginArrivalBack.setText(SingletonFlights.getInstance(this).getFlightsBack().get(0).getOriginAirport() + " - " + SingletonFlights.getInstance(this).getFlightsBack().get(0).getArrivalAirport());
