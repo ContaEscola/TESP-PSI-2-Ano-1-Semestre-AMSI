@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Store;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonEnterprises;
+import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiConfig;
 import amsi.dei.estg.ipleiria.aerocontrol.databinding.ActivityStoreDetailsBinding;
 
 public class StoreDetailsActivity extends AppCompatActivity {
@@ -29,21 +30,26 @@ public class StoreDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        getStoreId();
+        getStoreIdFromIntent();
     }
 
-    private void getStoreId() {
+
+    private void getStoreIdFromIntent() {
         idStore = getIntent().getIntExtra(STORE_ID,-1);
 
         if (idStore != -1){
             store = SingletonEnterprises.getInstance(this).getStoreById(idStore);
-            storeDetails();
+            setStoreInView();
         } else Toast.makeText(this, R.string.error_na_loja, Toast.LENGTH_SHORT).show();
     }
 
-    private void storeDetails() {
+    private void setStoreInView() {
         if (!store.getName().equals("null")) binding.StoreDetailsTvName.setText(store.getName());
-        if (!store.getOpenTime().equals("null") && !store.getCloseTime().equals("null")) binding.StoreDetailsTvSchedule.setText(store.getOpenTime() + " - " + store.getCloseTime());
+        if(store.getOpenTime().equals(ApiConfig.API_CUSTOM_NULL) || store.getCloseTime().equals(ApiConfig.API_CUSTOM_NULL) || store.getOpenTime().equals(store.getCloseTime()))
+            binding.StoreDetailsTvSchedule.setText(R.string.open_anytime);
+        else
+            binding.StoreDetailsTvSchedule.setText(store.getOpenTime() + " - " + store.getCloseTime());
+
         if (!store.getDescription().equals("null")) binding.StoreDetailsTvDescription.setText(store.getDescription());
         if (!store.getPhone().equals("null")) binding.StoreDetailsTvPhone.setText(store.getPhone());
         if (!store.getWebsite().equals("null")) binding.StoreDetailsTvWebsite.setText(store.getWebsite());

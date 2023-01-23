@@ -54,14 +54,14 @@ public class MainActivity extends AppCompatActivity {
     public void showRestaurantDetails(final int id){
         Restaurant restaurant = SingletonEnterprises.getInstance(this).getRestaurantById(id);
         Intent intent = new Intent(this, RestaurantDetailsActivity.class);
-        intent.putExtra(RestaurantDetailsActivity.RESTAURANT_ID,(int) restaurant.getId());
+        intent.putExtra(RestaurantDetailsActivity.RESTAURANT_ID, restaurant.getId());
         startActivity(intent);
     }
 
     public void showStoreDetails(final int id){
         Store store = SingletonEnterprises.getInstance(this).getStoreById(id);
         Intent intent = new Intent(this, StoreDetailsActivity.class);
-        intent.putExtra(StoreDetailsActivity.STORE_ID, (int) store.getId());
+        intent.putExtra(StoreDetailsActivity.STORE_ID, store.getId());
         startActivity(intent);
     }
 }

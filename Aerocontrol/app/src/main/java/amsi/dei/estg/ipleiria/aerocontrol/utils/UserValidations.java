@@ -91,21 +91,24 @@ public class UserValidations {
         ArrayList<String> contacts = new ArrayList<>();
         ArrayList<String> personalData = new ArrayList<>();
         ArrayList<String> accessData = new ArrayList<>();
+
         // Valida os contactos
         if (!validateEmail(user.getEmail())) contacts.add("Email");
         if (!validatePhoneCode(user.getPhoneCountryCode())) contacts.add("Código de telefone do país");
         if (!validatePhone(user.getPhone())) contacts.add("Telefone");
+
         // Valida os dados de acesso
         if (!validateUsername(user.getUsername())) accessData.add("Username");
         if (user.getPassword() != null) {
             if (!validatePassword(user.getPassword()))
                 accessData.add("Password");
         }
+
         // Valida os dados pessoais
         if (!validateFirstName(user.getFirstName())) personalData.add("Primeiro nome");
         if (!validateLastName(user.getLastName())) personalData.add("Último nome");
         if (!validateGender(user.getGender())) personalData.add("Género");
-        if (!validateBirthdate(user.getBirthdate())) personalData.add("Data de Nascimento");
+        if (!validateBirthdate(DateDisplayFormatUtils.formatDateToString(user.getBirthdate(), Validations.VALIDATION_DATE_FORMAT))) personalData.add("Data de Nascimento");
         if (!validateCountry(user.getCountry())) personalData.add("País");
         if (!validateCity(user.getCity())) personalData.add("Cidade");
 

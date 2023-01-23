@@ -7,42 +7,53 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.helpers.EnterprisesDBManager;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Restaurant;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.RestaurantItem;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Store;
-import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.helpers.EnterprisesDBHelper;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.EnterprisesListenerRestaurant;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.EnterprisesListenerStore;
-import amsi.dei.estg.ipleiria.aerocontrol.utils.EnterprisesJsonParser;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.RestaurantsListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.StoresListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 
 public class SingletonEnterprises {
+
     private static SingletonEnterprises instance = null;
-
-    private EnterprisesListenerRestaurant enterprisesListenerRestaurant;
-    private EnterprisesListenerStore enterprisesListenerStore;
-
-    private static EnterprisesDBHelper enterprisesDB;
-
-    private static RequestQueue volleyQueue;
-
     private ArrayList<Restaurant> restaurants;
     private ArrayList<Store> stores;
 
+    private Context context;
+
+    private RequestQueue volleyQueue;
+
+    private RestaurantsListener restaurantsListener;
+    private StoresListener storesListener;
+
+
+    public void setRestaurantsListener(RestaurantsListener restaurantsListener) {
+        this.restaurantsListener = restaurantsListener;
+    }
+	
+	public void setStoresListener(StoresListener storesListener) {
+        this.storesListener = storesListener;
+    }
+
     private SingletonEnterprises(Context context){
-        restaurants = new ArrayList<>();
-        stores = new ArrayList<>();
-        enterprisesDB = new EnterprisesDBHelper(context);
+        this.restaurants = new ArrayList<>();
+        this.stores = new ArrayList<>();
+        this.context = context;
+
+        //https://developer.android.com/training/volley/requestqueue?hl=pt-br
+        volleyQueue = Volley.newRequestQueue(context.getApplicationContext());
     }
 
     public static synchronized SingletonEnterprises getInstance(Context context){
-        volleyQueue = Volley.newRequestQueue(context);
-
         if (instance == null) instance = new SingletonEnterprises(context);
         return instance;
     }
@@ -77,7 +88,7 @@ public class SingletonEnterprises {
 
         // Dados já foram recarregados, para evitar que o utilizador dê spam
         if(restaurants.size() > 0) {
-            enterprisesListenerRestaurant.onRefreshList(restaurants);
+            restaurantsListener.onRefreshList(restaurants);
             return;
         }
 
@@ -85,22 +96,28 @@ public class SingletonEnterprises {
         if (!NetworkUtils.isConnectedInternet(context)){
             Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
             readRestaurantsDB();
-            enterprisesListenerRestaurant.onRefreshList(restaurants);
+            restaurantsListener.onRefreshList(restaurants);
             return;
         }
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, ApiEndPoint.RESTAURANTS, null,
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, ApiEndPoint.ENDPOINT_RESTAURANTS, null,
             response -> {
-                restaurants = EnterprisesJsonParser.parserJsonRestaurants(response);
-                if (enterprisesListenerRestaurant != null && restaurants.size()>0){
-                    enterprisesDB.truncateTableItems();
-                    enterprisesDB.truncateTableRestaurants();
-                    createRestaurantsDB(restaurants);
-                    enterprisesListenerRestaurant.onRefreshList(restaurants);
+                try {
+                    Restaurant[] restaurantsArray = Restaurant.parseJsonToRestaurants(response.toString());
+                    restaurants.clear();
+                    Collections.addAll(restaurants, restaurantsArray);
+
+                    if (restaurantsListener != null && restaurants.size()>0){
+                        EnterprisesDBManager.getInstance(context).truncateTableRestaurants();
+                        createRestaurantsDB(restaurants);
+                        restaurantsListener.onRefreshList(restaurants);
+                    }
+                } catch (JsonProcessingException e) {
+                    Toast.makeText(context, R.string.error_restaurants, Toast.LENGTH_SHORT).show();
                 }
             }, error -> {
-            Toast.makeText(context, R.string.error_restaurants, Toast.LENGTH_SHORT).show();
-            readRestaurantsDB();
+                Toast.makeText(context, R.string.error_restaurants, Toast.LENGTH_SHORT).show();
+                readRestaurantsDB();
         });
 
         volleyQueue.add(jsonArrayRequest);
@@ -112,9 +129,9 @@ public class SingletonEnterprises {
      */
     private void createRestaurantsDB(ArrayList<Restaurant> restaurants){
         for (Restaurant restaurant: restaurants) {
-            enterprisesDB.createRestaurant(restaurant);
+            EnterprisesDBManager.getInstance(context).createRestaurant(restaurant);
             for (RestaurantItem item : restaurant.getMenu()){
-                enterprisesDB.createItem(item);
+                EnterprisesDBManager.getInstance(context).createItem(item);
             }
         }
     }
@@ -123,10 +140,32 @@ public class SingletonEnterprises {
      * Vai buscar à BD local todos os restaurantes existentes na mesma.
      */
     private void readRestaurantsDB(){
-        restaurants = enterprisesDB.readRestaurants();
+        restaurants = EnterprisesDBManager.getInstance(context).readRestaurants();
         for (Restaurant restaurant: restaurants){
-            restaurant.setMenu(enterprisesDB.readItems(restaurant.getId()));
+            restaurant.setMenu(EnterprisesDBManager.getInstance(context).readRestaurantItems(restaurant.getId()));
         }
+    }
+
+    /**
+     *
+     * @param id Id do restaurante.
+     * @return Devolve todos os itens do restaurante ou null caso não encontre o restaurante.
+     */
+    public ArrayList<RestaurantItem> getRestaurantItems(int id){
+        Restaurant restaurant = getRestaurantById(id);
+        if(restaurant != null)
+            return restaurant.getMenu();
+
+        return null;
+    }
+
+    /**
+     * Adiciona um item a um restaurante
+     * @param restaurant O restaurante.
+     * @param restaurantItem Item do restaurante a adicionar.
+     */
+    public void addMenuItem(Restaurant restaurant, RestaurantItem restaurantItem){
+        restaurant.addMenuItem(restaurantItem);
     }
 
     /**
@@ -159,7 +198,7 @@ public class SingletonEnterprises {
 
         // Dados já foram recarregados, para evitar que o utilizador dê spam
         if(stores.size() > 0) {
-            enterprisesListenerStore.onRefreshList(stores);
+            storesListener.onRefreshList(stores);
             return;
         }
 
@@ -167,19 +206,27 @@ public class SingletonEnterprises {
         if (!NetworkUtils.isConnectedInternet(context)){
             Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
             readStoresDB();
-            enterprisesListenerStore.onRefreshList(stores);
+            storesListener.onRefreshList(stores);
             return;
         }
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, ApiEndPoint.STORES, null,
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, ApiEndPoint.ENDPOINT_STORES, null,
                 response -> {
-                    stores = EnterprisesJsonParser.parserJsonStores(response);
-                    if (enterprisesListenerStore != null && stores.size()>0){
-                        enterprisesDB.truncateTableItems();
-                        enterprisesDB.truncateTableStores();
-                        createStoresDB(stores);
-                        enterprisesListenerStore.onRefreshList(stores);
+
+                    try {
+                        Store[] storesArray = Store.parseJsonToStores(response.toString());
+                        stores.clear();
+                        Collections.addAll(stores, storesArray);
+
+                        if (storesListener != null && stores.size()>0){
+                            EnterprisesDBManager.getInstance(context).truncateTableStores();
+                            createStoresDB(stores);
+                            storesListener.onRefreshList(stores);
+                        }
+                    } catch (JsonProcessingException e) {
+                        Toast.makeText(context, R.string.error_stores, Toast.LENGTH_SHORT).show();
                     }
+
                 }, error -> {
             Toast.makeText(context, R.string.error_stores, Toast.LENGTH_SHORT).show();
             readStoresDB();
@@ -194,7 +241,7 @@ public class SingletonEnterprises {
      */
     private void createStoresDB(ArrayList<Store> stores){
         for (Store store: stores) {
-            enterprisesDB.createStore(store);
+            EnterprisesDBManager.getInstance(context).createStore(store);
         }
     }
 
@@ -202,14 +249,16 @@ public class SingletonEnterprises {
      * Vai buscar à BD local todas as lojas existentes na mesma.
      */
     private void readStoresDB(){
-        stores = enterprisesDB.readStores();
+        stores = EnterprisesDBManager.getInstance(context).readStores();
     }
 
-    public void setEnterprisesListenerRestaurant(EnterprisesListenerRestaurant enterprisesListener) {
-        this.enterprisesListenerRestaurant = enterprisesListener;
+    /**
+     *
+     * @param store Loja a adicionar.
+     */
+    public void addStore(Store store){
+        stores.add(store);
     }
 
-    public void setEnterprisesListenerStore(EnterprisesListenerStore enterprisesListener) {
-        this.enterprisesListenerStore = enterprisesListener;
-    }
+
 }

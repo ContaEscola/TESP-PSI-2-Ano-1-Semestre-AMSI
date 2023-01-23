@@ -67,6 +67,7 @@
     <string name="verify_password">Para guardar os seus dados é necessário verificar a password.</string>
     <string name="support_ticket_image">Imagem do ticket de suporte</string>
     <string name="create_support_ticket">Criar novo suporte ticket</string>
+    <string name="signup_verification">Verifique o seu email para mais instruções!</string>
 
 
     <!--  Dados User  -->
@@ -101,7 +102,7 @@
     <string name="flight_destiny">Destino:</string>
     <string name="flight_passengers">Nº Passageiros:</string>
     <string name="flight_departure_date">Data de partida:</string>
-    <string name="flight_arrival_date">Data de chegada:</string>
+    <string name="flight_come_back_date">Data de volta:</string>
 
 
     <!--  Titulos  -->
@@ -119,8 +120,9 @@
     <string name="description">Descrição:</string>
     <string name="website">Website:</string>
     <string name="store_restaurant_phone">Telemóvel:</string>
-    <string name="menu">Ementas</string>
+    <string name="menu">Ementa</string>
     <string name="store">Store name</string>
+    <string name="open_anytime">Aberto 24 horas</string>
 
 
     <!--  Ticket Info  -->
@@ -177,6 +179,7 @@
     <string name="btn_close_support_ticket">Fechar ticket</string>
 
     <!--  Erros  -->
+    <string name="common_error">Erro, por favor tente mais tarde!</string>
     <string name="no_internet_connection">Sem ligação de internet</string>
     <string name="error_restaurants">Erro ao mostrar os restaurantes.</string>
     <string name="error_no_restaurant">Restaurante não encontrado</string>
@@ -189,6 +192,12 @@
     <string name="insert_all_data">Preencha todos os campos.</string>
     <string name="error_on_ticket">Erro ao encontrar o bilhete</string>
     <string name="error_on_support_ticket">Erro ao encontrar o ticket de suporte</string>
+    <string name="errors_found">Erros encontrados</string>
+    <string name="solve_errors">Antes de prosseguir, resolva os seguintes erros:</string>
+    <string name="no_apps_to_emails">Não existem aplicações no dispositivo para o envio de emails.</string>
+    <string name="email_message_invalid">Escreva um email e uma mensagem válidos!</string>
+    <string name="fill_fields_without_errors">Preencha todos os campos sem erros!</string>
+
 
     <!-- Erros User -->
     <string name="username_error">O username tem de ter de 2 a 30 caracteres.</string>
@@ -197,15 +206,16 @@
     <string name="last_name_error">O último nome é obrigatório e não pode exceder os 50 caracteres.</string>
     <string name="gender_error">Tem de selecionar obrigatoriamente um dos três géneros.</string>
     <string name="country_error">O país tem de ter de 4 a 50 caracteres.</string>
-    <string name="city_error">O username tem de ter de 1 a 75 caracteres.</string>
+    <string name="city_error">A cidade tem de ter de 1 a 75 caracteres.</string>
     <string name="email_error">Insira um email válido.</string>
     <string name="phone_error">O nº de telemóvel só pode conter números, e tem de ter de 4 a 15 números.</string>
     <string name="phone_code_error">Formato inválido.\nExemplo: +000</string>
     <string name="birthdate_error">Formato inválido.\nExemplo: 30/04/2000</string>
-    <string name="errors_found">Erros encontrados</string>
-    <string name="solve_errors">Antes de prosseguir, resolva os seguintes erros:</string>
-    <string name="no_apps_to_emails">Não existem aplicações no dispositivo para o envio de emails.</string>
-    <string name="email_message_invalid">Escreva um email e uma mensagem válidos!</string>
+    <string name="error_airports">Erro ao carregar os aeroportos disponiveis</string>
+    <string name="no_flights_found">Não foram encontrados voos, exprimente outra data!</string>
+    <string name="no_flights_found_search_more_dates">Não foram encontrados voos, a procurar nas próximas datas.</string>
+    <string name="origin_arrival">Origem - Destino</string>
+    <string name="reserved">Reservado</string>
 
 
 </resources>

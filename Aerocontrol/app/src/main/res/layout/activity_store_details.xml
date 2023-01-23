@@ -34,11 +34,11 @@
         android:id="@+id/StoreDetails_Tv_Schedule"
         style="@style/DataText"
         android:layout_width="0dp"
-        android:layout_marginStart="2dp"
+        android:layout_marginStart="5dp"
         android:text="@string/schedule"
+        app:layout_constraintBaseline_toBaselineOf="@+id/StoreDetails_Tv_LabelSchedule"
         app:layout_constraintEnd_toStartOf="@+id/StoreDetails_GuidelineEnd"
-        app:layout_constraintStart_toEndOf="@+id/StoreDetails_Tv_LabelSchedule"
-        app:layout_constraintTop_toTopOf="@+id/StoreDetails_Tv_LabelSchedule" />
+        app:layout_constraintStart_toEndOf="@+id/StoreDetails_Tv_LabelSchedule" />
 
     <TextView
         android:id="@+id/StoreDetails_Tv_LabelDescription"
@@ -53,11 +53,11 @@
         android:id="@+id/StoreDetails_Tv_Description"
         style="@style/DataText"
         android:layout_width="0dp"
+        android:layout_marginStart="5dp"
         android:text="@string/random_text"
-        android:layout_marginStart="2dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/StoreDetails_Tv_LabelDescription"
         app:layout_constraintEnd_toStartOf="@+id/StoreDetails_GuidelineEnd"
-        app:layout_constraintStart_toEndOf="@+id/StoreDetails_Tv_LabelDescription"
-        app:layout_constraintTop_toTopOf="@+id/StoreDetails_Tv_LabelDescription" />
+        app:layout_constraintStart_toEndOf="@+id/StoreDetails_Tv_LabelDescription" />
 
     <TextView
         android:id="@+id/StoreDetails_Tv_LabelPhone"
@@ -72,11 +72,11 @@
         android:id="@+id/StoreDetails_Tv_Phone"
         style="@style/DataText"
         android:layout_width="0dp"
-        android:layout_marginStart="2dp"
+        android:layout_marginStart="5dp"
         android:text="@string/phone"
+        app:layout_constraintBaseline_toBaselineOf="@+id/StoreDetails_Tv_LabelPhone"
         app:layout_constraintEnd_toStartOf="@+id/StoreDetails_GuidelineEnd"
-        app:layout_constraintStart_toEndOf="@+id/StoreDetails_Tv_LabelPhone"
-        app:layout_constraintTop_toTopOf="@+id/StoreDetails_Tv_LabelPhone" />
+        app:layout_constraintStart_toEndOf="@+id/StoreDetails_Tv_LabelPhone" />
 
     <TextView
         android:id="@+id/StoreDetails_Tv_LabelWebsite"
@@ -91,11 +91,11 @@
         android:id="@+id/StoreDetails_Tv_Website"
         style="@style/DataText"
         android:layout_width="0dp"
+        android:layout_marginStart="5dp"
         android:text="@string/website"
-        android:layout_marginStart="2dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/StoreDetails_Tv_LabelWebsite"
         app:layout_constraintEnd_toStartOf="@+id/StoreDetails_GuidelineEnd"
-        app:layout_constraintStart_toEndOf="@+id/StoreDetails_Tv_LabelWebsite"
-        app:layout_constraintTop_toTopOf="@+id/StoreDetails_Tv_LabelWebsite" />
+        app:layout_constraintStart_toEndOf="@+id/StoreDetails_Tv_LabelWebsite" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/StoreDetails_GuidelineStart"
