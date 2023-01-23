@@ -3,8 +3,6 @@ package amsi.dei.estg.ipleiria.aerocontrol.data.prefs;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import java.sql.Date;
-
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.User;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.DateDisplayFormatUtils;
 
@@ -163,7 +161,7 @@ public class UserPreferences {
         this.setEmail(user.getEmail());
         this.setPhone(user.getPhone());
         this.setPhoneCountryCode(user.getPhoneCountryCode());
-        this.setBirthdate(user.getBirthdate().toString());
+        this.setBirthdate(DateDisplayFormatUtils.formatDateToString(user.getBirthdate(), null));
     }
 
     public User getUser(){
@@ -180,7 +178,7 @@ public class UserPreferences {
                 this.getEmail(),
                 this.getPhone(),
                 this.getPhoneCountryCode(),
-                DateDisplayFormatUtils.formatStringToDate(this.getBirthdate())
+                DateDisplayFormatUtils.formatStringToDate(this.getBirthdate(), null)
         );
     }
 }
