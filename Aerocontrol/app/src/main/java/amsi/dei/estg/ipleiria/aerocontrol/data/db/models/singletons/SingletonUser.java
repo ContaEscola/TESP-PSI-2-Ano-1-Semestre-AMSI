@@ -1,10 +1,15 @@
 package amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.ClientError;
+import com.android.volley.NetworkError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.ServerError;
@@ -17,10 +22,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.helpers.UserDBManager;
@@ -35,6 +45,7 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.models.LoginRequest;
 import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.SignupListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.UpdateUserListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketListener;
@@ -59,6 +70,7 @@ public class SingletonUser {
     private FlightTicketsListener flightTicketsListener;
     private FlightTicketListener flightTicketListener;
 	private UpdateUserListener updateUserListener;
+    private SignupListener signupListener;
 
     public void setLoginListener(LoginListener loginListener) {
         this.loginListener = loginListener;
@@ -74,6 +86,10 @@ public class SingletonUser {
     
 	public void setUpdateUserListener(UpdateUserListener updateUserListener) {
         this.updateUserListener = updateUserListener;
+    }
+
+    public void setSignupListener(SignupListener signupListener) {
+        this.signupListener = signupListener;
     }
 
     private SingletonUser(Context context){
@@ -153,34 +169,67 @@ public class SingletonUser {
             return;
 
         }
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiEndPoint.SIGNUP,
-                response -> {
-                    String message = SignupJsonParser.parserJsonSignup(response);
-                    if (signupListener != null && message != null) {
-                        signupListener.onSignup(message);
-                    } else Toast.makeText(context, "Erro", Toast.LENGTH_SHORT).show();
-                }, error -> System.out.println(error.getNetworkTimeMs())){
-            @Override
-            public Map<String, String> getParams(){
-                Map<String, String> params = new HashMap<>();
-                params.put("username", user.getUsername());
-                params.put("password_hash", user.getPassword());
-                params.put("first_name", user.getFirstName());
-                params.put("last_name", user.getLastName());
-                params.put("gender", user.getGender());
-                user.convertBirthdayToSave();
-                params.put("birthdate", user.getBirthdate());
-                user.convertBirthdayToDisplay();
-                params.put("country", user.getCountry());
-                params.put("city", user.getCity());
-                params.put("email", user.getEmail());
-                params.put("phone", user.getPhone());
-                params.put("phone_country_code", user.getPhoneCountryCode());
-                return params;
-            }
-        };
 
-        volleyQueue.add(stringRequest);
+        try {
+
+            String jsonUser = User.convertUserToJson(user);
+            Map<String, Object> jsonParams = ApiBodyHelper.convertJsonStringToMap(jsonUser);
+
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, ApiEndPoint.ENDPOINT_SIGNUP, new JSONObject(jsonParams),
+                    response -> {
+                        // Aqui já tá com successo
+                        if (signupListener != null)
+                            signupListener.onSignup();
+
+                    }, error -> {
+                        String body = null;
+                        Map<String, Object> bodyParams = null;
+                        String errorReturned = "";
+
+                        if(error.networkResponse.data != null) {
+                            try {
+                                // Aqui tem a resposta em String
+                                body = new String(error.networkResponse.data,"UTF-8");
+                                // Aqui converte a resposta para um Map
+                                bodyParams = ApiBodyHelper.convertJsonStringToMap(body);
+
+                                // Aqui converte a resposta["message"] para um Map
+                                Map<String, Object> bodyMessage = ApiBodyHelper.convertJsonStringToMap((String) bodyParams.get("message"));
+
+
+                                // Aqui faz um for em todos os items da resposta["message"]
+                                for (Object value : bodyMessage.values()) {
+                                    // Busca o ArrayList de erros para cada atributo da resposta["message"]
+                                    ArrayList<String> errorsInAttribute = (ArrayList<String>) value;
+                                    for(String errorInAttribute : errorsInAttribute) {
+                                        // Adiciona cada erro do atributo ao String erro
+                                        errorReturned += errorInAttribute + "\n";
+                                    }
+                                }
+
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            } catch (JsonProcessingException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        // https://stackoverflow.com/questions/24700582/handle-volley-error
+                        // https://gist.github.com/kevintanhongann/595c601909d1814641b8
+
+                        // Quer dizer que deu erro num input (exemplo: nome repetido)
+                        if( error instanceof ClientError) {
+                            signupListener.onErrorSignup(errorReturned);
+                        } else {
+                            Toast.makeText(context, R.string.common_error, Toast.LENGTH_SHORT).show();
+                        }
+            });
+
+            volleyQueue.add(jsonObjectRequest);
+
+        } catch (JsonProcessingException e) {
+            Toast.makeText(context, R.string.common_error, Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
