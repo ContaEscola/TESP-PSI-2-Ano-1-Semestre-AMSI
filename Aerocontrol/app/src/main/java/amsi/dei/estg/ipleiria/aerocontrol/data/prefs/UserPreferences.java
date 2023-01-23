@@ -130,7 +130,8 @@ public class UserPreferences {
     }
 
     public void setBirthdate(Date birthdate){
-        editor.putString(PREF_KEY_BIRTHDATE,birthdate.toString()).apply();
+        String birthdateFormated = DateDisplayFormatUtils.formatDateToString(birthdate, ApiConfig.API_DATE_FORMAT);
+        editor.putString(PREF_KEY_BIRTHDATE, birthdateFormated).apply();
     }
 
     public Date getBirthdate(){

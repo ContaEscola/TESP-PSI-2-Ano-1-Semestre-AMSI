@@ -1,15 +1,11 @@
 package amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.ClientError;
-import com.android.volley.NetworkError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.ServerError;
@@ -24,13 +20,9 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.helpers.UserDBManager;
@@ -50,19 +42,8 @@ import amsi.dei.estg.ipleiria.aerocontrol.listeners.UpdateUserListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketsListener;
-import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.helpers.UserDBHelper;
-import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
-import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.ResetPasswordListener;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.SignupListener;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketListener;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketsListener;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.UpdateUserListener;
-import amsi.dei.estg.ipleiria.aerocontrol.utils.LoginParser;
-import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.SignupJsonParser;
-import amsi.dei.estg.ipleiria.aerocontrol.utils.UserJsonParser;
 
 public class SingletonUser {
 
@@ -205,9 +186,15 @@ public class SingletonUser {
                             signupListener.onSignup();
 
                     }, error -> {
+
                         String body = null;
                         Map<String, Object> bodyParams = null;
                         String errorReturned = "";
+
+                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                            signupListener.onErrorSignup(errorReturned);
+                            return;
+                        }
 
                         if(error.networkResponse.data != null) {
                             try {
@@ -216,18 +203,20 @@ public class SingletonUser {
                                 // Aqui converte a resposta para um Map
                                 bodyParams = ApiBodyHelper.convertJsonStringToMap(body);
 
-                                // Aqui converte a resposta["message"] para um Map
-                                Map<String, Object> bodyMessage = ApiBodyHelper.convertJsonStringToMap((String) bodyParams.get("message"));
+                                if(bodyParams.containsKey("message")) {
+                                    // Aqui converte a resposta["message"] para um Map
+                                    Map<String, Object> bodyMessage = ApiBodyHelper.convertJsonStringToMap((String) bodyParams.get("message"));
 
-
-                                // Aqui faz um for em todos os items da resposta["message"]
-                                for (Object value : bodyMessage.values()) {
-                                    // Busca o ArrayList de erros para cada atributo da resposta["message"]
-                                    ArrayList<String> errorsInAttribute = (ArrayList<String>) value;
-                                    for(String errorInAttribute : errorsInAttribute) {
-                                        // Adiciona cada erro do atributo ao String erro
-                                        errorReturned += errorInAttribute + "\n";
+                                    // Aqui faz um for em todos os items da resposta["message"]
+                                    for (Object value : bodyMessage.values()) {
+                                        // Busca o ArrayList de erros para cada atributo da resposta["message"]
+                                        ArrayList<String> errorsInAttribute = (ArrayList<String>) value;
+                                        for(String errorInAttribute : errorsInAttribute) {
+                                            // Adiciona cada erro do atributo ao String erro
+                                            errorReturned += errorInAttribute + "\n";
+                                        }
                                     }
+
                                 }
 
                             } catch (UnsupportedEncodingException e) {
@@ -237,15 +226,7 @@ public class SingletonUser {
                             }
                         }
 
-                        // https://stackoverflow.com/questions/24700582/handle-volley-error
-                        // https://gist.github.com/kevintanhongann/595c601909d1814641b8
-
-                        // Quer dizer que deu erro num input (exemplo: nome repetido)
-                        if( error instanceof ClientError) {
-                            signupListener.onErrorSignup(errorReturned);
-                        } else {
-                            Toast.makeText(context, R.string.common_error, Toast.LENGTH_SHORT).show();
-                        }
+                        signupListener.onErrorSignup(errorReturned);
             });
 
             volleyQueue.add(jsonObjectRequest);
@@ -267,13 +248,16 @@ public class SingletonUser {
             return;
         }
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiEndPoint.RESETPASSWORD,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiEndPoint.ENDPOINT_RESET_PASSWORD,
                 response -> {
                     String message = SignupJsonParser.parserJsonSignup(response);
                     if (resetPasswordListener != null && message != null) {
                         resetPasswordListener.onEmailSent(message);
-                    } else Toast.makeText(context, "Erro", Toast.LENGTH_SHORT).show();
-                }, error -> Toast.makeText(context, "Erro", Toast.LENGTH_SHORT).show()){
+                    } else Toast.makeText(context, R.string.common_error, Toast.LENGTH_SHORT).show();
+                },
+                error -> {
+                    Toast.makeText(context, R.string.common_error, Toast.LENGTH_SHORT).show();
+                }){
             @Override
             public Map<String, String> getParams(){
                 Map<String, String> params = new HashMap<>();
@@ -440,7 +424,7 @@ public class SingletonUser {
      * @param context context da atividade ou fragment
      * @param ticket ticket a enviar para a API para ser atualizado
      */
-    public void updateTicketAPI(final Context context, FlightTicket ticket){
+    public void updateFlightTicketAPI(final Context context, FlightTicket ticket){
         if (!NetworkUtils.isConnectedInternet(context)){
             Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
             return;
@@ -476,7 +460,7 @@ public class SingletonUser {
      * @param context context da atividade ou fragment
      * @param ticket ticket eliminar
      */
-    public void deleteTicketAPI(final Context context, FlightTicket ticket){
+    public void deleteFlightTicketAPI(final Context context, FlightTicket ticket){
         if (!NetworkUtils.isConnectedInternet(context)){
             Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
             return;
