@@ -7,6 +7,8 @@ import java.util.regex.Pattern;
 
 public class Validations {
 
+    public static final String VALIDATION_DATE_FORMAT = "dd/MM/yyyy";
+
     /**
      * Valida o máximo de caracteres que a String pode ter.
      * @param max Máximo caracteres permitidos
