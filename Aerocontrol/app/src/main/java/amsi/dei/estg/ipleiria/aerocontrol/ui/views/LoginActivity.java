@@ -3,7 +3,6 @@ package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -50,7 +49,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         String username = etUsername.getText().toString();
         String password = etPassword.getText().toString();
         if(!username.trim().equals("") && !password.trim().equals(""))
-            SingletonUser.getInstance(this).getLoginAPI(username, password, this);
+            SingletonUser.getInstance(this).getLoginAPI(username.trim(), password.trim(), this);
         else Toast.makeText(this, R.string.insert_all_data, Toast.LENGTH_SHORT).show();
     }
 
