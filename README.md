@@ -9,6 +9,8 @@ Grupo B
 1. Dentro do projeto alterar o ficheiro "aerocontrol\data\network\ApiEndPoint.java" para o ip e o nome da pasta onde se encontra a API.
 2. Ver o README do projeto de PLSI-SIS para a configuração da base de dados e API.
 
+## Base de Dados
+A base de dados utilizada é MySQL e deve ser guardada num servidor apache.
 
 ## Credenciais
 
