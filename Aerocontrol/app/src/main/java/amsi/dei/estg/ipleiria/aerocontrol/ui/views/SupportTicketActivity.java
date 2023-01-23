@@ -1,5 +1,6 @@
 package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -70,6 +72,8 @@ public class SupportTicketActivity extends AppCompatActivity implements SupportT
         layout.addView(title);
 
         EditText message = new EditText(this);
+        message.setSingleLine(false);
+        message.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION);
         message.setHint(getString(R.string.message));
         layout.addView(message);
 
@@ -85,7 +89,7 @@ public class SupportTicketActivity extends AppCompatActivity implements SupportT
 
     @Override
     public void onRefreshList(ArrayList<SupportTicket> supportTickets) {
-        adapter = new SupportTicketsListAdapter(this, SingletonUser.getInstance(this).getSupportTickets());
+        adapter = new RecyclerViewSupportTicketsAdapter(this, SingletonUser.getInstance(this).getSupportTickets());
         binding.SupportTicketRvTickets.setAdapter(adapter);
     }
 }

@@ -7,7 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 
-public class FlightTicketPassengers extends AppCompatActivity {
+public class FlightTicketPassengersActivity extends AppCompatActivity {
 
     public static final String FLIGHT_GO_ID = "flight_go_id";
     public static final String FLIGHT_BACK_ID = "flight_back_id";

@@ -26,9 +26,9 @@
             android:name=".ui.views.PaymentMethodActivity"
             android:exported="false"
             android:launchMode="singleTop"
-            android:parentActivityName=".ui.views.FlightTicketPassengers" />
+            android:parentActivityName=".ui.views.FlightTicketPassengersActivity" />
         <activity
-            android:name=".ui.views.FlightTicketPassengers"
+            android:name=".ui.views.FlightTicketPassengersActivity"
             android:exported="false"
             android:launchMode="singleTop"
             android:parentActivityName=".ui.views.FlightSearchResultsActivity" />

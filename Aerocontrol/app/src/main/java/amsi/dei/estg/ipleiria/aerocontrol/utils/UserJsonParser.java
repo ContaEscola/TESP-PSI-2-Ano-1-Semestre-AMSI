@@ -6,9 +6,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.FlightTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.LostItem;
-import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Passenger;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.TicketMessage;
 
@@ -27,15 +25,17 @@ public class UserJsonParser {
                             jsonObject.getString("state"));
                     supportTickets.add(supportTicket);
 
-                    JSONArray messages = jsonObject.getJSONArray("messages");
-                    for (int j=0; j< messages.length(); j++){
-                        JSONObject jsonObjectMessage = (JSONObject) messages.get(j);
-                        TicketMessage message = new TicketMessage(
-                                jsonObjectMessage.getInt("id"),
-                                jsonObjectMessage.getString("message"),
-                                jsonObjectMessage.getString("sender")
-                        );
-                        supportTicket.addMessage(message);
+                    if (jsonObject.has("messages")) {
+                        JSONArray messages = jsonObject.getJSONArray("messages");
+                        for (int j = 0; j < messages.length(); j++) {
+                            JSONObject jsonObjectMessage = (JSONObject) messages.get(j);
+                            TicketMessage message = new TicketMessage(
+                                    jsonObjectMessage.getInt("id"),
+                                    jsonObjectMessage.getString("message"),
+                                    jsonObjectMessage.getString("sender")
+                            );
+                            supportTicket.addMessage(message);
+                        }
                     }
 
                     if (jsonObject.has("items")) {
