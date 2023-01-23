@@ -18,6 +18,7 @@ public class UserDBOpenHelper extends SQLiteOpenHelper {
 
     public static final String TBL_FLIGHT_TICKET = "flight_ticket";
     public static final String TBL_PASSENGER = "passenger";
+    public static final String TBL_SUPPORT_TICKET = "support_ticket";
 
 
 
@@ -45,23 +46,27 @@ public class UserDBOpenHelper extends SQLiteOpenHelper {
     public static final String COL_PASSENGER_EXTRA_BAGGAGE = "extra_baggage";
     public static final String COL_PASSENGER_FLIGHT_TICKET_ID = "flight_ticket_id";
 
+    // Campos da tabela support ticket
+    public static final String COL_SUPPORT_TICKET_ID = "id";
+    public static final String COL_SUPPORT_TICKET_TITLE = "title";
+    public static final String COL_SUPPORT_TICKET_STATE = "state";
 
     // Sql para criar a tabela flight ticket
     private static final String CREATE_TBL_FLIGHT_TICKET =
             "CREATE TABLE " + TBL_FLIGHT_TICKET + "( " +
                     COL_FLIGHT_TICKET_ID + " INTEGER PRIMARY KEY NOT NULL, " +
-                    COL_FLIGHT_TICKET_PAYMENT_METHOD + " TEXT NOT NULL," +
-                    COL_FLIGHT_TICKET_STATE + " TEXT NOT NULL," +
+                    COL_FLIGHT_TICKET_PAYMENT_METHOD + " TEXT NOT NULL, " +
+                    COL_FLIGHT_TICKET_STATE + " TEXT NOT NULL, " +
                     COL_FLIGHT_TICKET_ORIGIN + " TEXT NOT NULL, " +
-                    COL_FLIGHT_TICKET_ARRIVAL + " TEXT NOT NULL," +
-                    COL_FLIGHT_TICKET_DEPARTURE_TIME + " TEXT NOT NULL," +
-                    COL_FLIGHT_TICKET_ARRIVAL_TIME + " TEXT NOT NULL," +
-                    COL_FLIGHT_TICKET_TERMINAL + " TEXT NOT NULL," +
-                    COL_FLIGHT_TICKET_ORIGINAL_PRICE + " DOUBLE NOT NULL," +
-                    COL_FLIGHT_TICKET_PAID_PRICE + " DOUBLE NOT NULL," +
-                    COL_FLIGHT_TICKET_FLIGHT_DATE + " TEXT NOT NULL," +
-                    COL_FLIGHT_TICKET_PURCHASE_DATE + " DATETIME NOT NULL," +
-                    COL_FLIGHT_TICKET_DISTANCE + " FLOAT NOT NULL," +
+                    COL_FLIGHT_TICKET_ARRIVAL + " TEXT NOT NULL, " +
+                    COL_FLIGHT_TICKET_DEPARTURE_TIME + " TEXT NOT NULL, " +
+                    COL_FLIGHT_TICKET_ARRIVAL_TIME + " TEXT NOT NULL, " +
+                    COL_FLIGHT_TICKET_TERMINAL + " TEXT NOT NULL, " +
+                    COL_FLIGHT_TICKET_ORIGINAL_PRICE + " DOUBLE NOT NULL, " +
+                    COL_FLIGHT_TICKET_PAID_PRICE + " DOUBLE NOT NULL, " +
+                    COL_FLIGHT_TICKET_FLIGHT_DATE + " TEXT NOT NULL, " +
+                    COL_FLIGHT_TICKET_PURCHASE_DATE + " DATETIME NOT NULL, " +
+                    COL_FLIGHT_TICKET_DISTANCE + " FLOAT NOT NULL, " +
                     COL_FLIGHT_TICKET_CHECK_IN + " BOOLEAN NOT NULL " +
                     ");";
 
@@ -69,16 +74,22 @@ public class UserDBOpenHelper extends SQLiteOpenHelper {
     private static final String CREATE_TBL_PASSENGER =
             "CREATE TABLE " + TBL_PASSENGER +  "( " +
                     COL_PASSENGER_ID + " INTEGER PRIMARY KEY NOT NULL, " +
-                    COL_PASSENGER_NAME + " TEXT NOT NULL," +
-                    COL_PASSENGER_GENDER + " TEXT NOT NULL," +
+                    COL_PASSENGER_NAME + " TEXT NOT NULL, " +
+                    COL_PASSENGER_GENDER + " TEXT NOT NULL, " +
                     COL_PASSENGER_SEAT + " VARCHAR(3) NOT NULL, " +
-                    COL_PASSENGER_EXTRA_BAGGAGE + " BOOLEAN NOT NULL," +
-                    COL_PASSENGER_FLIGHT_TICKET_ID + " INTEGER NOT NULL," +
+                    COL_PASSENGER_EXTRA_BAGGAGE + " BOOLEAN NOT NULL, " +
+                    COL_PASSENGER_FLIGHT_TICKET_ID + " INTEGER NOT NULL, " +
                     "FOREIGN KEY (" + COL_PASSENGER_FLIGHT_TICKET_ID + ") REFERENCES " + TBL_FLIGHT_TICKET + "(" + COL_FLIGHT_TICKET_ID + ")" +
                     ");";
 
 
-
+    // Sql para criar a tabela support ticket
+    private static final String CREATE_TBL_SUPPORT_TICKET =
+                "CREATE TABLE " + TBL_SUPPORT_TICKET + "( " +
+                        COL_SUPPORT_TICKET_ID + " INTEGER PRIMARY KEY NOT NULL, " +
+                        COL_SUPPORT_TICKET_TITLE + " TEXT NOT NULL," +
+                        COL_SUPPORT_TICKET_STATE + " TEXT NOT NULL " +
+                        ");";
 
     private final SQLiteDatabase database;
 
@@ -91,6 +102,7 @@ public class UserDBOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TBL_FLIGHT_TICKET);
         db.execSQL(CREATE_TBL_PASSENGER);
+        db.execSQL(CREATE_TBL_SUPPORT_TICKET);
     }
 
     @Override

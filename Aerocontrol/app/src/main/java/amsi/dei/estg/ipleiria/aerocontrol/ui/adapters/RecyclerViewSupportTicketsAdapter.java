@@ -1,8 +1,7 @@
-package amsi.dei.estg.ipleiria.aerocontrol.adapters;
+package amsi.dei.estg.ipleiria.aerocontrol.ui.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -11,38 +10,32 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
 import java.util.ArrayList;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
-import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
-import amsi.dei.estg.ipleiria.aerocontrol.ui.views.MainActivity;
 import amsi.dei.estg.ipleiria.aerocontrol.ui.views.SupportTicketActivity;
-import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 
-public class SupportTicketsListAdapter extends RecyclerView.Adapter<SupportTicketsListAdapter.ViewHolderList> {
+public class RecyclerViewSupportTicketsAdapter extends RecyclerView.Adapter<RecyclerViewSupportTicketsAdapter.ViewHolder> {
 
     private Context context;
     private LayoutInflater layoutInflater;
     private ArrayList<SupportTicket> supportTickets;
 
-    public SupportTicketsListAdapter(Context context, ArrayList<SupportTicket> supportTickets){
+    public RecyclerViewSupportTicketsAdapter(Context context, ArrayList<SupportTicket> supportTickets){
         this.context = context;
         this.supportTickets = supportTickets;
     }
 
     @NonNull
     @Override
-    public ViewHolderList onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_support_ticket, parent, false);
-        return new ViewHolderList(item);
+        return new ViewHolder(item);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderList holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         SupportTicket supportTicket = supportTickets.get(position);
         holder.updateSupportTicket(supportTicket);
     }
@@ -52,11 +45,11 @@ public class SupportTicketsListAdapter extends RecyclerView.Adapter<SupportTicke
         return supportTickets.size();
     }
 
-    public class ViewHolderList extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvTicket, tvState;
         Button btDetails;
-        public ViewHolderList(@NonNull View view) {
+        public ViewHolder(@NonNull View view) {
             super(view);
             this.tvTicket = view.findViewById(R.id.SupportTicket_Tv_Ticket);
             this.tvState = view.findViewById(R.id.SupportTicket_Tv_State);

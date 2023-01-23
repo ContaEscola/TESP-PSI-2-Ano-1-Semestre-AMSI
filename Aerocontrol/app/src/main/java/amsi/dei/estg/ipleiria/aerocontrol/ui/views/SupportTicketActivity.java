@@ -1,7 +1,6 @@
 package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -11,18 +10,17 @@ import android.os.Bundle;
 import java.util.ArrayList;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
-import amsi.dei.estg.ipleiria.aerocontrol.adapters.SupportTicketsListAdapter;
+import amsi.dei.estg.ipleiria.aerocontrol.ui.adapters.RecyclerViewSupportTicketsAdapter;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
 import amsi.dei.estg.ipleiria.aerocontrol.databinding.ActivitySupportTicketListBinding;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketListener;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketsListener;
 
 public class SupportTicketActivity extends AppCompatActivity implements SupportTicketListener {
 
     private ActivitySupportTicketListBinding binding;
 
-    private SupportTicketsListAdapter adapter;
+    private RecyclerViewSupportTicketsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +47,7 @@ public class SupportTicketActivity extends AppCompatActivity implements SupportT
 
     @Override
     public void onRefreshList(ArrayList<SupportTicket> supportTickets) {
-        adapter = new SupportTicketsListAdapter(this, SingletonUser.getInstance(this).getSupportTickets());
+        adapter = new RecyclerViewSupportTicketsAdapter(this, SingletonUser.getInstance(this).getSupportTickets());
         binding.SupportTicketRvTickets.setAdapter(adapter);
         binding.SupportTicketRvTickets.setItemAnimator(new DefaultItemAnimator());
     }

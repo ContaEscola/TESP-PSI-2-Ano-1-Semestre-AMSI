@@ -45,6 +45,7 @@ import amsi.dei.estg.ipleiria.aerocontrol.listeners.ResetPasswordListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.ResetPasswordJsonParser;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketsListener;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.UserJsonParser;
 
 public class SingletonUser {
 
@@ -68,6 +69,9 @@ public class SingletonUser {
 	
     private FlightTicketsListener flightTicketsListener;
     private FlightTicketListener flightTicketListener;
+
+    private SupportTicketsListener supportTicketsListener;
+    private SupportTicketListener supportTicketListener;
 
     public void setLoginListener(LoginListener loginListener) {
         this.loginListener = loginListener;
@@ -557,7 +561,7 @@ public class SingletonUser {
      *
      * @param ticket Bilhete de voo a apagar.
      */
-    public void deleteTicket(FlightTicket ticket) {
+    public void deleteFlightTicket(FlightTicket ticket) {
         this.flightTickets.remove(ticket);
     }
 
@@ -598,13 +602,13 @@ public class SingletonUser {
         }
 
         if (this.user != null){
-            String endPoint = ApiEndPoint.MY_SUPPORT_TICKETS + "?access-token=" + this.user.getToken();
+            String endPoint = ApiEndPoint.ENDPOINT_MY_SUPPORT_TICKETS + "?access-token=" + this.user.getToken();
 
             JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, endPoint, null,
                     response -> {
                         supportTickets = UserJsonParser.parserJsonSupportTickets(response);
                         if (supportTicketsListener != null && supportTickets.size()>0){
-                            userDB.truncateTableSupportTickets();
+                            UserDBManager.getInstance(context).truncateTableSupportTickets();
                             addSupportTicketsDB(supportTickets);
                             supportTicketsListener.onRefreshList(supportTickets);
                         }
@@ -620,7 +624,7 @@ public class SingletonUser {
      */
     private void addSupportTicketsDB(ArrayList<SupportTicket> supportTickets) {
         for (SupportTicket supportTicket: supportTickets) {
-            userDB.createSupportTicket(supportTicket);
+            UserDBManager.getInstance(context).createSupportTicket(supportTicket);
         }
     }
 

@@ -19,7 +19,7 @@ import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Flight;
 import amsi.dei.estg.ipleiria.aerocontrol.ui.views.FlightSearchResultsActivity;
 
-public class RecyclerViewFlightsAdapter extends RecyclerView.Adapter<RecyclerViewFlightsAdapter.ViewHolderList> {
+public class RecyclerViewFlightsAdapter extends RecyclerView.Adapter<RecyclerViewFlightsAdapter.ViewHolder> {
 
     private Context context;
     private LayoutInflater layoutInflater;
@@ -36,13 +36,13 @@ public class RecyclerViewFlightsAdapter extends RecyclerView.Adapter<RecyclerVie
 
     @NonNull
     @Override
-    public RecyclerViewFlightsAdapter.ViewHolderList onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_flight_search_result,parent,false);
-        return new RecyclerViewFlightsAdapter.ViewHolderList(item);
+        return new ViewHolder(item);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewFlightsAdapter.ViewHolderList holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Flight flight = getFlights().get(position);
 
         if (holder.getAdapterPosition() == currentClickedPosition) {
@@ -79,12 +79,12 @@ public class RecyclerViewFlightsAdapter extends RecyclerView.Adapter<RecyclerVie
         return selectedFlight;
     }
 
-    public static class ViewHolderList extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView tvPriceDiscount, tvSeats, tvDate, tvDepartureTime, tvArrivalTime, tvOrigin, tvDestiny, tvPrice;
         Button btReserve;
 
-        public ViewHolderList(@NonNull View view) {
+        public ViewHolder(@NonNull View view) {
             super(view);
             this.tvPriceDiscount = view.findViewById(R.id.FlightSearchResults_Tv_PriceDiscount);
             this.tvSeats = view.findViewById(R.id.FlightSearchResults_Tv_Seats);
