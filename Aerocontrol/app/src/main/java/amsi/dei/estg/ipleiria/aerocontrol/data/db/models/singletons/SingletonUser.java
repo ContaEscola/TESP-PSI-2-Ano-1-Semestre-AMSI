@@ -10,9 +10,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.fasterxml.jackson.core.JsonProcessingException;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,10 +30,12 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Passenger;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.TicketMessage;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.User;
+import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiBodyHelper;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiEndPoint;
 import amsi.dei.estg.ipleiria.aerocontrol.data.network.models.LoginRequest;
 import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.UpdateUserListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketsListener;
@@ -40,6 +45,7 @@ public class SingletonUser {
     private static SingletonUser instance = null;
 
     private User user;
+    private User userToUpdate;
     private boolean loggedIn = false;
 
     private ArrayList<FlightTicket> flightTickets;
@@ -186,38 +192,30 @@ public class SingletonUser {
         }
 
         if (this.user != null && userToUpdate != null){
-            String endPoint = ApiEndPoint.UPDATE_ACCOUNT + this.user.getId() + "?access-token=" + this.user.getToken();
-            StringRequest stringRequest = new StringRequest(Request.Method.PUT, endPoint,
-                    response -> {
-                        if(updateUserListener != null){
-                            updateUserListener.onUpdateUser(context.getString(R.string.save_data_success));
-                            this.setUser(userToUpdate);
-                        }
-                        UserPreferences.getInstance(context).setUser(userToUpdate);
-                    }, error -> Toast.makeText(context, R.string.save_data_failed, Toast.LENGTH_SHORT).show()
-            ) {
-                @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("confirm_password", confirm_password);
-                    params.put("username", userToUpdate.getUsername());
-                    if (userToUpdate.getPassword() != null && userToUpdate.getPassword().length() > 0)
-                        params.put("password_hash", userToUpdate.getPassword());
-                    params.put("firstName", userToUpdate.getFirstName());
-                    params.put("lastName", userToUpdate.getLastName());
-                    params.put("gender", userToUpdate.getGender());
-                    params.put("country", userToUpdate.getCountry());
-                    params.put("city", userToUpdate.getCity());
-                    params.put("email", userToUpdate.getEmail());
-                    params.put("phone", userToUpdate.getPhone());
-                    params.put("phoneCountryCode", userToUpdate.getPhoneCountryCode());
-                    userToUpdate.convertBirthdayToSave();
-                    params.put("birthdate", userToUpdate.getBirthdate());
-                    userToUpdate.convertBirthdayToDisplay();
-                    return params;
-                }
-            };
-            volleyQueue.add(stringRequest);
+            String endPoint = ApiEndPoint.ENDPOINT_UPDATE_ACCOUNT + "/" + this.user.getId() + "?access-token=" + this.user.getToken();
+
+            try {
+                String jsonUser = User.convertUserToJson(userToUpdate);
+
+                String fullJson = ApiBodyHelper.addAttributeToJsonBody(jsonUser, "confirm_password", confirm_password);
+                Map<String, Object> jsonParams = ApiBodyHelper.convertJsonStringToMap(fullJson);
+
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, endPoint, new JSONObject(jsonParams),
+                        response -> {
+                            setUser(userToUpdate);
+                            UserPreferences.getInstance(context).setUser(userToUpdate);
+
+                            if(updateUserListener != null)
+                                updateUserListener.onUpdateUser(context.getString(R.string.save_data_success));
+
+                        },
+                        error -> Toast.makeText(context, R.string.save_data_failed, Toast.LENGTH_SHORT).show()
+                );
+                volleyQueue.add(jsonObjectRequest);
+            }
+            catch (JsonProcessingException e) {
+                Toast.makeText(context, R.string.save_data_failed, Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
