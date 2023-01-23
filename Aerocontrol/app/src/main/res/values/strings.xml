@@ -41,6 +41,7 @@
     <string name="confirm">Confirmar</string>
     <string name="cancel">Cancelar</string>
     <string name="birthdate_format">DD-MM-YYYY</string>
+    <string name="date_format">%1$02d/%2$02d/%3$04d</string>
     <string name="save_data">Guardar Alterações</string>
     <string name="save_data_success">Alterações efetuadas com sucesso!</string>
     <string name="save_data_failed">Alterações não efetuadas, algo correu mal!</string>
@@ -92,7 +93,7 @@
     <string name="flight_destiny">Destino:</string>
     <string name="flight_passengers">Nº Passageiros:</string>
     <string name="flight_departure_date">Data de partida:</string>
-    <string name="flight_arrival_date">Data de chegada:</string>
+    <string name="flight_come_back_date">Data de volta:</string>
 
 
     <!--  Titulos  -->
@@ -199,6 +200,11 @@
     <string name="phone_error">O nº de telemóvel só pode conter números, e tem de ter de 4 a 15 números.</string>
     <string name="phone_code_error">Formato inválido.\nExemplo: +000</string>
     <string name="birthdate_error">Formato inválido.\nExemplo: 30/04/2000</string>
+    <string name="error_airports">Erro ao carregar os aeroportos disponiveis</string>
+    <string name="no_flights_found">Não foram encontrados voos, exprimente outra data!</string>
+    <string name="no_flights_found_search_more_dates">Não foram encontrados voos, a procurar nas próximas datas.</string>
+    <string name="origin_arrival">Origem - Destino</string>
+    <string name="reserved">Reservado</string>
 
 
 </resources>
