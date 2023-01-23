@@ -4,7 +4,6 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.ClientError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -39,16 +38,14 @@ import amsi.dei.estg.ipleiria.aerocontrol.data.prefs.UserPreferences;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketsListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.LoginListener;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketMessageListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.ResetPasswordListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.SignupListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketMessageListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketsListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.UpdateUserListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.NetworkUtils;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketListener;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketsListener;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.ResetPasswordListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.ResetPasswordJsonParser;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketListener;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketsListener;
 import amsi.dei.estg.ipleiria.aerocontrol.utils.UserJsonParser;
 
 public class SingletonUser {
@@ -359,24 +356,32 @@ public class SingletonUser {
                             Map<String, Object> bodyParams = null;
                             String errorReturned = "";
 
-                            if(error.networkResponse.data != null) {
+                            if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                                updateUserListener.onErrorUpdate(errorReturned);
+                                return;
+                            }
+
+                            if (error.networkResponse.data != null) {
                                 try {
                                     // Aqui tem a resposta em String
-                                    body = new String(error.networkResponse.data,"UTF-8");
+                                    body = new String(error.networkResponse.data, "UTF-8");
                                     // Aqui converte a resposta para um Map
                                     bodyParams = ApiBodyHelper.convertJsonStringToMap(body);
 
-                                    // Aqui converte a resposta["message"] para um Map
-                                    Map<String, Object> bodyMessage = ApiBodyHelper.convertJsonStringToMap((String) bodyParams.get("message"));
-
-
-                                    // Aqui faz um for em todos os items da resposta["message"]
-                                    for (Object value : bodyMessage.values()) {
-                                        // Busca o ArrayList de erros para cada atributo da resposta["message"]
-                                        ArrayList<String> errorsInAttribute = (ArrayList<String>) value;
-                                        for(String errorInAttribute : errorsInAttribute) {
-                                            // Adiciona cada erro do atributo ao String erro
-                                            errorReturned += errorInAttribute + "\n";
+                                    if (bodyParams.containsKey("message")) {
+                                        if (((String) bodyParams.get("message")).contains("Esta password não corresponde à password atual.") ){
+                                            errorReturned = (String) bodyParams.get("message");
+                                        } else {
+                                            Map<String, Object> bodyMessage = ApiBodyHelper.convertJsonStringToMap((String) bodyParams.get("message"));
+                                            // Aqui faz um for em todos os items da resposta["message"]
+                                            for (Object value : bodyMessage.values()) {
+                                                // Busca o ArrayList de erros para cada atributo da resposta["message"]
+                                                ArrayList<String> errorsInAttribute = (ArrayList<String>) value;
+                                                for (String errorInAttribute : errorsInAttribute) {
+                                                    // Adiciona cada erro do atributo ao String erro
+                                                    errorReturned += errorInAttribute + "\n";
+                                                }
+                                            }
                                         }
                                     }
 
@@ -387,15 +392,7 @@ public class SingletonUser {
                                 }
                             }
 
-                            // https://stackoverflow.com/questions/24700582/handle-volley-error
-                            // https://gist.github.com/kevintanhongann/595c601909d1814641b8
-
-                            // Quer dizer que deu erro num input (exemplo: nome repetido)
-                            if( error instanceof ClientError) {
-                                updateUserListener.onErrorUpdate(errorReturned);
-                            } else {
-                                Toast.makeText(context, R.string.common_error, Toast.LENGTH_SHORT).show();
-                            }
+                            updateUserListener.onErrorUpdate(errorReturned);
                         }
                 );
                 volleyQueue.add(jsonObjectRequest);
