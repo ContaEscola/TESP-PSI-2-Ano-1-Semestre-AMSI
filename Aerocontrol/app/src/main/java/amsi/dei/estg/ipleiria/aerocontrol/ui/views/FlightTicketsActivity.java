@@ -13,15 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
-import amsi.dei.estg.ipleiria.aerocontrol.adapters.FlightTicketAdapter;
+import amsi.dei.estg.ipleiria.aerocontrol.ui.adapters.RecyclerViewFlightTicketsAdapter;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.FlightTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.TicketsListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.FlightTicketsListener;
 
-public class TicketsActivity extends AppCompatActivity implements TicketsListener {
+public class FlightTicketsActivity extends AppCompatActivity implements FlightTicketsListener {
+
+    private static final int REQUEST_FLIGHT_TICKET_INFO = 1;
 
     private RecyclerView recyclerView;
-    private FlightTicketAdapter adapter;
+    private RecyclerViewFlightTicketsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,31 +37,33 @@ public class TicketsActivity extends AppCompatActivity implements TicketsListene
 
         recyclerView = findViewById(R.id.Tickets_Rv_MyTickets);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        SingletonUser.getInstance(this).setTicketsListener(this);
-        SingletonUser.getInstance(this).getTicketsAPI(this);
+        SingletonUser.getInstance(this).setFlightTicketsListener(this);
+        SingletonUser.getInstance(this).getFlightTicketsAPI(this);
     }
 
     public void showTicketDetails(int id) {
-        FlightTicket ticket = SingletonUser.getInstance(this).getTicketById(id);
-        Intent intent = new Intent(this, TicketInfoActivity.class);
-        intent.putExtra(TicketInfoActivity.TICKET_ID, (int) ticket.getId());
-        startActivityForResult(intent,1);
+        FlightTicket ticket = SingletonUser.getInstance(this).getFlightTicketById(id);
+        Intent intent = new Intent(this, FlightTicketInfoActivity.class);
+        intent.putExtra(FlightTicketInfoActivity.TICKET_ID, ticket.getId());
+        startActivityForResult(intent,REQUEST_FLIGHT_TICKET_INFO);
     }
 
     @Override
     public void onRefreshList(ArrayList<FlightTicket> tickets) {
-        adapter = new FlightTicketAdapter(this, SingletonUser.getInstance(this).getTickets());
+        adapter = new RecyclerViewFlightTicketsAdapter(this, tickets);
         recyclerView.setAdapter(adapter);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1)
+        if (requestCode == REQUEST_FLIGHT_TICKET_INFO) {
             if (resultCode == Activity.RESULT_OK) {
-                onRefreshList(SingletonUser.getInstance(this).getTickets());
+                onRefreshList(SingletonUser.getInstance(this).getFlightTickets());
             }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
+
 }

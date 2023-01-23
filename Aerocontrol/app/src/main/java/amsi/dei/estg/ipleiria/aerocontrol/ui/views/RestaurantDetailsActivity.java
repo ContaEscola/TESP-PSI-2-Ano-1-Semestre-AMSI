@@ -11,7 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
-import amsi.dei.estg.ipleiria.aerocontrol.adapters.RestaurantItemsAdapter;
+import amsi.dei.estg.ipleiria.aerocontrol.data.network.ApiConfig;
+import amsi.dei.estg.ipleiria.aerocontrol.ui.adapters.RecyclerViewRestaurantItemsAdapter;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Restaurant;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonEnterprises;
 
@@ -19,7 +20,7 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
 
     public static final String RESTAURANT_ID = "restaurant_id";
 
-    private RestaurantItemsAdapter adapter;
+    private RecyclerViewRestaurantItemsAdapter adapter;
     private RecyclerView recyclerView;
     private TextView tvName, tvSchedule, tvDescription, tvPhone, tvWebsite, tvMenuLabel;
 
@@ -37,13 +38,15 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initialize();
-        getRestaurantId();
+        getRestaurantIdFromIntent();
 
     }
 
     private void initialize() {
         recyclerView = findViewById(R.id.RestaurantDetails_Rv_Menu);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
         tvName = findViewById(R.id.RestaurantDetails_Tv_Name);
         tvSchedule = findViewById(R.id.RestaurantDetails_Tv_Schedule);
         tvDescription = findViewById(R.id.RestaurantDetails_Tv_Description);
@@ -52,24 +55,29 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         tvMenuLabel = findViewById(R.id.RestaurantDetails_Tv_Menu);
     }
 
-    private void getRestaurantId() {
+    private void getRestaurantIdFromIntent() {
         idRestaurant = getIntent().getIntExtra(RESTAURANT_ID,-1);
 
         if (idRestaurant != -1){
             restaurant = SingletonEnterprises.getInstance(this).getRestaurantById(idRestaurant);
-            restaurantDetails();
+            setRestaurantInView();
         } else Toast.makeText(this, R.string.error_no_restaurant, Toast.LENGTH_SHORT).show();
     }
 
-    private void restaurantDetails() {
+    private void setRestaurantInView() {
         if (restaurant.getMenu().size() > 0){
-            adapter = new RestaurantItemsAdapter(this, restaurant.getMenu(), restaurant);
+            adapter = new RecyclerViewRestaurantItemsAdapter(this, restaurant);
             recyclerView.setAdapter(adapter);
-            recyclerView.setItemAnimator(new DefaultItemAnimator());
+
         } else tvMenuLabel.setText("");
 
         if (!restaurant.getName().equals("null")) tvName.setText(restaurant.getName());
-        if (!restaurant.getOpenTime().equals("null") && !restaurant.getCloseTime().equals("null")) tvSchedule.setText(restaurant.getOpenTime() + " - " + restaurant.getCloseTime());
+
+        if(restaurant.getOpenTime().equals(ApiConfig.API_CUSTOM_NULL) || restaurant.getCloseTime().equals(ApiConfig.API_CUSTOM_NULL) || restaurant.getOpenTime().equals(restaurant.getCloseTime()))
+            tvSchedule.setText(R.string.open_anytime);
+        else
+            tvSchedule.setText(restaurant.getOpenTime() + " - " + restaurant.getCloseTime());
+
         if (!restaurant.getDescription().equals("null")) tvDescription.setText(restaurant.getDescription());
         if (!restaurant.getPhone().equals("null")) tvPhone.setText(restaurant.getPhone());
         if (!restaurant.getWebsite().equals("null")) tvWebsite.setText(restaurant.getWebsite());

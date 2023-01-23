@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.User;
+import amsi.dei.estg.ipleiria.aerocontrol.utils.DateDisplayFormatUtils;
 
 public class UserPreferences {
     private static UserPreferences instance = null;
@@ -160,7 +161,7 @@ public class UserPreferences {
         this.setEmail(user.getEmail());
         this.setPhone(user.getPhone());
         this.setPhoneCountryCode(user.getPhoneCountryCode());
-        this.setBirthdate(user.getBirthdate());
+        this.setBirthdate(DateDisplayFormatUtils.formatDateToString(user.getBirthdate(), null));
     }
 
     public User getUser(){
@@ -177,7 +178,7 @@ public class UserPreferences {
                 this.getEmail(),
                 this.getPhone(),
                 this.getPhoneCountryCode(),
-                this.getBirthdate()
+                DateDisplayFormatUtils.formatStringToDate(this.getBirthdate(), null)
         );
     }
 }
