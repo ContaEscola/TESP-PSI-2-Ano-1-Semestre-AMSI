@@ -8,7 +8,7 @@ public class ApiEndPoint {
     private final static String ENDPOINT_API_UPLOADS = API_ROOT_FOLDER + "/common/uploads";
 
 	public final static String ENDPOINT_LOGIN = ENDPOINT_API + "/auth/login";
-	public final static String ENDPOINT_UPDATE_ACCOUNT = API_ENDPOINT + "/user";
+	public final static String ENDPOINT_UPDATE_ACCOUNT = ENDPOINT_API + "/user";
 
     //Entities
     public final static String ENDPOINT_RESTAURANTS = ENDPOINT_API + "/restaurants";
