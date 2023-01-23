@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Airport;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Flight;
+import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.PaymentMethod;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonFlights;
 
 public class FlightsJsonParser {
@@ -71,5 +72,27 @@ public class FlightsJsonParser {
             }
         }
         return flightsList;
+    }
+
+    public static ArrayList<PaymentMethod> parserPaymentMethods(JSONArray response) {
+        ArrayList<PaymentMethod> paymentMethods = new ArrayList<>();
+
+        if(response != null){
+            try {
+                for (int i = 0; i < response.length(); i++){
+                    JSONObject jsonObject = (JSONObject) response.get(i);
+                    PaymentMethod paymentMethod = new PaymentMethod(
+                            jsonObject.getInt("id"),
+                            jsonObject.getInt("state") == 1,
+                            jsonObject.getString("name"));
+                    paymentMethods.add(paymentMethod);
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return paymentMethods;
     }
 }

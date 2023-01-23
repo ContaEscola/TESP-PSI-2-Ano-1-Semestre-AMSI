@@ -187,6 +187,16 @@
             app:layout_constraintTop_toBottomOf="@+id/PaymentMethod_Iv_Paypal" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <Button
+        android:id="@+id/PaymentMethod_Bt_Confirm"
+        style="@style/PrimaryButton"
+        android:layout_width="0dp"
+        android:layout_marginBottom="40dp"
+        android:text="@string/confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/PaymentMethod_GuidelineEnd"
+        app:layout_constraintStart_toStartOf="@+id/PaymentMethod_GuidelineStart" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/PaymentMethod_GuidelineStart"
         android:layout_width="wrap_content"
