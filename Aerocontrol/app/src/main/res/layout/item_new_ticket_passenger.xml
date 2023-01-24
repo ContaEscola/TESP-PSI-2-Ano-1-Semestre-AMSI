@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/colorSurface"
+    android:layout_marginBottom="15dp">
+
+    <TextView
+        android:id="@+id/TicketPassenger_Tv_PassengerNumber"
+        style="@style/DataText_Medium"
+        android:layout_width="wrap_content"
+        android:text="@string/passengers"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/TicketPassenger_Tv_LabelName"
+        style="@style/InputLabel"
+        android:layout_width="wrap_content"
+        android:text="@string/name"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TicketPassenger_Tv_PassengerNumber" />
+
+    <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
+        android:id="@+id/TicketPassenger_Et_Name"
+        android:maxLength="50"
+        style="@style/TextInput"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="@+id/TicketPassenger_Tv_LabelName"
+        app:layout_constraintTop_toBottomOf="@+id/TicketPassenger_Tv_LabelName" />
+
+    <TextView
+        android:id="@+id/TicketPassenger_Tv_LabelGender"
+        style="@style/InputLabel"
+        android:layout_width="0dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/gender"
+        app:layout_constraintEnd_toStartOf="@+id/TicketPassenger_Tv_LabelExtraBaggage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TicketPassenger_Et_Name" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/TicketPassenger_ComboBox_Gender"
+        style="@style/ComboBox"
+        app:boxStrokeWidth="0dp"
+        android:layout_width="0dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/TicketPassenger_Tv_LabelGender"
+        app:layout_constraintStart_toStartOf="@+id/TicketPassenger_Tv_LabelGender"
+        app:layout_constraintTop_toBottomOf="@+id/TicketPassenger_Tv_LabelGender">
+
+        <AutoCompleteTextView
+            android:id="@+id/TicketPassenger_ACTV_Gender"
+            android:backgroundTint="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/TicketPassenger_Tv_LabelExtraBaggage"
+        style="@style/InputLabel"
+        android:layout_width="0dp"
+        android:text="@string/extra_baggage"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/TicketPassenger_Tv_LabelGender"
+        app:layout_constraintTop_toTopOf="@+id/TicketPassenger_Tv_LabelGender" />
+
+    <CheckBox
+        android:id="@+id/TicketPassenger_Cb_ExtraBaggage"
+        style="@style/CheckBox"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/TicketPassenger_Tv_LabelExtraBaggage"
+        app:layout_constraintStart_toEndOf="@+id/TicketPassenger_Tv_LabelGender"
+        app:layout_constraintStart_toStartOf="@+id/TicketPassenger_Tv_LabelExtraBaggage"
+        app:layout_constraintTop_toBottomOf="@+id/TicketPassenger_Tv_LabelExtraBaggage" />
+</androidx.constraintlayout.widget.ConstraintLayout>

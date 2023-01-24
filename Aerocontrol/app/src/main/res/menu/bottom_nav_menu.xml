@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/BottomNav_Flights"
+        android:title="@string/flights"
+        android:icon="@drawable/ic_flight" />
+
+    <item
+        android:id="@+id/BottomNav_Restaurants"
+        android:title="@string/restaurants"
+        android:icon="@drawable/ic_restaurant" />
+
+    <item
+        android:id="@+id/BottomNav_Stores"
+        android:title="@string/stores"
+        android:icon="@drawable/ic_store" />
+
+    <item
+        android:id="@+id/BottomNav_Account"
+        android:title="@string/account"
+        android:icon="@drawable/ic_account" />
+</menu>

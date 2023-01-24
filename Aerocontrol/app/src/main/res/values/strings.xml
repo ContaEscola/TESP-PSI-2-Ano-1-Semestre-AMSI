@@ -1,0 +1,229 @@
+<resources>
+    <string name="app_name">AeroControl</string>
+
+    <!--  Conta  -->
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="create_account">Criar conta</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="gender">Género</string>
+    <string name="contacts">Contactos</string>
+    <string name="access_data">Dados de acesso</string>
+    <string name="personal_data">Dados Pessoais</string>
+    <string name="phone">Telemóvel</string>
+    <string name="phone_contact">Contacto telefónico</string>
+    <string name="first_name">Primeiro Nome</string>
+    <string name="last_name">Último Nome</string>
+    <string name="birth">Data de Nascimento</string>
+    <string name="country">País</string>
+    <string name="city">Cidade</string>
+
+    <!--  Suporte ticket  -->
+    <string name="title">Titulo</string>
+    <string name="message">Mensagem</string>
+
+    <!-- Random -->
+    <string name="save_session">Guardar sessão</string>
+    <string name="forgot_password"><u>Esqueceu-se da password?</u></string>
+    <string name="no_account"><u>Não tem conta?</u></string>
+    <string name="account">Conta</string>
+    <string name="support">Contactar Suporte</string>
+    <string name="send">Enviar</string>
+    <string name="search">Pesquisar</string>
+    <string name="search_italic"><i>Pesquisar</i></string>
+    <string name="reset">Repor</string>
+    <string name="name">Nome</string>
+    <string name="more_details">Ver mais detalhes</string>
+    <string name="save">Guardar</string>
+    <string name="reserve">Reservar</string>
+    <string name="random_number">132</string>
+    <string name="next">Avançar</string>
+    <string name="confirm">Confirmar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="ok">OK</string>
+    <string name="birthdate_format">DD-MM-YYYY</string>
+    <string name="date_format">%1$02d/%2$02d/%3$04d</string>
+    <string name="save_data">Guardar Alterações</string>
+    <string name="save_data_success">Alterações efetuadas com sucesso!</string>
+    <string name="create_data_success">Mensagem criada com sucesso!</string>
+    <string name="save_data_failed">Alterações não efetuadas, algo correu mal!</string>
+
+
+    <!--  Frases  -->
+    <string name="random_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s</string>
+    <string name="create_account_subtext">Crie a sua conta para começar a reservar voos e muito mais.</string>
+    <string name="splash_screen_text">Reserve já o seu próximo voo!</string>
+    <string name="accept_terms">Li e aceito integralmente os termos e condições.</string>
+    <string name="check_in_done">Check-in efetuado.</string>
+    <string name="support_ticket_done">Ticket de suporte fechado.</string>
+    <string name="support_ticket_create">Suporte ticket criado.</string>
+    <string name="ticket_deleted">Bilhete cancelado com sucesso. Receberá um reembolso.</string>
+    <string name="cancel_ticket">Cancelar bilhete</string>
+    <string name="conclude_support_ticket">Concluir suporte ticket</string>
+    <string name="select_gender">Selecione um género</string>
+    <string name="insert_birth_date">Insira a data de nascimento.</string>
+    <string name="verify_password">Para guardar os seus dados é necessário verificar a password.</string>
+    <string name="signup_verification">Verifique o seu email para mais instruções!</string>
+    <string name="support_ticket_image">Imagem do ticket de suporte</string>
+    <string name="create_support_ticket">Criar novo suporte ticket</string>
+
+
+    <!--  Dados User  -->
+    <string name="username_italic"><i>Username</i></string>
+    <string name="password_italic"><i>Password</i></string>
+    <string name="first_name_italic"><i>Primeiro Nome</i></string>
+    <string name="last_name_italic"><i>Último Nome</i></string>
+    <string name="gender_italic"><i>Género</i></string>
+    <string name="birth_italic"><i>Data de Nascimento</i></string>
+    <string name="country_italic"><i>País</i></string>
+    <string name="city_italic"><i>Cidade</i></string>
+    <string name="email_italic"><i>Email</i></string>
+    <string name="phone_code"><i>Indicativo</i></string>
+    <string name="phone_italic"><i>Telemóvel</i></string>
+
+
+    <!--  Entidades  -->
+    <string name="restaurants">Restaurantes</string>
+    <string name="stores">Lojas</string>
+    <string name="flights">Voos</string>
+    <string name="passengers">Passageiros</string>
+    <string name="company">Companhia</string>
+
+
+    <!--  Voos  -->
+    <string name="flight_reserve">Reserve agora o seu voo</string>
+    <string name="flight_one_way">Só Ida</string>
+    <string name="flight_round_trip">Ida e volta</string>
+    <string name="flight_with_scale">Com escalas</string>
+    <string name="flight_no_scales">Sem escalas</string>
+    <string name="flight_origin">Origem:</string>
+    <string name="flight_destiny">Destino:</string>
+    <string name="flight_passengers">Nº Passageiros:</string>
+    <string name="flight_departure_date">Data de partida:</string>
+    <string name="flight_come_back_date">Data de volta:</string>
+
+
+    <!--  Titulos  -->
+    <string name="edit_account">Editar dados da conta</string>
+    <string name="my_tickets">Meus Bilhetes</string>
+    <string name="my_tickets_support">Meus Tickets</string>
+    <string name="my_support_ticket">Tickets de Suporte</string>
+    <string name="resetpass">Repor a sua password</string>
+    <string name="my_tickets_info_support">Ticket nº250 - Camisola Perdida</string>
+
+
+    <!-- Restaurants & Stores -->
+    <string name="restaurant">Restaurant name</string>
+    <string name="schedule">Horário:</string>
+    <string name="description">Descrição:</string>
+    <string name="website">Website:</string>
+    <string name="store_restaurant_phone">Telemóvel:</string>
+    <string name="menu">Ementas</string>
+    <string name="store">Store name</string>
+
+
+    <!--  Ticket Info  -->
+    <string name="date">Data:</string>
+    <string name="state">Estado:</string>
+    <string name="time">Hora</string>
+    <string name="city_lisbon">Lisbon</string>
+    <string name="city_madrid">Madrid</string>
+    <string name="departure">Partida:</string>
+    <string name="arrival">Chegada:</string>
+    <string name="distance">Distância:</string>
+    <string name="place">Terminal:</string>
+    <string name="purchase_date">Data de Compra:</string>
+    <string name="old_price"><strike>500€</strike></string>
+    <string name="new_price">400€</string>
+    <string name="random_date">15/01/2023</string>
+    <string name="seat">Lugar</string>
+    <string name="check_in">Check-in</string>
+    <string name="price_paid">Preço do bilhete:</string>
+    <string name="euro_symbol">%1$.2f €</string>
+    <string name="km">%1$.2f km</string>
+
+
+    <!-- Search Ticket Info  -->
+    <string name="results_found">x Resultados Encontrados</string>
+    <string name="available_seats">Lugares disponíveis:</string>
+    <string name="passengers_data">Insira os dados dos passageiros</string>
+    <string name="extra_baggage">Bagagem Extra</string>
+
+
+    <!-- Payment Methods  -->
+    <string name="payment_method">Escolha o método de pagamento</string>
+    <string name="credit_card">Cartão de crédito</string>
+    <string name="debit_card">Cartão de débito</string>
+    <string name="mbway">MBWay</string>
+    <string name="mb">Multibanco</string>
+    <string name="paypal">PayPal</string>
+
+    <!--  Payment Card  -->
+    <string name="insert_data">Preencha os dados</string>
+    <string name="card_type">Tipo de cartão</string>
+    <string name="surname">Apelido</string>
+    <string name="number_card">Número do cartão</string>
+    <string name="security_code">Código de Segurança</string>
+    <string name="validation_date">Data de Validade (Mês/Ano)</string>
+    
+    <!--  Suporte Perdidos e Achados  -->
+    <string name="message_support_ticket">Bom dia, perdi o item x dia 1/1/2002</string>
+    <string name="state_example">Concluído</string>
+    <string name="support_ticket_example">Ticket nº234 - Camisola Perdida</string>
+    <string name="message_hint"><i>Insira aqui a sua mensagem</i></string>
+    <string name="new_ticket">Novo Ticket</string>
+    <string name="see_item">Ver Item</string>
+    <string name="btn_close_support_ticket">Fechar ticket</string>
+
+    <!--  Erros  -->
+    <string name="no_internet_connection">Sem ligação de internet</string>
+    <string name="error_restaurants">Erro ao mostrar os restaurantes.</string>
+    <string name="error_no_restaurant">Restaurante não encontrado</string>
+    <string name="error_na_loja">Loja não encontrada</string>
+    <string name="error_stores">Erro ao mostrar as lojas.</string>
+    <string name="error_tickets">Erro ao mostrar os seus bilhetes.</string>
+    <string name="error_support_tickets">Erro ao mostrar os seus tickets de suporte.</string>
+    <string name="error_login">Erro ao dar Login</string>
+    <string name="invalid_credentials">Credenciais inválidas</string>
+    <string name="insert_all_data">Preencha todos os campos.</string>
+    <string name="error_on_ticket">Erro ao encontrar o bilhete</string>
+    <string name="errors_found">Erros encontrados</string>
+    <string name="solve_errors">Antes de prosseguir, resolva os seguintes erros:</string>
+    <string name="no_apps_to_emails">Não existem aplicações no dispositivo para o envio de emails.</string>
+    <string name="email_message_invalid">Escreva um email e uma mensagem válidos!</string>
+    <string name="fill_fields_without_errors">Preencha todos os campos sem erros!</string>
+
+    <string name="error_on_support_ticket">Erro ao encontrar o ticket de suporte</string>
+
+    <!-- Erros User -->
+    <string name="username_error">O username tem de ter de 2 a 30 caracteres.</string>
+    <string name="password_error">A password tem de ter pelo menos 8 caracteres.</string>
+    <string name="first_name_error">O primeiro nome é obrigatório e não pode exceder os 50 caracteres.</string>
+    <string name="last_name_error">O último nome é obrigatório e não pode exceder os 50 caracteres.</string>
+    <string name="gender_error">Tem de selecionar obrigatoriamente um dos três géneros.</string>
+    <string name="country_error">O país tem de ter de 4 a 50 caracteres.</string>
+    <string name="city_error">O username tem de ter de 1 a 75 caracteres.</string>
+    <string name="email_error">Insira um email válido.</string>
+    <string name="phone_error">O nº de telemóvel só pode conter números, e tem de ter de 4 a 15 números.</string>
+    <string name="phone_code_error">Formato inválido.\nExemplo: +000</string>
+    <string name="birthdate_error">Formato inválido.\nExemplo: 30/04/2000</string>
+    <string name="error_airports">Erro ao carregar os aeroportos disponiveis</string>
+    <string name="no_flights_found">Não foram encontrados voos, exprimente outra data!</string>
+    <string name="no_flights_found_search_more_dates">Não foram encontrados voos, a procurar nas próximas datas.</string>
+    <string name="origin_arrival">Origem - Destino</string>
+    <string name="reserved">Reservado</string>
+    <string name="error_passenger_name">Por favor preencha o nome de cada passageiro.</string>
+    <string name="error_payment_methods">Erro ao mostrar os métodos de pagamento, tente novamente mais tarde.</string>
+    <string name="select_payment_method">Selecione um método de pagamento!</string>
+    <string name="payment_method_not_available">Método de pagamento não está disponivel neste momento, pedimos desculpa!</string>
+    <string name="confirm_payment">Confirme o pagamento!</string>
+    <string name="error_buying_ticket">Ocorreu um erro ao comprar o bilhete, por favor compre mais tarde!</string>
+    <string name="close_support_ticket">Se deseja realmente concluir o seu suporte ticket por favor confirme abaixo.</string>
+    <string name="error_closing_support_ticket">Erro ao fechar o ticket de suporte</string>
+    <string name="support_ticket_closed">O ticket já está fechado!</string>
+    <string name="message_sent_error_showing">Mensagem enviada! Mas não é possível mostrar de momento.</string>
+
+
+</resources>

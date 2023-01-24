@@ -1,0 +1,7 @@
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/DataText"
+    android:padding="16dp"
+    android:ellipsize="end"
+    android:maxLines="1"
+   />

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ImageView - Logo na Splash Screen-->
+    <style name="LogoImage">
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="srcCompat">@drawable/logo</item>
+    </style>
+
+    <!-- TextViews - Titulos -->
+    <style name="Title" parent="android:style/Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <!-- TextViews - Título Primário -->
+    <style name="PrimaryTitle" parent="Title">
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <!-- TextViews - Título Secundário -->
+    <style name="SecondTitle" parent="Title">
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <!-- TextViews - Labels dos Inputs -->
+    <style name="InputLabel" parent="android:style/Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <!-- TextViews - Labels e TextViews dos dados -->
+    <style name="DataText" parent="android:style/Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingMultiplier">1.3</item>
+
+    </style>
+
+    <!-- TextViews - TextViews dos dados SemiBold -->
+    <style name="DataText_SemiBold" parent="DataText">
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+    </style>
+
+    <!-- TextViews - TextViews dos dados Bold -->
+    <style name="DataText_Bold" parent="DataText">
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+    </style>
+
+    <!-- TextViews - TextViews dos dados Light -->
+    <style name="DataText_Light" parent="DataText">
+        <item name="android:fontFamily">@font/montserrat_light</item>
+    </style>
+
+    <!-- TextViews - TextViews dos dados Medium -->
+    <style name="DataText_Medium" parent="DataText">
+        <item name="android:fontFamily">@font/montserrat_medium</item>
+    </style>
+
+    <!-- TextViews - TextViews dos dados Italic -->
+    <style name="DataText_MediumItalic" parent="DataText">
+        <item name="android:fontFamily">@font/montserrat_medium_italic</item>
+    </style>
+
+    <!-- TextViews - TextViews que dá redirect Sublinhado -->
+    <style name="RedirectText" parent="DataText">
+        <item name="android:letterSpacing">.1</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+
+    <!-- EditText - Inputs -->
+    <style name="Input" parent="android:style/Widget.EditText">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:background">@drawable/edit_text_border_states</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+    <!-- EditText - Input Texto -->
+    <style name="TextInput" parent="Input">
+        <item name="android:inputType">text</item>
+    </style>
+
+    <!-- EditText - Input Password -->
+    <style name="PasswordInput" parent="Input">
+        <item name="android:inputType">textPassword</item>
+    </style>
+
+    <!-- EditText - Input Numero -->
+    <style name="NumberInput" parent="Input">
+        <item name="android:inputType">number</item>
+    </style>
+
+    <!-- EditText - Input Email -->
+    <style name="EmailInput" parent="Input">
+        <item name="android:inputType">textEmailAddress</item>
+    </style>
+
+    <!-- EditText - Input Telemóvel -->
+    <style name="PhoneInput" parent="Input">
+        <item name="android:inputType">phone</item>
+    </style>
+
+    <!-- EditText - Input Multiline -->
+    <style name="MultilineInput" parent="Input">
+        <item name="android:inputType">textMultiLine</item>
+    </style>
+
+    <!-- EditText - Input Data e hora -->
+    <style name="DateTimeInput" parent="Input">
+        <item name="android:inputType">datetime</item>
+    </style>
+
+    <!-- EditText - Input Data -->
+    <style name="DateInput" parent="Input">
+        <item name="android:inputType">date</item>
+    </style>
+
+    <!-- CheckBox -->
+    <style name="CheckBox" parent="DataText">
+        <item name="android:layout_width"> wrap_content </item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:buttonTint">?attr/colorPrimary</item>
+    </style>
+
+    <!-- Combo Box -->
+    <style name="ComboBox" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/edit_text_border_states</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+
+
+    <!-- Button - Base button -->
+    <style name="BaseButton" parent="android:style/Widget.Button">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">15dp</item>
+        <item name="android:paddingEnd">15dp</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:letterSpacing">.1</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:fontFamily">@font/montserrat_medium</item>
+    </style>
+
+    <!-- Button - Butão Primário -->
+    <style name="PrimaryButton" parent="BaseButton">
+        <item name="android:background">@drawable/button_primary</item>
+        <item name="backgroundTint">@color/button_primary_background_states</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+-
+    <!-- Button - Butão Secundário -->
+    <style name="SecondaryButton" parent="BaseButton">
+        <item name="android:background">@drawable/button_secondary</item>
+        <item name="backgroundTint">@color/button_secondary_background_states</item>
+        <item name="android:textColor">?attr/colorOnSecondary</item>
+    </style>
+
+    <!-- Button - Butão Primário Outline -->
+    <style name="PrimaryButtonOutline" parent="BaseButton">
+        <item name="android:background">@drawable/button_primary_outline_background_states</item>
+        <item name="backgroundTint">@null</item>
+        <item name="android:textColor">@color/button_primary_outline_text_states</item>
+    </style>
+
+    <!-- Button - Butão Secundário Outline -->
+    <style name="SecondaryButtonOutline" parent="BaseButton">
+        <item name="android:background">@drawable/button_secondary_outline_background_states</item>
+        <item name="backgroundTint">@null</item>
+        <item name="android:textColor">@color/button_secondary_outline_text_states</item>
+    </style>
+
+    <!-- Button - Butão Vermelho -->
+    <style name="RedButton" parent="BaseButton">
+        <item name="android:background">@drawable/button_red</item>
+        <item name="backgroundTint">?attr/colorError</item>
+        <item name="android:textColor">?attr/colorOnError</item>
+    </style>
+
+    <!-- Button - Butão Vermelho Outline -->
+    <style name="RedButtonOutline" parent="BaseButton">
+        <item name="android:background">@drawable/button_red_outline_background_states</item>
+        <item name="backgroundTint">@null</item>
+        <item name="android:textColor">@color/button_red_outline_text_states</item>
+    </style>
+
+
+    <!-- Button - Butão Primário Pill-->
+    <style name="PrimaryButtonPill" parent="PrimaryButton">
+        <item name="android:background">@drawable/button_pill_primary</item>
+    </style>
+
+    <!-- Button - Butão Secundário Pill-->
+    <style name="SecondaryButtonPill" parent="SecondaryButton">
+        <item name="android:background">@drawable/button_pill_secondary</item>
+    </style>
+
+    <!-- Button - Butão Primário Outline Pill-->
+    <style name="PrimaryButtonOutlinePill" parent="PrimaryButtonOutline">
+        <item name="android:background">@drawable/button_pill_primary_outline_background_states</item>
+    </style>
+
+    <!-- Button - Butão Secundário Outline Pill-->
+    <style name="SecondaryButtonOutlinePill" parent="SecondaryButtonOutline">
+        <item name="android:background">@drawable/button_pill_secondary_outline_background_states</item>
+    </style>
+
+</resources>

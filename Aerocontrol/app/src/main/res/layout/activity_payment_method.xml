@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
+    tools:context=".ui.views.PaymentMethodActivity">
+
+    <include
+        android:id="@+id/PaymentMethod_Toolbar"
+        layout="@layout/toolbar"/>
+
+    <TextView
+        android:id="@+id/PaymentMethod_Tv_Title"
+        style="@style/SecondTitle"
+        android:layout_width="0dp"
+        android:text="@string/payment_method"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toStartOf="@+id/PaymentMethod_GuidelineEnd"
+        app:layout_constraintStart_toStartOf="@+id/PaymentMethod_GuidelineStart"
+        app:layout_constraintTop_toBottomOf="@+id/PaymentMethod_Toolbar" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/PaymentMethod_CreditCard"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:focusable="true"
+        android:clickable="true"
+        android:background="@drawable/payment_method_background"
+        android:padding="10dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintEnd_toStartOf="@+id/PaymentMethod_DebitCard"
+        app:layout_constraintStart_toStartOf="@+id/PaymentMethod_GuidelineStart"
+        app:layout_constraintTop_toBottomOf="@+id/PaymentMethod_Tv_Title">
+
+        <ImageView
+            android:id="@+id/PaymentMethod_Iv_CreditCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_credit_card" />
+
+        <TextView
+            style="@style/DataText_SemiBold"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/credit_card"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/PaymentMethod_Iv_CreditCard" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/PaymentMethod_DebitCard"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:padding="10dp"
+        android:focusable="true"
+        android:clickable="true"
+        android:background="@drawable/payment_method_background"
+        android:layout_marginStart="25dp"
+        app:layout_constraintEnd_toStartOf="@+id/PaymentMethod_GuidelineEnd"
+        app:layout_constraintStart_toEndOf="@+id/PaymentMethod_CreditCard"
+        app:layout_constraintTop_toTopOf="@+id/PaymentMethod_CreditCard">
+
+        <ImageView
+            android:id="@+id/PaymentMethod_Iv_DebitCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_debit_card" />
+
+        <TextView
+            style="@style/DataText_SemiBold"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/debit_card"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/PaymentMethod_Iv_DebitCard" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/PaymentMethod_MbWay"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:focusable="true"
+        android:clickable="true"
+        android:background="@drawable/payment_method_background"
+        app:layout_constraintEnd_toStartOf="@+id/PaymentMethod_Mb"
+        app:layout_constraintStart_toStartOf="@+id/PaymentMethod_GuidelineStart"
+        app:layout_constraintTop_toBottomOf="@+id/PaymentMethod_CreditCard">
+
+        <ImageView
+            android:id="@+id/PaymentMethod_Iv_MbWay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_mbway" />
+
+        <TextView
+            style="@style/DataText_SemiBold"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/mbway"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/PaymentMethod_Iv_MbWay" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/PaymentMethod_Mb"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:padding="10dp"
+        android:focusable="true"
+        android:clickable="true"
+        android:background="@drawable/payment_method_background"
+        android:layout_marginStart="25dp"
+        app:layout_constraintEnd_toStartOf="@+id/PaymentMethod_GuidelineEnd"
+        app:layout_constraintStart_toEndOf="@+id/PaymentMethod_MbWay"
+        app:layout_constraintTop_toTopOf="@+id/PaymentMethod_MbWay">
+
+        <ImageView
+            android:id="@+id/PaymentMethod_Iv_Mb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_multibanco" />
+
+        <TextView
+            style="@style/DataText_SemiBold"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/mb"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/PaymentMethod_Iv_Mb" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/PaymentMethod_Paypal"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:focusable="true"
+        android:clickable="true"
+        android:background="@drawable/payment_method_background"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/PaymentMethod_MbWay"
+        app:layout_constraintStart_toStartOf="@+id/PaymentMethod_MbWay"
+        app:layout_constraintTop_toBottomOf="@+id/PaymentMethod_MbWay">
+
+        <ImageView
+            android:id="@+id/PaymentMethod_Iv_Paypal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_paypal" />
+
+        <TextView
+            style="@style/DataText_SemiBold"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/paypal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/PaymentMethod_Iv_Paypal" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/PaymentMethod_Bt_Confirm"
+        style="@style/PrimaryButton"
+        android:layout_width="0dp"
+        android:layout_marginBottom="40dp"
+        android:text="@string/confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/PaymentMethod_GuidelineEnd"
+        app:layout_constraintStart_toStartOf="@+id/PaymentMethod_GuidelineStart" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/PaymentMethod_GuidelineStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="24dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/PaymentMethod_GuidelineEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="24dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

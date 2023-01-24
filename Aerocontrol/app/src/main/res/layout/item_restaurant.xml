@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/listview_item_border"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="10dp"
+    android:layout_marginBottom="15dp">
+
+    <ImageView
+        android:id="@+id/Restaurant_Iv_Image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/placeholder" />
+
+    <TextView
+        android:id="@+id/Restaurant_Tv_Name"
+        style="@style/DataText_SemiBold"
+        android:layout_width="0dp"
+        android:textAlignment="center"
+        android:text="@string/restaurants"
+        app:layout_constraintBottom_toBottomOf="@+id/Restaurant_Iv_Image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Restaurant_Iv_Image"
+        app:layout_constraintTop_toTopOf="@+id/Restaurant_Iv_Image" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

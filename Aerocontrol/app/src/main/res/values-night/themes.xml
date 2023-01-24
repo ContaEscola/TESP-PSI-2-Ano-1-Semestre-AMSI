@@ -1,0 +1,38 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.App" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/blue_400</item>
+        <item name="colorPrimaryVariant">@color/blue_900</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/moss_green_400</item>
+        <item name="colorSecondaryVariant">@color/moss_green_900</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <!-- Neutral color. -->
+        <item name="colorSurface">@color/lotion</item>
+        <item name="colorSurfaceVariant_400">@color/gray_400</item>
+        <item name="colorSurfaceVariant_800">@color/gray_800</item>
+        <item name="colorSurfaceVariant_900">@color/gray_900</item>
+
+        <item name="colorOnSurface">@color/black_400</item>
+        <item name="colorOnSurfaceVariant">@color/black_200</item>
+
+        <item name="colorError">@color/orange_red</item>
+        <item name="colorOnError">@color/white</item>
+
+        <item name="colorSuccess">@color/yellow_green</item>
+        <item name="colorOnSuccess">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
+
+    <style name="customDatePickerStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:datePickerStyle">@style/customDatePicker</item>
+    </style>
+
+    <style name="customDatePicker" parent="@android:style/Widget.Material.Light.DatePicker">
+        <item name="android:datePickerMode">spinner</item>
+        <item name="android:calendarViewShown">false</item>
+    </style>
+</resources>

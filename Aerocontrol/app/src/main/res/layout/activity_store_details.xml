@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
+    tools:context=".ui.views.StoreDetailsActivity">
+
+    <include
+        android:id="@+id/StoreDetails_Toolbar"
+        layout="@layout/toolbar"/>
+
+    <TextView
+        android:id="@+id/StoreDetails_Tv_Name"
+        style="@style/PrimaryTitle"
+        android:layout_width="wrap_content"
+        android:text="@string/store"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toStartOf="@+id/StoreDetails_GuidelineEnd"
+        app:layout_constraintStart_toStartOf="@+id/StoreDetails_GuidelineStart"
+        app:layout_constraintTop_toBottomOf="@+id/StoreDetails_Toolbar" />
+
+    <TextView
+        android:id="@+id/StoreDetails_Tv_LabelSchedule"
+        style="@style/DataText_SemiBold"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/schedule"
+        app:layout_constraintStart_toStartOf="@+id/StoreDetails_GuidelineStart"
+        app:layout_constraintTop_toBottomOf="@+id/StoreDetails_Tv_Name" />
+
+    <TextView
+        android:id="@+id/StoreDetails_Tv_Schedule"
+        style="@style/DataText"
+        android:layout_width="0dp"
+        android:layout_marginStart="2dp"
+        android:text="@string/schedule"
+        app:layout_constraintEnd_toStartOf="@+id/StoreDetails_GuidelineEnd"
+        app:layout_constraintStart_toEndOf="@+id/StoreDetails_Tv_LabelSchedule"
+        app:layout_constraintTop_toTopOf="@+id/StoreDetails_Tv_LabelSchedule" />
+
+    <TextView
+        android:id="@+id/StoreDetails_Tv_LabelDescription"
+        style="@style/DataText_SemiBold"
+        android:layout_width="wrap_content"
+        android:text="@string/description"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="@+id/StoreDetails_GuidelineStart"
+        app:layout_constraintTop_toBottomOf="@+id/StoreDetails_Tv_Schedule" />
+
+    <TextView
+        android:id="@+id/StoreDetails_Tv_Description"
+        style="@style/DataText"
+        android:layout_width="0dp"
+        android:text="@string/random_text"
+        android:layout_marginStart="2dp"
+        app:layout_constraintEnd_toStartOf="@+id/StoreDetails_GuidelineEnd"
+        app:layout_constraintStart_toEndOf="@+id/StoreDetails_Tv_LabelDescription"
+        app:layout_constraintTop_toTopOf="@+id/StoreDetails_Tv_LabelDescription" />
+
+    <TextView
+        android:id="@+id/StoreDetails_Tv_LabelPhone"
+        style="@style/DataText_SemiBold"
+        android:layout_width="wrap_content"
+        android:text="@string/store_restaurant_phone"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="@+id/StoreDetails_GuidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/StoreDetails_Tv_Description" />
+
+    <TextView
+        android:id="@+id/StoreDetails_Tv_Phone"
+        style="@style/DataText"
+        android:layout_width="0dp"
+        android:layout_marginStart="2dp"
+        android:text="@string/phone"
+        app:layout_constraintEnd_toStartOf="@+id/StoreDetails_GuidelineEnd"
+        app:layout_constraintStart_toEndOf="@+id/StoreDetails_Tv_LabelPhone"
+        app:layout_constraintTop_toTopOf="@+id/StoreDetails_Tv_LabelPhone" />
+
+    <TextView
+        android:id="@+id/StoreDetails_Tv_LabelWebsite"
+        style="@style/DataText_SemiBold"
+        android:layout_width="wrap_content"
+        android:text="@string/website"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="@+id/StoreDetails_GuidelineStart"
+        app:layout_constraintTop_toBottomOf="@+id/StoreDetails_Tv_Phone" />
+
+    <TextView
+        android:id="@+id/StoreDetails_Tv_Website"
+        style="@style/DataText"
+        android:layout_width="0dp"
+        android:text="@string/website"
+        android:layout_marginStart="2dp"
+        app:layout_constraintEnd_toStartOf="@+id/StoreDetails_GuidelineEnd"
+        app:layout_constraintStart_toEndOf="@+id/StoreDetails_Tv_LabelWebsite"
+        app:layout_constraintTop_toTopOf="@+id/StoreDetails_Tv_LabelWebsite" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/StoreDetails_GuidelineStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="24dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/StoreDetails_GuidelineEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="24dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

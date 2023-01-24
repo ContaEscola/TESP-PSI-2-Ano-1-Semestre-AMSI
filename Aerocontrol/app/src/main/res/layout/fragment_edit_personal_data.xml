@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.views.EditPersonalDataFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/EditPersonalData_Tv_FirstName"
+            style="@style/InputLabel"
+            android:layout_width="wrap_content"
+            android:text="@string/first_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
+            android:id="@+id/EditPersonalData_Et_FirstName"
+            style="@style/TextInput"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/EditPersonalData_Tv_FirstName" />
+
+        <TextView
+            android:id="@+id/EditPersonalData_Tv_LastName"
+            style="@style/InputLabel"
+            android:layout_width="wrap_content"
+            android:text="@string/last_name"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/EditPersonalData_Et_FirstName" />
+
+        <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
+            android:id="@+id/EditPersonalData_Et_LastName"
+            style="@style/TextInput"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/EditPersonalData_Tv_LastName" />
+
+        <TextView
+            android:id="@+id/EditPersonalData_Tv_Gender"
+            style="@style/InputLabel"
+            android:layout_width="wrap_content"
+            android:text="@string/gender"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/EditPersonalData_Et_LastName" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/EditPersonalData_ComboBox_Gender"
+            style="@style/ComboBox"
+            android:hint="@string/select_gender"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxStrokeWidth="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/EditPersonalData_Tv_Gender" >
+
+            <AutoCompleteTextView
+                android:id="@+id/EditPersonalData_ACTV_Gender"
+                android:backgroundTint="@android:color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/EditPersonalData_Tv_Birth"
+            style="@style/InputLabel"
+            android:layout_width="wrap_content"
+            android:text="@string/birth"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/EditPersonalData_ComboBox_Gender" />
+
+        <!-- android: editable está deprecated mas o inputType none não funciona corretamente -->
+        <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
+            android:id="@+id/EditPersonalData_Et_BirthDate"
+            android:layout_width="match_parent"
+            style="@style/DateInput"
+            android:inputType="none"
+            android:editable="false"
+            android:background="@drawable/edit_text_border_states"
+            android:hint="@string/birthdate_format"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/EditPersonalData_Tv_Birth" />
+
+        <TextView
+            android:id="@+id/EditPersonalData_Tv_Country"
+            style="@style/InputLabel"
+            android:layout_width="wrap_content"
+            android:text="@string/country"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/EditPersonalData_Et_BirthDate" />
+
+        <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
+            android:id="@+id/EditPersonalData_Et_Country"
+            style="@style/TextInput"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/EditPersonalData_Tv_Country" />
+
+        <TextView
+            android:id="@+id/EditPersonalData_Tv_City"
+            style="@style/InputLabel"
+            android:layout_width="wrap_content"
+            android:text="@string/city"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/EditPersonalData_Et_Country" />
+
+        <amsi.dei.estg.ipleiria.aerocontrol.utils.CustomEditText
+            android:id="@+id/EditPersonalData_Et_City"
+            style="@style/TextInput"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/EditPersonalData_Tv_City" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
