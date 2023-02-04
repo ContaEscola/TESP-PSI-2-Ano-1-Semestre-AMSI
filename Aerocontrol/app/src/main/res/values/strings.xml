@@ -224,6 +224,10 @@
     <string name="error_closing_support_ticket">Erro ao fechar o ticket de suporte</string>
     <string name="support_ticket_closed">O ticket já está fechado!</string>
     <string name="message_sent_error_showing">Mensagem enviada! Mas não é possível mostrar de momento.</string>
+    <string name="buy_ticket">Comprar bilhete?</string>
+    <string name="buy_ticket_confirmation">Deseja mesmo efetuar a compra do bilhete?</string>
+    <string name="make_check_in">Efetuar Check-in</string>
+    <string name="check_in_confirmation">Se deseja realmente efetuar o check-in por favor confirme abaixo.</string>
 
 
 </resources>

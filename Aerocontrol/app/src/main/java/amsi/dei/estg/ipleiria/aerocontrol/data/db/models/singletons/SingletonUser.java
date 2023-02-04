@@ -347,7 +347,7 @@ public class SingletonUser {
         }
 
         if (this.user != null){
-            String endPoint = ApiEndPoint.TICKETS + ticket.getId() + "?access-token=" + this.user.getToken();
+            String endPoint = ApiEndPoint.TICKETS +"/"+ ticket.getId() + "?access-token=" + this.user.getToken();
 
             StringRequest stringRequest = new StringRequest(Request.Method.PUT, endPoint,
                     response -> {
@@ -381,7 +381,7 @@ public class SingletonUser {
         }
 
         if (this.user != null){
-            String endPoint = ApiEndPoint.TICKETS + ticket.getId() + "?access-token=" + this.user.getToken();
+            String endPoint = ApiEndPoint.TICKETS + "/" + ticket.getId() + "?access-token=" + this.user.getToken();
 
             StringRequest stringRequest = new StringRequest(Request.Method.DELETE, endPoint,
                     response -> {
