@@ -56,23 +56,35 @@ public class PaymentMethodActivity extends AppCompatActivity implements PaymentM
 
         binding.PaymentMethodBtConfirm.setOnClickListener( v -> {
             if (!paymentMethodSelected.equals("")) {
-                dialog = new AlertDialog.Builder(this);
-                dialog.setTitle("Compra de bilhete");
-                dialog.setMessage("Compra a ser processada...");
-                dialog.setPositiveButton(R.string.ok, (dialog1, which) -> {});
-                dialog.show();
-                SingletonFlights.getInstance(this).buyTicketAPI(this,
-                        two_way_trip,
-                        flightGoId,
-                        flightBackId,
-                        num_passengers,
-                        paymentMethodSelected,
-                        SingletonUser.getInstance(this).getUser().getToken());
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.buy_ticket);
+                builder.setMessage(R.string.buy_ticket_confirmation);
+                builder.setPositiveButton(R.string.confirm, (dialog, which) -> {
+                    buyTicket();
+                });
+                builder.setNegativeButton(R.string.cancel,(dialog,which) -> {});
+                builder.show();
             } else Toast.makeText(this, R.string.select_payment_method, Toast.LENGTH_SHORT).show();
         });
     }
 
-
+    private void buyTicket(){
+        dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("Compra de bilhete");
+        dialog.setMessage("Compra a ser processada...");
+        dialog.setPositiveButton(R.string.ok, (dialog1, which) -> {});
+        dialog.show();
+        binding.PaymentMethodBtConfirm.setEnabled(false);
+        binding.PaymentMethodBtConfirm.setClickable(false);
+        binding.PaymentMethodBtConfirm.setFocusable(false);
+        SingletonFlights.getInstance(this).buyTicketAPI(this,
+                two_way_trip,
+                flightGoId,
+                flightBackId,
+                num_passengers,
+                paymentMethodSelected,
+                SingletonUser.getInstance(this).getUser().getToken());
+    }
 
     private void setPaymentMethodSelected(String paymentMethod) {
         this.paymentMethodSelected = paymentMethod;
@@ -108,5 +120,13 @@ public class PaymentMethodActivity extends AppCompatActivity implements PaymentM
         Toast.makeText(this, "O seu bilhete foi comprado com sucesso!", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onErrorTicketBought() {
+        Toast.makeText(this, R.string.error_buying_ticket, Toast.LENGTH_SHORT).show();
+        binding.PaymentMethodBtConfirm.setEnabled(true);
+        binding.PaymentMethodBtConfirm.setClickable(true);
+        binding.PaymentMethodBtConfirm.setFocusable(true);
     }
 }

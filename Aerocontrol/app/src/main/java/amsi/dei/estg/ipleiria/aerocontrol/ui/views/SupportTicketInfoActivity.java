@@ -1,6 +1,8 @@
 package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -14,8 +16,8 @@ import amsi.dei.estg.ipleiria.aerocontrol.adapters.TicketMessageAdapter;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
 import amsi.dei.estg.ipleiria.aerocontrol.databinding.ActivitySupportTicketInfoBinding;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketMessageListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketListener;
+import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketMessageListener;
 
 public class SupportTicketInfoActivity extends AppCompatActivity implements SupportTicketListener, SupportTicketMessageListener {
 
@@ -96,6 +98,8 @@ public class SupportTicketInfoActivity extends AppCompatActivity implements Supp
 
     @Override
     public void onRefreshSupportTicket() {
+        Intent returnIntent = new Intent();
+        setResult(Activity.RESULT_OK,returnIntent);
         finish();
     }
 

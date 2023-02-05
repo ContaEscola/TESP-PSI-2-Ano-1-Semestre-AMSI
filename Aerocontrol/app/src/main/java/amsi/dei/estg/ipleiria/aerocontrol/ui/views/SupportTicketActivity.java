@@ -1,5 +1,6 @@
 package amsi.dei.estg.ipleiria.aerocontrol.ui.views;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,10 +20,9 @@ import amsi.dei.estg.ipleiria.aerocontrol.adapters.SupportTicketsListAdapter;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.SupportTicket;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons.SingletonUser;
 import amsi.dei.estg.ipleiria.aerocontrol.databinding.ActivitySupportTicketListBinding;
-import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketListener;
 import amsi.dei.estg.ipleiria.aerocontrol.listeners.SupportTicketsListener;
 
-public class SupportTicketActivity extends AppCompatActivity implements SupportTicketsListener, SupportTicketListener {
+public class SupportTicketActivity extends AppCompatActivity implements SupportTicketsListener {
 
     private ActivitySupportTicketListBinding binding;
 
@@ -54,8 +54,6 @@ public class SupportTicketActivity extends AppCompatActivity implements SupportT
     }
 
     public void createSupportTicket(){
-        SingletonUser.getInstance(this).setSupportTicketListener(this);
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.create_support_ticket);
 
@@ -91,12 +89,18 @@ public class SupportTicketActivity extends AppCompatActivity implements SupportT
     }
 
     @Override
-    public void onRefreshList(ArrayList<SupportTicket> supportTickets) {
-        setAdapter();
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                setAdapter();
+            }
+        }
     }
 
     @Override
-    public void onRefreshSupportTicket() {
+    public void onRefreshList(ArrayList<SupportTicket> supportTickets) {
         setAdapter();
     }
 }
