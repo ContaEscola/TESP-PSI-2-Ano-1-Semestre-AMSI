@@ -3,6 +3,7 @@ package amsi.dei.estg.ipleiria.aerocontrol.data.db.models.singletons;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -16,6 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import amsi.dei.estg.ipleiria.aerocontrol.R;
 import amsi.dei.estg.ipleiria.aerocontrol.data.db.models.Airport;
@@ -193,7 +195,11 @@ public class SingletonFlights {
                         ticketBoughtListener.onTicketBought();
                     } else Toast.makeText(context, "Bilhete comprado, mas ocorreu um erro!", Toast.LENGTH_SHORT).show();
 
-                }, error -> Toast.makeText(context, R.string.error_buying_ticket, Toast.LENGTH_SHORT).show()){
+                }, error -> {
+                    if (ticketBoughtListener != null) {
+                        ticketBoughtListener.onErrorTicketBought();
+                    } else Toast.makeText(context, R.string.error_buying_ticket, Toast.LENGTH_SHORT).show();
+        }){
             @Override
             public Map<String, String> getParams(){
                 Map<String, String> params = new HashMap<>();
@@ -210,6 +216,11 @@ public class SingletonFlights {
                 return params;
             }
         };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                (int) TimeUnit.SECONDS.toMillis(20),
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         volleyQueue.add(stringRequest);
     }

@@ -49,7 +49,16 @@ public class TicketInfoActivity extends AppCompatActivity implements TicketListe
 
         if (idTicket != -1){
             ticket = SingletonUser.getInstance(this).getTicketById(idTicket);
-            binding.TicketInfoBtCheckIn.setOnClickListener(v -> SingletonUser.getInstance(this).updateTicketAPI(this,ticket));
+            binding.TicketInfoBtCheckIn.setOnClickListener(v -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(TicketInfoActivity.this);
+                builder.setTitle(R.string.make_check_in);
+                builder.setMessage(R.string.check_in_confirmation);
+                builder.setPositiveButton(R.string.confirm, (dialog, which) -> {
+                    SingletonUser.getInstance(this).updateTicketAPI(this,ticket);
+                });
+                builder.setNegativeButton(R.string.cancel,(dialog,which) -> {});
+                builder.show();
+            });
             binding.TicketInfoBtCancel.setOnClickListener(v -> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(TicketInfoActivity.this);
                 builder.setTitle(R.string.cancel_ticket);

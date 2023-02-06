@@ -347,7 +347,7 @@ public class SingletonUser {
         }
 
         if (this.user != null){
-            String endPoint = ApiEndPoint.TICKETS + ticket.getId() + "?access-token=" + this.user.getToken();
+            String endPoint = ApiEndPoint.TICKETS +"/"+ ticket.getId() + "?access-token=" + this.user.getToken();
 
             StringRequest stringRequest = new StringRequest(Request.Method.PUT, endPoint,
                     response -> {
@@ -381,7 +381,7 @@ public class SingletonUser {
         }
 
         if (this.user != null){
-            String endPoint = ApiEndPoint.TICKETS + ticket.getId() + "?access-token=" + this.user.getToken();
+            String endPoint = ApiEndPoint.TICKETS + "/" + ticket.getId() + "?access-token=" + this.user.getToken();
 
             StringRequest stringRequest = new StringRequest(Request.Method.DELETE, endPoint,
                     response -> {
@@ -466,14 +466,7 @@ public class SingletonUser {
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, endPoint,
                     response -> {
-                        SupportTicket supportTicket = new SupportTicket(0, title, "Por Rever");
-                        TicketMessage ticketMessage = new TicketMessage(0, message, user.getUsername());
-                        supportTicket.addMessage(ticketMessage);
-                        addSupportTicket(supportTicket);
-                        addSupportTicketDB(supportTicket);
-                        if (supportTicketListener != null)
-                            supportTicketListener.onRefreshSupportTicket();
-                        else Toast.makeText(context, "Ticket criado mas ocorreu um erro", Toast.LENGTH_SHORT).show();
+                        getSupportTicketsAPI(context);
                     }, error -> Toast.makeText(context, R.string.save_data_failed, Toast.LENGTH_SHORT).show()
             ) {
                 @Override
@@ -514,7 +507,7 @@ public class SingletonUser {
                             userDB.truncateTableSupportTickets();
                             addSupportTicketsDB(supportTickets);
                             supportTicketsListener.onRefreshList(supportTickets);
-                        }
+                        } else Toast.makeText(context, R.string.error_support_tickets, Toast.LENGTH_SHORT).show();
                     }, error -> Toast.makeText(context, R.string.error_support_tickets, Toast.LENGTH_SHORT).show());
 
             volleyQueue.add(jsonArrayRequest);
